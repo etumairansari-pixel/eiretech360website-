@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
+import { useState } from "react";
 import {
   ArrowUpRight,
   Check,
@@ -17,7 +17,7 @@ import circuitImg from "@/assets/circuit.jpg";
 import officeHero from "@/assets/agency-team-photoreal.jpg";
 
 import { Shell } from "@/components/site/Shell";
-import { LogoMark, LogoOrbit } from "@/components/Logo";
+import { LogoMark } from "@/components/Logo";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { services } from "@/components/site/data";
 import {
@@ -45,52 +45,13 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-/* ---------------- Flash intro ---------------- */
-function FlashScreen() {
-  const [gone, setGone] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setGone(true), 2000);
-    return () => clearTimeout(t);
-  }, []);
-  if (gone) return null;
-  return (
-    <div className="animate-flash-out pointer-events-none fixed inset-0 z-[300] flex flex-col items-center justify-center overflow-hidden bg-brand-bg">
-      <div className="grid-bg absolute inset-0 opacity-30" />
-      <div className="absolute left-1/2 top-1/2 size-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-primary/20 blur-[120px]" />
-      <motion.div
-        initial={{ scale: 0.7, opacity: 0, rotate: -8 }}
-        animate={{ scale: 1, opacity: 1, rotate: 0 }}
-        transition={{ duration: 0.9, ease: [0.2, 0, 0, 1] }}
-        className="relative mb-8"
-      >
-        <LogoOrbit className="size-24" />
-      </motion.div>
-      <div className="mb-6 font-mono text-[10px] uppercase tracking-[0.5em] text-brand-primary">
-        Initialising
-      </div>
-      <div className="relative h-px w-56 overflow-hidden bg-brand-line">
-        <div className="animate-grow brand-gradient-bg absolute inset-0 origin-left" />
-      </div>
-      <div className="mt-8 text-3xl font-extrabold lowercase tracking-tighter">
-        eire<span className="brand-gradient-text">tech</span>
-      </div>
-    </div>
-  );
-}
-
 /* ---------------- Hero ---------------- */
 const HEADLINE = ["Grow.", "Automate.", "Innovate."];
 
 function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 180]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.5, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
-
   return (
-    <section ref={ref} className="relative overflow-hidden pb-24 pt-40">
-      <motion.div style={{ y, opacity, scale }} className="absolute inset-0 -z-10">
+    <section className="relative overflow-hidden pb-24 pt-40">
+      <div className="absolute inset-0 -z-10 opacity-50">
         <img
           src={heroBg}
           alt=""
@@ -99,7 +60,7 @@ function Hero() {
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-brand-bg/60 via-brand-bg/85 to-brand-bg" />
-      </motion.div>
+      </div>
 
       <div className="grid-bg pointer-events-none absolute inset-0 -z-10 opacity-50 [mask-image:radial-gradient(ellipse_at_top,black_25%,transparent_70%)]" />
       <div className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-[500px] w-full max-w-5xl -translate-x-1/2 rounded-full bg-brand-primary/15 blur-[130px]" />
@@ -110,7 +71,7 @@ function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.6 }}
+              transition={{ duration: 0.45, delay: 0.05 }}
               className="mb-8 inline-flex items-center gap-2 rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-brand-primary"
             >
               <span className="relative flex size-2">
@@ -126,7 +87,7 @@ function Hero() {
                   <motion.span
                     initial={{ y: "110%" }}
                     animate={{ y: "0%" }}
-                    transition={{ duration: 0.9, delay: 1.7 + i * 0.12, ease: [0.2, 0, 0, 1] }}
+                    transition={{ duration: 0.65, delay: 0.1 + i * 0.08, ease: [0.2, 0, 0, 1] }}
                     className={"inline-block " + (i === 1 ? "brand-gradient-text text-glow" : "")}
                   >
                     {w}
@@ -138,7 +99,7 @@ function Hero() {
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 2.5 }}
+              transition={{ duration: 0.55, delay: 0.35 }}
               className="mb-10 max-w-xl text-lg leading-relaxed text-brand-muted"
             >
               Eire Tech is your full-service digital partner — blending strategy, creativity and AI
@@ -148,7 +109,7 @@ function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 2.65 }}
+              transition={{ duration: 0.55, delay: 0.45 }}
               className="flex flex-wrap gap-4"
             >
               <MagneticLink
@@ -171,7 +132,7 @@ function Hero() {
           <motion.div
             initial={{ opacity: 0, scale: 0.94, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1, delay: 2, ease: [0.2, 0, 0, 1] }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.2, 0, 0, 1] }}
             className="relative hidden lg:block"
           >
             <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-br from-brand-primary/20 via-brand-accent/10 to-brand-secondary/20 blur-2xl" />
@@ -179,6 +140,7 @@ function Hero() {
               <img
                 src={officeHero}
                 alt="Eire Tech studio — one team building digital ecosystems"
+                loading="lazy"
                 fetchPriority="low"
                 decoding="async"
                 className="h-full w-full object-cover"
@@ -584,6 +546,7 @@ function WhyEireTech() {
                 src={circuitImg}
                 alt="Glowing circuit board"
                 loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 to-transparent" />
@@ -763,7 +726,6 @@ function Testimonials() {
 function Home() {
   return (
     <Shell>
-      <FlashScreen />
       <Hero />
       <Marquee />
       <Mission />

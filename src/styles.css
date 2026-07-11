@@ -240,3 +240,21 @@
 @utility accent-glow {
   box-shadow: 0 0 40px -8px color-mix(in oklab, var(--brand-green) var(--glow-strength), transparent);
 }
+
+/* Keep mobile scrolling GPU-light while preserving the desktop treatment. */
+@media (max-width: 767px) {
+  main > section:not(:first-child) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+  }
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+  }
+  .animate-pulse-slow,
+  .animate-spin-slow,
+  .animate-spin-reverse,
+  .animate-float,
+  .animate-orbit {
+    animation: none !important;
+  }
+}

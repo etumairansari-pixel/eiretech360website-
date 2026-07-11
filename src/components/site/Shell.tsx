@@ -2,12 +2,10 @@ import type { ReactNode } from "react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { LogoMark } from "@/components/Logo";
-import { ScrollProgress } from "@/components/site/primitives";
 
 export function Shell({ children }: { children: ReactNode }) {
   return (
     <div className="relative min-h-screen bg-brand-bg text-brand-text">
-      <ScrollProgress />
       <Nav />
       <main>{children}</main>
       <Footer />

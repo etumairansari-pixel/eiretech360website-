@@ -24,7 +24,10 @@
     <link
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
     <style>
       :root {
         color-scheme: light;
@@ -35,27 +38,33 @@
         --muted: #5b6675;
         --line: rgb(8 16 26 / 11%);
         --surface: #f4f7fb;
+        --bg: #ffffff;
       }
+      html.dark { color-scheme: dark; --ink: #eef3f8; --muted: #9aa6b5; --line: rgb(255 255 255 / 12%); --surface: #0b0f15; --bg: #05070a; }
       * { box-sizing: border-box; }
       html { font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif; }
-      body { margin: 0; background: #fff; color: var(--ink); }
+      body { margin: 0; background: var(--bg); color: var(--ink); }
       a { color: inherit; }
       .wrap { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
-      header { border-bottom: 1px solid var(--line); background: rgb(255 255 255 / 95%); }
-      .utility { border-bottom: 1px solid var(--line); background: rgb(244 247 251 / 70%); }
+      header { position: relative; z-index: 10; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 95%, transparent); }
+      .utility { border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 70%, transparent); }
       .utility-inner { min-height: 34px; display: flex; align-items: center; justify-content: space-between; gap: 24px; color: var(--muted); font-size: 12px; }
       .utility-tag { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; }
       .utility-links { display: flex; gap: 22px; }
       .utility-links a { text-decoration: none; }
       .nav { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-      .brand { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 16px; background: rgb(244 247 251 / 82%); text-decoration: none; box-shadow: 0 6px 20px rgb(8 16 26 / 6%); }
+      .brand { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 16px; background: color-mix(in srgb, var(--surface) 82%, transparent); text-decoration: none; box-shadow: 0 6px 20px rgb(8 16 26 / 6%); }
       .brand img { width: 44px; height: 44px; }
       .brand-copy { display: flex; align-items: baseline; gap: 6px; font-size: 18px; font-weight: 800; letter-spacing: -.04em; }
       .brand-copy small { color: var(--blue); font-size: 8px; font-style: italic; }
-      nav { display: flex; align-items: center; gap: 28px; }
-      nav a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 650; }
-      nav a[aria-current="page"] { color: var(--blue); }
-      .nav-cta { padding: 11px 18px; border-radius: 999px; color: #fff; background: linear-gradient(90deg, var(--blue-deep), var(--blue), var(--green)); }
+      .site-nav { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: clamp(28px, 5vw, 72px); }
+      .site-links, .nav-actions { display: flex; align-items: center; gap: 28px; }
+      .site-links a { position: relative; padding: 12px 0; color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 650; }
+      .site-links a[aria-current="page"] { color: var(--blue); }
+      .site-links a[aria-current="page"]::after { content: ""; position: absolute; inset: auto 0 4px; height: 2px; background: var(--blue); }
+      .theme-toggle, .menu-toggle { display: grid; place-items: center; width: 42px; height: 42px; padding: 0; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); background: var(--surface); font-size: 18px; }
+      .menu-toggle { display: none; }
+      .nav-cta { padding: 12px 20px; border-radius: 999px; color: #fff; background: linear-gradient(90deg, var(--blue-deep), var(--blue), var(--green)); text-decoration: none; font-size: 14px; font-weight: 800; white-space: nowrap; }
       .hero { padding: 74px 0 52px; background: radial-gradient(circle at 70% 0%, rgb(30 155 240 / 12%), transparent 38%); }
       .eyebrow { margin: 0 0 16px; color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .24em; text-transform: uppercase; }
       h1 { max-width: 850px; margin: 0; font-size: clamp(42px, 7vw, 78px); line-height: .98; letter-spacing: -.055em; }
@@ -97,7 +106,16 @@
       .copyright { padding-top: 24px; border-top: 1px solid var(--line); }
       @media (max-width: 800px) {
         .utility { display: none; }
-        nav a:not(.nav-cta) { display: none; }
+        .nav { min-height: 74px; }
+        .brand-copy { font-size: 16px; }
+        .brand img { width: 38px; height: 38px; }
+        .site-nav { flex: initial; gap: 10px; }
+        .nav-cta { display: none; }
+        .menu-toggle { display: grid; }
+        .site-links { display: none; position: absolute; inset: 74px 20px auto; padding: 14px 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--bg); box-shadow: 0 18px 50px rgb(8 16 26 / 14%); }
+        .site-nav.open .site-links { display: flex; align-items: stretch; flex-direction: column; gap: 0; }
+        .site-links a { padding: 14px 4px; border-bottom: 1px solid var(--line); }
+        .site-links a:last-child { border-bottom: 0; }
         .hero { padding-top: 52px; }
         .content { grid-template-columns: 1fr; }
         .grid { grid-template-columns: 1fr; }
@@ -121,9 +139,15 @@
           <img src="/src/assets/eiretech-mark-real.png" alt="" />
           <span class="brand-copy">eire tech <small>360°</small></span>
         </a>
-        <nav aria-label="Main navigation">
-          <a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/platforms">Platforms</a>
-          <a class="nav-cta" href="/contact/" aria-current="page">Contact</a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <div class="site-links">
+            <a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/platforms">Platforms</a><a href="/contact/" aria-current="page">Contact</a>
+          </div>
+          <div class="nav-actions">
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme">☼</button>
+            <a class="nav-cta" href="#contact-form">Start a Project ↗</a>
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open menu">☰</button>
+          </div>
         </nav>
       </div>
     </header>
@@ -178,6 +202,18 @@
       </div>
     </footer>
     <script type="module">
+      const root = document.documentElement;
+      let storedTheme = null;
+      try { storedTheme = localStorage.getItem("eire-theme"); } catch {}
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (storedTheme === "dark" || (!storedTheme && prefersDark)) root.classList.add("dark");
+      document.querySelector("#theme-toggle").addEventListener("click", () => {
+        root.classList.toggle("dark");
+        try { localStorage.setItem("eire-theme", root.classList.contains("dark") ? "dark" : "light"); } catch {}
+      });
+      const siteNav = document.querySelector(".site-nav");
+      document.querySelector("#menu-toggle").addEventListener("click", () => siteNav.classList.toggle("open"));
+
       // These are Supabase's browser-safe project values. Database writes still
       // pass through the protected Edge Function; no server/private key is here.
       const supabaseUrl = "https://ovmwpsuwauoowalfwzlf.supabase.co";

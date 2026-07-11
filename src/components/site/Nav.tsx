@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "motion/react";
-import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
 import { Menu, X, ArrowUpRight, Mail, Phone } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { office } from "@/components/site/data";
@@ -17,10 +17,19 @@ const links = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { scrollY } = useScroll();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
-  useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 24));
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 768px)");
+    if (!desktop.matches) return;
+    const update = () => {
+      const next = window.scrollY > 24;
+      setScrolled((current) => (current === next ? current : next));
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   return (
     <>
@@ -28,7 +37,7 @@ export function Nav() {
         className={`fixed top-0 z-40 w-full transition-all duration-300 ${
           scrolled
             ? "border-b border-brand-line bg-brand-bg/70 backdrop-blur-xl"
-            : "border-b border-transparent"
+            : "border-b border-brand-line/60 bg-brand-bg/95 md:border-transparent md:bg-transparent"
         }`}
       >
         {/* Utility bar: direct contact above the fold, collapsed once the user
