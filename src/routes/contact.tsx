@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Loader2, Mail, Phone, Send, ShieldCheck } from "lucide-react";
 import { Shell, PageHero } from "@/components/site/Shell";
-import { Reveal, SectionLabel } from "@/components/site/primitives";
+import { SectionLabel } from "@/components/site/primitives";
 import { office, serviceOptions } from "@/components/site/data";
 import { getSupabase, isSupabaseConfigured } from "@/lib/supabase";
 
@@ -14,7 +14,7 @@ const details = [
   { icon: Phone, label: "Phone", value: office.phone, href: office.phoneHref },
 ];
 const input =
-  "mt-2 w-full rounded-xl border border-brand-line bg-brand-bg px-4 py-3.5 outline-none transition placeholder:text-brand-muted/60 focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 disabled:opacity-60";
+  "mt-2 w-full rounded-xl border border-brand-line bg-brand-bg px-4 py-3.5 placeholder:text-brand-muted/60 disabled:opacity-60";
 
 type State = "idle" | "submitting" | "success" | "error";
 
@@ -66,7 +66,7 @@ function ContactPage() {
       />
       <section className="pb-28">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1.25fr_.75fr]">
-          <Reveal>
+          <div>
             <form
               className="relative overflow-hidden rounded-3xl border border-brand-line bg-brand-surface p-7 shadow-2xl shadow-brand-primary/5 md:p-10"
               onSubmit={submit}
@@ -204,8 +204,8 @@ function ContactPage() {
                 </>
               )}
             </form>
-          </Reveal>
-          <Reveal delay={0.1}>
+          </div>
+          <div>
             <div className="lg:sticky lg:top-28">
               <SectionLabel>Get in Touch</SectionLabel>
               <h2 className="text-3xl font-extrabold">Start the conversation.</h2>
@@ -243,7 +243,7 @@ function ContactPage() {
               </div>
               <p className="mt-7 text-sm text-brand-muted">We typically respond within 24 hours.</p>
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
     </Shell>

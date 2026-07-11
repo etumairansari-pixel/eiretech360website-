@@ -164,14 +164,6 @@
      is replaced — links keep the hand and text fields keep the I-beam, since the
      UA styles for those override this inherited value. The PNG is a fallback for
      Safari, which does not support SVG cursors. */
-  @media (hover: hover) and (pointer: fine) {
-    body {
-      cursor:
-        url("/cursor-arrow.svg") 2 2,
-        url("/cursor-arrow.png") 2 2,
-        auto;
-    }
-  }
   ::selection {
     background: color-mix(in oklab, var(--brand-blue) 28%, transparent);
   }
