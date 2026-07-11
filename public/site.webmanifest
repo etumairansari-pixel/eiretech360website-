@@ -1,0 +1,13 @@
+{
+  "name": "Eire Tech",
+  "short_name": "Eire Tech",
+  "description": "Digital Growth & Automation Partner",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05070a",
+  "theme_color": "#1e9bf0",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

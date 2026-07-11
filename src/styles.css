@@ -1,0 +1,250 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------
+   Brand constants — pulled from the Eire Tech logo.
+   These never change between themes.
+------------------------------------------------------------------ */
+:root {
+  --brand-blue: #1e9bf0;
+  --brand-blue-deep: #0b6fc4;
+  --brand-green: #7cb342;
+}
+
+/* ------------------------------------------------------------------
+   Light theme (default)
+------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --surface: #f4f7fb;
+  --elevated: #ffffff;
+  --text: #08101a;
+  --muted: #5b6675;
+  --border: rgb(8 16 26 / 10%);
+  --hairline: rgb(8 16 26 / 6%);
+
+  /* Layer used behind glass panels + on-brand button text */
+  --on-brand: #ffffff;
+  --grid-line: rgb(8 16 26 / 6%);
+  --glow-strength: 22%;
+  --noise-opacity: 0.035;
+  --noise-blend: multiply;
+}
+
+/* ------------------------------------------------------------------
+   Dark theme
+------------------------------------------------------------------ */
+.dark {
+  color-scheme: dark;
+
+  --bg: #05070a;
+  --surface: #0b0f15;
+  --elevated: #121820;
+  --text: #eef3f8;
+  --muted: #8b97a6;
+  --border: rgb(255 255 255 / 10%);
+  --hairline: rgb(255 255 255 / 6%);
+
+  --on-brand: #04070b;
+  --grid-line: rgb(255 255 255 / 6%);
+  --glow-strength: 55%;
+  --noise-opacity: 0.06;
+  --noise-blend: overlay;
+}
+
+@theme inline {
+  --color-brand-bg: var(--bg);
+  --color-brand-surface: var(--surface);
+  --color-brand-elevated: var(--elevated);
+  --color-brand-text: var(--text);
+  --color-brand-muted: var(--muted);
+  --color-brand-line: var(--border);
+
+  --color-brand-primary: var(--brand-blue);
+  --color-brand-secondary: var(--brand-blue-deep);
+  --color-brand-accent: var(--brand-green);
+  --color-brand-on: var(--on-brand);
+
+  /* shadcn-compatible aliases so src/components/ui/* keeps working */
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-card: var(--elevated);
+  --color-card-foreground: var(--text);
+  --color-popover: var(--elevated);
+  --color-popover-foreground: var(--text);
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--brand-blue);
+  --color-muted: var(--surface);
+  --color-muted-foreground: var(--muted);
+  --color-accent: var(--surface);
+  --color-accent-foreground: var(--text);
+  --color-primary: var(--brand-blue);
+  --color-primary-foreground: var(--on-brand);
+  --color-secondary: var(--surface);
+  --color-secondary-foreground: var(--text);
+  --color-destructive: #e5484d;
+  --color-destructive-foreground: #ffffff;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-spin-reverse: spin-reverse 22s linear infinite;
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-pulse-slow: pulse-slow 4s ease-in-out infinite;
+  --animate-grow: grow 1.2s ease-in-out forwards;
+  --animate-flash-out: flash-out 1.6s ease-in-out forwards;
+  --animate-float: float 5s ease-in-out infinite;
+  --animate-orbit: orbit 9s linear infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.55; }
+  }
+  @keyframes grow {
+    0% { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+  }
+  @keyframes flash-out {
+    0%, 72% { opacity: 1; visibility: visible; }
+    100% { opacity: 0; visibility: hidden; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  html,
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* Brand-blue default arrow where a real pointer exists. Only the default arrow
+     is replaced — links keep the hand and text fields keep the I-beam, since the
+     UA styles for those override this inherited value. The PNG is a fallback for
+     Safari, which does not support SVG cursors. */
+  @media (hover: hover) and (pointer: fine) {
+    body {
+      cursor:
+        url("/cursor-arrow.svg") 2 2,
+        url("/cursor-arrow.png") 2 2,
+        auto;
+    }
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--brand-blue) 28%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Utilities
+------------------------------------------------------------------ */
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility dot-bg {
+  background-image: radial-gradient(var(--grid-line) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@utility noise-overlay {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+  mix-blend-mode: var(--noise-blend);
+  opacity: var(--noise-opacity);
+  pointer-events: none;
+}
+
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+@utility text-glow {
+  text-shadow: 0 0 34px color-mix(in oklab, var(--brand-blue) var(--glow-strength), transparent);
+}
+
+/* Panel that reads correctly in both themes */
+@utility glass {
+  background-color: color-mix(in oklab, var(--elevated) 78%, transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+}
+
+@utility brand-gradient-text {
+  background-image: linear-gradient(
+    90deg,
+    var(--brand-blue-deep),
+    var(--brand-blue) 45%,
+    var(--brand-green)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility brand-gradient-bg {
+  background-image: linear-gradient(90deg, var(--brand-blue-deep), var(--brand-blue) 55%, var(--brand-green));
+}
+
+/* Glow that adapts: strong in dark, restrained in light */
+@utility brand-glow {
+  box-shadow: 0 0 40px -8px color-mix(in oklab, var(--brand-blue) var(--glow-strength), transparent);
+}
+@utility accent-glow {
+  box-shadow: 0 0 40px -8px color-mix(in oklab, var(--brand-green) var(--glow-strength), transparent);
+}
