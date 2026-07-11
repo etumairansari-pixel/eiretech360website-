@@ -70,6 +70,7 @@ function ContactPage() {
             <form
               className="relative overflow-hidden rounded-3xl border border-brand-line bg-brand-surface p-7 shadow-2xl shadow-brand-primary/5 md:p-10"
               onSubmit={submit}
+              autoComplete="off"
             >
               <div className="absolute right-0 top-0 h-1 w-full brand-gradient-bg" />
               <SectionLabel>Tell Us About Your Project</SectionLabel>
@@ -104,7 +105,7 @@ function ContactPage() {
                         maxLength={100}
                         name="fullName"
                         disabled={disabled}
-                        autoComplete="name"
+                        autoComplete="off"
                         className={input}
                         placeholder="Your full name"
                       />
@@ -117,7 +118,7 @@ function ContactPage() {
                         type="email"
                         name="email"
                         disabled={disabled}
-                        autoComplete="email"
+                        autoComplete="off"
                         className={input}
                         placeholder="you@company.com"
                       />
@@ -129,7 +130,7 @@ function ContactPage() {
                         type="tel"
                         name="phone"
                         disabled={disabled}
-                        autoComplete="tel"
+                        autoComplete="off"
                         className={input}
                         placeholder="Your phone number"
                       />
@@ -140,7 +141,7 @@ function ContactPage() {
                         maxLength={120}
                         name="company"
                         disabled={disabled}
-                        autoComplete="organization"
+                        autoComplete="off"
                         className={input}
                         placeholder="Your company"
                       />

@@ -11,7 +11,6 @@ export function Shell({ children }: { children: ReactNode }) {
       <Nav />
       <main>{children}</main>
       <Footer />
-      <div aria-hidden className="noise-overlay pointer-events-none fixed inset-0 z-[150]" />
     </div>
   );
 }
