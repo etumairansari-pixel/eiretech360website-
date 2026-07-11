@@ -375,7 +375,7 @@ function ServiceMobileCard({
       layout
       onClick={onToggle}
       animate={{ height: active ? 480 : 96 }}
-      className={`relative w-full cursor-pointer overflow-hidden rounded-2xl border ${
+      className={`relative w-full cursor-pointer overflow-hidden rounded-2xl border text-white ${
         active ? "border-brand-primary/50" : "border-brand-line"
       }`}
       data-hover
@@ -397,7 +397,7 @@ function ServiceMobileCard({
           <div className="font-mono text-[10px] uppercase tracking-widest text-brand-primary">
             {String(i + 1).padStart(2, "0")} / {s.tag}
           </div>
-          <h3 className="truncate text-lg font-extrabold tracking-tight">{s.title}</h3>
+          <h3 className="truncate text-lg font-extrabold tracking-tight text-white">{s.title}</h3>
         </div>
         <motion.div
           animate={{ rotate: active ? 45 : 0 }}
@@ -411,10 +411,10 @@ function ServiceMobileCard({
         transition={{ duration: 0.4, delay: active ? 0.15 : 0 }}
         className="pointer-events-none relative px-6 pb-6"
       >
-        <p className="mb-4 text-sm leading-relaxed text-brand-text/90">{s.desc}</p>
+        <p className="mb-4 text-sm leading-relaxed text-white/90">{s.desc}</p>
         <ul className="space-y-2">
           {s.points.map((p) => (
-            <li key={p} className="flex items-center gap-2 text-xs text-brand-text/80">
+            <li key={p} className="flex items-center gap-2 text-xs text-white/80">
               <Check className="size-3.5 shrink-0 text-brand-accent" />
               {p}
             </li>
