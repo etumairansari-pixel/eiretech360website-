@@ -70,7 +70,6 @@ function ContactPage() {
             <form
               className="relative overflow-hidden rounded-3xl border border-brand-line bg-brand-surface p-7 shadow-2xl shadow-brand-primary/5 md:p-10"
               onSubmit={submit}
-              onFocusCapture={() => void getSupabase()}
             >
               <div className="absolute right-0 top-0 h-1 w-full brand-gradient-bg" />
               <SectionLabel>Tell Us About Your Project</SectionLabel>
