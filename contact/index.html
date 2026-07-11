@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact Eire Tech | Start Your Project</title>
+    <meta
+      name="description"
+      content="Tell Eire Tech about your project and get practical next steps from our digital growth, automation, web, app, and AI team."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://eiretech360.com/contact/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Contact Eire Tech | Start Your Project" />
+    <meta
+      property="og:description"
+      content="Tell us where you want to go next. We’ll respond with practical next steps."
+    />
+    <meta property="og:url" content="https://eiretech360.com/contact/" />
+    <meta property="og:image" content="https://eiretech360.com/og-image.png" />
+    <link rel="icon" href="/favicon.ico" />
+    <style>
+      :root {
+        color-scheme: light;
+        --blue: #1e9bf0;
+        --blue-deep: #0b6fc4;
+        --green: #7cb342;
+        --ink: #08101a;
+        --muted: #5b6675;
+        --line: rgb(8 16 26 / 11%);
+        --surface: #f4f7fb;
+      }
+      * { box-sizing: border-box; }
+      html { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      body { margin: 0; background: #fff; color: var(--ink); }
+      a { color: inherit; }
+      .wrap { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+      header { border-bottom: 1px solid var(--line); background: rgb(255 255 255 / 95%); }
+      .nav { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 850; font-size: 20px; }
+      .brand img { width: 44px; height: 44px; border-radius: 12px; }
+      nav { display: flex; align-items: center; gap: 28px; }
+      nav a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 650; }
+      nav a[aria-current="page"] { color: var(--blue); }
+      .nav-cta { padding: 11px 18px; border-radius: 999px; color: #fff; background: linear-gradient(90deg, var(--blue-deep), var(--blue), var(--green)); }
+      .hero { padding: 74px 0 52px; background: radial-gradient(circle at 70% 0%, rgb(30 155 240 / 12%), transparent 38%); }
+      .eyebrow { margin: 0 0 16px; color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .24em; text-transform: uppercase; }
+      h1 { max-width: 850px; margin: 0; font-size: clamp(42px, 7vw, 78px); line-height: .98; letter-spacing: -.055em; }
+      .gradient { color: var(--blue); background: linear-gradient(90deg, var(--blue), var(--green)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+      .lead { max-width: 680px; margin: 24px 0 0; color: var(--muted); font-size: 18px; line-height: 1.65; }
+      .content { display: grid; grid-template-columns: 1.25fr .75fr; gap: 42px; padding: 26px 0 90px; align-items: start; }
+      .panel { position: relative; overflow: hidden; padding: clamp(24px, 4vw, 42px); border: 1px solid var(--line); border-radius: 26px; background: var(--surface); box-shadow: 0 24px 70px rgb(11 111 196 / 8%); }
+      .panel::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: linear-gradient(90deg, var(--blue-deep), var(--blue), var(--green)); }
+      h2 { margin: 0; font-size: 30px; letter-spacing: -.035em; }
+      .hint { margin: 9px 0 0; color: var(--muted); font-size: 14px; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
+      .full { grid-column: 1 / -1; }
+      label { display: block; font-size: 14px; font-weight: 750; }
+      input, select, textarea {
+        display: block; width: 100%; margin-top: 8px; padding: 14px 15px; border: 1px solid var(--line);
+        border-radius: 13px; background: #fff; color: var(--ink); font: inherit;
+      }
+      textarea { min-height: 145px; resize: vertical; }
+      input:focus, select:focus, textarea:focus { outline: 2px solid rgb(30 155 240 / 35%); outline-offset: 2px; }
+      .actions { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 24px; }
+      button { border: 0; border-radius: 999px; padding: 14px 24px; color: #fff; background: linear-gradient(90deg, var(--blue-deep), var(--blue), var(--green)); font: inherit; font-weight: 800; cursor: pointer; }
+      button:disabled { opacity: .6; cursor: wait; }
+      .privacy { color: var(--muted); font-size: 12px; }
+      #status { display: none; margin-top: 20px; padding: 14px 16px; border-radius: 12px; font-size: 14px; }
+      #status.show { display: block; }
+      #status.success { color: #215c17; background: rgb(124 179 66 / 14%); border: 1px solid rgb(124 179 66 / 30%); }
+      #status.error { color: #9b1c1c; background: #fff0f0; border: 1px solid #f5bcbc; }
+      aside { padding: 24px 4px; }
+      aside p { color: var(--muted); line-height: 1.7; }
+      .contact-card { display: block; margin-top: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); text-decoration: none; }
+      .contact-card span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+      .contact-card strong { display: block; margin-top: 7px; }
+      footer { padding: 30px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+      @media (max-width: 800px) {
+        nav a:not(.nav-cta) { display: none; }
+        .hero { padding-top: 52px; }
+        .content { grid-template-columns: 1fr; }
+        .grid { grid-template-columns: 1fr; }
+        .full { grid-column: auto; }
+        .actions { align-items: stretch; flex-direction: column; }
+        button { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap nav">
+        <a class="brand" href="/"><img src="/icon-192.png" alt="" /> Eire Tech</a>
+        <nav aria-label="Main navigation">
+          <a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/platforms">Platforms</a>
+          <a class="nav-cta" href="/contact/" aria-current="page">Contact</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <p class="eyebrow">Contact us</p>
+          <h1>Let’s build something <span class="gradient">exceptional together.</span></h1>
+          <p class="lead">Tell us where you want to go next. We’ll review your enquiry and respond with practical next steps.</p>
+        </div>
+      </section>
+      <div class="wrap content">
+        <form id="contact-form" class="panel" autocomplete="off">
+          <h2>Start with a few details.</h2>
+          <p class="hint">Fields marked with * are required. Your details are stored securely.</p>
+          <div class="grid">
+            <label>Full Name *<input required minlength="2" maxlength="100" name="fullName" autocomplete="off" /></label>
+            <label>Email Address *<input required maxlength="254" type="email" name="email" autocomplete="off" /></label>
+            <label>Phone Number<input maxlength="40" type="tel" name="phone" autocomplete="off" /></label>
+            <label>Company Name<input maxlength="120" name="company" autocomplete="off" /></label>
+            <label class="full">Service *
+              <select required name="service">
+                <option value="">Select a service</option><option>Digital Marketing</option><option>Automation</option>
+                <option>Brand Management</option><option>ATL/TTL Campaigns</option><option>Website Development</option>
+                <option>App Development</option><option>AI Development</option><option>Graphic Design</option>
+                <option>Video Editing</option><option>Other</option>
+              </select>
+            </label>
+            <label class="full">Tell us about your project *
+              <textarea required minlength="10" maxlength="5000" name="message"></textarea>
+            </label>
+          </div>
+          <div id="status" role="status" aria-live="polite"></div>
+          <div class="actions"><button id="submit" type="submit">Send Message</button><span class="privacy">Secure, private and never shared</span></div>
+        </form>
+        <aside>
+          <p class="eyebrow">Get in touch</p><h2>Start the conversation.</h2>
+          <p>Have a project, a question, or simply want to explore what’s possible? We would love to hear from you.</p>
+          <a class="contact-card" href="mailto:eiretech360@gmail.com"><span>Email</span><strong>eiretech360@gmail.com</strong></a>
+          <a class="contact-card" href="tel:+353899427009"><span>Phone</span><strong>+353 89 942 7009</strong></a>
+          <p>We typically respond within 24 hours.</p>
+        </aside>
+      </div>
+    </main>
+    <footer><div class="wrap">© 2026 Eire Tech. Digital Growth &amp; Automation Partner.</div></footer>
+    <script type="module">
+      const supabaseUrl = "%VITE_SUPABASE_URL%";
+      const publishableKey = "%VITE_SUPABASE_PUBLISHABLE_KEY%";
+      const form = document.querySelector("#contact-form");
+      const button = document.querySelector("#submit");
+      const status = document.querySelector("#status");
+      const show = (message, type) => {
+        status.textContent = message;
+        status.className = `show ${type}`;
+      };
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        button.disabled = true;
+        button.textContent = "Sending securely…";
+        status.className = "";
+        try {
+          if (!supabaseUrl.startsWith("https://") || publishableKey.startsWith("%VITE_")) {
+            throw new Error("Contact service configuration is unavailable.");
+          }
+          const payload = Object.fromEntries(new FormData(form).entries());
+          const response = await fetch(`${supabaseUrl}/functions/v1/submit-contact`, {
+            method: "POST",
+            headers: {
+              apikey: publishableKey,
+              Authorization: `Bearer ${publishableKey}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+          if (!response.ok) throw new Error(`Contact service returned ${response.status}.`);
+          form.reset();
+          show("Message received. Our team will contact you within one business day.", "success");
+        } catch (error) {
+          console.error(error);
+          show("We couldn’t send your message. Please try again or email us directly.", "error");
+        } finally {
+          button.disabled = false;
+          button.textContent = "Send Message";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -16,5 +16,11 @@ export default defineConfig({
   build: {
     outDir: "dist-static",
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: path.resolve(rootDir, "index.html"),
+        contact: path.resolve(rootDir, "contact/index.html"),
+      },
+    },
   },
 });
