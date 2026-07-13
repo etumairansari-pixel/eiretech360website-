@@ -318,7 +318,7 @@ function ServicePanel({
         className="pointer-events-none relative flex h-full flex-col justify-between p-8 md:p-10"
       >
         <div className="flex items-start justify-between gap-6">
-          <div className="grid size-14 place-items-center rounded-2xl border border-brand-primary/40 bg-brand-primary/10 text-brand-primary backdrop-blur brand-glow">
+          <div className="grid size-14 place-items-center rounded-2xl border border-brand-primary/50 bg-gradient-to-br from-brand-primary/20 to-brand-primary/5 text-brand-primary backdrop-blur brand-glow">
             <Icon className="size-6" />
           </div>
           <div className="text-right font-mono text-[10px] uppercase tracking-[0.25em] text-brand-primary">
