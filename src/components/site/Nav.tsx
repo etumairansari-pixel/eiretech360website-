@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { MagneticLink, ThemeToggle } from "@/components/site/primitives";
@@ -15,24 +15,33 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  // Slides out of view on scroll-down and back in on scroll-up.
   const [visible, setVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [atTop, setAtTop] = useState(true);
+  const lastY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const now = window.scrollY;
-      setVisible(now < lastScrollY || now < 60);
-      setLastScrollY(now);
+    const onScroll = () => {
+      const y = window.scrollY;
+      const top = y < 60;
+      // Ignore sub-pixel jitter so the bar doesn't flicker.
+      if (Math.abs(y - lastY.current) > 6) {
+        setVisible(y < lastY.current || top);
+        lastY.current = y;
+      }
+      setAtTop(top);
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  // The nav reveals on scroll-up and hides on scroll-down.
-  // Home has the dark video hero, so the nav goes dark-glass there; every other
-  // page gets the theme-aware solid treatment.
-  const overHero = pathname === "/";
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  // Dark-glass only while sitting on the home video hero. Once scrolled past it,
+  // the revealed bar switches to the theme-aware solid style so it stays readable
+  // over page content.
+  const overHero = pathname === "/" && atTop;
   const currentPath = pathname.replace(/\/$/, "") || "/";
 
   const headerClass = overHero
@@ -46,7 +55,7 @@ export function Nav() {
   return (
     <>
       <nav
-        className={`absolute top-0 z-40 w-full border-b transition-all duration-300 ${!visible ? "-translate-y-full" : "translate-y-0"} ${headerClass}`}
+        className={`fixed top-0 z-40 w-full border-b transition-transform duration-300 ${visible ? "translate-y-0" : "-translate-y-full"} ${headerClass}`}
       >
         <div className="mx-auto grid h-20 max-w-7xl grid-cols-[1fr_auto] items-center gap-4 px-5 md:h-[92px] md:grid-cols-[1fr_auto_1fr] md:px-6">
           <Link
