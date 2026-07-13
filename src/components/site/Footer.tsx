@@ -52,9 +52,8 @@ export function Footer() {
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
           <div>
-            <div className="inline-flex rounded-2xl border border-brand-line bg-brand-bg/70 p-3 shadow-xl shadow-brand-primary/5">
-              <Logo markClassName="size-12" textClassName="text-2xl" />
-            </div>
+            <Logo className="h-12" />
+
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-brand-muted">
               Eire Tech: Digital Growth &amp; Automation Partner. Blending strategy, creativity and
               AI to transform how your brand shows up, scales and runs.

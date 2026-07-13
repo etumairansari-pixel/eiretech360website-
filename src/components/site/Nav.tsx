@@ -1,9 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
-import { Menu, X, ArrowUpRight, Mail, Phone } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { office } from "@/components/site/data";
 import { MagneticLink, ThemeToggle } from "@/components/site/primitives";
 
 const links = [
@@ -16,97 +15,71 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
-  useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 768px)");
-    if (!desktop.matches) return;
-    const update = () => {
-      const next = window.scrollY > 24;
-      setScrolled((current) => (current === next ? current : next));
-    };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
+  // The nav is not sticky — it sits over the top of the page and scrolls away.
+  // Home has the dark video hero, so the nav goes dark-glass there; every other
+  // page gets the theme-aware solid treatment.
+  const overHero = pathname === "/";
+  const currentPath = pathname.replace(/\/$/, "") || "/";
+
+  const headerClass = overHero
+    ? "border-white/10 bg-slate-950/60 text-white backdrop-blur-md"
+    : "border-brand-line bg-brand-bg/80 text-brand-text backdrop-blur-md";
+
+  const linkShellClass = overHero
+    ? "border-white/15 bg-white/10 shadow-[0_16px_45px_rgb(0_0_0/0.22)]"
+    : "border-brand-line bg-brand-surface/80 shadow-[0_14px_34px_rgb(8_16_26/0.07)] dark:border-white/10 dark:bg-white/10";
 
   return (
     <>
       <nav
-        className={`fixed top-0 z-40 w-full transition-all duration-300 ${
-          scrolled
-            ? "border-b border-brand-line bg-brand-bg/70 backdrop-blur-xl"
-            : "border-b border-brand-line/60 bg-brand-bg/95 md:border-transparent md:bg-transparent"
-        }`}
+        className={`absolute top-0 z-40 w-full border-b transition-all duration-300 ${headerClass}`}
       >
-        {/* Utility bar: direct contact above the fold, collapsed once the user
-            scrolls so the nav stays compact. Desktop only — mobile has the menu. */}
-        <div
-          className={`hidden overflow-hidden border-b border-brand-line/60 bg-brand-surface/50 transition-all duration-300 md:block ${
-            scrolled ? "max-h-0 opacity-0" : "max-h-12 opacity-100"
-          }`}
-        >
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 text-xs">
-            <span className="font-mono uppercase tracking-[0.25em] text-brand-muted">
-              Digital Growth &amp; Automation Partner
-            </span>
-            <div className="flex items-center gap-6">
-              <a
-                href={office.phoneHref}
-                className="inline-flex items-center gap-2 text-brand-muted transition-colors hover:text-brand-primary"
-                data-hover
-              >
-                <Phone className="size-3.5 text-brand-primary" />
-                {office.phone}
-              </a>
-              <a
-                href={`mailto:${office.email}`}
-                className="inline-flex items-center gap-2 text-brand-muted transition-colors hover:text-brand-primary"
-                data-hover
-              >
-                <Mail className="size-3.5 text-brand-primary" />
-                {office.email}
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+        <div className="mx-auto grid h-20 max-w-7xl grid-cols-[1fr_auto] items-center gap-4 px-5 md:h-[92px] md:grid-cols-[1fr_auto_1fr] md:px-6">
           <Link
             to="/"
-            className="shrink-0 rounded-2xl border border-brand-line/80 bg-brand-surface/75 px-3 py-2 shadow-sm backdrop-blur-xl transition hover:border-brand-primary/40"
+            className="justify-self-start transition hover:-translate-y-0.5"
             data-hover
             aria-label="Eire Tech home"
           >
-            <Logo markClassName="size-10" textClassName="text-lg" />
+            <Logo className="h-10 md:h-12" tone={overHero ? "light" : "auto"} />
           </Link>
 
-          <div className="hidden items-center gap-8 text-sm font-medium md:flex">
+          <div
+            className={`hidden justify-self-center rounded-full border p-1.5 text-sm font-semibold md:inline-flex ${linkShellClass}`}
+          >
             {links.map((l) => {
-              const active = pathname === l.to;
+              const active = currentPath === l.to;
               return (
                 <Link
                   key={l.to}
                   to={l.to}
-                  className={`group relative transition-colors ${
-                    active ? "text-brand-primary" : "text-brand-muted hover:text-brand-text"
+                  className={`rounded-full px-5 py-2.5 transition-all ${
+                    active
+                      ? overHero
+                        ? "bg-white text-slate-950 shadow-sm"
+                        : "bg-brand-bg text-brand-primary shadow-sm dark:bg-white dark:text-slate-950"
+                      : overHero
+                        ? "text-white/80 hover:bg-white/10 hover:text-white"
+                        : "text-brand-muted hover:bg-brand-bg/70 hover:text-brand-text dark:hover:bg-white/10"
                   }`}
                   data-hover
                 >
                   {l.label}
-                  <span
-                    className={`absolute -bottom-1.5 left-0 h-px bg-brand-primary transition-all duration-300 ${
-                      active ? "w-full" : "w-0 group-hover:w-full"
-                    }`}
-                  />
                 </Link>
               );
             })}
           </div>
 
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
+          <div className="flex items-center justify-self-end gap-3">
+            <ThemeToggle
+              className={
+                overHero
+                  ? "!border-white/20 !bg-white/10 !text-white hover:!border-white/35 hover:!text-white"
+                  : "shadow-sm shadow-slate-950/5"
+              }
+            />
             <MagneticLink
               to="/contact"
               className="hidden items-center gap-1.5 rounded-full brand-gradient-bg px-5 py-2.5 text-sm font-bold text-white transition-shadow hover:brand-glow sm:inline-flex"
@@ -118,7 +91,11 @@ export function Nav() {
               type="button"
               onClick={() => setOpen(true)}
               aria-label="Open menu"
-              className="grid size-10 place-items-center rounded-full border border-brand-line text-brand-text md:hidden"
+              className={`grid size-10 place-items-center rounded-full border md:hidden ${
+                overHero
+                  ? "border-white/25 bg-white/10 text-white"
+                  : "border-brand-line bg-brand-surface text-brand-text"
+              }`}
               data-hover
             >
               <Menu className="size-5" />
@@ -136,7 +113,14 @@ export function Nav() {
             className="fixed inset-0 z-[90] bg-brand-bg/95 backdrop-blur-xl md:hidden"
           >
             <div className="flex h-20 items-center justify-between px-6">
-              <Logo markClassName="size-9" textClassName="text-lg" />
+              <Link
+                to="/"
+                onClick={() => setOpen(false)}
+                className="inline-flex"
+                aria-label="Eire Tech home"
+              >
+                <Logo className="h-10" />
+              </Link>
               <button
                 type="button"
                 onClick={() => setOpen(false)}

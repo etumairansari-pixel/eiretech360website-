@@ -1,5 +1,7 @@
 import { motion } from "motion/react";
 import realMark from "@/assets/eiretech-mark-real.png";
+import logoLight from "@/assets/eiretech-logo-light.png";
+import logoDark from "@/assets/eiretech-logo-dark.png";
 
 /** Official Eire Tech emblem extracted from the supplied master artwork. */
 export function LogoMark({
@@ -12,36 +14,30 @@ export function LogoMark({
   return <img src={realMark} alt={title} className={`object-contain ${className}`} />;
 }
 
-/** Responsive official mark + rebuilt wordmark lockup for both color themes. */
+/**
+ * Official Eire Tech lockup images (icon + wordmark + 360°), transparent, no
+ * container. Two artworks: the light-mode file has black wordmark text, the
+ * dark-mode file has white text — swapped by the `.dark` theme class.
+ *
+ * `tone="light"` forces the white-text artwork regardless of theme, for use
+ * over the dark video hero (which is dark in both themes). Height comes from
+ * `className` (e.g. "h-9"); width scales automatically.
+ */
 export function Logo({
-  className = "",
-  markClassName = "size-10",
-  textClassName = "text-lg",
-  showSuffix = true,
+  className = "h-9",
+  tone = "auto",
 }: {
   className?: string;
-  markClassName?: string;
-  textClassName?: string;
-  showSuffix?: boolean;
+  tone?: "auto" | "light";
 }) {
+  const imgBase = `w-auto object-contain transition-transform duration-500 group-hover/logo:scale-[1.02] ${className}`;
+  if (tone === "light") {
+    return <img src={logoDark} alt="Eire Tech 360°" draggable={false} className={imgBase} />;
+  }
   return (
-    <span className={`group/logo inline-flex items-center gap-2.5 ${className}`}>
-      <span className="relative grid shrink-0 place-items-center">
-        <span className="absolute inset-0 rounded-[40%] bg-brand-primary/25 opacity-0 blur-lg transition-opacity duration-300 group-hover/logo:opacity-100" />
-        <LogoMark
-          className={`relative transition-transform duration-500 group-hover/logo:-rotate-3 group-hover/logo:scale-105 ${markClassName}`}
-        />
-      </span>
-      <span
-        className={`whitespace-nowrap font-extrabold lowercase leading-none tracking-[-0.055em] ${textClassName}`}
-      >
-        <span className="text-brand-text">eire</span>
-        <span className="mx-[0.1em] inline-block size-[0.28em] translate-y-[-0.8em] rounded-full bg-brand-accent shadow-[0_0_8px_var(--brand-green)]" />
-        <span className="text-brand-text">tech</span>
-        {showSuffix && (
-          <sup className="ml-0.5 align-super text-[0.42em] font-bold text-brand-primary">360°</sup>
-        )}
-      </span>
+    <span className="group/logo inline-flex">
+      <img src={logoLight} alt="Eire Tech 360°" draggable={false} className={`${imgBase} block dark:hidden`} />
+      <img src={logoDark} alt="" aria-hidden draggable={false} className={`${imgBase} hidden dark:block`} />
     </span>
   );
 }
