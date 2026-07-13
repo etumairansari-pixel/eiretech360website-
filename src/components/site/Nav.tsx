@@ -48,10 +48,6 @@ export function Nav() {
     ? "border-white/10 bg-slate-950/60 text-white backdrop-blur-md"
     : "border-brand-line bg-brand-bg/80 text-brand-text backdrop-blur-md";
 
-  const linkShellClass = overHero
-    ? "border-white/15 bg-white/10 shadow-[0_16px_45px_rgb(0_0_0/0.22)]"
-    : "border-brand-line bg-brand-surface/80 shadow-[0_14px_34px_rgb(8_16_26/0.07)] dark:border-white/10 dark:bg-white/10";
-
   return (
     <>
       <nav
@@ -67,27 +63,30 @@ export function Nav() {
             <Logo className="h-10 md:h-12" tone={overHero ? "light" : "auto"} />
           </Link>
 
-          <div
-            className={`hidden justify-self-center rounded-full border p-1.5 text-sm font-semibold md:inline-flex ${linkShellClass}`}
-          >
+          <div className="hidden items-center justify-self-center gap-9 text-sm font-semibold md:inline-flex">
             {links.map((l) => {
               const active = currentPath === l.to;
               return (
                 <Link
                   key={l.to}
                   to={l.to}
-                  className={`rounded-full px-5 py-2.5 transition-all ${
+                  className={`group relative px-0.5 py-2 transition-colors ${
                     active
                       ? overHero
-                        ? "bg-white text-slate-950 shadow-sm"
-                        : "bg-brand-bg text-brand-primary shadow-sm dark:bg-white dark:text-slate-950"
+                        ? "text-white"
+                        : "text-brand-primary"
                       : overHero
-                        ? "text-white/80 hover:bg-white/10 hover:text-white"
-                        : "text-brand-muted hover:bg-brand-bg/70 hover:text-brand-text dark:hover:bg-white/10"
+                        ? "text-white/72 hover:text-white"
+                        : "text-brand-muted hover:text-brand-text"
                   }`}
                   data-hover
                 >
                   {l.label}
+                  <span
+                    className={`absolute -bottom-1 left-0 h-[2px] rounded-full brand-gradient-bg transition-all duration-300 ${
+                      active ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
                 </Link>
               );
             })}
@@ -103,7 +102,7 @@ export function Nav() {
             />
             <MagneticLink
               to="/contact"
-              className="hidden items-center gap-1.5 rounded-full brand-gradient-bg px-5 py-2.5 text-sm font-bold text-white transition-shadow hover:brand-glow sm:inline-flex"
+              className="hidden items-center gap-1.5 rounded-xl brand-gradient-bg px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-brand-primary/15 transition-all hover:-translate-y-0.5 hover:brand-glow sm:inline-flex"
             >
               Start a Project
               <ArrowUpRight className="size-3.5" />
