@@ -80,35 +80,15 @@
         justify-self: start;
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        padding: 8px 12px;
-        border: 1px solid rgb(255 255 255 / 70%);
-        border-radius: 16px;
-        background: #fff;
-        color: #08101a;
+        height: 48px;
         text-decoration: none;
-        box-shadow: 0 14px 36px rgb(8 16 26 / 14%);
+        transition: transform 180ms ease;
       }
-      .brand img { width: 40px; height: 40px; object-fit: contain; }
-      .brand-copy {
-        display: inline-flex;
-        align-items: baseline;
-        white-space: nowrap;
-        font-size: 18px;
-        font-weight: 800;
-        line-height: 1;
-        letter-spacing: -0.055em;
-      }
-      .brand-dot {
-        width: 0.28em;
-        height: 0.28em;
-        margin-inline: 0.1em;
-        border-radius: 50%;
-        background: var(--green);
-        transform: translateY(-0.8em);
-        box-shadow: 0 0 8px var(--green);
-      }
-      .brand-copy small { margin-left: 2px; color: var(--blue); font-size: 0.42em; letter-spacing: 0; }
+      .brand:hover { transform: translateY(-2px); }
+      .brand-logo { display: block; width: auto; height: 100%; object-fit: contain; }
+      .logo-dark { display: none; }
+      html.dark .logo-light { display: none; }
+      html.dark .logo-dark { display: block; }
       .site-nav { display: contents; }
       .site-links {
         grid-column: 2;
@@ -240,9 +220,7 @@
         body { padding-top: 74px; }
         .wrap { width: min(100% - 32px, 1280px); }
         .nav { height: 74px; display: flex; justify-content: space-between; }
-        .brand { padding: 6px 10px; border-radius: 15px; }
-        .brand-copy { font-size: 16px; }
-        .brand img { width: 38px; height: 38px; }
+        .brand { height: 42px; }
         .site-nav { display: flex; flex: initial; gap: 10px; }
         .nav-cta { display: none; }
         .menu-toggle { display: grid; }
@@ -272,8 +250,8 @@
     <header>
       <div class="wrap nav">
         <a class="brand" href="/">
-          <img src="/src/assets/eiretech-mark-real.png" alt="" />
-          <span class="brand-copy"><span>eire</span><i class="brand-dot"></i><span>tech</span><small>360&deg;</small></span>
+          <img class="brand-logo logo-light" src="/src/assets/eiretech-logo-light.png" alt="Eire Tech 360" />
+          <img class="brand-logo logo-dark" src="/src/assets/eiretech-logo-dark.png" alt="" aria-hidden="true" />
         </a>
         <nav class="site-nav" aria-label="Main navigation">
           <div class="site-links">
