@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { MagneticLink, ThemeToggle } from "@/components/site/primitives";
@@ -15,9 +15,21 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
-  // The nav is not sticky — it sits over the top of the page and scrolls away.
+  useEffect(() => {
+    const handleScroll = () => {
+      const now = window.scrollY;
+      setVisible(now < lastScrollY || now < 60);
+      setLastScrollY(now);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  // The nav reveals on scroll-up and hides on scroll-down.
   // Home has the dark video hero, so the nav goes dark-glass there; every other
   // page gets the theme-aware solid treatment.
   const overHero = pathname === "/";
@@ -34,7 +46,7 @@ export function Nav() {
   return (
     <>
       <nav
-        className={`absolute top-0 z-40 w-full border-b transition-all duration-300 ${headerClass}`}
+        className={`absolute top-0 z-40 w-full border-b transition-all duration-300 ${!visible ? "-translate-y-full" : "translate-y-0"} ${headerClass}`}
       >
         <div className="mx-auto grid h-20 max-w-7xl grid-cols-[1fr_auto] items-center gap-4 px-5 md:h-[92px] md:grid-cols-[1fr_auto_1fr] md:px-6">
           <Link
