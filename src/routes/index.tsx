@@ -297,16 +297,16 @@ function ServicePanel({
         transition={{ duration: 0.25 }}
         className="absolute inset-0 flex flex-col items-center justify-between py-7"
       >
-        <span className="font-mono text-[10px] tracking-widest text-brand-primary">
+        <span className="font-mono text-[10px] tracking-widest text-white/60">
           {String(i + 1).padStart(2, "0")}
         </span>
         <span
-          className="font-mono text-[11px] uppercase tracking-[0.4em] text-brand-text/90"
+          className="font-mono text-[11px] uppercase tracking-[0.4em] text-white"
           style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
         >
           {s.title}
         </span>
-        <div className="grid size-9 place-items-center rounded-md border border-brand-line bg-brand-elevated/60 text-brand-primary transition-colors group-hover:border-brand-primary/50">
+        <div className="grid size-9 place-items-center rounded-md border border-white/25 bg-white/10 text-white backdrop-blur transition-colors group-hover:border-white/50 group-hover:bg-white/20">
           <Icon className="size-4" />
         </div>
       </motion.div>
