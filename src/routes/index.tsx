@@ -14,7 +14,9 @@ import {
 } from "lucide-react";
 import circuitImg from "@/assets/circuit.jpg";
 import heroPoster from "@/assets/hero.jpg";
-import heroVideo1 from "@/assets/Herovideo1.mp4";
+import heroVideo1 from "@/assets/hero-loop-01.mp4";
+import heroVideo2 from "@/assets/hero-loop-02.mp4";
+import heroVideo3 from "@/assets/hero-loop-03.mp4";
 
 import { Shell } from "@/components/site/Shell";
 import { LogoMark } from "@/components/Logo";
@@ -43,23 +45,27 @@ export const Route = createFileRoute("/")({
 });
 
 /* ---------------- Hero video background ---------------- */
-// One light clip plus a poster keeps the live site fast and avoids a blank hero
-// when a browser delays autoplay.
+const HERO_VIDEOS = [heroVideo1, heroVideo2, heroVideo3];
+
 function HeroVideoBackground() {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [active, setActive] = useState(0);
+  const refs = useRef<(HTMLVideoElement | null)[]>([]);
+  const next = (active + 1) % HERO_VIDEOS.length;
 
   useEffect(() => {
-    const vid = videoRef.current;
+    const vid = refs.current[active];
     if (!vid) return;
-    // refuse to autoplay unmuted video — force it before calling play().
+
     vid.muted = true;
+    vid.currentTime = 0;
     const tryPlay = () => {
       vid.play().catch(() => {});
     };
+
     tryPlay();
     vid.addEventListener("canplaythrough", tryPlay);
     return () => vid.removeEventListener("canplaythrough", tryPlay);
-  }, []);
+  }, [active]);
 
   return (
     <>
@@ -70,17 +76,26 @@ function HeroVideoBackground() {
         fetchPriority="high"
         className="absolute inset-0 h-full w-full object-cover"
       />
-      <video
-        ref={videoRef}
-        src={heroVideo1}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        poster={heroPoster}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
+      {HERO_VIDEOS.map((src, i) => (
+        <video
+          key={src}
+          ref={(el) => {
+            refs.current[i] = el;
+            if (el) el.muted = true;
+          }}
+          src={src}
+          autoPlay={i === 0}
+          muted
+          playsInline
+          preload={i === active ? "auto" : i === next ? "metadata" : "none"}
+          poster={heroPoster}
+          onEnded={i === active ? () => setActive(next) : undefined}
+          className={
+            "pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-700 " +
+            (i === active ? "opacity-100" : "opacity-0")
+          }
+        />
+      ))}
     </>
   );
 }
