@@ -1,13 +1,12 @@
 import { officeAddress, officeMapEmbedUrl } from "@/components/site/data";
 
 /**
- * Google Maps embed for the Karachi office. The iframe is lazy so it never
- * competes with the page load — it sits below the fold in both places it is used.
+ * Lazy Google Maps embed for the public office location.
  * In dark mode the light Google tiles are inverted to sit with the surrounding UI.
  */
 export function OfficeMap({
   className = "h-72",
-  title = `Eire Tech office — ${officeAddress}`,
+  title = `Eire Tech office - ${officeAddress}`,
 }: {
   className?: string;
   title?: string;

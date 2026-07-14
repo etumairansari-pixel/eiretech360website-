@@ -166,15 +166,9 @@ export const social = [
 ] as const;
 
 /* ------------------------------------------------------------------
-   Office location — kept ready but not rendered anywhere yet.
-   To bring the address + map back, render <OfficeMap /> and add the
-   MapPin row back to the footer / contact page (see git-free note in
-   OfficeMap.tsx). Nothing below is imported today.
+   Public office location used in the footer map and directions links.
 ------------------------------------------------------------------ */
-export const officeAddressLines = [
-  "Office # 204, FL-3, 13 Main Rashid Minhas Rd",
-  "Block 5 Gulshan-e-Iqbal, Karachi 75300",
-];
+export const officeAddressLines = ["1717 N Street NW", "Ste 1", "Washington, DC 20036"];
 
 export const officeAddress = officeAddressLines.join(", ");
 

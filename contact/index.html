@@ -223,6 +223,13 @@
       .footer-main p { max-width: 440px; line-height: 1.7; }
       .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
       .footer-links a { text-decoration: none; }
+      .footer-visit { display: grid; grid-template-columns: .72fr 1fr; overflow: hidden; margin: 28px 0 32px; border: 1px solid var(--line); border-radius: 24px; background: var(--bg); box-shadow: 0 24px 70px rgb(11 111 196 / 8%); }
+      .visit-copy { padding: clamp(24px, 4vw, 40px); }
+      .visit-copy address { margin-top: 22px; color: var(--muted); font-style: normal; line-height: 1.75; }
+      .visit-copy a { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; padding: 11px 18px; border: 1px solid rgb(30 155 240 / 30%); border-radius: 14px; color: var(--blue); background: rgb(30 155 240 / 6%); text-decoration: none; font-weight: 800; }
+      .visit-map { min-height: 300px; border-left: 1px solid var(--line); }
+      .visit-map iframe { display: block; width: 100%; height: 100%; min-height: 300px; border: 0; filter: grayscale(.25); }
+      html.dark .visit-map iframe { opacity: .9; filter: invert(1) hue-rotate(180deg) grayscale(.25); }
       .copyright { padding-top: 24px; border-top: 1px solid var(--line); }
       @media (max-width: 860px) {
         body { padding-top: 74px; }
@@ -253,6 +260,8 @@
         .actions { align-items: stretch; flex-direction: column; }
         #submit { width: 100%; }
         .footer-main { flex-direction: column; }
+        .footer-visit { grid-template-columns: 1fr; }
+        .visit-map { border-left: 0; border-top: 1px solid var(--line); }
       }
     </style>
   </head>
@@ -349,6 +358,27 @@
         <div class="footer-main">
           <div><strong>Eire Tech</strong><p>Your connected digital growth and automation partner for strategy, design, development, marketing, and AI.</p></div>
           <div class="footer-links"><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/platforms">Platforms</a><a href="/contact/">Contact</a></div>
+        </div>
+        <div class="footer-visit">
+          <div class="visit-copy">
+            <p class="eyebrow">Visit us</p>
+            <h2>Our Washington office.</h2>
+            <address>
+              1717 N Street NW<br />
+              Ste 1<br />
+              Washington, DC 20036
+            </address>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=1717%20N%20Street%20NW%2C%20Ste%201%2C%20Washington%2C%20DC%2020036" target="_blank" rel="noreferrer">Get Directions &nearr;</a>
+          </div>
+          <div class="visit-map">
+            <iframe
+              src="https://www.google.com/maps?q=1717%20N%20Street%20NW%2C%20Ste%201%2C%20Washington%2C%20DC%2020036&amp;output=embed"
+              title="Eire Tech office - 1717 N Street NW, Ste 1, Washington, DC 20036"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
         </div>
         <div class="copyright">&copy; 2026 Eire Tech. All rights reserved.</div>
       </div>
