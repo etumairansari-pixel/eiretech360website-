@@ -13,9 +13,8 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import circuitImg from "@/assets/circuit.jpg";
+import heroPoster from "@/assets/hero.jpg";
 import heroVideo1 from "@/assets/Herovideo1.mp4";
-import heroVideo2 from "@/assets/Hero2.mp4";
-import heroVideo3 from "@/assets/Hero3.mp4";
 
 import { Shell } from "@/components/site/Shell";
 import { LogoMark } from "@/components/Logo";
@@ -44,51 +43,44 @@ export const Route = createFileRoute("/")({
 });
 
 /* ---------------- Hero video background ---------------- */
-// Smallest clip first so the video layer appears as fast as possible; the
-// static hero.jpg underneath covers the gap while it buffers.
-const HERO_VIDEOS = [heroVideo1, heroVideo3, heroVideo2];
-
+// One light clip plus a poster keeps the live site fast and avoids a blank hero
+// when a browser delays autoplay.
 function HeroVideoBackground() {
-  const [active, setActive] = useState(0);
-  const refs = useRef<(HTMLVideoElement | null)[]>([]);
-  const next = (active + 1) % HERO_VIDEOS.length;
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    const vid = refs.current[active];
+    const vid = videoRef.current;
     if (!vid) return;
-    // React doesn't emit the `muted` attribute in SSR HTML, and browsers
     // refuse to autoplay unmuted video — force it before calling play().
     vid.muted = true;
-    vid.currentTime = 0;
     const tryPlay = () => {
       vid.play().catch(() => {});
     };
     tryPlay();
-    vid.addEventListener("canplay", tryPlay);
-    return () => vid.removeEventListener("canplay", tryPlay);
-  }, [active]);
+    vid.addEventListener("canplaythrough", tryPlay);
+    return () => vid.removeEventListener("canplaythrough", tryPlay);
+  }, []);
 
   return (
     <>
-      {HERO_VIDEOS.map((src, i) => (
-        <video
-          key={src}
-          ref={(el) => {
-            refs.current[i] = el;
-            if (el) el.muted = true;
-          }}
-          src={src}
-          muted
-          playsInline
-          // Buffer the clip that's up next while the current one plays.
-          preload={i === active || i === next ? "auto" : "none"}
-          onEnded={i === active ? () => setActive(next) : undefined}
-          className={
-            "absolute inset-0 h-full w-full object-cover " +
-            (i === active ? "" : "hidden")
-          }
-        />
-      ))}
+      <img
+        src={heroPoster}
+        alt=""
+        decoding="async"
+        fetchPriority="high"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <video
+        ref={videoRef}
+        src={heroVideo1}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        poster={heroPoster}
+        className="absolute inset-0 h-full w-full object-cover"
+      />
     </>
   );
 }
@@ -102,72 +94,72 @@ function Hero() {
       {/* CraftTech-style video panel: full-bleed footage, fixed dark scrim
           (not brand-bg — it must stay dark in light mode too), text on top. */}
       <div className="relative flex min-h-[100svh] w-full flex-col justify-end overflow-hidden shadow-2xl">
-          <div className="absolute inset-0">
-            <HeroVideoBackground />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-slate-950/25" />
-          </div>
-
-          <div className="relative mx-auto w-full max-w-7xl px-6 pb-12 md:pb-20">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.05 }}
-              className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-brand-accent backdrop-blur"
-            >
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-brand-accent" />
-              </span>
-              Digital Growth &amp; Automation Partner
-            </motion.div>
-
-            <h1 className="mb-8 text-5xl font-extrabold leading-[0.92] tracking-tighter text-white md:text-8xl">
-              {HEADLINE.map((w, i) => (
-                <span key={w} className="mr-3 inline-block overflow-hidden align-top md:mr-4">
-                  <motion.span
-                    initial={{ y: "110%" }}
-                    animate={{ y: "0%" }}
-                    transition={{ duration: 0.65, delay: 0.1 + i * 0.08, ease: [0.2, 0, 0, 1] }}
-                    className={"inline-block " + (i === 1 ? "brand-gradient-text text-glow" : "")}
-                  >
-                    {w}
-                  </motion.span>
-                </span>
-              ))}
-            </h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.35 }}
-              className="mb-10 max-w-xl text-lg leading-relaxed text-white/80"
-            >
-              Eire Tech is your full-service digital partner — blending strategy, creativity and AI
-              to transform how your brand shows up, scales and runs.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.45 }}
-              className="flex flex-wrap gap-4"
-            >
-              <MagneticLink
-                to="/contact"
-                className="group inline-flex items-center gap-2 rounded-full brand-gradient-bg px-8 py-4 font-bold text-white transition-shadow hover:brand-glow"
-              >
-                Book a Free Consultation
-                <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
-              </MagneticLink>
-              <MagneticLink
-                to="/services"
-                className="inline-flex items-center rounded-full border border-white/30 px-8 py-4 font-bold text-white transition-colors hover:border-brand-accent/70 hover:text-brand-accent"
-              >
-                Explore Our Services
-              </MagneticLink>
-            </motion.div>
-          </div>
+        <div className="absolute inset-0">
+          <HeroVideoBackground />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-slate-950/25" />
         </div>
+
+        <div className="relative mx-auto w-full max-w-7xl px-6 pb-12 md:pb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.05 }}
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-brand-accent backdrop-blur"
+          >
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-brand-accent" />
+            </span>
+            Digital Growth &amp; Automation Partner
+          </motion.div>
+
+          <h1 className="mb-8 text-5xl font-extrabold leading-[0.92] tracking-tighter text-white md:text-8xl">
+            {HEADLINE.map((w, i) => (
+              <span key={w} className="mr-3 inline-block overflow-hidden align-top md:mr-4">
+                <motion.span
+                  initial={{ y: "110%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 0.65, delay: 0.1 + i * 0.08, ease: [0.2, 0, 0, 1] }}
+                  className={"inline-block " + (i === 1 ? "brand-gradient-text text-glow" : "")}
+                >
+                  {w}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.35 }}
+            className="mb-10 max-w-xl text-lg leading-relaxed text-white/80"
+          >
+            Eire Tech is your full-service digital partner — blending strategy, creativity and AI to
+            transform how your brand shows up, scales and runs.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.45 }}
+            className="flex flex-wrap gap-4"
+          >
+            <MagneticLink
+              to="/contact"
+              className="group inline-flex items-center gap-2 rounded-full brand-gradient-bg px-8 py-4 font-bold text-white transition-shadow hover:brand-glow"
+            >
+              Book a Free Consultation
+              <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
+            </MagneticLink>
+            <MagneticLink
+              to="/services"
+              className="inline-flex items-center rounded-full border border-white/30 px-8 py-4 font-bold text-white transition-colors hover:border-brand-accent/70 hover:text-brand-accent"
+            >
+              Explore Our Services
+            </MagneticLink>
+          </motion.div>
+        </div>
+      </div>
 
       <div className="mx-auto max-w-7xl px-6">
         <div className="mt-16 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-brand-line pt-8 md:grid-cols-4">
