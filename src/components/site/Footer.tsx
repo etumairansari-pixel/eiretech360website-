@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Clock, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { office, officeAddressLines, officeMapLink, social } from "@/components/site/data";
 import { OfficeMap } from "@/components/site/OfficeMap";
@@ -166,32 +166,16 @@ export function Footer() {
                 Our Washington office.
               </h2>
 
-              <ul className="mt-7 space-y-5 text-sm">
-                <li className="flex gap-4">
-                  <MapPin className="mt-0.5 size-4 shrink-0 text-brand-primary" />
-                  <address className="not-italic leading-relaxed text-brand-muted">
-                    {officeAddressLines.map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </address>
-                </li>
-                <li className="flex gap-4">
-                  <Phone className="mt-0.5 size-4 shrink-0 text-brand-primary" />
-                  <a
-                    href={office.phoneHref}
-                    className="font-semibold text-brand-text transition-colors hover:text-brand-primary"
-                    data-hover
-                  >
-                    {office.phone}
-                  </a>
-                </li>
-                <li className="flex gap-4">
-                  <Clock className="mt-0.5 size-4 shrink-0 text-brand-primary" />
-                  <span className="text-brand-muted">Monday to Friday, 9 AM to 6 PM</span>
-                </li>
-              </ul>
+              <div className="mt-7 flex gap-4 text-sm">
+                <MapPin className="mt-0.5 size-4 shrink-0 text-brand-primary" />
+                <address className="not-italic leading-relaxed text-brand-muted">
+                  {officeAddressLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </address>
+              </div>
 
               <a
                 href={officeMapLink}
