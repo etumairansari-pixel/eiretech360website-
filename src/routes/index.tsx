@@ -13,8 +13,10 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import circuitImg from "@/assets/circuit.jpg";
-import heroWorkspace from "@/assets/hero-workspace.jpg";
-import heroCode from "@/assets/hero-code.jpg";
+import heroDesktop01 from "@/assets/hero-desktop-01.mp4";
+import heroDesktop02 from "@/assets/hero-desktop-02.mp4";
+import heroMobile01 from "@/assets/hero-mobile-01.mp4";
+import heroMobile02 from "@/assets/hero-mobile-02.mp4";
 
 import { Shell } from "@/components/site/Shell";
 import { LogoMark } from "@/components/Logo";
@@ -42,36 +44,38 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-/* ---------------- Hero image background ---------------- */
-const HERO_IMAGES = [heroWorkspace, heroCode];
+/* ---------------- Hero video background ---------------- */
+const HERO_VIDEOS = [
+  { mobile: heroMobile01, desktop: heroDesktop01 },
+  { mobile: heroMobile02, desktop: heroDesktop02 },
+];
 
-function HeroImageBackground() {
+function HeroVideoBackground() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
     const rotation = window.setInterval(() => {
-      setActive((current) => (current + 1) % HERO_IMAGES.length);
-    }, 6000);
+      setActive((current) => (current + 1) % HERO_VIDEOS.length);
+    }, 8000);
     return () => window.clearInterval(rotation);
   }, []);
 
+  const video = HERO_VIDEOS[active];
+
   return (
-    <>
-      {HERO_IMAGES.map((src, i) => (
-        <img
-          key={src}
-          src={src}
-          alt=""
-          aria-hidden="true"
-          decoding={i === 0 ? "sync" : "async"}
-          fetchPriority={i === 0 ? "high" : "low"}
-          className={
-            "pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-700 " +
-            (i === active ? "opacity-100" : "opacity-0")
-          }
-        />
-      ))}
-    </>
+    <video
+      key={`${video.mobile}-${video.desktop}`}
+      className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-hidden="true"
+    >
+      <source src={video.mobile} media="(max-width: 767px)" type="video/mp4" />
+      <source src={video.desktop} media="(min-width: 768px)" type="video/mp4" />
+    </video>
   );
 }
 
@@ -85,7 +89,7 @@ function Hero() {
           (not brand-bg — it must stay dark in light mode too), text on top. */}
       <div className="relative flex aspect-[9/19] w-full flex-col justify-end overflow-hidden shadow-2xl md:aspect-[14/7]">
         <div className="absolute inset-0">
-          <HeroImageBackground />
+          <HeroVideoBackground />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-slate-950/25" />
         </div>
 
