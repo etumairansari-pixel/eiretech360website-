@@ -1,8 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { office, officeAddressLines, officeMapLink, social } from "@/components/site/data";
-import { OfficeMap } from "@/components/site/OfficeMap";
+import { office, social } from "@/components/site/data";
 
 // Lucide v1 dropped brand marks, so the two glyphs are inlined.
 function LinkedInIcon({ className = "" }: { className?: string }) {
@@ -153,43 +152,15 @@ export function Footer() {
             >
               Talk to an Expert <ArrowUpRight className="size-4" />
             </Link>
-          </div>
-        </div>
 
-        <div className="mt-16 overflow-hidden rounded-3xl border border-brand-line bg-brand-bg shadow-2xl shadow-brand-primary/[0.04]">
-          <div className="grid lg:grid-cols-[0.72fr_1fr]">
-            <div className="relative p-8 md:p-10">
-              <div className="mb-5 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-primary">
-                Visit Us
-              </div>
-              <h2 className="text-3xl font-extrabold tracking-tight text-brand-text">
-                Our Washington office.
-              </h2>
-
-              <div className="mt-7 flex gap-4 text-sm">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-brand-primary" />
-                <address className="not-italic leading-relaxed text-brand-muted">
-                  {officeAddressLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </address>
-              </div>
-
-              <a
-                href={officeMapLink}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-8 inline-flex items-center gap-2 rounded-xl border border-brand-primary/30 bg-brand-primary/5 px-5 py-3 text-sm font-bold text-brand-primary transition-colors hover:bg-brand-primary/10"
-                data-hover
-              >
-                Get Directions <ArrowUpRight className="size-4" />
-              </a>
-            </div>
-
-            <div className="min-h-[320px] border-t border-brand-line lg:border-l lg:border-t-0">
-              <OfficeMap className="h-[320px] lg:h-full" />
+            <div className="mt-6 text-sm leading-relaxed text-brand-muted">
+              <p className="font-semibold text-brand-text">Visit Us</p>
+              <p className="mt-1">Our Washington office.</p>
+              <address className="mt-2 not-italic">
+                1717 N Street NW<br />
+                Ste 1<br />
+                Washington, DC 20036
+              </address>
             </div>
           </div>
         </div>

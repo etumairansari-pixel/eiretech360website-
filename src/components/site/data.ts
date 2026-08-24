@@ -165,17 +165,6 @@ export const social = [
   { label: "Facebook", href: "https://www.facebook.com/people/EireTech/61591366410652/" },
 ] as const;
 
-/* ------------------------------------------------------------------
-   Public office location used in the footer map and directions links.
------------------------------------------------------------------- */
-export const officeAddressLines = ["1717 N Street NW", "Ste 1", "Washington, DC 20036"];
-
-export const officeAddress = officeAddressLines.join(", ");
-
-/** Keyless Google Maps embed + a "get directions" deep link for the same place. */
-export const officeMapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(officeAddress)}&output=embed`;
-export const officeMapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(officeAddress)}`;
-
 export const serviceOptions = [
   "Digital Marketing",
   "Automation",

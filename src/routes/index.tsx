@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   Check,
@@ -13,10 +13,8 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import circuitImg from "@/assets/circuit.jpg";
-import heroPoster from "@/assets/hero.jpg";
-import heroVideo1 from "@/assets/hero-loop-01.mp4";
-import heroVideo2 from "@/assets/hero-loop-02.mp4";
-import heroVideo3 from "@/assets/hero-loop-03.mp4";
+import heroWorkspace from "@/assets/hero-workspace.jpg";
+import heroCode from "@/assets/hero-code.jpg";
 
 import { Shell } from "@/components/site/Shell";
 import { LogoMark } from "@/components/Logo";
@@ -37,59 +35,36 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Grow. Automate. Innovate. Eire Tech is your full-service digital partner — blending strategy, creativity, and AI to transform how your brand shows up, scales, and runs.",
+          "Grow. Automate. Innovate.",
       },
     ],
   }),
   component: Home,
 });
 
-/* ---------------- Hero video background ---------------- */
-const HERO_VIDEOS = [heroVideo1, heroVideo2, heroVideo3];
+/* ---------------- Hero image background ---------------- */
+const HERO_IMAGES = [heroWorkspace, heroCode];
 
-function HeroVideoBackground() {
+function HeroImageBackground() {
   const [active, setActive] = useState(0);
-  const refs = useRef<(HTMLVideoElement | null)[]>([]);
-  const next = (active + 1) % HERO_VIDEOS.length;
 
   useEffect(() => {
-    const vid = refs.current[active];
-    if (!vid) return;
-
-    vid.muted = true;
-    vid.currentTime = 0;
-    const tryPlay = () => {
-      vid.play().catch(() => {});
-    };
-
-    tryPlay();
-    vid.addEventListener("canplaythrough", tryPlay);
-    return () => vid.removeEventListener("canplaythrough", tryPlay);
-  }, [active]);
+    const rotation = window.setInterval(() => {
+      setActive((current) => (current + 1) % HERO_IMAGES.length);
+    }, 6000);
+    return () => window.clearInterval(rotation);
+  }, []);
 
   return (
     <>
-      <img
-        src={heroPoster}
-        alt=""
-        decoding="async"
-        fetchPriority="high"
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      {HERO_VIDEOS.map((src, i) => (
-        <video
+      {HERO_IMAGES.map((src, i) => (
+        <img
           key={src}
-          ref={(el) => {
-            refs.current[i] = el;
-            if (el) el.muted = true;
-          }}
           src={src}
-          autoPlay={i === 0}
-          muted
-          playsInline
-          preload={i === active ? "auto" : i === next ? "metadata" : "none"}
-          poster={heroPoster}
-          onEnded={i === active ? () => setActive(next) : undefined}
+          alt=""
+          aria-hidden="true"
+          decoding={i === 0 ? "sync" : "async"}
+          fetchPriority={i === 0 ? "high" : "low"}
           className={
             "pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-700 " +
             (i === active ? "opacity-100" : "opacity-0")
@@ -108,9 +83,9 @@ function Hero() {
     <section className="relative isolate overflow-hidden pb-24">
       {/* CraftTech-style video panel: full-bleed footage, fixed dark scrim
           (not brand-bg — it must stay dark in light mode too), text on top. */}
-      <div className="relative flex min-h-[100svh] w-full flex-col justify-end overflow-hidden shadow-2xl">
+      <div className="relative flex aspect-[9/19] w-full flex-col justify-end overflow-hidden shadow-2xl md:aspect-[14/7]">
         <div className="absolute inset-0">
-          <HeroVideoBackground />
+          <HeroImageBackground />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-slate-950/25" />
         </div>
 
@@ -119,7 +94,7 @@ function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.05 }}
-            className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-brand-accent backdrop-blur"
+            className="mb-8 hidden items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-brand-accent backdrop-blur md:inline-flex"
           >
             <span className="relative flex size-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent opacity-75" />
@@ -149,26 +124,25 @@ function Hero() {
             transition={{ duration: 0.55, delay: 0.35 }}
             className="mb-10 max-w-xl text-lg leading-relaxed text-white/80"
           >
-            Eire Tech is your full-service digital partner — blending strategy, creativity and AI to
-            transform how your brand shows up, scales and runs.
+            
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.45 }}
-            className="flex flex-wrap gap-4"
+            className="flex flex-col gap-4 sm:flex-row sm:flex-wrap"
           >
             <MagneticLink
               to="/contact"
-              className="group inline-flex items-center gap-2 rounded-full brand-gradient-bg px-8 py-4 font-bold text-white transition-shadow hover:brand-glow"
+              className="group inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-full brand-gradient-bg px-8 py-4 font-bold text-white transition-shadow hover:brand-glow sm:w-80"
             >
               Book a Free Consultation
               <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
             </MagneticLink>
             <MagneticLink
               to="/services"
-              className="inline-flex items-center rounded-full border border-white/30 px-8 py-4 font-bold text-white transition-colors hover:border-brand-accent/70 hover:text-brand-accent"
+              className="inline-flex w-full items-center justify-center whitespace-nowrap rounded-full border border-white/30 px-8 py-4 font-bold text-white transition-colors hover:border-brand-accent/70 hover:text-brand-accent sm:w-80"
             >
               Explore Our Services
             </MagneticLink>

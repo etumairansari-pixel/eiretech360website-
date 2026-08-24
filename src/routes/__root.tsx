@@ -14,7 +14,7 @@ import { ThemeProvider, themeInitScript } from "../lib/theme";
 
 const SITE_URL = "https://eiretech360.com";
 
-// Lets Google tie the brand, logo, contact details and office location to the site.
+// Lets Google tie the brand, logo and contact details to the site.
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -24,14 +24,6 @@ const organizationSchema = {
   image: `${SITE_URL}/og-image.png`,
   logo: `${SITE_URL}/icon-512.png`,
   email: "info@eiretech360.com",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "1717 N Street NW, Ste 1",
-    addressLocality: "Washington",
-    addressRegion: "DC",
-    postalCode: "20036",
-    addressCountry: "US",
-  },
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
