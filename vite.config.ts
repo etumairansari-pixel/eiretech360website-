@@ -62,6 +62,19 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
         "react/jsx-dev-runtime",
       ],
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (!id.includes("node_modules")) return;
+            if (id.includes("@tanstack")) return "vendor-router";
+            if (id.includes("react")) return "vendor-react";
+            if (id.includes("motion") || id.includes("lucide-react")) return "vendor-ui";
+            return "vendor";
+          },
+        },
+      },
+    },
     server: { host: "::", port: 8080 },
   };
 });

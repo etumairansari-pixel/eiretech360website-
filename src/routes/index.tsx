@@ -14,9 +14,13 @@ import {
 } from "lucide-react";
 import circuitImg from "@/assets/circuit.jpg";
 import heroDesktop01 from "@/assets/hero-desktop-01.mp4";
+import heroDesktop01Poster from "@/assets/hero-desktop-01-poster.jpg";
 import heroDesktop02 from "@/assets/hero-desktop-02.mp4";
+import heroDesktop02Poster from "@/assets/hero-desktop-02-poster.jpg";
 import heroMobile01 from "@/assets/hero-mobile-01.mp4";
+import heroMobile01Poster from "@/assets/hero-mobile-01-poster.jpg";
 import heroMobile02 from "@/assets/hero-mobile-02.mp4";
+import heroMobile02Poster from "@/assets/hero-mobile-02-poster.jpg";
 
 import { Shell } from "@/components/site/Shell";
 import { LogoMark } from "@/components/Logo";
@@ -46,21 +50,62 @@ export const Route = createFileRoute("/")({
 
 /* ---------------- Hero video background ---------------- */
 const HERO_VIDEOS = [
-  { mobile: heroMobile01, desktop: heroDesktop01 },
-  { mobile: heroMobile02, desktop: heroDesktop02 },
+  {
+    mobile: heroMobile01,
+    desktop: heroDesktop01,
+    mobilePoster: heroMobile01Poster,
+    desktopPoster: heroDesktop01Poster,
+  },
+  {
+    mobile: heroMobile02,
+    desktop: heroDesktop02,
+    mobilePoster: heroMobile02Poster,
+    desktopPoster: heroDesktop02Poster,
+  },
 ];
+
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    const onChange = () => setMatches(media.matches);
+    onChange();
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, [query]);
+
+  return matches;
+}
 
 function HeroVideoBackground() {
   const [active, setActive] = useState(0);
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const prefersReducedData = useMediaQuery("(prefers-reduced-data: reduce)");
 
   useEffect(() => {
+    if (prefersReducedData) return;
     const rotation = window.setInterval(() => {
       setActive((current) => (current + 1) % HERO_VIDEOS.length);
     }, 8000);
     return () => window.clearInterval(rotation);
-  }, []);
+  }, [prefersReducedData]);
 
   const video = HERO_VIDEOS[active];
+  const poster = isMobile ? video.mobilePoster : video.desktopPoster;
+
+  if (prefersReducedData) {
+    return (
+      <img
+        src={poster}
+        alt=""
+        loading="eager"
+        decoding="async"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        aria-hidden="true"
+      />
+    );
+  }
 
   return (
     <video
@@ -70,7 +115,8 @@ function HeroVideoBackground() {
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="none"
+      poster={poster}
       aria-hidden="true"
     >
       <source src={video.mobile} media="(max-width: 767px)" type="video/mp4" />

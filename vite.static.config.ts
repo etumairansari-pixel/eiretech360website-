@@ -22,6 +22,15 @@ export default defineConfig({
         main: path.resolve(rootDir, "index.html"),
         contact: path.resolve(rootDir, "contact/index.html"),
       },
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (id.includes("@tanstack")) return "vendor-router";
+          if (id.includes("react")) return "vendor-react";
+          if (id.includes("motion") || id.includes("lucide-react")) return "vendor-ui";
+          return "vendor";
+        },
+      },
     },
   },
 });
