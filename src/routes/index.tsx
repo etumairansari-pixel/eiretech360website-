@@ -80,48 +80,55 @@ function useMediaQuery(query: string) {
 
 function HeroVideoBackground() {
   const [active, setActive] = useState(0);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const isMobile = useMediaQuery("(max-width: 767px)");
   const prefersReducedData = useMediaQuery("(prefers-reduced-data: reduce)");
 
   useEffect(() => {
     if (prefersReducedData) return;
+    const timer = window.setTimeout(() => setShouldLoadVideo(true), 1200);
+    return () => window.clearTimeout(timer);
+  }, [prefersReducedData]);
+
+  useEffect(() => {
+    if (!shouldLoadVideo) return;
     const rotation = window.setInterval(() => {
       setActive((current) => (current + 1) % HERO_VIDEOS.length);
     }, 8000);
     return () => window.clearInterval(rotation);
-  }, [prefersReducedData]);
+  }, [shouldLoadVideo]);
 
   const video = HERO_VIDEOS[active];
   const poster = isMobile ? video.mobilePoster : video.desktopPoster;
 
-  if (prefersReducedData) {
-    return (
+  return (
+    <>
       <img
         src={poster}
         alt=""
         loading="eager"
+        fetchPriority="high"
         decoding="async"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         aria-hidden="true"
       />
-    );
-  }
-
-  return (
-    <video
-      key={`${video.mobile}-${video.desktop}`}
-      className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="none"
-      poster={poster}
-      aria-hidden="true"
-    >
-      <source src={video.mobile} media="(max-width: 767px)" type="video/mp4" />
-      <source src={video.desktop} media="(min-width: 768px)" type="video/mp4" />
-    </video>
+      {shouldLoadVideo && !prefersReducedData ? (
+        <video
+          key={`${video.mobile}-${video.desktop}`}
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="none"
+          poster={poster}
+          aria-hidden="true"
+        >
+          <source src={video.mobile} media="(max-width: 767px)" type="video/mp4" />
+          <source src={video.desktop} media="(min-width: 768px)" type="video/mp4" />
+        </video>
+      ) : null}
+    </>
   );
 }
 
