@@ -32,8 +32,6 @@ function ServicesPage() {
                       src={s.img}
                       alt=""
                       loading="lazy"
-                      width={768}
-                      height={1024}
                       decoding="async"
                       className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
                     />

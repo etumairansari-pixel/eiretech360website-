@@ -69,7 +69,11 @@
         min-height: 100vh;
         background: #05070a;
         color: #fff;
-        font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+        font-family:
+          "Plus Jakarta Sans",
+          ui-sans-serif,
+          system-ui,
+          sans-serif;
       }
       .shell-fallback * {
         box-sizing: border-box;
@@ -91,7 +95,7 @@
       }
       .shell-hero {
         position: relative;
-        aspect-ratio: 9 / 19;
+        min-height: 100svh;
         display: flex;
         align-items: end;
         overflow: hidden;
@@ -108,12 +112,7 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(
-          to top,
-          rgb(2 6 23 / 95%),
-          rgb(2 6 23 / 45%),
-          rgb(2 6 23 / 25%)
-        );
+        background: linear-gradient(to top, rgb(2 6 23 / 95%), rgb(2 6 23 / 45%), rgb(2 6 23 / 25%));
       }
       .shell-copy {
         position: relative;
@@ -163,7 +162,8 @@
           padding: 0 32px;
         }
         .shell-hero {
-          aspect-ratio: 14 / 7;
+          min-height: 66vw;
+          max-height: 720px;
           padding: 150px 48px 80px;
         }
         .shell-copy h1 {
@@ -188,14 +188,7 @@
         <main class="shell-hero">
           <picture>
             <source srcset="/src/assets/hero-desktop-01-poster.jpg" media="(min-width: 768px)" />
-            <img
-              src="/src/assets/hero-mobile-01-poster.jpg"
-              alt=""
-              width="864"
-              height="1824"
-              fetchpriority="high"
-              decoding="async"
-            />
+            <img src="/src/assets/hero-mobile-01-poster.jpg" alt="" fetchpriority="high" decoding="async" />
           </picture>
           <div class="shell-copy">
             <h1>Grow.<br />Automate.<br /><span>Innovate.</span></h1>
@@ -207,6 +200,6 @@
         </main>
       </div>
     </div>
-    <script type="module" src="/src/bootstrap.ts"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
