@@ -40,8 +40,7 @@ export const Route = createFileRoute("/")({
       { title: "Eire Tech — Digital Growth & Automation Partner" },
       {
         name: "description",
-        content:
-          "Grow. Automate. Innovate.",
+        content: "Grow. Automate. Innovate.",
       },
     ],
   }),
@@ -86,7 +85,7 @@ function HeroVideoBackground() {
 
   useEffect(() => {
     if (prefersReducedData) return;
-    const timer = window.setTimeout(() => setShouldLoadVideo(true), 1200);
+    const timer = window.setTimeout(() => setShouldLoadVideo(true), 3500);
     return () => window.clearTimeout(timer);
   }, [prefersReducedData]);
 
@@ -109,8 +108,9 @@ function HeroVideoBackground() {
         loading="eager"
         fetchPriority="high"
         decoding="async"
+        width={isMobile ? 864 : 1344}
+        height={isMobile ? 1824 : 672}
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        aria-hidden="true"
       />
       {shouldLoadVideo && !prefersReducedData ? (
         <video
@@ -122,7 +122,6 @@ function HeroVideoBackground() {
           playsInline
           preload="none"
           poster={poster}
-          aria-hidden="true"
         >
           <source src={video.mobile} media="(max-width: 767px)" type="video/mp4" />
           <source src={video.desktop} media="(min-width: 768px)" type="video/mp4" />
@@ -147,49 +146,29 @@ function Hero() {
         </div>
 
         <div className="relative mx-auto w-full max-w-7xl px-6 pb-12 md:pb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.05 }}
-            className="mb-8 hidden items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-brand-accent backdrop-blur md:inline-flex"
-          >
+          <div className="mb-8 hidden items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-brand-accent backdrop-blur md:inline-flex">
             <span className="relative flex size-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-brand-accent" />
             </span>
             Digital Growth &amp; Automation Partner
-          </motion.div>
+          </div>
 
           <h1 className="mb-8 text-5xl font-extrabold leading-[0.92] tracking-tighter text-white md:text-8xl">
             {HEADLINE.map((w, i) => (
-              <span key={w} className="mr-3 inline-block overflow-hidden align-top md:mr-4">
-                <motion.span
-                  initial={{ y: "110%" }}
-                  animate={{ y: "0%" }}
-                  transition={{ duration: 0.65, delay: 0.1 + i * 0.08, ease: [0.2, 0, 0, 1] }}
-                  className={"inline-block " + (i === 1 ? "brand-gradient-text text-glow" : "")}
-                >
-                  {w}
-                </motion.span>
+              <span
+                key={w}
+                className={
+                  "mr-3 inline-block align-top md:mr-4 " +
+                  (i === 1 ? "brand-gradient-text text-glow" : "")
+                }
+              >
+                {w}
               </span>
             ))}
           </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.35 }}
-            className="mb-10 max-w-xl text-lg leading-relaxed text-white/80"
-          >
-            
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.45 }}
-            className="flex flex-col gap-4 sm:flex-row sm:flex-wrap"
-          >
+          <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
             <MagneticLink
               to="/contact"
               className="group inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-full brand-gradient-bg px-8 py-4 font-bold text-white transition-shadow hover:brand-glow sm:w-80"
@@ -203,7 +182,7 @@ function Hero() {
             >
               Explore Our Services
             </MagneticLink>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -312,6 +291,8 @@ function ServicePanel({
         src={s.img}
         alt={s.title}
         loading="lazy"
+        width={768}
+        height={1024}
         animate={{ scale: active ? 1.03 : 1.18, opacity: active ? 1 : 0.62 }}
         transition={{ duration: 1, ease: [0.2, 0, 0, 1] }}
         className="absolute inset-0 h-full w-full object-cover"
@@ -411,6 +392,8 @@ function ServiceMobileCard({
         src={s.img}
         alt={s.title}
         loading="lazy"
+        width={768}
+        height={1024}
         animate={{ opacity: active ? 0.9 : 0.55, scale: active ? 1.02 : 1.12 }}
         transition={{ duration: 0.7 }}
         className="absolute inset-0 h-full w-full object-cover"
@@ -546,21 +529,23 @@ function WhyEireTech() {
           </p>
           <ul>
             {reasons.map(([n, t, d], idx) => (
-              <Reveal key={n} delay={idx * 0.06}>
-                <div
-                  className="group flex items-start gap-5 border-b border-brand-line py-5"
-                  data-hover
-                >
-                  <span className="font-mono text-sm text-brand-accent">{n}</span>
-                  <div className="flex-1">
-                    <div className="font-bold transition-transform group-hover:translate-x-1">
-                      {t}
+              <li key={n}>
+                <Reveal delay={idx * 0.06}>
+                  <div
+                    className="group flex items-start gap-5 border-b border-brand-line py-5"
+                    data-hover
+                  >
+                    <span className="font-mono text-sm text-brand-accent">{n}</span>
+                    <div className="flex-1">
+                      <div className="font-bold transition-transform group-hover:translate-x-1">
+                        {t}
+                      </div>
+                      <p className="mt-1 text-sm text-brand-muted">{d}</p>
                     </div>
-                    <p className="mt-1 text-sm text-brand-muted">{d}</p>
+                    <ArrowUpRight className="mt-1 size-4 text-brand-muted transition-all group-hover:rotate-45 group-hover:text-brand-primary" />
                   </div>
-                  <ArrowUpRight className="mt-1 size-4 text-brand-muted transition-all group-hover:rotate-45 group-hover:text-brand-primary" />
-                </div>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ul>
         </div>
@@ -573,6 +558,8 @@ function WhyEireTech() {
                 src={circuitImg}
                 alt="Glowing circuit board"
                 loading="lazy"
+                width={1024}
+                height={1024}
                 decoding="async"
                 className="h-full w-full object-cover"
               />

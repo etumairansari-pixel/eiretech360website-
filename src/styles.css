@@ -9,9 +9,9 @@
    These never change between themes.
 ------------------------------------------------------------------ */
 :root {
-  --brand-blue: #1e9bf0;
-  --brand-blue-deep: #0b6fc4;
-  --brand-green: #7cb342;
+  --brand-blue: #005fa8;
+  --brand-blue-deep: #07518d;
+  --brand-green: #3f7a1d;
 }
 
 /* ------------------------------------------------------------------
@@ -41,6 +41,9 @@
 ------------------------------------------------------------------ */
 .dark {
   color-scheme: dark;
+
+  --brand-blue: #1e9bf0;
+  --brand-green: #7cb342;
 
   --bg: #05070a;
   --surface: #0b0f15;
@@ -112,36 +115,73 @@
   --animate-shimmer: shimmer 2.4s linear infinite;
 
   @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
   @keyframes spin-reverse {
-    from { transform: rotate(360deg); }
-    to { transform: rotate(0deg); }
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
   }
   @keyframes pulse-slow {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 0.55; }
+    0%,
+    100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.55;
+    }
   }
   @keyframes grow {
-    0% { transform: scaleX(0); }
-    100% { transform: scaleX(1); }
+    0% {
+      transform: scaleX(0);
+    }
+    100% {
+      transform: scaleX(1);
+    }
   }
   @keyframes flash-out {
-    0%, 72% { opacity: 1; visibility: visible; }
-    100% { opacity: 0; visibility: hidden; }
+    0%,
+    72% {
+      opacity: 1;
+      visibility: visible;
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
   }
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
   @keyframes orbit {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
   @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
   }
 }
 
@@ -230,7 +270,12 @@
 }
 
 @utility brand-gradient-bg {
-  background-image: linear-gradient(90deg, var(--brand-blue-deep), var(--brand-blue) 55%, var(--brand-green));
+  background-image: linear-gradient(
+    90deg,
+    var(--brand-blue-deep),
+    var(--brand-blue) 55%,
+    var(--brand-green)
+  );
 }
 
 /* Glow that adapts: strong in dark, restrained in light */
@@ -238,7 +283,8 @@
   box-shadow: 0 0 40px -8px color-mix(in oklab, var(--brand-blue) var(--glow-strength), transparent);
 }
 @utility accent-glow {
-  box-shadow: 0 0 40px -8px color-mix(in oklab, var(--brand-green) var(--glow-strength), transparent);
+  box-shadow: 0 0 40px -8px
+    color-mix(in oklab, var(--brand-green) var(--glow-strength), transparent);
 }
 
 /* Keep mobile scrolling GPU-light while preserving the desktop treatment. */

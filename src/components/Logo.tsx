@@ -11,17 +11,20 @@ export function LogoMark({
   className?: string;
   title?: string;
 }) {
-  return <img src={realMark} alt={title} className={`object-contain ${className}`} />;
+  return (
+    <img
+      src={realMark}
+      alt={title}
+      width={850}
+      height={850}
+      className={`object-contain ${className}`}
+    />
+  );
 }
 
 /**
- * Official Eire Tech lockup images (icon + wordmark + 360°), transparent, no
- * container. Two artworks: the light-mode file has black wordmark text, the
- * dark-mode file has white text — swapped by the `.dark` theme class.
- *
- * `tone="light"` forces the white-text artwork regardless of theme, for use
- * over the dark video hero (which is dark in both themes). Height comes from
- * `className` (e.g. "h-9"); width scales automatically.
+ * Official Eire Tech lockup images. Two artworks are swapped by theme:
+ * light mode uses the dark text file, dark mode uses the white text file.
  */
 export function Logo({
   className = "h-9",
@@ -31,13 +34,38 @@ export function Logo({
   tone?: "auto" | "light";
 }) {
   const imgBase = `w-auto object-contain transition-transform duration-500 group-hover/logo:scale-[1.02] ${className}`;
+
   if (tone === "light") {
-    return <img src={logoDark} alt="Eire Tech 360°" draggable={false} className={imgBase} />;
+    return (
+      <img
+        src={logoDark}
+        alt="Eire Tech 360"
+        width={4238}
+        height={919}
+        draggable={false}
+        className={imgBase}
+      />
+    );
   }
+
   return (
     <span className="group/logo inline-flex">
-      <img src={logoLight} alt="Eire Tech 360°" draggable={false} className={`${imgBase} block dark:hidden`} />
-      <img src={logoDark} alt="" aria-hidden draggable={false} className={`${imgBase} hidden dark:block`} />
+      <img
+        src={logoLight}
+        alt="Eire Tech 360"
+        width={4238}
+        height={919}
+        draggable={false}
+        className={`${imgBase} block dark:hidden`}
+      />
+      <img
+        src={logoDark}
+        alt=""
+        width={4238}
+        height={919}
+        draggable={false}
+        className={`${imgBase} hidden dark:block`}
+      />
     </span>
   );
 }
