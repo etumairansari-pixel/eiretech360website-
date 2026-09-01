@@ -19,11 +19,11 @@ const scheduleAppStart = () => {
   window.addEventListener("keydown", startOnce, { once: true });
 
   const queueStart = () => {
-    timer = window.setTimeout(startOnce, 8000);
+    timer = window.setTimeout(startOnce, 4200);
   };
 
   if ("requestIdleCallback" in window) {
-    window.requestIdleCallback(queueStart, { timeout: 5000 });
+    window.requestIdleCallback(queueStart, { timeout: 2200 });
   } else {
     queueStart();
   }
