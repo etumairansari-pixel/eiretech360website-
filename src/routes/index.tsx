@@ -85,7 +85,7 @@ function HeroVideoBackground() {
 
   useEffect(() => {
     if (prefersReducedData) return;
-    const timer = window.setTimeout(() => setShouldLoadVideo(true), 3500);
+    const timer = window.setTimeout(() => setShouldLoadVideo(true), 6000);
     return () => window.clearTimeout(timer);
   }, [prefersReducedData]);
 
