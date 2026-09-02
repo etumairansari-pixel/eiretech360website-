@@ -1,18 +1,12 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { RouterProvider } from "@tanstack/react-router";
+const loadClient = () => {
+  void import("./client");
+};
 
-import "./styles.css";
-import { getRouter } from "./router";
+const isMobile = window.matchMedia("(max-width: 767px)").matches;
+const isHomePath = window.location.pathname === "/" || window.location.pathname === "/index.html";
 
-const rootElement = document.getElementById("root");
-
-if (!rootElement) {
-  throw new Error("Root element #root was not found.");
+if (isMobile && isHomePath) {
+  window.setTimeout(loadClient, 1600);
+} else {
+  loadClient();
 }
-
-createRoot(rootElement).render(
-  <StrictMode>
-    <RouterProvider router={getRouter()} />
-  </StrictMode>,
-);
