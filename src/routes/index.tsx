@@ -544,7 +544,7 @@ function WhyEireTech() {
             AI, our team works closely with you — as an extension of your own — to deliver outcomes
             that matter.
           </p>
-          <ul>
+          <div>
             {reasons.map(([n, t, d], idx) => (
               <Reveal key={n} delay={idx * 0.06}>
                 <div
@@ -562,7 +562,7 @@ function WhyEireTech() {
                 </div>
               </Reveal>
             ))}
-          </ul>
+          </div>
         </div>
 
         <Reveal delay={0.1}>
@@ -724,9 +724,9 @@ function Testimonials() {
             <Reveal key={t.name} delay={i * 0.08}>
               <Spotlight className="relative h-full overflow-hidden rounded-3xl border border-brand-line bg-brand-bg p-8 shadow-xl shadow-brand-primary/[0.03]">
                 <Quote className="absolute right-7 top-7 size-10 text-brand-primary/10" />
-                <div className="mb-7 flex gap-1" aria-label="5 out of 5 stars">
+                <div className="mb-7 flex gap-1" role="img" aria-label="5 out of 5 stars">
                   {Array.from({ length: 5 }).map((_, n) => (
-                    <Star key={n} className="size-4 fill-brand-accent text-brand-accent" />
+                    <Star key={n} aria-hidden className="size-4 fill-brand-accent text-brand-accent" />
                   ))}
                 </div>
                 <blockquote className="text-lg font-medium leading-relaxed">“{t.quote}”</blockquote>

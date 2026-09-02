@@ -273,7 +273,7 @@
           <img class="brand-logo logo-dark" src="/src/assets/eiretech-logo-dark.png" alt="" aria-hidden="true" />
         </a>
         <nav class="site-nav" aria-label="Main navigation">
-          <div class="site-links">
+          <div class="site-links" id="site-links">
             <a href="/">Home</a>
             <a href="/about">About</a>
             <a href="/services">Services</a>
@@ -282,16 +282,16 @@
           </div>
           <div class="nav-actions">
             <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false">
                 <circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41" />
               </svg>
             </button>
             <a class="nav-cta brand-gradient" href="#contact-form">
               Start a Project
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10" /></svg>
             </a>
-            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open menu">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-links">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
             </button>
           </div>
         </nav>
@@ -312,10 +312,10 @@
           <h2>Start with a few details.</h2>
           <p class="hint">Fields marked with * are required. Your details are stored securely.</p>
           <div class="grid">
-            <label>Full Name *<input required minlength="2" maxlength="100" name="fullName" autocomplete="off" placeholder="Your full name" /></label>
-            <label>Email Address *<input required maxlength="254" type="email" name="email" autocomplete="off" placeholder="you@company.com" /></label>
-            <label>Phone Number<input maxlength="40" type="tel" name="phone" autocomplete="off" placeholder="Your phone number" /></label>
-            <label>Company Name<input maxlength="120" name="company" autocomplete="off" placeholder="Your company" /></label>
+            <label>Full Name *<input required minlength="2" maxlength="100" name="fullName" autocomplete="name" placeholder="Your full name" /></label>
+            <label>Email Address *<input required maxlength="254" type="email" name="email" autocomplete="email" placeholder="you@company.com" /></label>
+            <label>Phone Number<input maxlength="40" type="tel" name="phone" autocomplete="tel" placeholder="Your phone number" /></label>
+            <label>Company Name<input maxlength="120" name="company" autocomplete="organization" placeholder="Your company" /></label>
             <label class="full">Service *
               <select required name="service">
                 <option value="">Select a service</option>
@@ -377,9 +377,18 @@
       });
 
       const siteNav = document.querySelector(".site-nav");
-      document.querySelector("#menu-toggle").addEventListener("click", () => siteNav.classList.toggle("open"));
+      const menuToggle = document.querySelector("#menu-toggle");
+      menuToggle.addEventListener("click", () => {
+        const isOpen = siteNav.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      });
       document.querySelectorAll(".site-links a").forEach((link) => {
-        link.addEventListener("click", () => siteNav.classList.remove("open"));
+        link.addEventListener("click", () => {
+          siteNav.classList.remove("open");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.setAttribute("aria-label", "Open menu");
+        });
       });
 
       const supabaseUrl = "https://ovmwpsuwauoowalfwzlf.supabase.co";
