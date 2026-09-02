@@ -65,7 +65,9 @@ const HERO_VIDEOS = [
 ];
 
 function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
+  const [matches, setMatches] = useState(() =>
+    typeof window === "undefined" ? false : window.matchMedia(query).matches,
+  );
 
   useEffect(() => {
     const media = window.matchMedia(query);
@@ -86,9 +88,10 @@ function HeroVideoBackground() {
 
   useEffect(() => {
     if (prefersReducedData) return;
-    const timer = window.setTimeout(() => setShouldLoadVideo(true), 1200);
+    setShouldLoadVideo(false);
+    const timer = window.setTimeout(() => setShouldLoadVideo(true), isMobile ? 7000 : 1200);
     return () => window.clearTimeout(timer);
-  }, [prefersReducedData]);
+  }, [isMobile, prefersReducedData]);
 
   useEffect(() => {
     if (!shouldLoadVideo) return;
