@@ -1,0 +1,21 @@
+# Eire Tech
+
+> Eire Tech is a full-service digital solutions company helping businesses grow, automate, and innovate — digital marketing, business automation, brand management, web and app development, custom AI, graphic design, and video, delivered by one connected team.
+
+Eire Tech covers nine disciplines under one roof, so clients do not need to coordinate multiple agencies, tools, and freelancers. Work is automation-first and measured against business outcomes rather than one-off deliverables. Serving start-ups and scaling businesses alike.
+
+Contact: info@eiretech360.com | +353 89 942 7009
+Office: 1717 N Street NW, Ste 1, Washington, DC 20036, US
+
+## Pages
+
+- [Home](https://eiretech360.com/): Overview of Eire Tech's services, working process, and client results.
+- [About](https://eiretech360.com/about): Company story, mission, and what makes Eire Tech different.
+- [Services](https://eiretech360.com/services): The nine service lines in detail — digital marketing, marketing and business automation, brand management, ATL/TTL campaigns, website development, app development, custom AI development, graphic design, and video editing and animation.
+- [Platforms & Tools](https://eiretech360.com/platforms): Technologies used across web and e-commerce, CRM and automation, design, marketing, app development, and AI.
+- [Contact](https://eiretech360.com/contact/): Enquiry form and direct contact details for starting a project.
+
+## Optional
+
+- [Sitemap](https://eiretech360.com/sitemap.xml): All indexable URLs.
+- [Robots](https://eiretech360.com/robots.txt): Crawler policy.

@@ -70,7 +70,7 @@ export function Footer() {
                     rel="noreferrer"
                     aria-label={s.label}
                     title={s.label}
-                    className="grid size-10 place-items-center rounded-full border border-brand-line bg-brand-bg/70 text-brand-muted transition-colors hover:border-brand-primary/50 hover:text-brand-primary"
+                    className="grid size-10 place-items-center rounded-full border border-brand-line bg-brand-bg/70 text-brand-muted transition-colors hover:border-brand-primary/50 hover:text-brand-primary-text"
                     data-hover
                   >
                     <Icon className="size-4" />
@@ -81,7 +81,7 @@ export function Footer() {
           </div>
 
           <div>
-            <div className="mb-5 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-primary">
+            <div className="mb-5 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-primary-text">
               Pages
             </div>
             <ul className="space-y-3 text-sm">
@@ -89,7 +89,7 @@ export function Footer() {
                 <li key={p.to}>
                   <Link
                     to={p.to}
-                    className="text-brand-muted transition-colors hover:text-brand-primary"
+                    className="text-brand-muted transition-colors hover:text-brand-primary-text"
                     data-hover
                   >
                     {p.label}
@@ -100,7 +100,7 @@ export function Footer() {
           </div>
 
           <div>
-            <div className="mb-5 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-primary">
+            <div className="mb-5 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-primary-text">
               Capabilities
             </div>
             <ul className="space-y-3 text-sm">
@@ -108,7 +108,7 @@ export function Footer() {
                 <li key={c}>
                   <Link
                     to="/services"
-                    className="text-brand-muted transition-colors hover:text-brand-primary"
+                    className="text-brand-muted transition-colors hover:text-brand-primary-text"
                     data-hover
                   >
                     {c}
@@ -119,25 +119,25 @@ export function Footer() {
           </div>
 
           <div>
-            <div className="mb-5 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-primary">
+            <div className="mb-5 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-primary-text">
               Contact
             </div>
             <ul className="space-y-4 text-sm">
               <li className="flex gap-3">
-                <Phone className="mt-0.5 size-4 shrink-0 text-brand-primary" />
+                <Phone className="mt-0.5 size-4 shrink-0 text-brand-primary-text" />
                 <a
                   href={office.phoneHref}
-                  className="font-semibold text-brand-text transition-colors hover:text-brand-primary"
+                  className="font-semibold text-brand-text transition-colors hover:text-brand-primary-text"
                   data-hover
                 >
                   {office.phone}
                 </a>
               </li>
               <li className="flex gap-3">
-                <Mail className="mt-0.5 size-4 shrink-0 text-brand-primary" />
+                <Mail className="mt-0.5 size-4 shrink-0 text-brand-primary-text" />
                 <a
                   href={`mailto:${office.email}`}
-                  className="break-all text-brand-muted transition-colors hover:text-brand-primary"
+                  className="break-all text-brand-muted transition-colors hover:text-brand-primary-text"
                   data-hover
                 >
                   {office.email}
@@ -147,7 +147,7 @@ export function Footer() {
 
             <Link
               to="/contact"
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-brand-primary/30 bg-brand-primary/5 px-5 py-2.5 text-sm font-bold text-brand-primary transition-colors hover:bg-brand-primary/10"
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-brand-primary/30 bg-brand-primary/5 px-5 py-2.5 text-sm font-bold text-brand-primary-text transition-colors hover:bg-brand-primary/10"
               data-hover
             >
               Talk to an Expert <ArrowUpRight className="size-4" />
@@ -157,7 +157,8 @@ export function Footer() {
               <p className="font-semibold text-brand-text">Visit Us</p>
               <p className="mt-1">Our Washington office.</p>
               <address className="mt-2 not-italic">
-                1717 N Street NW<br />
+                1717 N Street NW
+                <br />
                 Ste 1<br />
                 Washington, DC 20036
               </address>

@@ -28,6 +28,12 @@
   --border: rgb(8 16 26 / 10%);
   --hairline: rgb(8 16 26 / 6%);
 
+  /* Text-safe brand tints. The raw brand blue/green only reach ~3:1 and ~2.5:1
+     on the light surfaces, so anything rendered as *text* uses these darkened
+     pairs instead. Fills, borders and gradients keep the raw brand colours. */
+  --brand-blue-text: #0b62ae;
+  --brand-green-text: #48731d;
+
   /* Layer used behind glass panels + on-brand button text */
   --on-brand: #ffffff;
   --grid-line: rgb(8 16 26 / 6%);
@@ -50,6 +56,10 @@
   --border: rgb(255 255 255 / 10%);
   --hairline: rgb(255 255 255 / 6%);
 
+  /* On the dark surfaces the raw brand colours already clear 4.5:1. */
+  --brand-blue-text: var(--brand-blue);
+  --brand-green-text: var(--brand-green);
+
   --on-brand: #04070b;
   --grid-line: rgb(255 255 255 / 6%);
   --glow-strength: 55%;
@@ -68,6 +78,12 @@
   --color-brand-primary: var(--brand-blue);
   --color-brand-secondary: var(--brand-blue-deep);
   --color-brand-accent: var(--brand-green);
+
+  /* Use text-brand-primary-text / text-brand-accent-text for real copy on the
+     page surfaces; the plain variants stay for fills, borders and icons that
+     sit on the dark hero. */
+  --color-brand-primary-text: var(--brand-blue-text);
+  --color-brand-accent-text: var(--brand-green-text);
   --color-brand-on: var(--on-brand);
 
   /* shadcn-compatible aliases so src/components/ui/* keeps working */

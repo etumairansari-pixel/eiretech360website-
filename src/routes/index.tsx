@@ -15,12 +15,16 @@ import {
 import circuitImg from "@/assets/circuit.jpg";
 import heroDesktop01 from "@/assets/hero-desktop-01.mp4";
 import heroDesktop01Poster from "@/assets/hero-desktop-01-poster.jpg";
+import heroDesktop01PosterWebp from "@/assets/hero-desktop-01-poster.webp";
 import heroDesktop02 from "@/assets/hero-desktop-02.mp4";
 import heroDesktop02Poster from "@/assets/hero-desktop-02-poster.jpg";
+import heroDesktop02PosterWebp from "@/assets/hero-desktop-02-poster.webp";
 import heroMobile01 from "@/assets/hero-mobile-01.mp4";
 import heroMobile01Poster from "@/assets/hero-mobile-01-poster.jpg";
+import heroMobile01PosterWebp from "@/assets/hero-mobile-01-poster.webp";
 import heroMobile02 from "@/assets/hero-mobile-02.mp4";
 import heroMobile02Poster from "@/assets/hero-mobile-02-poster.jpg";
+import heroMobile02PosterWebp from "@/assets/hero-mobile-02-poster.webp";
 
 import { Shell } from "@/components/site/Shell";
 import { LogoMark } from "@/components/Logo";
@@ -40,8 +44,7 @@ export const Route = createFileRoute("/")({
       { title: "Eire Tech — Digital Growth & Automation Partner" },
       {
         name: "description",
-        content:
-          "Grow. Automate. Innovate.",
+        content: "Grow. Automate. Innovate.",
       },
     ],
   }),
@@ -55,12 +58,16 @@ const HERO_VIDEOS = [
     desktop: heroDesktop01,
     mobilePoster: heroMobile01Poster,
     desktopPoster: heroDesktop01Poster,
+    mobilePosterWebp: heroMobile01PosterWebp,
+    desktopPosterWebp: heroDesktop01PosterWebp,
   },
   {
     mobile: heroMobile02,
     desktop: heroDesktop02,
     mobilePoster: heroMobile02Poster,
     desktopPoster: heroDesktop02Poster,
+    mobilePosterWebp: heroMobile02PosterWebp,
+    desktopPosterWebp: heroDesktop02PosterWebp,
   },
 ];
 
@@ -103,18 +110,26 @@ function HeroVideoBackground() {
 
   const video = HERO_VIDEOS[active];
   const poster = isMobile ? video.mobilePoster : video.desktopPoster;
+  const posterWebp = isMobile ? video.mobilePosterWebp : video.desktopPosterWebp;
 
   return (
     <>
-      <img
-        src={poster}
-        alt=""
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        aria-hidden="true"
-      />
+      {/* The poster is the LCP element. WebP is ~44% lighter than the JPEG;
+          <picture> keeps the JPEG as the fallback, and <picture> itself is an
+          unpositioned inline wrapper so the img still absolutely fills the
+          same ancestor. */}
+      <picture>
+        <source srcSet={posterWebp} type="image/webp" />
+        <img
+          src={poster}
+          alt=""
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+          aria-hidden="true"
+        />
+      </picture>
       {shouldLoadVideo && !prefersReducedData ? (
         <video
           key={`${video.mobile}-${video.desktop}`}
@@ -169,7 +184,7 @@ function Hero() {
                 <motion.span
                   initial={{ y: "110%" }}
                   animate={{ y: "0%" }}
-                  transition={{ duration: 0.65, delay: 0.1 + i * 0.08, ease: [0.2, 0, 0, 1] }}
+                  transition={{ duration: 0.5, delay: 0.04 + i * 0.06, ease: [0.2, 0, 0, 1] }}
                   className={"inline-block " + (i === 1 ? "brand-gradient-text text-glow" : "")}
                 >
                   {w}
@@ -183,9 +198,7 @@ function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.35 }}
             className="mb-10 max-w-xl text-lg leading-relaxed text-white/80"
-          >
-            
-          </motion.p>
+          ></motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -362,7 +375,7 @@ function ServicePanel({
           <div className="grid size-14 place-items-center rounded-2xl border border-brand-primary/50 bg-gradient-to-br from-brand-primary/20 to-brand-primary/5 text-brand-primary backdrop-blur brand-glow">
             <Icon className="size-6" />
           </div>
-          <div className="text-right font-mono text-[10px] uppercase tracking-[0.25em] text-brand-primary">
+          <div className="text-right font-mono text-[10px] uppercase tracking-[0.25em] text-brand-primary-text">
             / {s.tag}
             <div className="mt-1 text-brand-muted">{String(i + 1).padStart(2, "0")} — 09</div>
           </div>
@@ -424,7 +437,7 @@ function ServiceMobileCard({
           <Icon className="size-5" />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="font-mono text-[10px] uppercase tracking-widest text-brand-primary">
+          <div className="font-mono text-[10px] uppercase tracking-widest text-brand-primary-text">
             {String(i + 1).padStart(2, "0")} / {s.tag}
           </div>
           <h3 className="truncate text-lg font-extrabold tracking-tight text-white">{s.title}</h3>
@@ -445,7 +458,7 @@ function ServiceMobileCard({
         <ul className="space-y-2">
           {s.points.map((p) => (
             <li key={p} className="flex items-center gap-2 text-xs text-white/80">
-              <Check className="size-3.5 shrink-0 text-brand-accent" />
+              <Check className="size-3.5 shrink-0 text-brand-accent-text" />
               {p}
             </li>
           ))}
@@ -507,7 +520,7 @@ function ServicesOverview() {
         <Reveal delay={0.1} className="mt-12 flex justify-center">
           <MagneticLink
             to="/services"
-            className="group inline-flex items-center gap-2 rounded-full border border-brand-primary/40 bg-brand-primary/5 px-7 py-3.5 font-bold text-brand-primary transition-colors hover:bg-brand-primary/10"
+            className="group inline-flex items-center gap-2 rounded-full border border-brand-primary/40 bg-brand-primary/5 px-7 py-3.5 font-bold text-brand-primary-text transition-colors hover:bg-brand-primary/10"
           >
             See How We Can Help
             <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
@@ -554,14 +567,14 @@ function WhyEireTech() {
                   className="group flex items-start gap-5 border-b border-brand-line py-5"
                   data-hover
                 >
-                  <span className="font-mono text-sm text-brand-accent">{n}</span>
+                  <span className="font-mono text-sm text-brand-accent-text">{n}</span>
                   <div className="flex-1">
                     <div className="font-bold transition-transform group-hover:translate-x-1">
                       {t}
                     </div>
                     <p className="mt-1 text-sm text-brand-muted">{d}</p>
                   </div>
-                  <ArrowUpRight className="mt-1 size-4 text-brand-muted transition-all group-hover:rotate-45 group-hover:text-brand-primary" />
+                  <ArrowUpRight className="mt-1 size-4 text-brand-muted transition-all group-hover:rotate-45 group-hover:text-brand-primary-text" />
                 </div>
               </Reveal>
             ))}
@@ -586,7 +599,7 @@ function WhyEireTech() {
               <div className="absolute bottom-4 right-4 size-6 border-b-2 border-r-2 border-brand-primary/60" />
               <div className="absolute inset-x-6 bottom-6 flex items-end justify-between">
                 <div>
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-brand-primary">
+                  <div className="font-mono text-[10px] uppercase tracking-widest text-brand-primary-text">
                     AI · Automation · Intelligence
                   </div>
                   <div className="mt-2 text-2xl font-bold text-white">Intelligence by design.</div>
@@ -719,7 +732,7 @@ function Testimonials() {
             </h2>
           </div>
           <div className="flex items-center gap-2 rounded-full border border-brand-line bg-brand-bg px-4 py-2 text-xs text-brand-muted">
-            <ShieldCheck className="size-4 text-brand-accent" /> Testimonials
+            <ShieldCheck className="size-4 text-brand-accent-text" /> Testimonials
           </div>
         </div>
         <div className="grid gap-5 lg:grid-cols-3">
@@ -729,7 +742,11 @@ function Testimonials() {
                 <Quote className="absolute right-7 top-7 size-10 text-brand-primary/10" />
                 <div className="mb-7 flex gap-1" role="img" aria-label="5 out of 5 stars">
                   {Array.from({ length: 5 }).map((_, n) => (
-                    <Star key={n} aria-hidden className="size-4 fill-brand-accent text-brand-accent" />
+                    <Star
+                      key={n}
+                      aria-hidden
+                      className="size-4 fill-brand-accent text-brand-accent"
+                    />
                   ))}
                 </div>
                 <blockquote className="text-lg font-medium leading-relaxed">“{t.quote}”</blockquote>

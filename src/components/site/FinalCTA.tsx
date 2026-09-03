@@ -41,7 +41,7 @@ export function FinalCTA({
               <span className="absolute -right-1 -top-1 size-3 animate-pulse rounded-full bg-brand-accent ring-2 ring-brand-bg" />
             </div>
           </div>
-          <div className="mb-5 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-accent">
+          <div className="mb-5 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-accent-text">
             {label}
           </div>
           <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-[1.02] tracking-tighter md:text-6xl">

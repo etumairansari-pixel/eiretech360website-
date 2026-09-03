@@ -49,14 +49,14 @@ function ServicesPage() {
                     <ul className="mt-7 grid gap-3 sm:grid-cols-2">
                       {s.points.map((p) => (
                         <li key={p} className="flex gap-2 text-sm">
-                          <Check className="mt-0.5 size-4 shrink-0 text-brand-accent" />
+                          <Check className="mt-0.5 size-4 shrink-0 text-brand-accent-text" />
                           {p}
                         </li>
                       ))}
                     </ul>
                     <a
                       href="/contact"
-                      className="mt-8 inline-flex items-center gap-2 font-bold text-brand-primary"
+                      className="mt-8 inline-flex items-center gap-2 font-bold text-brand-primary-text"
                     >
                       Discuss this service <ArrowUpRight className="size-4" />
                     </a>

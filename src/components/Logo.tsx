@@ -11,7 +11,15 @@ export function LogoMark({
   className?: string;
   title?: string;
 }) {
-  return <img src={realMark} alt={title} className={`object-contain ${className}`} />;
+  return (
+    <img
+      src={realMark}
+      alt={title}
+      width={640}
+      height={640}
+      className={`object-contain ${className}`}
+    />
+  );
 }
 
 /**
@@ -32,12 +40,36 @@ export function Logo({
 }) {
   const imgBase = `w-auto object-contain transition-transform duration-500 group-hover/logo:scale-[1.02] ${className}`;
   if (tone === "light") {
-    return <img src={logoDark} alt="Eire Tech 360°" draggable={false} className={imgBase} />;
+    return (
+      <img
+        src={logoDark}
+        alt="Eire Tech 360°"
+        width={1000}
+        height={217}
+        draggable={false}
+        className={imgBase}
+      />
+    );
   }
   return (
     <span className="group/logo inline-flex">
-      <img src={logoLight} alt="Eire Tech 360°" draggable={false} className={`${imgBase} block dark:hidden`} />
-      <img src={logoDark} alt="" aria-hidden draggable={false} className={`${imgBase} hidden dark:block`} />
+      <img
+        src={logoLight}
+        alt="Eire Tech 360°"
+        width={1000}
+        height={217}
+        draggable={false}
+        className={`${imgBase} block dark:hidden`}
+      />
+      <img
+        src={logoDark}
+        alt=""
+        aria-hidden
+        width={1000}
+        height={217}
+        draggable={false}
+        className={`${imgBase} hidden dark:block`}
+      />
     </span>
   );
 }

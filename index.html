@@ -33,17 +33,22 @@
       as="style"
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
     />
+    <!-- WebP saves ~44% on the LCP poster. `type` keeps browsers without WebP
+         support from preloading a file they cannot use — they fall through to
+         the JPEG in the <picture> below. -->
     <link
       rel="preload"
       as="image"
-      href="/src/assets/hero-mobile-01-poster.jpg"
+      type="image/webp"
+      href="/src/assets/hero-mobile-01-poster.webp"
       media="(max-width: 767px)"
       fetchpriority="high"
     />
     <link
       rel="preload"
       as="image"
-      href="/src/assets/hero-desktop-01-poster.jpg"
+      type="image/webp"
+      href="/src/assets/hero-desktop-01-poster.webp"
       media="(min-width: 768px)"
       fetchpriority="high"
     />
@@ -187,7 +192,13 @@
         </div>
         <main class="shell-hero">
           <picture>
+            <source
+              srcset="/src/assets/hero-desktop-01-poster.webp"
+              media="(min-width: 768px)"
+              type="image/webp"
+            />
             <source srcset="/src/assets/hero-desktop-01-poster.jpg" media="(min-width: 768px)" />
+            <source srcset="/src/assets/hero-mobile-01-poster.webp" type="image/webp" />
             <img src="/src/assets/hero-mobile-01-poster.jpg" alt="" fetchpriority="high" decoding="async" />
           </picture>
           <div class="shell-copy">

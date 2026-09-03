@@ -1,6 +1,7 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { defineConfig, loadEnv, type PluginOption, type UserConfig } from "vite";
+import { defineConfig, loadEnv, type Plugin, type PluginOption, type UserConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
@@ -8,8 +9,60 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
+/**
+ * `contact/` is a standalone static page, not a router route. In production
+ * Apache serves it directly: /contact/ hits the directory and returns its
+ * index.html, and /contact gets a 301 to /contact/ from mod_dir — the SPA is
+ * never involved (see public/.htaccess).
+ *
+ * The dev server has no such mapping, so /contact/ fell through to the router,
+ * which 307s back to /contact, which renders the SPA's ContactRedirect route,
+ * which sends the browser to /contact/ again — an endless reload. Mirroring
+ * Apache's two rules here makes dev match the deployed site. Dev only; the
+ * production build (vite.static.config.ts) is untouched.
+ */
+function serveStaticContactPage(): Plugin {
+  return {
+    name: "serve-static-contact-page",
+    apply: "serve",
+    enforce: "pre",
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const [pathname] = (req.url ?? "").split("?");
+
+        // mod_dir: a directory request without the trailing slash is redirected.
+        if (pathname === "/contact") {
+          const query = (req.url ?? "").slice(pathname.length);
+          res.statusCode = 301;
+          res.setHeader("Location", `/contact/${query}`);
+          res.end();
+          return;
+        }
+
+        if (pathname !== "/contact/" && pathname !== "/contact/index.html") {
+          next();
+          return;
+        }
+
+        const file = path.resolve(rootDir, "contact/index.html");
+        fs.promises
+          .readFile(file, "utf8")
+          .then((html) => server.transformIndexHtml(req.url as string, html, req.originalUrl))
+          .then((html) => {
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/html");
+            res.setHeader("Cache-Control", "no-cache");
+            res.end(html);
+          })
+          .catch(next);
+      });
+    },
+  };
+}
+
 export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
   const plugins: PluginOption[] = [
+    serveStaticContactPage(),
     tailwindcss(),
     tsConfigPaths({ projects: ["./tsconfig.json"] }),
     tanstackStart({

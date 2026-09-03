@@ -21,7 +21,10 @@ export function Nav() {
   const lastY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => {
+    let frame = 0;
+
+    const read = () => {
+      frame = 0;
       const y = window.scrollY;
       const top = y < 60;
       // Ignore sub-pixel jitter so the bar doesn't flicker.
@@ -31,9 +34,22 @@ export function Nav() {
       }
       setAtTop(top);
     };
-    onScroll();
+
+    // Reading scrollY directly in the scroll handler forces a layout flush on
+    // every event. Coalescing into a single rAF puts the read on a frame
+    // boundary where layout is already clean — same behaviour, one update per
+    // frame instead of one per event.
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(read);
+    };
+
+    read();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -74,7 +90,7 @@ export function Nav() {
                     active
                       ? overHero
                         ? "text-white"
-                        : "text-brand-primary"
+                        : "text-brand-primary-text"
                       : overHero
                         ? "text-white/72 hover:text-white"
                         : "text-brand-muted hover:text-brand-text"

@@ -210,7 +210,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
 /* ---------------- Section heading ---------------- */
 export function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-primary">
+    <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-brand-primary-text">
       <span className="inline-block size-1.5 rounded-full bg-brand-accent" />
       {children}
     </div>
