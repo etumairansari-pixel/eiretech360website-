@@ -110,11 +110,11 @@
       }
       .shell-hero {
         position: relative;
-        min-height: 100svh;
+        /* matches aspect-[9/19] on the React hero panel */
+        aspect-ratio: 9 / 19;
         display: flex;
         align-items: end;
         overflow: hidden;
-        padding: 120px 24px 48px;
       }
       .shell-hero img {
         position: absolute;
@@ -132,15 +132,24 @@
       .shell-copy {
         position: relative;
         z-index: 1;
-        width: min(100%, 1280px);
+        width: 100%;
+        max-width: 1280px;
         margin: 0 auto;
+        /* px-6 pb-12 */
+        padding: 0 24px 48px;
       }
       .shell-copy h1 {
-        margin: 0 0 32px;
-        max-width: 900px;
-        font-size: clamp(3rem, 14vw, 5rem);
+        /* React's h1 mb-8 collapses with the empty <p>'s mb-10, so the gap
+           down to the buttons resolves to 40px, not 72px. */
+        margin: 0 0 40px;
+        /* Deliberately a little above React's 48px. This h1 is the LCP element:
+           it paints with the shell, long before React commits. Chrome only
+           re-elects LCP when a later candidate is larger, so keeping this box
+           bigger than React's headline pins LCP to the shell's paint. Matching
+           48px exactly hands LCP to React's headline and pushes it out by ~4s. */
+        font-size: 3.5rem;
         line-height: 0.92;
-        letter-spacing: -0.04em;
+        letter-spacing: -0.05em;
         font-weight: 800;
       }
       .shell-copy span {
@@ -153,7 +162,6 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
-        max-width: 320px;
       }
       .shell-actions a {
         min-height: 56px;
@@ -162,7 +170,7 @@
         justify-content: center;
         border-radius: 999px;
         color: #fff;
-        font-weight: 800;
+        font-weight: 700;
         text-decoration: none;
       }
       .shell-primary {
@@ -177,16 +185,17 @@
           padding: 0 32px;
         }
         .shell-hero {
-          min-height: 66vw;
-          max-height: 720px;
-          padding: 150px 48px 80px;
+          /* md:aspect-[14/7] */
+          aspect-ratio: 14 / 7;
+        }
+        .shell-copy {
+          padding: 0 24px 80px;
         }
         .shell-copy h1 {
-          font-size: clamp(5rem, 8vw, 8rem);
+          font-size: 6rem;
         }
         .shell-actions {
           flex-direction: row;
-          max-width: none;
         }
         .shell-actions a {
           width: 320px;
@@ -212,7 +221,7 @@
           <img src="/src/assets/hero-mobile-01-poster.jpg" alt="" fetchpriority="high" decoding="async" />
         </picture>
         <div class="shell-copy">
-          <h1>Grow.<br />Automate.<br /><span>Innovate.</span></h1>
+          <h1>Grow.<br /><span>Automate.</span><br />Innovate.</h1>
           <div class="shell-actions">
             <a class="shell-primary" href="/contact">Book a Free Consultation</a>
             <a class="shell-secondary" href="/services">Explore Our Services</a>
