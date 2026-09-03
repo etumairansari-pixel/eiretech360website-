@@ -70,6 +70,16 @@
       />
     </noscript>
     <style>
+      /* The shell paints before React boots and src/main.tsx removes it once
+         React has committed. It overlays #root instead of living inside it,
+         because createRoot() empties its container — mounting used to blank the
+         page for as long as the first render took. */
+      #shell {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        overflow: hidden;
+      }
       .shell-fallback {
         min-height: 100vh;
         background: #05070a;
@@ -185,31 +195,30 @@
     </style>
   </head>
   <body>
-    <div id="root">
-      <div class="shell-fallback">
-        <div class="shell-nav">
-          <div class="shell-brand">Eire Tech 360</div>
-        </div>
-        <main class="shell-hero">
-          <picture>
-            <source
-              srcset="/src/assets/hero-desktop-01-poster.webp"
-              media="(min-width: 768px)"
-              type="image/webp"
-            />
-            <source srcset="/src/assets/hero-desktop-01-poster.jpg" media="(min-width: 768px)" />
-            <source srcset="/src/assets/hero-mobile-01-poster.webp" type="image/webp" />
-            <img src="/src/assets/hero-mobile-01-poster.jpg" alt="" fetchpriority="high" decoding="async" />
-          </picture>
-          <div class="shell-copy">
-            <h1>Grow.<br />Automate.<br /><span>Innovate.</span></h1>
-            <div class="shell-actions">
-              <a class="shell-primary" href="/contact">Book a Free Consultation</a>
-              <a class="shell-secondary" href="/services">Explore Our Services</a>
-            </div>
-          </div>
-        </main>
+    <div id="root"></div>
+    <div id="shell" class="shell-fallback">
+      <div class="shell-nav">
+        <div class="shell-brand">Eire Tech 360</div>
       </div>
+      <main class="shell-hero">
+        <picture>
+          <source
+            srcset="/src/assets/hero-desktop-01-poster.webp"
+            media="(min-width: 768px)"
+            type="image/webp"
+          />
+          <source srcset="/src/assets/hero-desktop-01-poster.jpg" media="(min-width: 768px)" />
+          <source srcset="/src/assets/hero-mobile-01-poster.webp" type="image/webp" />
+          <img src="/src/assets/hero-mobile-01-poster.jpg" alt="" fetchpriority="high" decoding="async" />
+        </picture>
+        <div class="shell-copy">
+          <h1>Grow.<br />Automate.<br /><span>Innovate.</span></h1>
+          <div class="shell-actions">
+            <a class="shell-primary" href="/contact">Book a Free Consultation</a>
+            <a class="shell-secondary" href="/services">Explore Our Services</a>
+          </div>
+        </div>
+      </main>
     </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
