@@ -8,13 +8,13 @@ import { services } from "@/components/site/data";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Our Services | Web, Marketing, Apps & AI - Eire Tech" },
+      { title: "Our Services | Web, Marketing, Apps & AI – Eire Tech" },
       {
         name: "description",
         content:
           "Explore Eire Tech's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business.",
       },
-      { property: "og:title", content: "Our Services | Web, Marketing, Apps & AI - Eire Tech" },
+      { property: "og:title", content: "Our Services | Web, Marketing, Apps & AI – Eire Tech" },
       {
         property: "og:description",
         content:

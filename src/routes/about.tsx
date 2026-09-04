@@ -7,13 +7,13 @@ import { Reveal, SectionLabel, Spotlight } from "@/components/site/primitives";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Us | Eire Tech - Your Digital Growth Partner" },
+      { title: "About Us | Eire Tech – Your Digital Growth Partner" },
       {
         name: "description",
         content:
           "Learn about Eire Tech, a full-service digital solutions company committed to helping businesses grow, automate & innovate with one trusted partner.",
       },
-      { property: "og:title", content: "About Us | Eire Tech - Your Digital Growth Partner" },
+      { property: "og:title", content: "About Us | Eire Tech – Your Digital Growth Partner" },
       {
         property: "og:description",
         content:

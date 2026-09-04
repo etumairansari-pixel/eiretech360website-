@@ -60,7 +60,7 @@ function inlineStylesheet(): Plugin {
 const staticRouteMeta = [
   {
     path: "services",
-    title: "Our Services | Web, Marketing, Apps & AI - Eire Tech",
+    title: "Our Services | Web, Marketing, Apps & AI – Eire Tech",
     description:
       "Explore Eire Tech's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business.",
     url: "https://eiretech360.com/services",
@@ -74,7 +74,7 @@ const staticRouteMeta = [
   },
   {
     path: "about",
-    title: "About Us | Eire Tech - Your Digital Growth Partner",
+    title: "About Us | Eire Tech – Your Digital Growth Partner",
     description:
       "Learn about Eire Tech, a full-service digital solutions company committed to helping businesses grow, automate & innovate with one trusted partner.",
     url: "https://eiretech360.com/about",
