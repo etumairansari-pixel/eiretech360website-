@@ -84,11 +84,7 @@
         min-height: 100vh;
         background: #05070a;
         color: #fff;
-        font-family:
-          "Plus Jakarta Sans",
-          ui-sans-serif,
-          system-ui,
-          sans-serif;
+        font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
       }
       .shell-fallback * {
         box-sizing: border-box;
@@ -127,7 +123,12 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgb(2 6 23 / 95%), rgb(2 6 23 / 45%), rgb(2 6 23 / 25%));
+        background: linear-gradient(
+          to top,
+          rgb(2 6 23 / 95%),
+          rgb(2 6 23 / 45%),
+          rgb(2 6 23 / 25%)
+        );
       }
       .shell-copy {
         position: relative;
@@ -209,7 +210,12 @@
           />
           <source srcset="/src/assets/hero-desktop-01-poster.jpg" media="(min-width: 768px)" />
           <source srcset="/src/assets/hero-mobile-01-poster.webp" type="image/webp" />
-          <img src="/src/assets/hero-mobile-01-poster.jpg" alt="" fetchpriority="high" decoding="async" />
+          <img
+            src="/src/assets/hero-mobile-01-poster.jpg"
+            alt=""
+            fetchpriority="high"
+            decoding="async"
+          />
         </picture>
         <div class="shell-copy">
           <h1>Grow.<br />Automate.<br /><span>Innovate.</span></h1>
