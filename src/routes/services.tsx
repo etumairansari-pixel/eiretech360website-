@@ -5,7 +5,26 @@ import { FinalCTA } from "@/components/site/FinalCTA";
 import { Reveal } from "@/components/site/primitives";
 import { services } from "@/components/site/data";
 
-export const Route = createFileRoute("/services")({ component: ServicesPage });
+export const Route = createFileRoute("/services")({
+  head: () => ({
+    meta: [
+      { title: "Our Services | Web, Marketing, Apps & AI - Eire Tech" },
+      {
+        name: "description",
+        content:
+          "Explore Eire Tech's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business.",
+      },
+      { property: "og:title", content: "Our Services | Web, Marketing, Apps & AI - Eire Tech" },
+      {
+        property: "og:description",
+        content:
+          "Explore Eire Tech's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business.",
+      },
+    ],
+    links: [{ rel: "canonical", href: "https://eiretech360.com/services" }],
+  }),
+  component: ServicesPage,
+});
 
 function ServicesPage() {
   return (

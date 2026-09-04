@@ -24,6 +24,14 @@ Options -MultiViews
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+  # The static build emits a per-route index.html under about/, platforms/ and
+  # services/ so crawlers that do not run JS still get that page's own title and
+  # description. Left alone, mod_dir would answer /services with a 301 to
+  # /services/ — a redirect that contradicts both the canonical tag and the
+  # sitemap, which name the slash-less URL. Rewriting here keeps the canonical
+  # URL a direct 200.
+  RewriteRule ^(about|platforms|services)/?$ $1/index.html [L]
+
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]

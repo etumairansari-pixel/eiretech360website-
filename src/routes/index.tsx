@@ -41,12 +41,26 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Eire Tech — Digital Growth & Automation Partner" },
+      { title: "Eire Tech | Digital Growth & Automation Partner" },
       {
         name: "description",
-        content: "Grow. Automate. Innovate.",
+        content:
+          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
+      },
+      { property: "og:title", content: "Eire Tech | Digital Growth & Automation Partner" },
+      {
+        property: "og:description",
+        content:
+          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
+      },
+      { name: "twitter:title", content: "Eire Tech | Digital Growth & Automation Partner" },
+      {
+        name: "twitter:description",
+        content:
+          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
       },
     ],
+    links: [{ rel: "canonical", href: "https://eiretech360.com/" }],
   }),
   component: Home,
 });

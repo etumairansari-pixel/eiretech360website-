@@ -109,23 +109,23 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#1e9bf0" },
-      { title: "Eire Tech — Digital Growth & Automation Partner" },
-      { property: "og:title", content: "Eire Tech — Digital Growth & Automation Partner" },
-      { name: "twitter:title", content: "Eire Tech — Digital Growth & Automation Partner" },
+      { title: "Eire Tech | Digital Growth & Automation Partner" },
+      { property: "og:title", content: "Eire Tech | Digital Growth & Automation Partner" },
+      { name: "twitter:title", content: "Eire Tech | Digital Growth & Automation Partner" },
       {
         name: "description",
         content:
-          "Eire Tech is a full-service digital solutions company helping businesses grow, automate, and innovate — marketing, brand, web, apps, and AI under one roof.",
+          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
       },
       {
         property: "og:description",
         content:
-          "Eire Tech is a full-service digital solutions company helping businesses grow, automate, and innovate — marketing, brand, web, apps, and AI under one roof.",
+          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
       },
       {
         name: "twitter:description",
         content:
-          "Eire Tech is a full-service digital solutions company helping businesses grow, automate, and innovate — marketing, brand, web, apps, and AI under one roof.",
+          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
       },
       { property: "og:image", content: `${SITE_URL}/og-image.png` },
       { name: "twitter:image", content: `${SITE_URL}/og-image.png` },

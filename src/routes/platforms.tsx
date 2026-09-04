@@ -4,7 +4,26 @@ import { Shell, PageHero } from "@/components/site/Shell";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { Reveal, Spotlight } from "@/components/site/primitives";
 
-export const Route = createFileRoute("/platforms")({ component: PlatformsPage });
+export const Route = createFileRoute("/platforms")({
+  head: () => ({
+    meta: [
+      { title: "Digital Platforms & Tools | Eire Tech Solutions" },
+      {
+        name: "description",
+        content:
+          "Discover Eire Tech's powerful digital platforms designed to streamline operations, automate workflows & drive smarter business growth.",
+      },
+      { property: "og:title", content: "Digital Platforms & Tools | Eire Tech Solutions" },
+      {
+        property: "og:description",
+        content:
+          "Discover Eire Tech's powerful digital platforms designed to streamline operations, automate workflows & drive smarter business growth.",
+      },
+    ],
+    links: [{ rel: "canonical", href: "https://eiretech360.com/platforms" }],
+  }),
+  component: PlatformsPage,
+});
 const groups = [
   [ShoppingBag, "Website & E-commerce", ["WordPress", "Shopify", "Wix", "Webflow"]],
   [Workflow, "CRM & Automation", ["HubSpot", "Salesforce", "Zapier", "Make", "ActiveCampaign"]],
