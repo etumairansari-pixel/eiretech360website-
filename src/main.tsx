@@ -1,7 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
-import { disableDocumentShell } from "./spa-route-tree";
 
 import "./styles.css";
 import { getRouter } from "./router";
@@ -12,8 +11,29 @@ if (!rootElement) {
   throw new Error("Root element #root was not found.");
 }
 
-// The document already has its SEO tags; don't mount a second document head.
-disableDocumentShell();
+// Keep the baseline renderer. Once React's head tags exist, remove only their
+// static duplicates; crawlers still receive the complete head without JS.
+const initialHeadTags = Array.from(
+  document.head.querySelectorAll('title, meta[name], meta[property], link[rel="canonical"]'),
+);
+
+function removeDuplicateStaticTags() {
+  for (const tag of initialHeadTags) {
+    const attribute = tag.hasAttribute("name")
+      ? "name"
+      : tag.hasAttribute("property")
+        ? "property"
+        : tag.hasAttribute("rel")
+          ? "rel"
+          : null;
+    const duplicates = Array.from(document.head.querySelectorAll(tag.tagName)).filter(
+      (other) =>
+        other !== tag &&
+        (!attribute || other.getAttribute(attribute) === tag.getAttribute(attribute)),
+    );
+    if (duplicates.length) tag.remove();
+  }
+}
 const router = getRouter();
 // Initial metadata is already in the static HTML. Keep the original startup
 // path and only update the head after navigation to another URL.
@@ -56,7 +76,10 @@ if (shell) {
       return;
     }
     // One more frame so React's paint is on screen before the shell goes.
-    requestAnimationFrame(() => shell.remove());
+    requestAnimationFrame(() => {
+      removeDuplicateStaticTags();
+      shell.remove();
+    });
   };
 
   requestAnimationFrame(dropShell);

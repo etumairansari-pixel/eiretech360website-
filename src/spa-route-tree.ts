@@ -1,22 +1,14 @@
 import { routeTree } from "./routeTree.gen";
 
 /**
- * __root.tsx declares a shellComponent that renders <html>/<head>/<body>. That
- * belongs to the SSR build, which produces the whole document. This static
- * build owns the document itself (index.html) and mounts into #root, so the
- * shell has to be off in both places that render the tree here:
+ * The inner-page prerender is inserted into an existing HTML document, so its
+ * build-time tree must not include the root's full <html>/<head>/<body> shell.
+ * This is called only by entry-prerender.tsx. The browser keeps the selected
+ * commit's original rendering path; main.tsx removes duplicate static head tags
+ * after React commits. The full SSR entry also keeps its document shell.
  *
- *   - the prerender (src/entry-prerender.tsx), or the built page would carry a
- *     second full document inside #root;
- *   - the browser (src/main.tsx), where the router renders the shell while
- *     hydrating — putting an <html> element inside a <div>, which is invalid,
- *     duplicates every head tag, and fails hydration outright.
- *
- * This is a function rather than a top-level statement on purpose: the package
- * is marked `"sideEffects": false`, so a bare assignment in this module gets
- * tree-shaken away and the shell quietly comes back.
- *
- * The SSR entry never calls this, so its shell is untouched.
+ * Keep this explicit: package.json declares sideEffects:false, so a standalone
+ * module-level assignment could be tree-shaken away.
  */
 export function disableDocumentShell() {
   (routeTree.options as { shellComponent?: unknown }).shellComponent = undefined;
