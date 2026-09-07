@@ -1,12 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { defineConfig, type Plugin } from "vite";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
+
+const PRERENDER_PLACEHOLDER = '<div id="prerendered"></div>';
 
 /**
  * Tailwind emits a single ~100 KB stylesheet, and as a plain <link> it is a
@@ -118,6 +120,18 @@ function withRouteMeta(html: string, route: (typeof staticRouteMeta)[number]) {
     );
 }
 
+/**
+ * The hero poster preload belongs to the homepage. Every other route now
+ * prerenders its own content, so keeping it would spend a high-priority
+ * request on an image that page never renders.
+ */
+function stripHeroPreload(html: string) {
+  return html.replace(
+    /\n\s*<!-- WebP saves[\s\S]*?-->(?:\s*<link\s+rel="preload"\s+as="image"[\s\S]*?\/>)+/,
+    "",
+  );
+}
+
 function emitStaticRouteMetaPages(): Plugin {
   return {
     name: "emit-static-route-meta-pages",
@@ -134,7 +148,127 @@ function emitStaticRouteMetaPages(): Plugin {
       for (const route of staticRouteMeta) {
         const routeDir = path.join(outDir, route.path);
         fs.mkdirSync(routeDir, { recursive: true });
-        fs.writeFileSync(path.join(routeDir, "index.html"), withRouteMeta(indexHtml, route));
+        fs.writeFileSync(
+          path.join(routeDir, "index.html"),
+          stripHeroPreload(withRouteMeta(indexHtml, route)),
+        );
+      }
+    },
+  };
+}
+
+/**
+ * Renders each route's real React tree into its static HTML at build time.
+ *
+ * Without this, a route page carries the correct <head> over a copy of the
+ * homepage body: anything that does not run JS reads "Grow. Automate.
+ * Innovate." on /about, and every route paints the homepage hero until React
+ * replaces it.
+ *
+ * The render goes through Vite rather than plain node because the page
+ * components import images and video, and only Vite's pipeline resolves those
+ * to the hashed URLs the client build emitted. So the entry is built as an SSR
+ * bundle first, then imported here.
+ *
+ * Runs in closeBundle, by which point the per-route HTML files written during
+ * writeBundle exist.
+ */
+/**
+ * renderToString has nowhere to put the tags React hoists — <link>, <meta>,
+ * <title> — so it emits them at the front of the string. In the browser React
+ * puts those in <head>, never in the container, so leaving them inside #root
+ * guarantees a hydration mismatch (React error #418).
+ *
+ * Dropping them costs nothing: they are preload hints for images the
+ * prerendered markup already references, so the preload scanner finds those
+ * <img> tags in the same document anyway, and React re-issues the hints into
+ * <head> as it hydrates.
+ */
+function stripHoistedTags(markup: string) {
+  let out = markup;
+  for (;;) {
+    const next = out.replace(/^\s*(?:<(?:link|meta)\b[^>]*\/?>|<(?:title|style)\b[^>]*>[\s\S]*?<\/(?:title|style)>)/, "");
+    if (next === out) return out;
+    out = next;
+  }
+}
+
+function prerenderRoutes(): Plugin {
+  const routes = [
+    { url: "/", file: "index.html" },
+    { url: "/about", file: "about/index.html" },
+    { url: "/services", file: "services/index.html" },
+    { url: "/platforms", file: "platforms/index.html" },
+  ];
+
+  return {
+    name: "prerender-routes",
+    apply: "build",
+    enforce: "post",
+    async closeBundle() {
+      const outDir = path.resolve(rootDir, "dist-static");
+      if (!fs.existsSync(path.join(outDir, "index.html"))) return;
+
+      const ssrDir = path.resolve(rootDir, "node_modules/.prerender");
+      const { build } = await import("vite");
+
+      // configFile: false keeps this nested build from re-running the plugins
+      // above, this one included.
+      await build({
+        configFile: false,
+        logLevel: "warn",
+        // __root.tsx imports styles.css?url, so the SSR pass has to resolve
+        // the stylesheet even though the prerender never uses it.
+        plugins: [react(), tailwindcss()],
+        resolve: { alias: { "@": path.resolve(rootDir, "src") } },
+        build: {
+          ssr: true,
+          outDir: ssrDir,
+          emptyOutDir: true,
+          copyPublicDir: false,
+          rollupOptions: {
+            input: path.resolve(rootDir, "src/entry-prerender.tsx"),
+            output: { entryFileNames: "entry.mjs", format: "es" },
+          },
+        },
+      });
+
+      const { render } = (await import(pathToFileURL(path.join(ssrDir, "entry.mjs")).href)) as {
+        render: (url: string) => Promise<string>;
+      };
+
+      for (const route of routes) {
+        const file = path.join(outDir, route.file);
+        if (!fs.existsSync(file)) continue;
+
+        const html = fs.readFileSync(file, "utf8");
+        if (!html.includes(PRERENDER_PLACEHOLDER)) {
+          throw new Error(`${route.file}: no empty #prerendered to render into`);
+        }
+
+        const body = stripHoistedTags(await render(route.url));
+        fs.writeFileSync(
+          file,
+          html.replace(PRERENDER_PLACEHOLDER, `<div id="prerendered">${body}</div>`),
+        );
+      }
+
+      // Every asset the prerendered markup points at has to exist in the client
+      // build. If the two builds ever hash an asset differently, fail here
+      // rather than ship a 404.
+      const missing = new Set<string>();
+      for (const route of routes) {
+        const file = path.join(outDir, route.file);
+        if (!fs.existsSync(file)) continue;
+        const html = fs.readFileSync(file, "utf8");
+        for (const [, url] of html.matchAll(/(?:src|srcset|href)="(\/assets\/[^"]+)"/g)) {
+          if (!fs.existsSync(path.join(outDir, url))) missing.add(url);
+        }
+      }
+      if (missing.size) {
+        throw new Error(
+          `prerendered HTML references assets the build did not emit:\n  ${[...missing].join("\n  ")}`,
+        );
       }
     },
   };
@@ -147,6 +281,7 @@ export default defineConfig({
     tailwindcss(),
     inlineStylesheet(),
     emitStaticRouteMetaPages(),
+    prerenderRoutes(),
   ],
   resolve: {
     alias: {

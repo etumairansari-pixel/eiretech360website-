@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
 
 import "./styles.css";
+import { disableDocumentShell } from "./spa-route-tree";
 import { getRouter } from "./router";
 
 const rootElement = document.getElementById("root");
@@ -11,6 +12,9 @@ if (!rootElement) {
   throw new Error("Root element #root was not found.");
 }
 
+// Must run before getRouter() builds the router. See src/spa-route-tree.ts.
+disableDocumentShell();
+
 createRoot(rootElement).render(
   <StrictMode>
     <RouterProvider router={getRouter()} />
@@ -18,31 +22,42 @@ createRoot(rootElement).render(
 );
 
 /**
- * createRoot() empties its container, so while React worked through its first
- * render the page went blank — on a throttled phone that was seconds of white
- * between the pre-rendered shell and React's first paint, and it was the main
- * thing driving Speed Index up.
+ * Each page ships with its own content prerendered into #prerendered (see the
+ * prerender step in vite.static.config.ts), sitting as a fixed overlay above
+ * the empty #root.
  *
- * The shell now sits outside #root as a fixed overlay, so React mounts behind
- * it and it is only dropped once React has actually committed and painted. If
- * React never gets that far the shell simply stays, which is the same no-JS
- * fallback as before.
+ * That layer is what the visitor — and any crawler that does not run JS — sees
+ * first. React mounts underneath it and the layer is dropped only once React
+ * has actually committed and painted, so there is never a blank frame between
+ * the two. If React never gets that far the prerendered page simply stays,
+ * which is a far better no-JS fallback than the old hand-written hero: it is
+ * this route's real content.
+ *
+ * Hydrating it instead was the obvious idea, and it does not work here: the
+ * router renders SafeFragment on the server and Suspense in the browser, so the
+ * two trees differ by design and React discards the markup and re-renders. That
+ * contract belongs to TanStack Start, which this static build does not use.
  */
-const shell = document.getElementById("shell");
+const prerendered = document.getElementById("prerendered");
 
-if (shell) {
+if (prerendered) {
   let frames = 0;
 
-  const dropShell = () => {
+  const drop = () => {
     if (!rootElement.firstElementChild) {
-      // Stop polling after ~10s. A shell that stays beats a blank page, and
-      // this keeps a failed mount from spinning rAF forever.
-      if (frames++ < 600) requestAnimationFrame(dropShell);
+      // Stop after ~10s. A page that stays beats a blank one, and this keeps a
+      // failed mount from spinning rAF forever.
+      if (frames++ < 600) requestAnimationFrame(drop);
       return;
     }
-    // One more frame so React's paint is on screen before the shell goes.
-    requestAnimationFrame(() => shell.remove());
+    // One more frame so React's paint is on screen before the layer goes, and
+    // carry over any scrolling done while it was up.
+    requestAnimationFrame(() => {
+      const { scrollTop } = prerendered;
+      prerendered.remove();
+      if (scrollTop > 0) window.scrollTo(0, scrollTop);
+    });
   };
 
-  requestAnimationFrame(dropShell);
+  requestAnimationFrame(drop);
 }

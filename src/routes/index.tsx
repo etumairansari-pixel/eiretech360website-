@@ -124,18 +124,25 @@ function HeroVideoBackground() {
 
   const video = HERO_VIDEOS[active];
   const poster = isMobile ? video.mobilePoster : video.desktopPoster;
-  const posterWebp = isMobile ? video.mobilePosterWebp : video.desktopPosterWebp;
 
   return (
     <>
       {/* The poster is the LCP element. WebP is ~44% lighter than the JPEG;
           <picture> keeps the JPEG as the fallback, and <picture> itself is an
           unpositioned inline wrapper so the img still absolutely fills the
-          same ancestor. */}
+          same ancestor.
+
+          Each candidate carries its own media query instead of being picked
+          through isMobile, so the markup is identical in the prerendered HTML
+          and in the client's first render — a JS-chosen src would differ from
+          the prerendered one on mobile and break hydration. It also means the
+          right poster starts downloading before any of our JS runs. */}
       <picture>
-        <source srcSet={posterWebp} type="image/webp" />
+        <source media="(max-width: 767px)" srcSet={video.mobilePosterWebp} type="image/webp" />
+        <source media="(max-width: 767px)" srcSet={video.mobilePoster} type="image/jpeg" />
+        <source media="(min-width: 768px)" srcSet={video.desktopPosterWebp} type="image/webp" />
         <img
-          src={poster}
+          src={video.desktopPoster}
           alt=""
           loading="eager"
           fetchPriority="high"
