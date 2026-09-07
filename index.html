@@ -106,6 +106,12 @@
         overscroll-behavior: none;
         background: var(--bg, #ffffff);
       }
+      /* The static fallback must be readable before JavaScript runs, including
+         sections whose client-side entrance animation waits for scrolling. */
+      #prerendered [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     </style>
   </head>
   <body>

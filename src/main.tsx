@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
+import { StaticRouteHead } from "./components/StaticRouteHead";
 
 import "./styles.css";
 import { disableDocumentShell } from "./spa-route-tree";
@@ -17,7 +18,7 @@ disableDocumentShell();
 
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={getRouter()} />
+    <RouterProvider router={getRouter()} InnerWrap={StaticRouteHead} />
   </StrictMode>,
 );
 

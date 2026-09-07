@@ -187,7 +187,7 @@ function Hero() {
 
         <div className="relative mx-auto w-full max-w-7xl px-6 pb-12 md:pb-20">
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.05 }}
             className="mb-8 hidden items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-brand-accent backdrop-blur md:inline-flex"
@@ -203,7 +203,7 @@ function Hero() {
             {HEADLINE.map((w, i) => (
               <span key={w} className="mr-3 inline-block overflow-hidden align-top md:mr-4">
                 <motion.span
-                  initial={{ y: "110%" }}
+                  initial={false}
                   animate={{ y: "0%" }}
                   transition={{ duration: 0.5, delay: 0.04 + i * 0.06, ease: [0.2, 0, 0, 1] }}
                   className={"inline-block " + (i === 1 ? "brand-gradient-text text-glow" : "")}
@@ -215,14 +215,14 @@ function Hero() {
           </h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.35 }}
             className="mb-10 max-w-xl text-lg leading-relaxed text-white/80"
           ></motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.45 }}
             className="flex flex-col gap-4 sm:flex-row sm:flex-wrap"

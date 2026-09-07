@@ -16,13 +16,13 @@ npm run dev                  # http://localhost:8080
 
 ## Scripts
 
-| Script                  | What it does                                                |
-| ----------------------- | ----------------------------------------------------------- |
-| `npm run dev`           | Dev server                                                   |
-| `npm run build`         | Static build into `dist-static/` — this is what ships        |
-| `npm run build:ssr`     | SSR build (Nitro → Cloudflare) into `.output/`               |
-| `npm run preview`       | Preview a production build                                   |
-| `npm run lint`          | ESLint + Prettier                                            |
+| Script                    | What it does                                                   |
+| ------------------------- | -------------------------------------------------------------- |
+| `npm run dev`             | Dev server                                                     |
+| `npm run build`           | Static build into `dist-static/` — this is what ships          |
+| `npm run build:ssr`       | SSR build (Nitro → Cloudflare) into `.output/`                 |
+| `npm run preview`         | Preview a production build                                     |
+| `npm run lint`            | ESLint + Prettier                                              |
 | `npm run optimize:images` | Re-encode `src/assets` images in place (lossy, safe to re-run) |
 
 ## Environment
@@ -61,13 +61,32 @@ live in one place: `src/components/site/data.ts`.
    description, canonical and og tags, and dropping the homepage-only hero
    preload.
 3. **prerenderRoutes** renders each route's React tree through an SSR build of
-   `src/entry-prerender.tsx` and injects the markup into that page's `#root`,
-   so the served HTML carries the page's own content. `src/main.tsx` hydrates
-   that markup instead of re-rendering from scratch.
+   `src/entry-prerender.tsx` and injects the markup into `#prerendered`,
+   so the served HTML carries the page's own content. `src/main.tsx` mounts
+   React into `#root` and removes the static overlay after React paints.
 
 The build fails if prerendered markup references an asset the client build did
 not emit, so a hashing mismatch between the two passes cannot ship.
 
 Titles and descriptions therefore live in two places: `staticRouteMeta` in
 `vite.static.config.ts` (what ships) and each route's `head:` export (used by
-the SSR build). Change both.
+the SSR build and client navigation). Change both. `StaticRouteHead` updates
+the existing document tags when the user navigates inside the static app.
+
+`npm run build` and `npm run build:static` also run `scripts/verify-static.mjs`.
+This checks all five pages against the SEO PDF copy, their canonical URLs and
+their own H1 content, and checks that Contact remains a standalone form.
+Run `npm run verify:static` to check an existing build again.
+
+## Static deployment
+
+Upload the complete contents of `dist-static/`, including the hidden `.htaccess`,
+`assets/`, and each page directory. Uploading only the homepage or JavaScript
+leaves crawlers reading old route HTML. Invalidate cached HTML after updating.
+The existing `.htaccess` serves `/services`, `/platforms` and `/about` directly
+from their own files. Keep the standalone `contact/index.html` entry and its
+`/contact/` URL; it must not be replaced by the SPA homepage or redirect component.
+
+Vite preview does not execute Apache rewrites. For direct static HTML checks in
+preview, open `/services/`, `/platforms/` and `/about/`; the deployed Apache rules
+also serve the slash-less canonical URLs.
