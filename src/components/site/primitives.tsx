@@ -6,7 +6,6 @@ import {
   useInView,
   animate,
   useMotionTemplate,
-  type HTMLMotionProps,
 } from "motion/react";
 import {
   useEffect,
@@ -19,9 +18,6 @@ import {
 import { Link } from "@tanstack/react-router";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/lib/theme";
-
-// Keep the component identity stable across parent renders.
-const MotionLink = motion.create(Link);
 
 /* ---------------- Scroll progress ---------------- */
 export function ScrollProgress() {
@@ -71,6 +67,7 @@ export function MagneticLink({
   className?: string;
 }) {
   const { ref, sx, sy, onMouseMove, onMouseLeave } = useMagnet();
+  const MotionLink = motion.create(Link);
   return (
     <MotionLink
       to={to}
@@ -98,7 +95,7 @@ export function MagneticAnchor({ children, className, ...rest }: ComponentPropsW
       style={{ x: sx, y: sy }}
       className={className}
       data-hover
-      {...(rest as HTMLMotionProps<"a">)}
+      {...(rest as never)}
     >
       {children}
     </motion.a>
@@ -119,7 +116,6 @@ export function Reveal({
 }) {
   return (
     <motion.div
-      data-reveal=""
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}

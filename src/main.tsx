@@ -1,10 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
-import { StaticRouteHead } from "./components/StaticRouteHead";
+import { disableDocumentShell } from "./spa-route-tree";
 
 import "./styles.css";
-import { disableDocumentShell } from "./spa-route-tree";
 import { getRouter } from "./router";
 
 const rootElement = document.getElementById("root");
@@ -13,52 +12,52 @@ if (!rootElement) {
   throw new Error("Root element #root was not found.");
 }
 
-// Must run before getRouter() builds the router. See src/spa-route-tree.ts.
+// The document already has its SEO tags; don't mount a second document head.
 disableDocumentShell();
+const router = getRouter();
+// Initial metadata is already in the static HTML. Keep the original startup
+// path and only update the head after navigation to another URL.
+let lastHeadUrl = window.location.href;
+router.subscribe("onResolved", () => {
+  if (window.location.href === lastHeadUrl) return;
+  lastHeadUrl = window.location.href;
+  void import("./components/StaticRouteHead").then(({ syncStaticRouteHead }) => {
+    syncStaticRouteHead(router.state.matches);
+  });
+});
 
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={getRouter()} InnerWrap={StaticRouteHead} />
+    <RouterProvider router={router} />
   </StrictMode>,
 );
 
 /**
- * Each page ships with its own content prerendered into #prerendered (see the
- * prerender step in vite.static.config.ts), sitting as a fixed overlay above
- * the empty #root.
+ * createRoot() empties its container, so while React worked through its first
+ * render the page went blank — on a throttled phone that was seconds of white
+ * between the pre-rendered shell and React's first paint, and it was the main
+ * thing driving Speed Index up.
  *
- * That layer is what the visitor — and any crawler that does not run JS — sees
- * first. React mounts underneath it and the layer is dropped only once React
- * has actually committed and painted, so there is never a blank frame between
- * the two. If React never gets that far the prerendered page simply stays,
- * which is a far better no-JS fallback than the old hand-written hero: it is
- * this route's real content.
- *
- * Hydrating it instead was the obvious idea, and it does not work here: the
- * router renders SafeFragment on the server and Suspense in the browser, so the
- * two trees differ by design and React discards the markup and re-renders. That
- * contract belongs to TanStack Start, which this static build does not use.
+ * The shell now sits outside #root as a fixed overlay, so React mounts behind
+ * it and it is only dropped once React has actually committed and painted. If
+ * React never gets that far the shell simply stays, which is the same no-JS
+ * fallback as before.
  */
-const prerendered = document.getElementById("prerendered");
+const shell = document.getElementById("shell");
 
-if (prerendered) {
+if (shell) {
   let frames = 0;
 
-  const drop = () => {
+  const dropShell = () => {
     if (!rootElement.firstElementChild) {
-      // Stop after ~10s. A page that stays beats a blank one, and this keeps a
-      // failed mount from spinning rAF forever.
-      if (frames++ < 600) requestAnimationFrame(drop);
+      // Stop polling after ~10s. A shell that stays beats a blank page, and
+      // this keeps a failed mount from spinning rAF forever.
+      if (frames++ < 600) requestAnimationFrame(dropShell);
       return;
     }
-    // One more frame so React's paint is on screen before the layer goes, and
-    // carry over any scrolling done while it was up.
-    requestAnimationFrame(() => {
-      const { scrollTop } = prerendered;
-      prerendered.remove();
-      if (scrollTop > 0) window.scrollTo(0, scrollTop);
-    });
+    // One more frame so React's paint is on screen before the shell goes.
+    requestAnimationFrame(() => shell.remove());
   };
 
-  requestAnimationFrame(drop);
+  requestAnimationFrame(dropShell);
 }

@@ -74,8 +74,8 @@ for (const [route, title, description, heading] of pages) {
   }
   if (!route) {
     assert.ok(
-      !html.includes("translateY(110%)"),
-      "Homepage headline must be visible before JavaScript",
+      html.includes('id="shell" class="shell-fallback"'),
+      "Keep the selected commit's lightweight homepage shell",
     );
   }
   if (route === "contact") {

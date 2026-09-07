@@ -19,8 +19,8 @@ npm run dev                  # http://localhost:8080
 | Script                    | What it does                                                   |
 | ------------------------- | -------------------------------------------------------------- |
 | `npm run dev`             | Dev server                                                     |
-| `npm run build`           | Static build into `dist-static/` — this is what ships          |
-| `npm run build:ssr`       | SSR build (Nitro → Cloudflare) into `.output/`                 |
+| `npm run build`           | SSR build (Nitro → Cloudflare) into `.output/`                 |
+| `npm run build:static`    | Static SPA build into `dist-static/`                           |
 | `npm run preview`         | Preview a production build                                     |
 | `npm run lint`            | ESLint + Prettier                                              |
 | `npm run optimize:images` | Re-encode `src/assets` images in place (lossy, safe to re-run) |
@@ -41,7 +41,6 @@ src/
   components/site/ site chrome: Nav, Footer, Shell, primitives, shared data
   components/ui/   shadcn/ui primitives
   lib/             supabase client, theme, error reporting
-  entry-prerender.tsx  build-time route renderer (static build only)
 public/            favicons, og image, manifest, robots, sitemap
 supabase/          edge function + migration for contact submissions
 scripts/           image + icon generation
@@ -50,43 +49,23 @@ scripts/           image + icon generation
 Contact details, social links, and the (currently unused) office address all
 live in one place: `src/components/site/data.ts`.
 
-## How the static build produces each page
+## SEO on the f53e14d performance baseline
 
-`vite.static.config.ts` does three things after the bundle is written, in order:
+The homepage HTML shell, hero/video behavior, styles and standalone contact
+setup are preserved from `f53e14d3a020644a8376b607196fc580bbbf89ca`.
+Only About, Services and Platforms are prerendered at build time, so crawlers
+receive each page's real content instead of the homepage fallback. The homepage
+keeps its lightweight shell. Contact remains its own document at `/contact/`.
 
-1. **inlineStylesheet** folds Tailwind's ~100 KB sheet into a `<style>` tag and
-   deletes the now-unreferenced file.
-2. **emitStaticRouteMetaPages** writes `about/`, `services/` and `platforms/`
-   `index.html` from the homepage HTML, swapping in each route's title,
-   description, canonical and og tags, and dropping the homepage-only hero
-   preload.
-3. **prerenderRoutes** renders each route's React tree through an SSR build of
-   `src/entry-prerender.tsx` and injects the markup into `#prerendered`,
-   so the served HTML carries the page's own content. `src/main.tsx` mounts
-   React into `#root` and removes the static overlay after React paints.
+`StaticRouteHead` updates the existing title, description, canonical and social
+tags during client navigation. Static metadata lives in `vite.static.config.ts`;
+client/SSR metadata lives in the route files. Keep both aligned with the SEO PDF.
 
-The build fails if prerendered markup references an asset the client build did
-not emit, so a hashing mismatch between the two passes cannot ship.
+`npm run build` also checks all five pages' titles, descriptions, canonicals and
+H1 content. Use `npm run verify:static` to check an existing build.
 
-Titles and descriptions therefore live in two places: `staticRouteMeta` in
-`vite.static.config.ts` (what ships) and each route's `head:` export (used by
-the SSR build and client navigation). Change both. `StaticRouteHead` updates
-the existing document tags when the user navigates inside the static app.
-
-`npm run build` and `npm run build:static` also run `scripts/verify-static.mjs`.
-This checks all five pages against the SEO PDF copy, their canonical URLs and
-their own H1 content, and checks that Contact remains a standalone form.
-Run `npm run verify:static` to check an existing build again.
-
-## Static deployment
-
-Upload the complete contents of `dist-static/`, including the hidden `.htaccess`,
-`assets/`, and each page directory. Uploading only the homepage or JavaScript
-leaves crawlers reading old route HTML. Invalidate cached HTML after updating.
-The existing `.htaccess` serves `/services`, `/platforms` and `/about` directly
-from their own files. Keep the standalone `contact/index.html` entry and its
-`/contact/` URL; it must not be replaced by the SPA homepage or redirect component.
-
-Vite preview does not execute Apache rewrites. For direct static HTML checks in
-preview, open `/services/`, `/platforms/` and `/about/`; the deployed Apache rules
-also serve the slash-less canonical URLs.
+For Hostinger, upload all contents of `dist-static/`, including `.htaccess`,
+`assets/` and every page directory. Preserve the standalone contact directory.
+Vite preview does not execute Apache rewrites: use `/services/`, `/platforms/`
+and `/about/` to inspect their static HTML locally. Production `.htaccess` also
+serves the slash-less canonical URLs directly.

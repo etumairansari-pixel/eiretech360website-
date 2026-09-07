@@ -8,7 +8,9 @@ import { defineConfig, type Plugin } from "vite";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
-const PRERENDER_PLACEHOLDER = '<div id="prerendered"></div>';
+// Replace only inner pages' fallback; keep the selected commit's homepage intact.
+const STATIC_SHELL =
+  /<div id="shell" class="shell-fallback">[\s\S]*?(?=\s*(?:<script type="module"|<\/body>))/;
 
 /**
  * Tailwind emits a single ~100 KB stylesheet, and as a plain <link> it is a
@@ -158,7 +160,8 @@ function emitStaticRouteMetaPages(): Plugin {
 }
 
 /**
- * Renders each route's real React tree into its static HTML at build time.
+ * Renders inner routes' real React trees into their static HTML at build time.
+ * The homepage keeps f53e14d's lightweight shell and performance settings.
  *
  * Without this, a route page carries the correct <head> over a copy of the
  * homepage body: anything that does not run JS reads "Grow. Automate.
@@ -187,7 +190,10 @@ function emitStaticRouteMetaPages(): Plugin {
 function stripHoistedTags(markup: string) {
   let out = markup;
   for (;;) {
-    const next = out.replace(/^\s*(?:<(?:link|meta)\b[^>]*\/?>|<(?:title|style)\b[^>]*>[\s\S]*?<\/(?:title|style)>)/, "");
+    const next = out.replace(
+      /^\s*(?:<(?:link|meta)\b[^>]*\/?>|<(?:title|style)\b[^>]*>[\s\S]*?<\/(?:title|style)>)/,
+      "",
+    );
     if (next === out) return out;
     out = next;
   }
@@ -195,7 +201,6 @@ function stripHoistedTags(markup: string) {
 
 function prerenderRoutes(): Plugin {
   const routes = [
-    { url: "/", file: "index.html" },
     { url: "/about", file: "about/index.html" },
     { url: "/services", file: "services/index.html" },
     { url: "/platforms", file: "platforms/index.html" },
@@ -242,14 +247,17 @@ function prerenderRoutes(): Plugin {
         if (!fs.existsSync(file)) continue;
 
         const html = fs.readFileSync(file, "utf8");
-        if (!html.includes(PRERENDER_PLACEHOLDER)) {
-          throw new Error(`${route.file}: no empty #prerendered to render into`);
+        if (!STATIC_SHELL.test(html)) {
+          throw new Error(`${route.file}: no static #shell to render into`);
         }
 
         const body = stripHoistedTags(await render(route.url));
         fs.writeFileSync(
           file,
-          html.replace(PRERENDER_PLACEHOLDER, `<div id="prerendered">${body}</div>`),
+          html.replace(
+            STATIC_SHELL,
+            `<div id="shell" style="overflow-y:auto;background:var(--bg,#fff)"><style>#shell [style*="opacity:0"]{opacity:1!important;transform:none!important}</style>${body}</div>`,
+          ),
         );
       }
 
