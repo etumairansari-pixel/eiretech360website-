@@ -16,7 +16,8 @@
     "format": "prettier --write .",
     "admin": "node scripts/admin-server.mjs",
     "build:icons": "node scripts/generate-icon-registry.mjs",
-    "admin:password": "node scripts/admin-password.mjs"
+    "admin:password": "node scripts/admin-password.mjs",
+    "build:admin": "node scripts/build-admin.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

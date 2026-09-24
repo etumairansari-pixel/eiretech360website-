@@ -12,7 +12,13 @@ import { fileURLToPath } from "node:url";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-const SCRYPT = { N: 16384, r: 8, p: 1, keylen: 64 };
+/**
+ * PBKDF2 rather than scrypt or bcrypt, because the same hash has to be checked
+ * in two places: here, and by api.php on the deployed site. Both Node and PHP
+ * implement PBKDF2 natively, so one password works in both without pulling in
+ * a dependency on either side.
+ */
+const PBKDF2 = { digest: "sha256", iterations: 210000, keylen: 32, saltBytes: 16 };
 const SESSION_MS = 12 * 60 * 60 * 1000;
 export const COOKIE = "eiretech_admin";
 
@@ -20,11 +26,24 @@ export const COOKIE = "eiretech_admin";
    Passwords
 ------------------------------------------------------------------ */
 
-/** Hashes a password for storage: "scrypt:salt:key", all hex. */
+/** Hashes a password for storage: "pbkdf2$sha256$iterations$salt$key", hex. */
 export function hashPassword(password) {
-  const salt = crypto.randomBytes(16);
-  const key = crypto.scryptSync(password.normalize("NFKC"), salt, SCRYPT.keylen, SCRYPT);
-  return `scrypt:${salt.toString("hex")}:${key.toString("hex")}`;
+  const salt = crypto.randomBytes(PBKDF2.saltBytes);
+  const key = crypto.pbkdf2Sync(
+    password.normalize("NFKC"),
+    salt,
+    PBKDF2.iterations,
+    PBKDF2.keylen,
+    PBKDF2.digest,
+  );
+
+  return [
+    "pbkdf2",
+    PBKDF2.digest,
+    PBKDF2.iterations,
+    salt.toString("hex"),
+    key.toString("hex"),
+  ].join("$");
 }
 
 /**
@@ -34,14 +53,28 @@ export function hashPassword(password) {
  * matched through how long it took to decide.
  */
 export function verifyPassword(password, stored) {
-  const parts = String(stored ?? "").split(":");
-  if (parts.length !== 3 || parts[0] !== "scrypt") return false;
+  const parts = String(stored ?? "").split("$");
+  if (parts.length !== 5 || parts[0] !== "pbkdf2") return false;
 
-  const salt = Buffer.from(parts[1], "hex");
-  const expected = Buffer.from(parts[2], "hex");
-  if (expected.length !== SCRYPT.keylen) return false;
+  const [, digest, iterations, saltHex, keyHex] = parts;
+  const rounds = Number(iterations);
+  if (!Number.isInteger(rounds) || rounds < 1000) return false;
 
-  const actual = crypto.scryptSync(password.normalize("NFKC"), salt, SCRYPT.keylen, SCRYPT);
+  const expected = Buffer.from(keyHex, "hex");
+  if (expected.length === 0) return false;
+
+  let actual;
+  try {
+    actual = crypto.pbkdf2Sync(
+      password.normalize("NFKC"),
+      Buffer.from(saltHex, "hex"),
+      rounds,
+      expected.length,
+      digest,
+    );
+  } catch {
+    return false;
+  }
 
   return crypto.timingSafeEqual(actual, expected);
 }

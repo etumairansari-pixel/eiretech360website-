@@ -18,7 +18,11 @@ function ServicesPage() {
 
   return (
     <Shell>
-      <PageHero eyebrow={hero.eyebrow} title={<Highlight text={hero.title} />} subtitle={hero.subtitle} />
+      <PageHero
+        eyebrow={hero.eyebrow}
+        title={<Highlight text={hero.title} />}
+        subtitle={hero.subtitle}
+      />
       <section className="pb-24">
         <div className="mx-auto max-w-7xl space-y-6 px-6">
           {services.map((s, i) => {

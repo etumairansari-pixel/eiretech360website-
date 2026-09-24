@@ -1,7 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { contact as office, footer as footerContent, pathFor, route as routeFor, site, social } from "@/content";
+import {
+  contact as office,
+  footer as footerContent,
+  pathFor,
+  route as routeFor,
+  site,
+  social,
+} from "@/content";
 
 // Lucide v1 dropped brand marks, so the two glyphs are inlined.
 function LinkedInIcon({ className = "" }: { className?: string }) {

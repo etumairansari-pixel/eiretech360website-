@@ -1,0 +1,92 @@
+name: Build and deploy
+
+# Runs when content or code changes on main, and when the content admin asks
+# for a rebuild through the GitHub API.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "src/**"
+      - "admin/**"
+      - "public/**"
+      - "index.html"
+      - "contact/**"
+      - "scripts/**"
+      - "vite.config.ts"
+      - "vite.static.config.ts"
+      - "package.json"
+      - "package-lock.json"
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Why this run was started"
+        required: false
+        default: "Manual"
+
+concurrency:
+  # A second publish while one is running should replace it, not queue behind
+  # it — the later content is the one that should win.
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build the site
+        # Also runs scripts/verify-static.mjs, which fails the run if the built
+        # HTML does not match content/ — so a bad edit never reaches the server.
+        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+
+      - name: Build the content admin
+        # The admin ships inside the deploy, under the secret path in
+        # ADMIN_PATH, so it is served from the same domain as the site.
+        run: npm run build:admin
+        env:
+          ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
+          ADMIN_PASSWORD_HASH: ${{ secrets.ADMIN_PASSWORD_HASH }}
+          ADMIN_GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+          ADMIN_GITHUB_REPO: ${{ github.repository }}
+
+      - name: Upload to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
+          local-dir: ./dist-static/
+          server-dir: ${{ secrets.FTP_REMOTE_DIR }}
+          # Without this the action would delete the admin's own files on any
+          # run that did not rebuild them.
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+
+      - name: Summary
+        run: |
+          {
+            echo "### Deployed"
+            echo ""
+            echo "Reason: ${{ github.event.inputs.reason || 'push to main' }}"
+            echo ""
+            echo "Pages verified against \`content/\` before upload."
+          } >> "$GITHUB_STEP_SUMMARY"

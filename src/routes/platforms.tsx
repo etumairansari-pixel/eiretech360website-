@@ -18,7 +18,11 @@ function PlatformsPage() {
 
   return (
     <Shell>
-      <PageHero eyebrow={hero.eyebrow} title={<Highlight text={hero.title} />} subtitle={hero.subtitle} />
+      <PageHero
+        eyebrow={hero.eyebrow}
+        title={<Highlight text={hero.title} />}
+        subtitle={hero.subtitle}
+      />
       <section className="pb-24">
         <div className="mx-auto grid max-w-7xl gap-5 px-6 md:grid-cols-2 lg:grid-cols-3">
           {platforms.map((group, i) => {

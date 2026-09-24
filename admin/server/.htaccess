@@ -1,0 +1,37 @@
+# The content admin.
+#
+# Everything sensitive lives in files this refuses to serve. api.php is the
+# only entry point; config.php holds the password hash and the access token and
+# must never be readable over HTTP.
+
+# Keep this folder out of search results even if its address leaks.
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+</IfModule>
+
+<FilesMatch "^(config\.php|\.login-attempts|catalog\.json)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# The editor is a single-page app: its own routes must fall back to index.html
+# rather than to the site's.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# The editor is generated on every deploy; never let a browser hold an old one.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|php|json)$">
+    Header set Cache-Control "no-store"
+  </FilesMatch>
+</IfModule>

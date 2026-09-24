@@ -29,13 +29,25 @@ function store(value) {
     env = env.replace(new RegExp(`^${KEY}=.*$`, "m"), line);
   } else {
     env =
-      env.trimEnd() + (env.trim() ? "\n\n" : "") + "# Content admin (npm run admin)\n" + line + "\n";
+      env.trimEnd() +
+      (env.trim() ? "\n\n" : "") +
+      "# Content admin (npm run admin)\n" +
+      line +
+      "\n";
   }
 
   fs.writeFileSync(envFile, env);
 
   console.log(`\n  Saved to .env.local — git ignores that file, so it stays on this machine.`);
-  console.log(`  Start the editor with: npm run admin\n`);
+  console.log(`  Start the editor with: npm run admin`);
+
+  // The same hash secures the deployed editor, so it is worth showing: the
+  // password itself is not recoverable from it, and pasting it into the GitHub
+  // secret is how the live editor learns the new password.
+  console.log(`\n  To use this password on the live site too, set the repository secret`);
+  console.log(`  ADMIN_PASSWORD_HASH to:\n`);
+  console.log(`    ${line.slice(KEY.length + 1)}\n`);
+  console.log(`  (GitHub → Settings → Secrets and variables → Actions)\n`);
 }
 
 // A non-interactive path, for setting the password from a script. The prompt
@@ -53,7 +65,9 @@ if (fromEnv) {
 
 if (!process.stdin.isTTY) {
   console.error("\n  This needs a terminal so the password can be typed without being shown.");
-  console.error("  To set it from a script instead:  NEW_ADMIN_PASSWORD=... npm run admin:password\n");
+  console.error(
+    "  To set it from a script instead:  NEW_ADMIN_PASSWORD=... npm run admin:password\n",
+  );
   process.exit(1);
 }
 

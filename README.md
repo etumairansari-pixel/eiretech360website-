@@ -27,8 +27,12 @@ npm run admin            # the content editor, at http://localhost:5174
 npm run dev              # the site, at http://localhost:8080 — the editor previews this
 ```
 
-The editor is password-protected and bound to `127.0.0.1`. Only a scrypt hash
-of the password is stored, in `.env.local`, which git ignores.
+The editor is password-protected. Only a hash of the password is stored, in
+`.env.local`, which git ignores.
+
+The same editor also runs **on the live site**, at a secret path, so the SEO
+specialist can edit from anywhere without installing anything. See
+[admin/README.md](admin/README.md) to set that up.
 
 Save in the editor and the dev server updates straight away. **Publish** in the
 editor (or `npm run build`) produces `dist-static/` to upload. See
@@ -41,6 +45,7 @@ markers and what changing a slug affects.
 | ------------------------- | -------------------------------------------------------------- |
 | `npm run admin`           | Content editor (reads and writes `content/`)                   |
 | `npm run admin:password`  | Set the content editor's password                              |
+| `npm run build:admin`      | Build the live editor into `dist-static/<ADMIN_PATH>/`         |
 | `npm run dev`             | Dev server                                                     |
 | `npm run build`           | SSR build (Nitro → Cloudflare) into `.output/`                 |
 | `npm run build:static`    | Static SPA build into `dist-static/`                           |

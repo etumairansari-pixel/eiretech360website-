@@ -17,7 +17,11 @@ function AboutPage() {
 
   return (
     <Shell>
-      <PageHero eyebrow={hero.eyebrow} title={<Highlight text={hero.title} />} subtitle={hero.subtitle} />
+      <PageHero
+        eyebrow={hero.eyebrow}
+        title={<Highlight text={hero.title} />}
+        subtitle={hero.subtitle}
+      />
       <section className="py-24">
         <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-2">
           <Reveal>

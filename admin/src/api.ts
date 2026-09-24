@@ -3,7 +3,24 @@
  *
  * Everything is a file under content/ — there is no database, so "load" reads
  * the JSON the site imports and "save" writes it straight back.
+ *
+ * Two backends answer these calls. Locally it is the Node server in
+ * scripts/admin-server.mjs, which edits the working tree directly. Deployed, it
+ * is api.php on the host, which reads and commits the same files on GitHub and
+ * asks the build workflow to publish them. __ADMIN_API__ decides which, and is
+ * the only difference between the two builds.
  */
+
+// Replaced at build time by scripts/build-admin.mjs. Vite does not honour a
+// define for import.meta.env keys, so this is a plain global instead.
+declare const __ADMIN_API__: string | undefined;
+
+const API_BASE = typeof __ADMIN_API__ === "string" ? __ADMIN_API__ : "/api/";
+
+/** The URL for one endpoint, in whichever shape the current backend wants. */
+function endpoint(name: string): string {
+  return `${API_BASE}${name}`;
+}
 
 export type Route = {
   key: string;
@@ -58,7 +75,7 @@ export class NotSignedIn extends Error {
 }
 
 export async function checkSession(): Promise<boolean> {
-  const response = await fetch("/api/session");
+  const response = await fetch(endpoint("session"));
   if (!response.ok) return false;
   const body = await response.json();
   return Boolean(body.signedIn);
@@ -67,7 +84,7 @@ export async function checkSession(): Promise<boolean> {
 export async function signIn(
   password: string,
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-  const response = await fetch("/api/login", {
+  const response = await fetch(endpoint("login"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ password }),
@@ -78,20 +95,31 @@ export async function signIn(
 }
 
 export async function signOut(): Promise<void> {
-  await fetch("/api/logout", { method: "POST" });
+  await fetch(endpoint("logout"), { method: "POST" });
 }
 
+/** True when the editor is served by the local Node server rather than the host. */
+export const isLocal = API_BASE.startsWith("/api");
+
 export async function loadContent(): Promise<Loaded> {
-  const response = await fetch("/api/content");
+  const response = await fetch(endpoint("content"));
   if (response.status === 401) throw new NotSignedIn();
-  if (!response.ok) throw new Error(`Could not load content (${response.status})`);
+
+  if (!response.ok) {
+    // The server explains why — a stale token, an unreachable GitHub — and that
+    // is far more use than the status code on its own.
+    const body = await response.json().catch(() => null);
+    const reason = body && Array.isArray(body.errors) ? body.errors.join(" ") : "";
+    throw new Error(reason || `Could not load the content (${response.status}).`);
+  }
+
   return response.json();
 }
 
 export type SaveResult = { ok: true } | { ok: false; errors: string[] };
 
 export async function saveContent(content: Content): Promise<SaveResult> {
-  const response = await fetch("/api/content", {
+  const response = await fetch(endpoint("content"), {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(content),
@@ -106,7 +134,7 @@ export async function saveContent(content: Content): Promise<SaveResult> {
 export type BuildResult = { ok: boolean; code: number; output: string };
 
 export async function runBuild(): Promise<BuildResult> {
-  const response = await fetch("/api/build", { method: "POST" });
+  const response = await fetch(endpoint("build"), { method: "POST" });
   return response.json();
 }
 

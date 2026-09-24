@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   NotSignedIn,
   checkSession,
+  isLocal,
   getAt,
   loadContent,
   runBuild,
@@ -156,12 +157,24 @@ export default function App() {
   if (loadError) {
     return (
       <div className="grid h-full place-items-center p-8">
-        <div className="card max-w-md p-6">
+        <div className="card max-w-lg p-6">
           <h1 className="text-lg font-bold">Could not load the content</h1>
-          <p className="hint mt-2">{loadError}</p>
-          <p className="hint mt-2">
-            Make sure the admin server is running: <code>npm run admin</code>
+          <p className="mt-2 text-sm text-bad">{loadError}</p>
+          <p className="hint mt-3">
+            {isLocal ? (
+              <>
+                Make sure the admin server is running: <code>npm run admin</code>
+              </>
+            ) : (
+              <>
+                The editor reads the content from GitHub. This usually means the access token has
+                expired or lost permission — rebuild the editor with a new one.
+              </>
+            )}
           </p>
+          <button type="button" className="btn mt-4" onClick={() => window.location.reload()}>
+            Try again
+          </button>
         </div>
       </div>
     );
