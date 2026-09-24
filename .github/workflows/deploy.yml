@@ -25,6 +25,11 @@ on:
         description: "Why this run was started"
         required: false
         default: "Manual"
+      full_upload:
+        description: "Upload every file, ignoring what the server thinks it already has"
+        type: boolean
+        required: false
+        default: false
 
 concurrency:
   # A second publish while one is running should replace it, not queue behind
@@ -108,6 +113,15 @@ jobs:
           protocol: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
           local-dir: ./dist-static/
           server-dir: ${{ secrets.FTP_REMOTE_DIR || '/public_html/' }}
+          # The action skips anything its manifest says is already there — and
+          # will not create a directory it believes exists, which fails the
+          # upload outright if the folder has since gone. Pointing at a name
+          # with no manifest behind it makes the run treat the server as empty
+          # and upload everything, without deleting anything.
+          state-name: >-
+            ${{ github.event.inputs.full_upload == 'true'
+                && format('.ftp-deploy-full-{0}.json', github.run_id)
+                || '.ftp-deploy-sync-state.json' }}
           # Without this the action would delete anything on the server that
           # this build did not produce.
           dangerous-clean-slate: false

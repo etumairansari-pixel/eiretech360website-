@@ -3,7 +3,7 @@ Options -MultiViews
 # The deploy action leaves a manifest of every uploaded file at the site root.
 # Served, it hands anyone the whole file tree — including the content admin's
 # folder name, which is only useful while it stays unlisted.
-<FilesMatch "^\.ftp-deploy-sync-state\.json$">
+<FilesMatch "^\.ftp-deploy-.*\.json$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
