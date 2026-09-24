@@ -76,6 +76,7 @@ jobs:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
         run: |
           missing=""
           [ -z "$FTP_HOST" ] && missing="$missing FTP_HOST"
@@ -88,6 +89,13 @@ jobs:
             echo "::warning::Not uploading — these repository secrets are not set:$missing"
           else
             echo "upload=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          # A secret cannot be read from a step's `if`, so carry it as an output.
+          if [ -n "$ADMIN_PATH" ]; then
+            echo "admin=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "admin=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Upload to Hostinger
@@ -108,9 +116,33 @@ jobs:
             **/.git*/**
             **/node_modules/**
 
+      # The upload can report success while a folder never arrived, which then
+      # only shows up as a 404 someone has to work backwards from. Ask the live
+      # site whether the editor is actually being served.
+      - name: Check the editor is live
+        if: steps.check.outputs.upload == 'true' && steps.check.outputs.admin == 'true'
+        env:
+          ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
+          SITE_URL: ${{ secrets.SITE_URL }}
+        run: |
+          base="${SITE_URL:-https://eiretech360.com}"
+          url="${base%/}/$ADMIN_PATH/api.php?action=session"
+
+          body=$(curl --silent --show-error --max-time 30 "$url" || true)
+
+          if printf '%s' "$body" | grep -q '"signedIn"'; then
+            echo "The editor answered at ${base%/}/$ADMIN_PATH/"
+          else
+            echo "::error title=Editor not reachable::Uploaded, but ${base%/}/$ADMIN_PATH/ is not being served. The files may not have reached the server, or PHP is not enabled for that folder."
+            echo "What came back instead:"
+            printf '%s' "$body" | head -c 300
+            exit 1
+          fi
+
       # Always attached, so the site can be uploaded by hand whenever the FTP
       # details are missing or the host is refusing connections.
       - name: Attach the built site
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: dist-static
