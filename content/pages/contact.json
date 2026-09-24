@@ -1,41 +1,41 @@
 {
-  "$comment": "Copy and metadata for the contact page. Its slug and navigation labels live in content/site.json.",
-  "seo": {
-    "title": "Contact Eire Tech | Get a Free Consultation",
-    "description": "Ready to grow your business? Contact Eire Tech today to discuss your web, marketing, app or AI project and get started with a free consultation.",
-    "robots": "index, follow"
-  },
-  "hero": {
-    "eyebrow": "Contact us",
-    "title": "Let's build something [g]exceptional together.[/g]",
-    "subtitle": "Tell us where you want to go next. We will review your enquiry and respond with practical next steps."
-  },
-  "form": {
-    "title": "Start with a few details.",
-    "hint": "Fields marked with * are required. Your details are stored securely.",
-    "buttonLabel": "Send Message",
-    "sendingLabel": "Sending securely...",
-    "privacyNote": "Secure, private and never shared",
-    "successMessage": "Message received. Our team will contact you within one business day.",
-    "errorMessage": "We could not send your message. Please try again or email us directly.",
-    "serviceOptions": [
-      "Digital Marketing",
-      "Automation",
-      "Brand Management",
-      "ATL/TTL Campaigns",
-      "Website Development",
-      "App Development",
-      "AI Development",
-      "Graphic Design",
-      "Video Editing",
-      "Other"
-    ]
-  },
-  "aside": {
-    "eyebrow": "Get in touch",
-    "title": "Start the conversation.",
-    "body": "Have a project, a question, or simply want to explore what's possible? We would love to hear from you.",
-    "footnote": "We typically respond within 24 hours."
-  },
-  "footerBlurb": "Your connected digital growth and automation partner for strategy, design, development, marketing, and AI."
+    "$comment": "Copy and metadata for the contact page. Its slug and navigation labels live in content/site.json.",
+    "seo": {
+        "title": "Contact Eire Tech | Get a Free Consultation",
+        "description": "Ready to grow your business? Contact Eire Tech today to discuss your web, marketing, app or AI project and get started with a free consultation.",
+        "robots": "index, follow"
+    },
+    "hero": {
+        "eyebrow": "Contact us",
+        "title": "Let's build something [g]exceptional together.[/g]",
+        "subtitle": "Tell us where you want to go next. We will review your enquiry and respond with practical next steps."
+    },
+    "form": {
+        "title": "Start with a few details.",
+        "hint": "Fields marked with * are required. Your details are stored securely.",
+        "buttonLabel": "Send Message",
+        "sendingLabel": "Sending securely...",
+        "privacyNote": "Secure, private and never shared",
+        "successMessage": "Message received. Our team will contact you within one business day.",
+        "errorMessage": "We could not send your message. Please try again or email us directly.",
+        "serviceOptions": [
+            "Digital Marketing",
+            "Automation",
+            "Brand Management",
+            "ATL/TTL Campaigns",
+            "Website Development",
+            "App Development",
+            "AI Development",
+            "Graphic Design",
+            "Video Editing",
+            "Other"
+        ]
+    },
+    "aside": {
+        "eyebrow": "Get in touch",
+        "title": "Start the conversation.",
+        "body": "Have a project, a question, or simply want to explore what's possible? We would love to hear from you.",
+        "footnote": "We typically respond within 24 hours."
+    },
+    "footerBlurb": "Your connected digital growth and automation partner for strategy, design, development, marketing, and AI."
 }

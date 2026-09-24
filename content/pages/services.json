@@ -1,21 +1,21 @@
 {
-  "$comment": "Copy and metadata for the services page. Its slug and navigation labels live in content/site.json.",
-  "seo": {
-    "title": "Our Services | Web, Marketing, Apps & AI – Eire Tech",
-    "description": "Explore Eire Tech's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business.",
-    "robots": "index, follow"
-  },
-  "hero": {
-    "eyebrow": "Our Services",
-    "title": "Full-spectrum digital solutions, [g]under one roof.[/g]",
-    "subtitle": "Every service you need to grow, automate and scale your brand, delivered by one connected team."
-  },
-  "serviceLinkLabel": "Discuss this service",
-  "cta": {
-    "label": "Let's build",
-    "title": "Not sure which service [gg]fits[/gg] your business?",
-    "subtitle": "Let’s talk it through together and build a plan that works for you.",
-    "buttonLabel": "Book a Free Consultation",
-    "buttonTo": "contact"
-  }
+    "$comment": "Copy and metadata for the services page. Its slug and navigation labels live in content/site.json.",
+    "seo": {
+        "title": "Our Services | Web, Marketing, Apps & AI – Eire Tech",
+        "description": "Explore Eire Tech's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business.",
+        "robots": "index, follow"
+    },
+    "hero": {
+        "eyebrow": "Our Services",
+        "title": "Full-spectrum digital solutions, [g]under one roof.[/g]",
+        "subtitle": "Every service you need to grow, automate and scale your brand, delivered by one connected team."
+    },
+    "serviceLinkLabel": "Discuss this service",
+    "cta": {
+        "label": "Let's build",
+        "title": "Not sure which service [gg]fits[/gg] your business?",
+        "subtitle": "Let’s talk it through together and build a plan that works for you.",
+        "buttonLabel": "Book a Free Consultation",
+        "buttonTo": "contact"
+    }
 }

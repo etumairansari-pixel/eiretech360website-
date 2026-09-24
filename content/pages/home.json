@@ -1,126 +1,136 @@
 {
-  "$comment": "Copy and metadata for the home page. Its slug and navigation labels live in content/site.json.",
-  "seo": {
-    "title": "Eire Tech | Digital Growth & Automation Partner",
-    "description": "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
-    "robots": "index, follow"
-  },
-  "hero": {
-    "badge": "Digital Growth & Automation Partner",
-    "headline": ["Grow.", "[gg]Automate.[/gg]", "Innovate."],
-    "primaryLabel": "Book a Free Consultation",
-    "primaryTo": "contact",
-    "secondaryLabel": "Explore Our Services",
-    "secondaryTo": "services",
-    "stats": [
-      {
-        "value": 140,
-        "suffix": "%",
-        "label": "avg. growth",
-        "accent": true
-      },
-      {
-        "value": 500,
-        "suffix": "K+",
-        "label": "leads generated",
-        "accent": false
-      },
-      {
-        "value": 2500,
-        "suffix": "",
-        "label": "workflows automated",
-        "accent": true
-      },
-      {
-        "value": 80,
-        "suffix": "%",
-        "label": "manual effort cut",
-        "accent": false
-      }
-    ]
-  },
-  "marquee": ["Results-Driven", "AI-Native", "Brand-First", "Always-On", "Future-Proof"],
-  "mission": {
-    "label": "Our Mission",
-    "title": "Technology and creativity, [g]working as one.[/g]",
-    "body": "When strategy meets creativity, brands don't just grow — they transform. Eire Tech is a full-service digital solutions company built to support every stage of your brand's journey, from first impression to full-scale automation. We don't hand off projects and disappear. We build long-term partnerships focused on one thing: [b]measurable, real-world results.[/b]"
-  },
-  "servicesSection": {
-    "label": "Everything Under One Roof",
-    "title": "Nine disciplines.\n[g]One integrated ecosystem.[/g]",
-    "intro": "From visibility to efficiency, we cover the full spectrum of digital growth — every layer of your presence, engineered to work as one system. Hover any panel to expand.",
-    "buttonLabel": "See How We Can Help"
-  },
-  "why": {
-    "label": "Why Eire Tech",
-    "title": "We build [g]ecosystems[/g], not just deliverables.",
-    "body": "Whether you're just establishing your presence or ready to scale through automation and AI, our team works closely with you — as an extension of your own — to deliver outcomes that matter.",
-    "reasons": [
-      {
-        "number": "01",
-        "title": "One partner, every capability",
-        "text": "No juggling five agencies. Marketing, automation, design, dev and AI in one place."
-      },
-      {
-        "number": "02",
-        "title": "Built for long-term growth",
-        "text": "We're invested in outcomes, not one-off invoices."
-      },
-      {
-        "number": "03",
-        "title": "Automation-first thinking",
-        "text": "Everything we build is designed to reduce manual work and free up your time."
-      },
-      {
-        "number": "04",
-        "title": "Results you can measure",
-        "text": "Strategy backed by data, not guesswork."
-      }
+    "$comment": "Copy and metadata for the home page. Its slug and navigation labels live in content/site.json.",
+    "seo": {
+        "title": "Eire Tech | Digital Growth & Automation Partner",
+        "description": "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
+        "robots": "index, follow"
+    },
+    "hero": {
+        "badge": "Digital Growth & Automation Partner",
+        "headline": [
+            "Grow.",
+            "[gg]Automate.[/gg]",
+            "Innovate."
+        ],
+        "primaryLabel": "Book a Free Consultation",
+        "primaryTo": "contact",
+        "secondaryLabel": "Explore Our Services",
+        "secondaryTo": "services",
+        "stats": [
+            {
+                "value": 140,
+                "suffix": "%",
+                "label": "avg. growth",
+                "accent": true
+            },
+            {
+                "value": 500,
+                "suffix": "K+",
+                "label": "leads generated",
+                "accent": false
+            },
+            {
+                "value": 2500,
+                "suffix": "",
+                "label": "workflows automated",
+                "accent": true
+            },
+            {
+                "value": 80,
+                "suffix": "%",
+                "label": "manual effort cut",
+                "accent": false
+            }
+        ]
+    },
+    "marquee": [
+        "Results-Driven",
+        "AI-Native",
+        "Brand-First",
+        "Always-On",
+        "Future-Proof"
     ],
-    "captionEyebrow": "AI · Automation · Intelligence",
-    "captionTitle": "Intelligence by design."
-  },
-  "process": {
-    "label": "How We Work Together",
-    "title": "A [g]system[/g], not a sprint.",
-    "steps": [
-      {
-        "icon": "compass",
-        "title": "Discover",
-        "text": "We learn your business, goals and challenges."
-      },
-      {
-        "icon": "route",
-        "title": "Strategize",
-        "text": "We design a roadmap across marketing, brand and tech."
-      },
-      {
-        "icon": "hammer",
-        "title": "Build",
-        "text": "We execute across websites, apps, automations, campaigns and content."
-      },
-      {
-        "icon": "trending-up",
-        "title": "Optimize",
-        "text": "We track, refine and scale what works."
-      }
-    ]
-  },
-  "serve": {
-    "label": "Who We Serve",
-    "title": "For [g]start-ups[/g] and [g]scaling businesses[/g] alike.",
-    "body": "Whether you're just establishing your presence or ready to scale through automation and AI, our team works closely with you, as an extension of your own, to deliver outcomes that matter."
-  },
-  "testimonialsSection": {
-    "label": "Client Feedback",
-    "title": "Built to feel like an [g]extension of your team.[/g]",
-    "badge": "Testimonials"
-  },
-  "cta": {
-    "label": "Let's build",
-    "title": "Let's build something [gg]exceptional[/gg] together",
-    "subtitle": "Ready to power your next phase of growth? Connect with Eire Tech and let's talk about what's possible.",
-    "buttonLabel": "Connect With Us",
-    "buttonTo": "contact"
-  }
+    "mission": {
+        "label": "Our Mission",
+        "title": "Technology and creativity, [g]working as one.[/g]",
+        "body": "When strategy meets creativity, brands don't just grow — they transform. Eire Tech is a full-service digital solutions company built to support every stage of your brand's journey, from first impression to full-scale automation. We don't hand off projects and disappear. We build long-term partnerships focused on one thing: [b]measurable, real-world results.[/b]"
+    },
+    "servicesSection": {
+        "label": "Everything Under One Roof",
+        "title": "Nine disciplines.\n[g]One integrated ecosystem.[/g]",
+        "intro": "From visibility to efficiency, we cover the full spectrum of digital growth — every layer of your presence, engineered to work as one system. Hover any panel to expand.",
+        "buttonLabel": "See How We Can Help"
+    },
+    "why": {
+        "label": "Why Eire Tech",
+        "title": "We build [g]ecosystems[/g], not just deliverables.",
+        "body": "Whether you're just establishing your presence or ready to scale through automation and AI, our team works closely with you — as an extension of your own — to deliver outcomes that matter.",
+        "reasons": [
+            {
+                "number": "01",
+                "title": "One partner, every capability",
+                "text": "No juggling five agencies. Marketing, automation, design, dev and AI in one place."
+            },
+            {
+                "number": "02",
+                "title": "Built for long-term growth",
+                "text": "We're invested in outcomes, not one-off invoices."
+            },
+            {
+                "number": "03",
+                "title": "Automation-first thinking",
+                "text": "Everything we build is designed to reduce manual work and free up your time."
+            },
+            {
+                "number": "04",
+                "title": "Results you can measure",
+                "text": "Strategy backed by data, not guesswork."
+            }
+        ],
+        "captionEyebrow": "AI · Automation · Intelligence",
+        "captionTitle": "Intelligence by design."
+    },
+    "process": {
+        "label": "How We Work Together",
+        "title": "A [g]system[/g], not a sprint.",
+        "steps": [
+            {
+                "icon": "compass",
+                "title": "Discover",
+                "text": "We learn your business, goals and challenges."
+            },
+            {
+                "icon": "route",
+                "title": "Strategize",
+                "text": "We design a roadmap across marketing, brand and tech."
+            },
+            {
+                "icon": "hammer",
+                "title": "Build",
+                "text": "We execute across websites, apps, automations, campaigns and content."
+            },
+            {
+                "icon": "trending-up",
+                "title": "Optimize",
+                "text": "We track, refine and scale what works."
+            }
+        ]
+    },
+    "serve": {
+        "label": "Who We Serve",
+        "title": "For [g]start-ups[/g] and [g]scaling businesses[/g] alike.",
+        "body": "Whether you're just establishing your presence or ready to scale through automation and AI, our team works closely with you, as an extension of your own, to deliver outcomes that matter."
+    },
+    "testimonialsSection": {
+        "label": "Client Feedback",
+        "title": "Built to feel like an [g]extension of your team.[/g]",
+        "badge": "Testimonials"
+    },
+    "cta": {
+        "label": "Let's build",
+        "title": "Let's build something [gg]exceptional[/gg] together",
+        "subtitle": "Ready to power your next phase of growth? Connect with Eire Tech and let's talk about what's possible.",
+        "buttonLabel": "Connect With Us",
+        "buttonTo": "contact"
+    }
 }
