@@ -47,6 +47,24 @@ if (!env.path) {
   process.exit(0);
 }
 
+/**
+ * Stops with a reason that can be read without opening the build log.
+ *
+ * On Actions, ::error:: puts the text on the run's summary page — which is
+ * where someone who has just set a secret wrongly will actually be looking.
+ *
+ * @param {string} reason What is wrong.
+ * @param {string} fix    What to do about it.
+ */
+function stop(reason, fix) {
+  if (process.env.GITHUB_ACTIONS) {
+    console.log("::error title=Content admin not built::" + reason + " " + fix);
+  }
+  console.error("\n  " + reason);
+  console.error("  " + fix + "\n");
+  process.exit(1);
+}
+
 const missing = ["hash", "token", "repo"].filter((key) => !env[key]);
 
 if (missing.length) {
@@ -59,26 +77,26 @@ if (missing.length) {
   const readable =
     listed.length === 1 ? listed[0] : listed.slice(0, -1).join(", ") + " and " + listed.at(-1);
 
-  console.error(
-    `\n  ADMIN_PATH is set but ${readable} ${listed.length === 1 ? "is" : "are"} missing.`,
+  stop(
+    `ADMIN_PATH is set but ${readable} ${listed.length === 1 ? "is" : "are"} missing.`,
+    "Add the missing repository secret(s) — see admin/README.md.",
   );
-  console.error("  The editor cannot be built without them. See admin/README.md.\n");
-  process.exit(1);
 }
 
 if (!/^[a-z0-9][a-z0-9-]{3,63}$/.test(env.path)) {
-  console.error(
-    `\n  ADMIN_PATH "${env.path}" must be 4–64 characters of lower-case letters, numbers and hyphens.\n`,
+  stop(
+    `ADMIN_PATH is "${env.path}", which is not a usable folder name.`,
+    "It must be 4-64 characters of lower-case letters, numbers and hyphens — no slashes, spaces or capitals. For example: studio-7fa2c19e",
   );
-  process.exit(1);
 }
 
 // A hash, never a password. Anything else here would put the password itself
 // into the deployed files.
 if (!/^pbkdf2\$[a-z0-9]+\$\d+\$[0-9a-f]+\$[0-9a-f]+$/.test(env.hash)) {
-  console.error("\n  ADMIN_PASSWORD_HASH is not in the expected form.");
-  console.error("  Generate one with: npm run admin:password\n");
-  process.exit(1);
+  stop(
+    "ADMIN_PASSWORD_HASH is not in the expected form.",
+    "It must be the whole pbkdf2$… line that `npm run admin:password` prints — not the password itself.",
+  );
 }
 
 const outDir = path.join(rootDir, "dist-static", env.path);
