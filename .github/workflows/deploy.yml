@@ -17,6 +17,8 @@ on:
       - "vite.static.config.ts"
       - "package.json"
       - "package-lock.json"
+      # Changing how the deployment works should run it.
+      - ".github/workflows/deploy.yml"
   workflow_dispatch:
     inputs:
       reason:
