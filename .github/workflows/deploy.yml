@@ -64,7 +64,32 @@ jobs:
           ADMIN_GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
           ADMIN_GITHUB_REPO: ${{ github.repository }}
 
+      # The upload action reports a missing host as "Input required and not
+      # supplied: server", which says nothing about which secret to add. Check
+      # first, and let the run finish either way: the built site is attached
+      # below, so it is still useful before the FTP details exist.
+      - name: Check the upload settings
+        id: check
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          missing=""
+          [ -z "$FTP_HOST" ] && missing="$missing FTP_HOST"
+          [ -z "$FTP_USER" ] && missing="$missing FTP_USER"
+          [ -z "$FTP_PASSWORD" ] && missing="$missing FTP_PASSWORD"
+
+          if [ -n "$missing" ]; then
+            echo "upload=false" >> "$GITHUB_OUTPUT"
+            echo "missing=$missing" >> "$GITHUB_OUTPUT"
+            echo "::warning::Not uploading — these repository secrets are not set:$missing"
+          else
+            echo "upload=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Upload to Hostinger
+        if: steps.check.outputs.upload == 'true'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
@@ -72,21 +97,52 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
           local-dir: ./dist-static/
-          server-dir: ${{ secrets.FTP_REMOTE_DIR }}
-          # Without this the action would delete the admin's own files on any
-          # run that did not rebuild them.
+          server-dir: ${{ secrets.FTP_REMOTE_DIR || '/public_html/' }}
+          # Without this the action would delete anything on the server that
+          # this build did not produce.
           dangerous-clean-slate: false
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
 
+      # Always attached, so the site can be uploaded by hand whenever the FTP
+      # details are missing or the host is refusing connections.
+      - name: Attach the built site
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-static
+          path: dist-static/
+          retention-days: 14
+
       - name: Summary
+        env:
+          UPLOADED: ${{ steps.check.outputs.upload }}
+          MISSING: ${{ steps.check.outputs.missing }}
+          ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
         run: |
           {
-            echo "### Deployed"
+            if [ "$UPLOADED" = "true" ]; then
+              echo "### Deployed"
+              echo ""
+              echo "The site is live."
+              if [ -n "$ADMIN_PATH" ]; then
+                echo ""
+                echo "Content editor: \`/$ADMIN_PATH/\`"
+              fi
+            else
+              echo "### Built, but not uploaded"
+              echo ""
+              echo "These repository secrets are missing:$MISSING"
+              echo ""
+              echo "Add them under **Settings → Secrets and variables → Actions**,"
+              echo "then run this workflow again."
+              echo ""
+              echo "In the meantime the built site is attached to this run as"
+              echo "**dist-static** — download it and upload its contents by hand."
+            fi
             echo ""
             echo "Reason: ${{ github.event.inputs.reason || 'push to main' }}"
             echo ""
-            echo "Pages verified against \`content/\` before upload."
+            echo "Every page was checked against \`content/\` before this point."
           } >> "$GITHUB_STEP_SUMMARY"
