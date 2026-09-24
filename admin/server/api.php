@@ -466,10 +466,18 @@ if ($action === 'content' && $method === 'PUT') {
 
     $tree = [];
     foreach ($files as $path => $value) {
-        // Two spaces and a trailing newline: the same shape Prettier leaves,
-        // so a save does not show up as a whitespace change.
+        // PHP pretty-prints with four spaces; Prettier — which formats these
+        // files everywhere else — uses two. Halving the indentation keeps a
+        // save to the lines that actually changed, instead of rewriting every
+        // file and burying the edit in whitespace.
         $json = json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        $json = preg_replace('/^(  +)/m', '$1', $json) . "\n";
+        $json = preg_replace_callback(
+            '/^ +/m',
+            static function (array $match): string {
+                return str_repeat(' ', intdiv(strlen($match[0]), 2));
+            },
+            $json
+        ) . "\n";
 
         $blob = github('POST', $repo . '/git/blobs', ['content' => $json, 'encoding' => 'utf-8']);
         if ($blob['status'] !== 201) {

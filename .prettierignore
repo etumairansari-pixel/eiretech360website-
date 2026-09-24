@@ -6,3 +6,9 @@ pnpm-lock.yaml
 package-lock.json
 bun.lock
 routeTree.gen.ts
+
+# The content admin writes these, and PHP pretty-prints JSON differently
+# from Prettier. Formatting them here would make every save look like a
+# rewrite of the whole file.
+content/*.json
+content/pages/*.json

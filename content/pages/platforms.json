@@ -1,21 +1,21 @@
 {
-    "$comment": "Copy and metadata for the platforms page. Its slug and navigation labels live in content/site.json.",
-    "seo": {
-        "title": "Digital Platforms & Tools | Eire Tech Solutions",
-        "description": "Discover Eire Tech's powerful digital platforms designed to streamline operations, automate workflows & drive smarter business growth.",
-        "robots": "index, follow"
-    },
-    "hero": {
-        "eyebrow": "Platforms & Tools",
-        "title": "The technology behind [g]our work.[/g]",
-        "subtitle": "We work with industry-leading platforms and tools to build, automate and scale your digital presence with confidence."
-    },
-    "outro": "Our team stays current with the latest platforms and technologies so you always get modern, future-proof solutions—not outdated approaches.",
-    "cta": {
-        "label": "Let's build",
-        "title": "Which platform [gg]fits[/gg] your business best?",
-        "subtitle": "We’ll help you choose a stack built around your goals, team and growth plans.",
-        "buttonLabel": "Talk to Our Team",
-        "buttonTo": "contact"
-    }
+  "$comment": "Copy and metadata for the platforms page. Its slug and navigation labels live in content/site.json.",
+  "seo": {
+    "title": "Digital Platforms & Tools | Eire Tech Solutions",
+    "description": "Discover Eire Tech's powerful digital platforms designed to streamline operations, automate workflows & drive smarter business growth.",
+    "robots": "index, follow"
+  },
+  "hero": {
+    "eyebrow": "Platforms & Tools",
+    "title": "The technology behind [g]our work.[/g]",
+    "subtitle": "We work with industry-leading platforms and tools to build, automate and scale your digital presence with confidence."
+  },
+  "outro": "Our team stays current with the latest platforms and technologies so you always get modern, future-proof solutions—not outdated approaches.",
+  "cta": {
+    "label": "Let's build",
+    "title": "Which platform [gg]fits[/gg] your business best?",
+    "subtitle": "We’ll help you choose a stack built around your goals, team and growth plans.",
+    "buttonLabel": "Talk to Our Team",
+    "buttonTo": "contact"
+  }
 }

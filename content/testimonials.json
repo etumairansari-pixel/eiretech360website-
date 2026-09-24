@@ -1,20 +1,20 @@
 [
-    {
-        "initials": "AM",
-        "name": "Amina M.",
-        "role": "Founder · Consumer services",
-        "quote": "The biggest difference was having strategy, creative and automation handled as one system. Our team finally had a clear plan—and far less manual follow-up."
-    },
-    {
-        "initials": "DO",
-        "name": "Daniel O.",
-        "role": "Operations lead · B2B company",
-        "quote": "They translated a messy internal process into something simple our team could actually use. Communication was clear, thoughtful and refreshingly practical."
-    },
-    {
-        "initials": "SK",
-        "name": "Sarah K.",
-        "role": "Marketing director · Growing brand",
-        "quote": "The work felt genuinely collaborative. Every recommendation connected back to a measurable goal, and the finished experience feels distinctly like our brand."
-    }
+  {
+    "initials": "AM",
+    "name": "Amina M.",
+    "role": "Founder · Consumer services",
+    "quote": "The biggest difference was having strategy, creative and automation handled as one system. Our team finally had a clear plan—and far less manual follow-up."
+  },
+  {
+    "initials": "DO",
+    "name": "Daniel O.",
+    "role": "Operations lead · B2B company",
+    "quote": "They translated a messy internal process into something simple our team could actually use. Communication was clear, thoughtful and refreshingly practical."
+  },
+  {
+    "initials": "SK",
+    "name": "Sarah K.",
+    "role": "Marketing director · Growing brand",
+    "quote": "The work felt genuinely collaborative. Every recommendation connected back to a measurable goal, and the finished experience feels distinctly like our brand."
+  }
 ]

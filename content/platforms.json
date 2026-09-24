@@ -1,61 +1,61 @@
 [
-    {
-        "icon": "shopping-bag",
-        "title": "Website & E-commerce",
-        "tools": [
-            "WordPress",
-            "Shopify",
-            "Wix",
-            "Webflow"
-        ]
-    },
-    {
-        "icon": "workflow",
-        "title": "CRM & Automation",
-        "tools": [
-            "HubSpot",
-            "Salesforce",
-            "Zapier",
-            "Make",
-            "ActiveCampaign"
-        ]
-    },
-    {
-        "icon": "palette",
-        "title": "Design & Creative",
-        "tools": [
-            "Adobe Creative Suite",
-            "Figma",
-            "Canva"
-        ]
-    },
-    {
-        "icon": "megaphone",
-        "title": "Marketing & Advertising",
-        "tools": [
-            "Google Ads",
-            "Meta Business Suite",
-            "Google Analytics",
-            "SEMrush / Ahrefs"
-        ]
-    },
-    {
-        "icon": "code-2",
-        "title": "App Development",
-        "tools": [
-            "React Native",
-            "Flutter",
-            "Firebase",
-            "AWS"
-        ]
-    },
-    {
-        "icon": "brain-circuit",
-        "title": "AI & Automation",
-        "tools": [
-            "OpenAI / Custom AI Models",
-            "Chatbot Platforms",
-            "Custom Automation Pipelines"
-        ]
-    }
+  {
+    "icon": "shopping-bag",
+    "title": "Website & E-commerce",
+    "tools": [
+      "WordPress",
+      "Shopify",
+      "Wix",
+      "Webflow"
+    ]
+  },
+  {
+    "icon": "workflow",
+    "title": "CRM & Automation",
+    "tools": [
+      "HubSpot",
+      "Salesforce",
+      "Zapier",
+      "Make",
+      "ActiveCampaign"
+    ]
+  },
+  {
+    "icon": "palette",
+    "title": "Design & Creative",
+    "tools": [
+      "Adobe Creative Suite",
+      "Figma",
+      "Canva"
+    ]
+  },
+  {
+    "icon": "megaphone",
+    "title": "Marketing & Advertising",
+    "tools": [
+      "Google Ads",
+      "Meta Business Suite",
+      "Google Analytics",
+      "SEMrush / Ahrefs"
+    ]
+  },
+  {
+    "icon": "code-2",
+    "title": "App Development",
+    "tools": [
+      "React Native",
+      "Flutter",
+      "Firebase",
+      "AWS"
+    ]
+  },
+  {
+    "icon": "brain-circuit",
+    "title": "AI & Automation",
+    "tools": [
+      "OpenAI / Custom AI Models",
+      "Chatbot Platforms",
+      "Custom Automation Pipelines"
+    ]
+  }
 ]

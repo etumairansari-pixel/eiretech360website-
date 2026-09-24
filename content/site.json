@@ -1,79 +1,79 @@
 {
-    "$comment": "Site-wide settings and the page list. Every page bundle carries this file, so it holds only what the header, footer and URL helpers need — each page’s own copy lives in content/pages/<key>.json.",
-    "site": {
-        "url": "https://eiretech360.com",
-        "name": "Eire Tech",
-        "tagline": "Digital Growth & Automation Partner",
-        "ogImage": "/og-image.png",
-        "themeColor": "#1e9bf0"
+  "$comment": "Site-wide settings and the page list. Every page bundle carries this file, so it holds only what the header, footer and URL helpers need — each page’s own copy lives in content/pages/<key>.json.",
+  "site": {
+    "url": "https://eiretech360.com",
+    "name": "Eire Tech",
+    "tagline": "Digital Growth & Automation Partner",
+    "ogImage": "/og-image.png",
+    "themeColor": "#1e9bf0"
+  },
+  "contact": {
+    "email": "info@eiretech360.com",
+    "phone": "+353 89 942 7009",
+    "phoneHref": "tel:+353899427009"
+  },
+  "social": [
+    {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/company/eire-tech/"
     },
-    "contact": {
-        "email": "info@eiretech360.com",
-        "phone": "+353 89 942 7009",
-        "phoneHref": "tel:+353899427009"
-    },
-    "social": [
-        {
-            "label": "LinkedIn",
-            "href": "https://www.linkedin.com/company/eire-tech/"
-        },
-        {
-            "label": "Facebook",
-            "href": "https://www.facebook.com/people/EireTech/61591366410652/"
-        }
+    {
+      "label": "Facebook",
+      "href": "https://www.facebook.com/people/EireTech/61591366410652/"
+    }
+  ],
+  "nav": {
+    "ctaLabel": "Start a Project"
+  },
+  "footer": {
+    "blurb": "Eire Tech: Digital Growth & Automation Partner. Blending strategy, creativity and AI to transform how your brand shows up, scales and runs.",
+    "capabilities": [
+      "Digital Marketing",
+      "Automation",
+      "Website Development",
+      "App Development",
+      "AI Development",
+      "Brand Management"
     ],
-    "nav": {
-        "ctaLabel": "Start a Project"
-    },
-    "footer": {
-        "blurb": "Eire Tech: Digital Growth & Automation Partner. Blending strategy, creativity and AI to transform how your brand shows up, scales and runs.",
-        "capabilities": [
-            "Digital Marketing",
-            "Automation",
-            "Website Development",
-            "App Development",
-            "AI Development",
-            "Brand Management"
-        ],
-        "ctaLabel": "Talk to an Expert",
-        "visitTitle": "Visit Us",
-        "visitLine": "Our Washington office.",
-        "address": [
-            "1717 N Street NW",
-            "Ste 1",
-            "Washington, DC 20036"
-        ]
-    },
-    "routes": [
-        {
-            "key": "home",
-            "slug": "",
-            "navLabel": "Hom",
-            "footerLabel": "Home"
-        },
-        {
-            "key": "services",
-            "slug": "services",
-            "navLabel": "Services",
-            "footerLabel": "Services"
-        },
-        {
-            "key": "platforms",
-            "slug": "platforms",
-            "navLabel": "Platforms",
-            "footerLabel": "Platforms & Tools"
-        },
-        {
-            "key": "about",
-            "slug": "about",
-            "navLabel": "About",
-            "footerLabel": "About Us"
-        },
-        {
-            "key": "contact",
-            "slug": "contact",
-            "navLabel": "Contact",
-            "footerLabel": "Contact Us"
-        }
+    "ctaLabel": "Talk to an Expert",
+    "visitTitle": "Visit Us",
+    "visitLine": "Our Washington office.",
+    "address": [
+      "1717 N Street NW",
+      "Ste 1",
+      "Washington, DC 20036"
     ]
+  },
+  "routes": [
+    {
+      "key": "home",
+      "slug": "",
+      "navLabel": "Hom",
+      "footerLabel": "Home"
+    },
+    {
+      "key": "services",
+      "slug": "services",
+      "navLabel": "Services",
+      "footerLabel": "Services"
+    },
+    {
+      "key": "platforms",
+      "slug": "platforms",
+      "navLabel": "Platforms",
+      "footerLabel": "Platforms & Tools"
+    },
+    {
+      "key": "about",
+      "slug": "about",
+      "navLabel": "About",
+      "footerLabel": "About Us"
+    },
+    {
+      "key": "contact",
+      "slug": "contact",
+      "navLabel": "Contact",
+      "footerLabel": "Contact Us"
+    }
+  ]
 }
