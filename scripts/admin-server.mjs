@@ -288,7 +288,12 @@ function runBuild() {
 const vite = await createViteServer({
   root: path.join(rootDir, "admin"),
   configFile: path.join(rootDir, "admin/vite.config.ts"),
-  server: { middlewareMode: true },
+  server: {
+    middlewareMode: true,
+    // Derived from ADMIN_PORT so a second instance does not collide with the
+    // first one's hot-reload socket.
+    hmr: { port: PORT + 19504 },
+  },
   appType: "spa",
 });
 
@@ -391,6 +396,23 @@ const server = http.createServer(async (req, res) => {
   vite.middlewares(req, res);
 });
 
+/**
+ * A port left behind by an earlier run is the usual way this fails, and the
+ * raw EADDRINUSE stack says nothing about what to do next.
+ */
+server.on("error", (error) => {
+  if (error.code !== "EADDRINUSE") throw error;
+
+  console.error(`\n  Port ${PORT} is already in use.\n`);
+  console.error("  The editor is probably still running from an earlier terminal.");
+  console.error(`  Open http://localhost:${PORT} — if that is it, use that window.\n`);
+  console.error("  Otherwise close it and try again, or pick another port:");
+  console.error(`      ADMIN_PORT=${PORT + 1} npm run admin\n`);
+  process.exit(1);
+});
+
+// Vite's hot-reload socket picks its own port and collides the same way; move
+// it with the server so a second instance on ADMIN_PORT does not fight the first.
 server.listen(PORT, "127.0.0.1", () => {
   console.log(`\n  Eire Tech content admin\n`);
   console.log(`  Editor    http://localhost:${PORT}   (password required)`);
