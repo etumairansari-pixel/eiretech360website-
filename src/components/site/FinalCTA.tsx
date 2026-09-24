@@ -1,21 +1,23 @@
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { LogoMark } from "@/components/Logo";
+import { Highlight } from "@/components/site/Highlight";
 import { MagneticLink, Reveal } from "@/components/site/primitives";
+import { linkTo } from "@/content";
 
 export function FinalCTA({
   label = "Let's build",
   title,
-  accentWord,
   subtitle,
   buttonLabel = "Connect With Us",
-  buttonTo = "/contact",
+  buttonTo = "contact",
 }: {
   label?: string;
+  /** May carry [g] / [gg] highlight markers. */
   title: string;
-  accentWord: string;
   subtitle: string;
   buttonLabel?: string;
+  /** A page key, or an absolute URL. */
   buttonTo?: string;
 }) {
   return (
@@ -45,16 +47,14 @@ export function FinalCTA({
             {label}
           </div>
           <h2 className="mx-auto max-w-3xl text-4xl font-extrabold leading-[1.02] tracking-tighter md:text-6xl">
-            {title.split(accentWord)[0]}
-            <span className="brand-gradient-text text-glow">{accentWord}</span>
-            {title.split(accentWord)[1]}
+            <Highlight text={title} />
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-brand-muted">
             {subtitle}
           </p>
           <div className="mt-10 flex justify-center">
             <MagneticLink
-              to={buttonTo}
+              to={linkTo(buttonTo)}
               className="group inline-flex items-center gap-2 rounded-full brand-gradient-bg px-8 py-4 font-bold text-white transition-shadow hover:brand-glow"
             >
               {buttonLabel}

@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { defineConfig, type Plugin } from "vite";
+import { applyContent, readContent, staticRoutes } from "./scripts/content-html.mjs";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
@@ -61,29 +62,32 @@ function inlineStylesheet(): Plugin {
   };
 }
 
-const staticRouteMeta = [
-  {
-    path: "services",
-    title: "Our Services | Web, Marketing, Apps & AI – Eire Tech",
-    description:
-      "Explore Eire Tech's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business.",
-    url: "https://eiretech360.com/services",
-  },
-  {
-    path: "platforms",
-    title: "Digital Platforms & Tools | Eire Tech Solutions",
-    description:
-      "Discover Eire Tech's powerful digital platforms designed to streamline operations, automate workflows & drive smarter business growth.",
-    url: "https://eiretech360.com/platforms",
-  },
-  {
-    path: "about",
-    title: "About Us | Eire Tech – Your Digital Growth Partner",
-    description:
-      "Learn about Eire Tech, a full-service digital solutions company committed to helping businesses grow, automate & innovate with one trusted partner.",
-    url: "https://eiretech360.com/about",
-  },
-] as const;
+/**
+ * The inner pages, read from content/site.json so the admin panel owns their
+ * slugs and metadata. Home and contact are excluded: each ships as its own
+ * hand-written document and is filled by fillDocuments() below.
+ */
+const staticRouteMeta = staticRoutes(readContent());
+
+/**
+ * Substitutes content/site.json into the two hand-written documents.
+ *
+ * transformIndexHtml runs for every HTML entry, in build and in dev, so the
+ * tokens never reach a browser.
+ */
+function fillDocuments(): Plugin {
+  return {
+    name: "fill-documents",
+    enforce: "pre",
+    transformIndexHtml: {
+      order: "pre",
+      handler(html, ctx) {
+        const which = ctx.path.includes("contact") ? "contact" : "home";
+        return applyContent(html, which);
+      },
+    },
+  };
+}
 
 function escapeHtmlAttribute(value: string) {
   return value
@@ -97,12 +101,18 @@ function withRouteMeta(html: string, route: (typeof staticRouteMeta)[number]) {
   const title = escapeHtmlAttribute(route.title);
   const description = escapeHtmlAttribute(route.description);
   const url = escapeHtmlAttribute(route.url);
+  const ogImage = escapeHtmlAttribute(route.ogImage);
+  const robots = escapeHtmlAttribute(route.robots);
 
   return html
     .replace(/<title>.*?<\/title>/, `<title>${title}</title>`)
     .replace(
       /<meta\s+name="description"\s+content="[^"]*"\s*\/>/,
       `<meta name="description" content="${description}" />`,
+    )
+    .replace(
+      /<meta\s+name="robots"\s+content="[^"]*"\s*\/>/,
+      `<meta name="robots" content="${robots}" />`,
     )
     .replace(
       /<link\s+rel="canonical"\s+href="[^"]*"\s*\/>/,
@@ -119,6 +129,14 @@ function withRouteMeta(html: string, route: (typeof staticRouteMeta)[number]) {
     .replace(
       /<meta\s+property="og:url"\s+content="[^"]*"\s*\/>/,
       `<meta property="og:url" content="${url}" />`,
+    )
+    .replace(
+      /<meta\s+property="og:image"\s+content="[^"]*"\s*\/>/,
+      `<meta property="og:image" content="${ogImage}" />`,
+    )
+    .replace(
+      /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/>/,
+      `<meta name="twitter:image" content="${ogImage}" />`,
     );
 }
 
@@ -132,6 +150,75 @@ function stripHeroPreload(html: string) {
     /\n\s*<!-- WebP saves[\s\S]*?-->(?:\s*<link\s+rel="preload"\s+as="image"[\s\S]*?\/>)+/,
     "",
   );
+}
+
+/**
+ * Rewrites the files that describe the site's URLs — .htaccess, robots.txt and
+ * sitemap.xml — from content/site.json.
+ *
+ * These live in public/ and are copied verbatim, so renaming a page in the
+ * admin panel would otherwise leave Apache rewriting the old slug and the
+ * sitemap advertising a URL that no longer exists.
+ */
+function generateRoutingFiles(): Plugin {
+  return {
+    name: "generate-routing-files",
+    apply: "build",
+    enforce: "post",
+    writeBundle(options) {
+      const outDir = options.dir;
+      if (!outDir) return;
+
+      const content = readContent();
+      const base = content.site.url.replace(/\/$/, "");
+      const slugs = staticRouteMeta.map((route) => route.slug);
+
+      const htaccess = path.join(outDir, ".htaccess");
+      if (fs.existsSync(htaccess)) {
+        fs.writeFileSync(
+          htaccess,
+          fs.readFileSync(htaccess, "utf8").replace(/%%ROUTE_SLUGS%%/g, slugs.join("|")),
+        );
+      }
+
+      const robots = path.join(outDir, "robots.txt");
+      if (fs.existsSync(robots)) {
+        fs.writeFileSync(
+          robots,
+          fs.readFileSync(robots, "utf8").replace(/%%SITE_URL%%/g, base),
+        );
+      }
+
+      // Priorities follow the order the pages are listed in: the first page is
+      // the most important, and the rest step down without going below 0.5.
+      const today = new Date().toISOString().slice(0, 10);
+      const urls = content.routes
+        .filter((route) => !/noindex/i.test(content.pages[route.key]?.seo?.robots ?? ""))
+        .map((route, index) => {
+          const loc =
+            route.slug === ""
+              ? `${base}/`
+              : route.key === "contact"
+                ? `${base}/${route.slug}/`
+                : `${base}/${route.slug}`;
+          const priority = index === 0 ? "1.0" : Math.max(0.5, 0.9 - (index - 1) * 0.1).toFixed(1);
+
+          return [
+            "  <url>",
+            `    <loc>${loc}</loc>`,
+            `    <lastmod>${today}</lastmod>`,
+            `    <changefreq>${index === 0 ? "weekly" : "monthly"}</changefreq>`,
+            `    <priority>${priority}</priority>`,
+            "  </url>",
+          ].join("\n");
+        });
+
+      fs.writeFileSync(
+        path.join(outDir, "sitemap.xml"),
+        `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`,
+      );
+    },
+  };
 }
 
 function emitStaticRouteMetaPages(): Plugin {
@@ -148,7 +235,7 @@ function emitStaticRouteMetaPages(): Plugin {
 
       const indexHtml = fs.readFileSync(indexPath, "utf8");
       for (const route of staticRouteMeta) {
-        const routeDir = path.join(outDir, route.path);
+        const routeDir = path.join(outDir, route.slug);
         fs.mkdirSync(routeDir, { recursive: true });
         fs.writeFileSync(
           path.join(routeDir, "index.html"),
@@ -200,11 +287,10 @@ function stripHoistedTags(markup: string) {
 }
 
 function prerenderRoutes(): Plugin {
-  const routes = [
-    { url: "/about", file: "about/index.html" },
-    { url: "/services", file: "services/index.html" },
-    { url: "/platforms", file: "platforms/index.html" },
-  ];
+  const routes = staticRouteMeta.map((route) => ({
+    url: route.path,
+    file: `${route.slug}/index.html`,
+  }));
 
   return {
     name: "prerender-routes",
@@ -283,12 +369,17 @@ function prerenderRoutes(): Plugin {
 }
 
 export default defineConfig({
+  // Tells __root.tsx not to emit a <link> to the stylesheet: this build inlines
+  // it into every document and deletes the file (see inlineStylesheet).
+  define: { "import.meta.env.VITE_INLINE_CSS": "true" },
   plugins: [
+    fillDocuments(),
     tanstackRouter({ target: "react", autoCodeSplitting: true }),
     react(),
     tailwindcss(),
     inlineStylesheet(),
     emitStaticRouteMetaPages(),
+    generateRoutingFiles(),
     prerenderRoutes(),
   ],
   resolve: {

@@ -1,0 +1,58 @@
+{
+  "$comment": "Copy and metadata for the about page. Its slug and navigation labels live in content/site.json.",
+  "seo": {
+    "title": "About Us | Eire Tech – Your Digital Growth Partner",
+    "description": "Learn about Eire Tech, a full-service digital solutions company committed to helping businesses grow, automate & innovate with one trusted partner.",
+    "robots": "index, follow"
+  },
+  "hero": {
+    "eyebrow": "About Eire Tech",
+    "title": "We build digital [g]ecosystems[/g], not just projects.",
+    "subtitle": "Eire Tech is a full-service digital solutions company helping businesses grow, automate and innovate in today’s fast-paced digital landscape."
+  },
+  "story": {
+    "label": "Our Story",
+    "title": "One connected partner.",
+    "paragraphs": [
+      "Eire Tech was built on one core belief: technology and creativity, when combined strategically, can transform any brand. What started as a vision to simplify digital growth has become a full-service partner for start-ups and established businesses alike.",
+      "We saw too many businesses juggling multiple agencies, tools and freelancers just to keep their digital presence running. So we built a single team that covers it all."
+    ]
+  },
+  "differences": {
+    "label": "What Makes Us Different",
+    "items": [
+      {
+        "icon": "layers-3",
+        "title": "One Team, Every Capability",
+        "text": "From SEO to app development to AI, everything you need lives under one roof."
+      },
+      {
+        "icon": "bot",
+        "title": "Automation First",
+        "text": "We build systems that keep working long after the project ends."
+      },
+      {
+        "icon": "users",
+        "title": "Partnership Over Projects",
+        "text": "Your growth is our benchmark, not a one-off deliverable."
+      },
+      {
+        "icon": "bar-chart-3",
+        "title": "Data-Backed Decisions",
+        "text": "Every strategy is measured, tested and refined for real results."
+      }
+    ]
+  },
+  "mission": {
+    "label": "Our Mission",
+    "title": "Help businesses reduce manual effort, strengthen their brand and stay ahead through [g]smart strategy and intelligent automation.[/g]",
+    "body": "A multidisciplinary team of marketers, developers, designers and AI specialists—all working under one vision: helping your brand do more with less effort."
+  },
+  "cta": {
+    "label": "Let's build",
+    "title": "Ready to build something [gg]exceptional[/gg]?",
+    "subtitle": "Bring us your next challenge and let’s shape the right digital ecosystem together.",
+    "buttonLabel": "Get in Touch",
+    "buttonTo": "contact"
+  }
+}

@@ -1,88 +1,56 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BrainCircuit, Code2, Megaphone, Palette, ShoppingBag, Workflow } from "lucide-react";
 import { Shell, PageHero } from "@/components/site/Shell";
 import { FinalCTA } from "@/components/site/FinalCTA";
+import { Highlight } from "@/components/site/Highlight";
 import { Reveal, Spotlight } from "@/components/site/primitives";
+import { headFor } from "@/content";
+import platformsPage from "../../content/pages/platforms.json";
+import platforms from "../../content/platforms.json";
+import { iconFor } from "@/content/icons";
 
 export const Route = createFileRoute("/platforms")({
-  head: () => ({
-    meta: [
-      { title: "Digital Platforms & Tools | Eire Tech Solutions" },
-      {
-        name: "description",
-        content:
-          "Discover Eire Tech's powerful digital platforms designed to streamline operations, automate workflows & drive smarter business growth.",
-      },
-      { property: "og:title", content: "Digital Platforms & Tools | Eire Tech Solutions" },
-      {
-        property: "og:description",
-        content:
-          "Discover Eire Tech's powerful digital platforms designed to streamline operations, automate workflows & drive smarter business growth.",
-      },
-    ],
-    links: [{ rel: "canonical", href: "https://eiretech360.com/platforms" }],
-  }),
+  head: () => headFor("platforms", platformsPage.seo),
   component: PlatformsPage,
 });
-const groups = [
-  [ShoppingBag, "Website & E-commerce", ["WordPress", "Shopify", "Wix", "Webflow"]],
-  [Workflow, "CRM & Automation", ["HubSpot", "Salesforce", "Zapier", "Make", "ActiveCampaign"]],
-  [Palette, "Design & Creative", ["Adobe Creative Suite", "Figma", "Canva"]],
-  [
-    Megaphone,
-    "Marketing & Advertising",
-    ["Google Ads", "Meta Business Suite", "Google Analytics", "SEMrush / Ahrefs"],
-  ],
-  [Code2, "App Development", ["React Native", "Flutter", "Firebase", "AWS"]],
-  [
-    BrainCircuit,
-    "AI & Automation",
-    ["OpenAI / Custom AI Models", "Chatbot Platforms", "Custom Automation Pipelines"],
-  ],
-] as const;
+
 function PlatformsPage() {
+  const { hero, outro, cta } = platformsPage;
+
   return (
     <Shell>
-      <PageHero
-        eyebrow="Platforms & Tools"
-        title={
-          <>
-            The technology behind <span className="brand-gradient-text">our work.</span>
-          </>
-        }
-        subtitle="We work with industry-leading platforms and tools to build, automate and scale your digital presence with confidence."
-      />
+      <PageHero eyebrow={hero.eyebrow} title={<Highlight text={hero.title} />} subtitle={hero.subtitle} />
       <section className="pb-24">
         <div className="mx-auto grid max-w-7xl gap-5 px-6 md:grid-cols-2 lg:grid-cols-3">
-          {groups.map(([Icon, title, tools], i) => (
-            <Reveal key={title} delay={i * 0.05}>
-              <Spotlight className="h-full rounded-3xl border border-brand-line bg-brand-surface p-8">
-                <Icon className="size-7 text-brand-primary" />
-                <h2 className="mt-6 text-xl font-bold">{title}</h2>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {tools.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-brand-line bg-brand-bg px-3 py-1.5 text-sm text-brand-muted"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </Spotlight>
-            </Reveal>
-          ))}
+          {platforms.map((group, i) => {
+            const Icon = iconFor(group.icon);
+            return (
+              <Reveal key={group.title} delay={i * 0.05}>
+                <Spotlight className="h-full rounded-3xl border border-brand-line bg-brand-surface p-8">
+                  <Icon className="size-7 text-brand-primary" />
+                  <h2 className="mt-6 text-xl font-bold">{group.title}</h2>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {group.tools.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-brand-line bg-brand-bg px-3 py-1.5 text-sm text-brand-muted"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </Spotlight>
+              </Reveal>
+            );
+          })}
         </div>
-        <p className="mx-auto mt-14 max-w-3xl px-6 text-center text-lg text-brand-muted">
-          Our team stays current with the latest platforms and technologies so you always get
-          modern, future-proof solutions—not outdated approaches.
-        </p>
+        <p className="mx-auto mt-14 max-w-3xl px-6 text-center text-lg text-brand-muted">{outro}</p>
       </section>
       <FinalCTA
-        title="Which platform fits your business best?"
-        accentWord="fits"
-        subtitle="We’ll help you choose a stack built around your goals, team and growth plans."
-        buttonLabel="Talk to Our Team"
+        label={cta.label}
+        title={cta.title}
+        subtitle={cta.subtitle}
+        buttonLabel={cta.buttonLabel}
+        buttonTo={cta.buttonTo}
       />
     </Shell>
   );

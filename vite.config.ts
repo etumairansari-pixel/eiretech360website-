@@ -6,6 +6,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { applyContent, contentPath, readContent } from "./scripts/content-html.mjs";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
@@ -30,16 +31,24 @@ function serveStaticContactPage(): Plugin {
       server.middlewares.use((req, res, next) => {
         const [pathname] = (req.url ?? "").split("?");
 
+        // The slug is read per request so renaming the page in the admin panel
+        // takes effect without restarting the dev server.
+        const slug = readContent().routes.find((r) => r.key === "contact")?.slug;
+        if (!slug) {
+          next();
+          return;
+        }
+
         // mod_dir: a directory request without the trailing slash is redirected.
-        if (pathname === "/contact") {
+        if (pathname === `/${slug}`) {
           const query = (req.url ?? "").slice(pathname.length);
           res.statusCode = 301;
-          res.setHeader("Location", `/contact/${query}`);
+          res.setHeader("Location", `/${slug}/${query}`);
           res.end();
           return;
         }
 
-        if (pathname !== "/contact/" && pathname !== "/contact/index.html") {
+        if (pathname !== `/${slug}/` && pathname !== `/${slug}/index.html`) {
           next();
           return;
         }
@@ -60,8 +69,36 @@ function serveStaticContactPage(): Plugin {
   };
 }
 
+/**
+ * Fills %%TOKENS%% in the hand-written documents from content/site.json, and
+ * reloads the page when that file changes, so editing content in the admin
+ * panel is reflected here immediately.
+ */
+function fillDocuments(): Plugin {
+  return {
+    name: "fill-documents",
+    enforce: "pre",
+    transformIndexHtml: {
+      order: "pre",
+      handler(html, ctx) {
+        const which = ctx.path.includes("contact") ? "contact" : "home";
+        return applyContent(html, which);
+      },
+    },
+    configureServer(server) {
+      server.watcher.add(contentPath);
+      server.watcher.on("change", (file) => {
+        if (path.resolve(file) === path.resolve(contentPath)) {
+          server.ws.send({ type: "full-reload" });
+        }
+      });
+    },
+  };
+}
+
 export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
   const plugins: PluginOption[] = [
+    fillDocuments(),
     serveStaticContactPage(),
     tailwindcss(),
     tsConfigPaths({ projects: ["./tsconfig.json"] }),

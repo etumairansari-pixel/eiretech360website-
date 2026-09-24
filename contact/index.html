@@ -3,21 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Contact Eire Tech | Get a Free Consultation</title>
-    <meta
-      name="description"
-      content="Ready to grow your business? Contact Eire Tech today to discuss your web, marketing, app or AI project and get started with a free consultation."
-    />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://eiretech360.com/contact/" />
+    <title>%%TITLE%%</title>
+    <meta name="description" content="%%DESCRIPTION%%" />
+    <meta name="robots" content="%%ROBOTS%%" />
+    <link rel="canonical" href="%%CANONICAL%%" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Contact Eire Tech | Get a Free Consultation" />
-    <meta
-      property="og:description"
-      content="Ready to grow your business? Contact Eire Tech today to discuss your web, marketing, app or AI project and get started with a free consultation."
-    />
-    <meta property="og:url" content="https://eiretech360.com/contact/" />
-    <meta property="og:image" content="https://eiretech360.com/og-image.png" />
+    <meta property="og:title" content="%%TITLE%%" />
+    <meta property="og:description" content="%%DESCRIPTION%%" />
+    <meta property="og:url" content="%%CANONICAL%%" />
+    <meta property="og:image" content="%%OG_IMAGE%%" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -578,11 +572,11 @@
         </a>
         <nav class="site-nav" aria-label="Main navigation">
           <div class="site-links" id="site-links">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/services">Services</a>
-            <a href="/platforms">Platforms</a>
-            <a href="/contact/" aria-current="page">Contact</a>
+            <a href="%%NAV_HOME%%">%%NAV_HOME_LABEL%%</a>
+            <a href="%%NAV_ABOUT%%">%%NAV_ABOUT_LABEL%%</a>
+            <a href="%%NAV_SERVICES%%">%%NAV_SERVICES_LABEL%%</a>
+            <a href="%%NAV_PLATFORMS%%">%%NAV_PLATFORMS_LABEL%%</a>
+            <a href="%%NAV_CONTACT%%" aria-current="page">%%NAV_CONTACT_LABEL%%</a>
           </div>
           <div class="nav-actions">
             <button
@@ -606,7 +600,7 @@
               </svg>
             </button>
             <a class="nav-cta brand-gradient" href="#contact-form">
-              Start a Project
+              %%NAV_CTA_LABEL%%
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -645,19 +639,24 @@
     <main>
       <section class="hero">
         <div class="wrap">
-          <p class="eyebrow">Contact us</p>
-          <h1>Let's build something <span class="gradient-text">exceptional together.</span></h1>
-          <p class="lead">
-            Tell us where you want to go next. We will review your enquiry and respond with
-            practical next steps.
-          </p>
+          <p class="eyebrow">%%HERO_EYEBROW%%</p>
+          <h1>%%HERO_TITLE%%</h1>
+          <p class="lead">%%HERO_SUBTITLE%%</p>
         </div>
       </section>
 
       <div class="wrap content">
-        <form id="contact-form" class="panel" autocomplete="off">
-          <h2>Start with a few details.</h2>
-          <p class="hint">Fields marked with * are required. Your details are stored securely.</p>
+        <form
+          id="contact-form"
+          class="panel"
+          autocomplete="off"
+          data-sending="%%FORM_SENDING%%"
+          data-send="%%FORM_BUTTON%%"
+          data-success="%%FORM_SUCCESS%%"
+          data-error="%%FORM_ERROR%%"
+        >
+          <h2>%%FORM_TITLE%%</h2>
+          <p class="hint">%%FORM_HINT%%</p>
           <div class="grid">
             <label
               >Full Name *<input
@@ -696,16 +695,7 @@
               >Service *
               <select required name="service">
                 <option value="">Select a service</option>
-                <option>Digital Marketing</option>
-                <option>Automation</option>
-                <option>Brand Management</option>
-                <option>ATL/TTL Campaigns</option>
-                <option>Website Development</option>
-                <option>App Development</option>
-                <option>AI Development</option>
-                <option>Graphic Design</option>
-                <option>Video Editing</option>
-                <option>Other</option>
+                %%FORM_SERVICE_OPTIONS%%
               </select>
             </label>
             <label class="full"
@@ -721,25 +711,22 @@
           </div>
           <div id="status" role="status" aria-live="polite"></div>
           <div class="actions">
-            <button id="submit" class="brand-gradient" type="submit">Send Message</button>
-            <span class="privacy">Secure, private and never shared</span>
+            <button id="submit" class="brand-gradient" type="submit">%%FORM_BUTTON%%</button>
+            <span class="privacy">%%FORM_PRIVACY%%</span>
           </div>
         </form>
 
         <aside>
-          <p class="eyebrow">Get in touch</p>
-          <h2>Start the conversation.</h2>
-          <p>
-            Have a project, a question, or simply want to explore what's possible? We would love to
-            hear from you.
-          </p>
-          <a class="contact-card" href="mailto:info@eiretech360.com"
-            ><span>Email</span><strong>info@eiretech360.com</strong></a
+          <p class="eyebrow">%%ASIDE_EYEBROW%%</p>
+          <h2>%%ASIDE_TITLE%%</h2>
+          <p>%%ASIDE_BODY%%</p>
+          <a class="contact-card" href="mailto:%%CONTACT_EMAIL%%"
+            ><span>Email</span><strong>%%CONTACT_EMAIL%%</strong></a
           >
-          <a class="contact-card" href="tel:+353899427009"
-            ><span>Phone</span><strong>+353 89 942 7009</strong></a
+          <a class="contact-card" href="%%CONTACT_PHONE_HREF%%"
+            ><span>Phone</span><strong>%%CONTACT_PHONE%%</strong></a
           >
-          <p>We typically respond within 24 hours.</p>
+          <p>%%ASIDE_FOOTNOTE%%</p>
         </aside>
       </div>
     </main>
@@ -748,18 +735,17 @@
       <div class="wrap">
         <div class="footer-main">
           <div>
-            <strong>Eire Tech</strong>
-            <p>
-              Your connected digital growth and automation partner for strategy, design,
-              development, marketing, and AI.
-            </p>
+            <strong>%%SITE_NAME%%</strong>
+            <p>%%FOOTER_BLURB%%</p>
           </div>
           <div class="footer-links">
-            <a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a
-            ><a href="/platforms">Platforms</a><a href="/contact/">Contact</a>
+            <a href="%%NAV_HOME%%">%%NAV_HOME_LABEL%%</a><a href="%%NAV_ABOUT%%">%%NAV_ABOUT_LABEL%%</a
+            ><a href="%%NAV_SERVICES%%">%%NAV_SERVICES_LABEL%%</a
+            ><a href="%%NAV_PLATFORMS%%">%%NAV_PLATFORMS_LABEL%%</a
+            ><a href="%%NAV_CONTACT%%">%%NAV_CONTACT_LABEL%%</a>
           </div>
         </div>
-        <div class="copyright">&copy; 2026 Eire Tech. All rights reserved.</div>
+        <div class="copyright">&copy; %%FOOTER_YEAR%% %%SITE_NAME%%. All rights reserved.</div>
       </div>
     </footer>
 
@@ -810,7 +796,7 @@
         event.preventDefault();
         if (!form.reportValidity()) return;
         button.disabled = true;
-        button.textContent = "Sending securely...";
+        button.textContent = form.dataset.sending;
         status.className = "";
         try {
           const payload = Object.fromEntries(new FormData(form).entries());
@@ -825,13 +811,13 @@
           });
           if (!response.ok) throw new Error(`Contact service returned ${response.status}.`);
           form.reset();
-          show("Message received. Our team will contact you within one business day.", "success");
+          show(form.dataset.success, "success");
         } catch (error) {
           console.error(error);
-          show("We could not send your message. Please try again or email us directly.", "error");
+          show(form.dataset.error, "error");
         } finally {
           button.disabled = false;
-          button.textContent = "Send Message";
+          button.textContent = form.dataset.send;
         }
       });
     </script>

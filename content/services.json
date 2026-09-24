@@ -1,0 +1,119 @@
+[
+  {
+    "icon": "megaphone",
+    "title": "Digital Marketing",
+    "tag": "Reach",
+    "image": "svc-marketing",
+    "desc": "Boost your visibility and engagement with data-driven strategies across every channel.",
+    "points": [
+      "Search Engine Optimization (SEO)",
+      "Social Media Marketing",
+      "Paid Advertising (Google, Meta, and more)",
+      "Content Strategy and Creation"
+    ]
+  },
+  {
+    "icon": "workflow",
+    "title": "Marketing & Business Automation",
+    "tag": "Flow",
+    "image": "svc-automation",
+    "desc": "Save time and increase efficiency by automating the workflows that slow your team down.",
+    "points": [
+      "CRM Integration and Setup",
+      "Automated Email and SMS Campaigns",
+      "Workflow and Process Automation",
+      "Lead Nurturing Systems"
+    ]
+  },
+  {
+    "icon": "sparkles",
+    "title": "Brand Management",
+    "tag": "Identity",
+    "image": "svc-brand",
+    "desc": "Build a consistent, powerful identity across every platform your audience sees you on.",
+    "points": [
+      "Brand Strategy and Positioning",
+      "Brand Guidelines and Voice",
+      "Cross-Platform Brand Consistency",
+      "Reputation Management"
+    ]
+  },
+  {
+    "icon": "radio",
+    "title": "ATL & TTL Campaigns",
+    "tag": "Broadcast",
+    "image": "svc-atl",
+    "desc": "Strategic above-the-line and through-the-line advertising for maximum market reach.",
+    "points": [
+      "Traditional Media Campaigns",
+      "Outdoor and Print Advertising",
+      "Integrated Multi-Channel Campaigns",
+      "Campaign Planning and Execution"
+    ]
+  },
+  {
+    "icon": "globe",
+    "title": "Website Development",
+    "tag": "Web",
+    "image": "svc-web",
+    "desc": "Responsive, high-performance websites tailored to your business goals, not templates.",
+    "points": [
+      "Custom Website Design and Development",
+      "E-commerce Websites",
+      "Website Maintenance and Support",
+      "Speed and SEO Optimization"
+    ]
+  },
+  {
+    "icon": "smartphone",
+    "title": "App Development",
+    "tag": "Mobile",
+    "image": "svc-app",
+    "desc": "Custom mobile and web applications engineered to scale with your business.",
+    "points": [
+      "iOS and Android App Development",
+      "Web Application Development",
+      "UI/UX Design for Apps",
+      "App Maintenance and Updates"
+    ]
+  },
+  {
+    "icon": "brain-circuit",
+    "title": "Custom AI Development",
+    "tag": "Intelligence",
+    "image": "svc-ai",
+    "desc": "Intelligent, tailor-made AI solutions to automate and optimize business operations.",
+    "points": [
+      "AI Chatbots and Virtual Assistants",
+      "Workflow Automation Powered by AI",
+      "Custom AI Tools and Integrations",
+      "Data Analysis and Insights"
+    ]
+  },
+  {
+    "icon": "palette",
+    "title": "Graphic Designing",
+    "tag": "Visual",
+    "image": "svc-design",
+    "desc": "Creative visual identities, branding materials, and marketing collateral that get noticed.",
+    "points": [
+      "Logo and Identity Design",
+      "Marketing Collateral and Print Design",
+      "Social Media Creatives",
+      "Packaging and Product Design"
+    ]
+  },
+  {
+    "icon": "film",
+    "title": "Video Editing & Animation",
+    "tag": "Motion",
+    "image": "svc-video",
+    "desc": "Engaging visual content that tells your brand's story and brings it to life.",
+    "points": [
+      "Promotional Videos",
+      "Social Media Reels and Shorts",
+      "Motion Graphics and Animation",
+      "Explainer Videos"
+    ]
+  }
+]

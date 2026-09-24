@@ -1,30 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
+import { headFor, pathFor } from "@/content";
+import contactPage from "../../content/pages/contact.json";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact Eire Tech | Get a Free Consultation" },
-      {
-        name: "description",
-        content:
-          "Ready to grow your business? Contact Eire Tech today to discuss your web, marketing, app or AI project and get started with a free consultation.",
-      },
-      { property: "og:title", content: "Contact Eire Tech | Get a Free Consultation" },
-      {
-        property: "og:description",
-        content:
-          "Ready to grow your business? Contact Eire Tech today to discuss your web, marketing, app or AI project and get started with a free consultation.",
-      },
-    ],
-    links: [{ rel: "canonical", href: "https://eiretech360.com/contact/" }],
-  }),
+  head: () => headFor("contact", contactPage.seo),
   component: ContactRedirect,
 });
 
+/**
+ * The contact page ships as its own static document, so this route exists only
+ * to carry the right metadata during client-side navigation and then hand over
+ * to that document.
+ */
 function ContactRedirect() {
   useEffect(() => {
-    window.location.replace("/contact/");
+    window.location.replace(pathFor("contact"));
   }, []);
 
   return (

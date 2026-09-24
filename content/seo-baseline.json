@@ -1,0 +1,25 @@
+{
+  "$comment": "The titles and descriptions as supplied in Eire_Tech_SEO_Meta_Tags.pdf. This file is a frozen reference, not the live values — the live ones are in site.json and are the SEO specialist's to change. `npm run verify:static` reports where the two differ so a change is always a visible, deliberate one rather than a silent drift.",
+  "pages": {
+    "home": {
+      "title": "Eire Tech | Digital Growth & Automation Partner",
+      "description": "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions."
+    },
+    "services": {
+      "title": "Our Services | Web, Marketing, Apps & AI – Eire Tech",
+      "description": "Explore Eire Tech's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business."
+    },
+    "platforms": {
+      "title": "Digital Platforms & Tools | Eire Tech Solutions",
+      "description": "Discover Eire Tech's powerful digital platforms designed to streamline operations, automate workflows & drive smarter business growth."
+    },
+    "about": {
+      "title": "About Us | Eire Tech – Your Digital Growth Partner",
+      "description": "Learn about Eire Tech, a full-service digital solutions company committed to helping businesses grow, automate & innovate with one trusted partner."
+    },
+    "contact": {
+      "title": "Contact Eire Tech | Get a Free Consultation",
+      "description": "Ready to grow your business? Contact Eire Tech today to discuss your web, marketing, app or AI project and get started with a free consultation."
+    }
+  }
+}

@@ -30,7 +30,7 @@ Options -MultiViews
   # /services/ — a redirect that contradicts both the canonical tag and the
   # sitemap, which name the slash-less URL. Rewriting here keeps the canonical
   # URL a direct 200.
-  RewriteRule ^(about|platforms|services)/?$ $1/index.html [L]
+  RewriteRule ^(%%ROUTE_SLUGS%%)/?$ $1/index.html [L]
 
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d

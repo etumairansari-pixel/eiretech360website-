@@ -14,7 +14,9 @@ for (const file of files) {
   const isPng = /\.png$/i.test(file);
 
   const out = isPng
-    ? await sharp(original).png({ compressionLevel: 9, palette: true, quality: 90, effort: 10 }).toBuffer()
+    ? await sharp(original)
+        .png({ compressionLevel: 9, palette: true, quality: 90, effort: 10 })
+        .toBuffer()
     : await sharp(original).jpeg({ quality: 78, mozjpeg: true, progressive: true }).toBuffer();
 
   before += original.length;

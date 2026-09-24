@@ -29,7 +29,12 @@ import heroMobile02PosterWebp from "@/assets/hero-mobile-02-poster.webp";
 import { Shell } from "@/components/site/Shell";
 import { LogoMark } from "@/components/Logo";
 import { FinalCTA } from "@/components/site/FinalCTA";
-import { services } from "@/components/site/data";
+import { Highlight } from "@/components/site/Highlight";
+import { services } from "@/content/services";
+import { headFor, linkTo } from "@/content";
+import homePage from "../../content/pages/home.json";
+import testimonials from "../../content/testimonials.json";
+import { iconFor } from "@/content/icons";
 import {
   Counter,
   MagneticLink,
@@ -39,29 +44,7 @@ import {
 } from "@/components/site/primitives";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Eire Tech | Digital Growth & Automation Partner" },
-      {
-        name: "description",
-        content:
-          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
-      },
-      { property: "og:title", content: "Eire Tech | Digital Growth & Automation Partner" },
-      {
-        property: "og:description",
-        content:
-          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
-      },
-      { name: "twitter:title", content: "Eire Tech | Digital Growth & Automation Partner" },
-      {
-        name: "twitter:description",
-        content:
-          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
-      },
-    ],
-    links: [{ rel: "canonical", href: "https://eiretech360.com/" }],
-  }),
+  head: () => headFor("home", homePage.seo),
   component: Home,
 });
 
@@ -165,9 +148,9 @@ function HeroVideoBackground() {
 }
 
 /* ---------------- Hero ---------------- */
-const HEADLINE = ["Grow.", "Automate.", "Innovate."];
-
 function Hero() {
+  const hero = homePage.hero;
+
   return (
     <section className="relative isolate overflow-hidden pb-24">
       {/* CraftTech-style video panel: full-bleed footage, fixed dark scrim
@@ -189,19 +172,19 @@ function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-brand-accent" />
             </span>
-            Digital Growth &amp; Automation Partner
+            {hero.badge}
           </motion.div>
 
           <h1 className="mb-8 text-5xl font-extrabold leading-[0.92] tracking-tighter text-white md:text-8xl">
-            {HEADLINE.map((w, i) => (
+            {hero.headline.map((w, i) => (
               <span key={w} className="mr-3 inline-block overflow-hidden align-top md:mr-4">
                 <motion.span
                   initial={{ y: "110%" }}
                   animate={{ y: "0%" }}
                   transition={{ duration: 0.5, delay: 0.04 + i * 0.06, ease: [0.2, 0, 0, 1] }}
-                  className={"inline-block " + (i === 1 ? "brand-gradient-text text-glow" : "")}
+                  className="inline-block"
                 >
-                  {w}
+                  <Highlight text={w} />
                 </motion.span>
               </span>
             ))}
@@ -221,17 +204,17 @@ function Hero() {
             className="flex flex-col gap-4 sm:flex-row sm:flex-wrap"
           >
             <MagneticLink
-              to="/contact"
+              to={linkTo(hero.primaryTo)}
               className="group inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-full brand-gradient-bg px-8 py-4 font-bold text-white transition-shadow hover:brand-glow sm:w-80"
             >
-              Book a Free Consultation
+              {hero.primaryLabel}
               <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
             </MagneticLink>
             <MagneticLink
-              to="/services"
+              to={linkTo(hero.secondaryTo)}
               className="inline-flex w-full items-center justify-center whitespace-nowrap rounded-full border border-white/30 px-8 py-4 font-bold text-white transition-colors hover:border-brand-accent/70 hover:text-brand-accent sm:w-80"
             >
-              Explore Our Services
+              {hero.secondaryLabel}
             </MagneticLink>
           </motion.div>
         </div>
@@ -239,23 +222,18 @@ function Hero() {
 
       <div className="mx-auto max-w-7xl px-6">
         <div className="mt-16 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-brand-line pt-8 md:grid-cols-4">
-          {[
-            { n: 140, s: "%", l: "avg. growth", accent: true },
-            { n: 500, s: "K+", l: "leads generated" },
-            { n: 2500, s: "", l: "workflows automated", accent: true },
-            { n: 80, s: "%", l: "manual effort cut" },
-          ].map((it) => (
-            <div key={it.l}>
+          {hero.stats.map((it) => (
+            <div key={it.label}>
               <div
                 className={
                   "text-3xl font-extrabold tracking-tight md:text-5xl " +
                   (it.accent ? "brand-gradient-text" : "")
                 }
               >
-                <Counter to={it.n} suffix={it.s} />
+                <Counter to={it.value} suffix={it.suffix} />
               </div>
               <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-brand-muted">
-                {it.l}
+                {it.label}
               </div>
             </div>
           ))}
@@ -267,7 +245,7 @@ function Hero() {
 
 /* ---------------- Marquee ---------------- */
 function Marquee() {
-  const items = ["Results-Driven", "AI-Native", "Brand-First", "Always-On", "Future-Proof"];
+  const items = homePage.marquee;
   return (
     <section className="mask-fade-x overflow-hidden border-y border-brand-line bg-brand-surface py-7">
       <div className="animate-marquee flex w-max gap-10 whitespace-nowrap font-mono text-xl uppercase tracking-tight md:text-2xl">
@@ -286,26 +264,24 @@ function Marquee() {
 
 /* ---------------- Mission ---------------- */
 function Mission() {
+  const mission = homePage.mission;
+
   return (
     <section className="py-28">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <Reveal>
           <SectionLabel>
-            <span className="mx-auto">Our Mission</span>
+            <span className="mx-auto">{mission.label}</span>
           </SectionLabel>
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-5xl">
-            Technology and creativity, <span className="brand-gradient-text">working as one.</span>
+            <Highlight text={mission.title} />
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-brand-muted">
-            When strategy meets creativity, brands don't just grow — they transform. Eire Tech is a
-            full-service digital solutions company built to support every stage of your brand's
-            journey, from first impression to full-scale automation. We don't hand off projects and
-            disappear. We build long-term partnerships focused on one thing:{" "}
-            <span className="font-semibold text-brand-text">measurable, real-world results.</span>
+            <Highlight text={mission.body} />
           </p>
         </Reveal>
       </div>
@@ -391,7 +367,9 @@ function ServicePanel({
           </div>
           <div className="text-right font-mono text-[10px] uppercase tracking-[0.25em] text-brand-primary-text">
             / {s.tag}
-            <div className="mt-1 text-brand-muted">{String(i + 1).padStart(2, "0")} — 09</div>
+            <div className="mt-1 text-brand-muted">
+              {String(i + 1).padStart(2, "0")} — {String(services.length).padStart(2, "0")}
+            </div>
           </div>
         </div>
         <div className="max-w-[520px]">
@@ -484,6 +462,8 @@ function ServiceMobileCard({
 
 function ServicesOverview() {
   const [active, setActive] = useState(0);
+  const section = homePage.servicesSection;
+
   return (
     <section className="relative overflow-hidden bg-brand-surface py-28">
       <div className="dot-bg pointer-events-none absolute inset-0 -z-10 opacity-50" />
@@ -493,18 +473,13 @@ function ServicesOverview() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-14 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <SectionLabel>Everything Under One Roof</SectionLabel>
+            <SectionLabel>{section.label}</SectionLabel>
             <h2 className="max-w-2xl text-4xl font-extrabold tracking-tighter md:text-6xl">
-              Nine disciplines.
-              <br />
-              <span className="brand-gradient-text">One integrated ecosystem.</span>
+              <Highlight text={section.title} />
             </h2>
             <div className="brand-gradient-bg mt-5 h-1 w-20" />
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-brand-muted">
-            From visibility to efficiency, we cover the full spectrum of digital growth — every
-            layer of your presence, engineered to work as one system. Hover any panel to expand.
-          </p>
+          <p className="max-w-sm text-sm leading-relaxed text-brand-muted">{section.intro}</p>
         </div>
 
         <div className="hidden overflow-hidden rounded-3xl border border-brand-line bg-brand-bg shadow-2xl lg:flex">
@@ -533,10 +508,10 @@ function ServicesOverview() {
 
         <Reveal delay={0.1} className="mt-12 flex justify-center">
           <MagneticLink
-            to="/services"
+            to={linkTo("services")}
             className="group inline-flex items-center gap-2 rounded-full border border-brand-primary/40 bg-brand-primary/5 px-7 py-3.5 font-bold text-brand-primary-text transition-colors hover:bg-brand-primary/10"
           >
-            See How We Can Help
+            {section.buttonLabel}
             <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
           </MagneticLink>
         </Reveal>
@@ -547,35 +522,19 @@ function ServicesOverview() {
 
 /* ---------------- Why Eire Tech ---------------- */
 function WhyEireTech() {
-  const reasons = [
-    [
-      "01",
-      "One partner, every capability",
-      "No juggling five agencies. Marketing, automation, design, dev and AI in one place.",
-    ],
-    ["02", "Built for long-term growth", "We're invested in outcomes, not one-off invoices."],
-    [
-      "03",
-      "Automation-first thinking",
-      "Everything we build is designed to reduce manual work and free up your time.",
-    ],
-    ["04", "Results you can measure", "Strategy backed by data, not guesswork."],
-  ];
+  const why = homePage.why;
+
   return (
     <section className="py-28">
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 md:grid-cols-2">
         <div>
-          <SectionLabel>Why Eire Tech</SectionLabel>
+          <SectionLabel>{why.label}</SectionLabel>
           <h2 className="mb-6 text-4xl font-extrabold tracking-tighter md:text-5xl">
-            We build <span className="brand-gradient-text">ecosystems</span>, not just deliverables.
+            <Highlight text={why.title} />
           </h2>
-          <p className="mb-8 leading-relaxed text-brand-muted">
-            Whether you're just establishing your presence or ready to scale through automation and
-            AI, our team works closely with you — as an extension of your own — to deliver outcomes
-            that matter.
-          </p>
+          <p className="mb-8 leading-relaxed text-brand-muted">{why.body}</p>
           <div>
-            {reasons.map(([n, t, d], idx) => (
+            {why.reasons.map(({ number: n, title: t, text: d }, idx) => (
               <Reveal key={n} delay={idx * 0.06}>
                 <div
                   className="group flex items-start gap-5 border-b border-brand-line py-5"
@@ -614,9 +573,9 @@ function WhyEireTech() {
               <div className="absolute inset-x-6 bottom-6 flex items-end justify-between">
                 <div>
                   <div className="font-mono text-[10px] uppercase tracking-widest text-brand-primary-text">
-                    AI · Automation · Intelligence
+                    {why.captionEyebrow}
                   </div>
-                  <div className="mt-2 text-2xl font-bold text-white">Intelligence by design.</div>
+                  <div className="mt-2 text-2xl font-bold text-white">{why.captionTitle}</div>
                 </div>
                 <LogoMark className="size-14 shrink-0" />
               </div>
@@ -630,34 +589,22 @@ function WhyEireTech() {
 
 /* ---------------- Process ---------------- */
 function Process() {
-  const steps = [
-    { icon: Compass, k: "Discover", v: "We learn your business, goals and challenges." },
-    {
-      icon: RouteIcon,
-      k: "Strategize",
-      v: "We design a roadmap across marketing, brand and tech.",
-    },
-    {
-      icon: Hammer,
-      k: "Build",
-      v: "We execute across websites, apps, automations, campaigns and content.",
-    },
-    { icon: TrendingUp, k: "Optimize", v: "We track, refine and scale what works." },
-  ];
+  const process = homePage.process;
+
   return (
     <section className="bg-brand-surface py-28">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-16">
-          <SectionLabel>How We Work Together</SectionLabel>
+          <SectionLabel>{process.label}</SectionLabel>
           <h2 className="text-4xl font-extrabold tracking-tighter md:text-5xl">
-            A <span className="brand-gradient-text">system</span>, not a sprint.
+            <Highlight text={process.title} />
           </h2>
         </div>
         <div className="grid gap-px overflow-hidden rounded-2xl border border-brand-line bg-brand-line md:grid-cols-4">
-          {steps.map((s, i) => {
-            const Icon = s.icon;
+          {process.steps.map((s, i) => {
+            const Icon = iconFor(s.icon);
             return (
-              <Reveal key={s.k} delay={i * 0.08}>
+              <Reveal key={s.title} delay={i * 0.08}>
                 <div
                   className="group relative h-full overflow-hidden bg-brand-bg p-8 transition-colors hover:bg-brand-elevated"
                   data-hover
@@ -669,8 +616,8 @@ function Process() {
                     <div className="mb-8 grid size-12 place-items-center rounded-xl border border-brand-line bg-brand-surface text-brand-primary">
                       <Icon className="size-5" />
                     </div>
-                    <div className="mb-3 text-xl font-bold">{s.k}</div>
-                    <p className="text-sm leading-relaxed text-brand-muted">{s.v}</p>
+                    <div className="mb-3 text-xl font-bold">{s.title}</div>
+                    <p className="text-sm leading-relaxed text-brand-muted">{s.text}</p>
                     <div className="mt-6 h-px w-10 bg-gradient-to-r from-brand-accent to-transparent transition-all group-hover:w-24" />
                   </div>
                 </div>
@@ -685,51 +632,26 @@ function Process() {
 
 /* ---------------- Who We Serve ---------------- */
 function WhoWeServe() {
+  const serve = homePage.serve;
+
   return (
     <section className="py-28">
       <div className="mx-auto max-w-5xl px-6">
         <Spotlight className="overflow-hidden rounded-3xl border border-brand-line bg-brand-surface p-10 md:p-16">
-          <SectionLabel>Who We Serve</SectionLabel>
+          <SectionLabel>{serve.label}</SectionLabel>
           <h2 className="max-w-3xl text-3xl font-extrabold leading-tight tracking-tighter md:text-5xl">
-            For <span className="brand-gradient-text">start-ups</span> and{" "}
-            <span className="brand-gradient-text">scaling businesses</span> alike.
+            <Highlight text={serve.title} />
           </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-brand-muted">
-            Whether you're just establishing your presence or ready to scale through automation and
-            AI, our team works closely with you, as an extension of your own, to deliver outcomes
-            that matter.
-          </p>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-brand-muted">{serve.body}</p>
         </Spotlight>
       </div>
     </section>
   );
 }
 
-const testimonials = [
-  {
-    initials: "AM",
-    name: "Amina M.",
-    role: "Founder · Consumer services",
-    quote:
-      "The biggest difference was having strategy, creative and automation handled as one system. Our team finally had a clear plan—and far less manual follow-up.",
-  },
-  {
-    initials: "DO",
-    name: "Daniel O.",
-    role: "Operations lead · B2B company",
-    quote:
-      "They translated a messy internal process into something simple our team could actually use. Communication was clear, thoughtful and refreshingly practical.",
-  },
-  {
-    initials: "SK",
-    name: "Sarah K.",
-    role: "Marketing director · Growing brand",
-    quote:
-      "The work felt genuinely collaborative. Every recommendation connected back to a measurable goal, and the finished experience feels distinctly like our brand.",
-  },
-] as const;
-
 function Testimonials() {
+  const section = homePage.testimonialsSection;
+
   return (
     <section className="relative overflow-hidden bg-brand-surface py-28">
       <LogoMark
@@ -739,14 +661,13 @@ function Testimonials() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <SectionLabel>Client Feedback</SectionLabel>
+            <SectionLabel>{section.label}</SectionLabel>
             <h2 className="max-w-2xl text-4xl font-extrabold tracking-tighter md:text-6xl">
-              Built to feel like an{" "}
-              <span className="brand-gradient-text">extension of your team.</span>
+              <Highlight text={section.title} />
             </h2>
           </div>
           <div className="flex items-center gap-2 rounded-full border border-brand-line bg-brand-bg px-4 py-2 text-xs text-brand-muted">
-            <ShieldCheck className="size-4 text-brand-accent-text" /> Testimonials
+            <ShieldCheck className="size-4 text-brand-accent-text" /> {section.badge}
           </div>
         </div>
         <div className="grid gap-5 lg:grid-cols-3">
@@ -794,10 +715,11 @@ function Home() {
       <WhoWeServe />
       <Testimonials />
       <FinalCTA
-        title="Let's build something exceptional together"
-        accentWord="exceptional"
-        subtitle="Ready to power your next phase of growth? Connect with Eire Tech and let's talk about what's possible."
-        buttonLabel="Connect With Us"
+        label={homePage.cta.label}
+        title={homePage.cta.title}
+        subtitle={homePage.cta.subtitle}
+        buttonLabel={homePage.cta.buttonLabel}
+        buttonTo={homePage.cta.buttonTo}
       />
     </Shell>
   );

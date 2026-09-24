@@ -5,15 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build --config vite.static.config.ts && node scripts/verify-static.mjs",
-    "build:static": "vite build --config vite.static.config.ts && node scripts/verify-static.mjs",
+    "build": "npm run build:icons && vite build --config vite.static.config.ts && node scripts/verify-static.mjs",
+    "build:static": "npm run build:icons && vite build --config vite.static.config.ts && node scripts/verify-static.mjs",
     "verify:static": "node scripts/verify-static.mjs",
     "build:ssr": "vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "optimize:images": "node scripts/optimize-images.mjs",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "admin": "node scripts/admin-server.mjs",
+    "build:icons": "node scripts/generate-icon-registry.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

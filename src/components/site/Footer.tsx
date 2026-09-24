@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { office, social } from "@/components/site/data";
+import { contact as office, footer as footerContent, pathFor, route as routeFor, site, social } from "@/content";
 
 // Lucide v1 dropped brand marks, so the two glyphs are inlined.
 function LinkedInIcon({ className = "" }: { className?: string }) {
@@ -20,24 +20,14 @@ function FacebookIcon({ className = "" }: { className?: string }) {
   );
 }
 
-const pages = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About Us" },
-  { to: "/services", label: "Services" },
-  { to: "/platforms", label: "Platforms & Tools" },
-  { to: "/contact", label: "Contact Us" },
-] as const;
+/** The order the footer lists the pages, by page key. */
+const footerOrder = ["home", "about", "services", "platforms", "contact"] as const;
+
+const pages = footerOrder.map((key) => ({ to: pathFor(key), label: routeFor(key).footerLabel }));
 
 // Capability columns, mirroring how enterprise sites let visitors scan what a
 // firm actually does straight from the footer.
-const capabilities = [
-  "Digital Marketing",
-  "Automation",
-  "Website Development",
-  "App Development",
-  "AI Development",
-  "Brand Management",
-] as const;
+const capabilities = footerContent.capabilities;
 
 const socialIcons = { LinkedIn: LinkedInIcon, Facebook: FacebookIcon } as const;
 
@@ -55,13 +45,14 @@ export function Footer() {
             <Logo className="h-12" />
 
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-brand-muted">
-              Eire Tech: Digital Growth &amp; Automation Partner. Blending strategy, creativity and
-              AI to transform how your brand shows up, scales and runs.
+              {footerContent.blurb}
             </p>
 
             <div className="mt-7 flex items-center gap-3">
               {social.map((s) => {
-                const Icon = socialIcons[s.label];
+                // Unknown networks fall back to the LinkedIn glyph rather than
+                // rendering nothing, so a link an editor adds is still clickable.
+                const Icon = socialIcons[s.label as keyof typeof socialIcons] ?? LinkedInIcon;
                 return (
                   <a
                     key={s.label}
@@ -146,31 +137,37 @@ export function Footer() {
             </ul>
 
             <Link
-              to="/contact"
+              to={pathFor("contact")}
               className="mt-6 inline-flex items-center gap-2 rounded-full border border-brand-primary/30 bg-brand-primary/5 px-5 py-2.5 text-sm font-bold text-brand-primary-text transition-colors hover:bg-brand-primary/10"
               data-hover
             >
-              Talk to an Expert <ArrowUpRight className="size-4" />
+              {footerContent.ctaLabel} <ArrowUpRight className="size-4" />
             </Link>
 
-            <div className="mt-6 text-sm leading-relaxed text-brand-muted">
-              <p className="font-semibold text-brand-text">Visit Us</p>
-              <p className="mt-1">Our Washington office.</p>
-              <address className="mt-2 not-italic">
-                1717 N Street NW
-                <br />
-                Ste 1<br />
-                Washington, DC 20036
-              </address>
-            </div>
+            {footerContent.address.length > 0 && (
+              <div className="mt-6 text-sm leading-relaxed text-brand-muted">
+                <p className="font-semibold text-brand-text">{footerContent.visitTitle}</p>
+                <p className="mt-1">{footerContent.visitLine}</p>
+                <address className="mt-2 not-italic">
+                  {footerContent.address.map((line, i) => (
+                    <span key={line}>
+                      {line}
+                      {i < footerContent.address.length - 1 ? <br /> : null}
+                    </span>
+                  ))}
+                </address>
+              </div>
+            )}
           </div>
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-brand-line pt-8 font-mono text-[10px] uppercase tracking-[0.2em] text-brand-muted md:flex-row">
-          <span>© {new Date().getFullYear()} Eire Tech. All rights reserved.</span>
+          <span>
+            © {new Date().getFullYear()} {site.name}. All rights reserved.
+          </span>
           <span className="flex items-center gap-2">
             <span className="inline-block size-1.5 animate-pulse rounded-full bg-brand-accent" />
-            Digital Growth &amp; Automation Partner
+            {site.tagline}
           </span>
         </div>
       </div>

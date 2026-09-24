@@ -11,26 +11,29 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportError } from "../lib/error-reporting";
 import { ThemeProvider, themeInitScript } from "../lib/theme";
+import { contact, site, social } from "../content";
 
-const SITE_URL = "https://eiretech360.com";
+const SITE_URL = site.url.replace(/\/$/, "");
 
 // Lets Google tie the brand, logo and contact details to the site.
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Eire Tech",
-  description: "Digital Growth & Automation Partner",
+  name: site.name,
+  description: site.tagline,
   url: SITE_URL,
-  image: `${SITE_URL}/og-image.png`,
+  image: `${SITE_URL}${site.ogImage}`,
   logo: `${SITE_URL}/icon-512.png`,
-  email: "info@eiretech360.com",
+  email: contact.email,
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
-    telephone: "+353-89-942-7009",
-    email: "info@eiretech360.com",
+    // Schema.org wants the dialable form, which is what phoneHref carries.
+    telephone: contact.phoneHref.replace(/^tel:/, ""),
+    email: contact.email,
     availableLanguage: ["English"],
   },
+  sameAs: social.map((profile) => profile.href),
 };
 
 const FONTS_HREF =
@@ -105,33 +108,22 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "author", content: "Eire Tech" },
+      { name: "author", content: site.name },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "theme-color", content: "#1e9bf0" },
-      { title: "Eire Tech | Digital Growth & Automation Partner" },
-      { property: "og:title", content: "Eire Tech | Digital Growth & Automation Partner" },
-      { name: "twitter:title", content: "Eire Tech | Digital Growth & Automation Partner" },
-      {
-        name: "description",
-        content:
-          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
-      },
-      {
-        property: "og:description",
-        content:
-          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
-      },
-      {
-        name: "twitter:description",
-        content:
-          "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
-      },
-      { property: "og:image", content: `${SITE_URL}/og-image.png` },
-      { name: "twitter:image", content: `${SITE_URL}/og-image.png` },
+      { name: "theme-color", content: site.themeColor },
+      // Title and description are deliberately absent here. Every route sets
+      // its own through headFor(), and putting the homepage's copy here as a
+      // default would pull content/pages/home.json into the shared chunk that
+      // every page downloads.
+      { property: "og:image", content: `${SITE_URL}${site.ogImage}` },
+      { name: "twitter:image", content: `${SITE_URL}${site.ogImage}` },
     ],
     links: [
-      { rel: "stylesheet", href: appCss },
+      // The static build inlines the stylesheet into each document and drops
+      // the file, so emitting this link there would have every page fetch a
+      // URL that no longer exists. The SSR build still needs it.
+      ...(import.meta.env.VITE_INLINE_CSS ? [] : [{ rel: "stylesheet", href: appCss }]),
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
       { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },

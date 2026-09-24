@@ -2,43 +2,23 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Check, ArrowUpRight } from "lucide-react";
 import { Shell, PageHero } from "@/components/site/Shell";
 import { FinalCTA } from "@/components/site/FinalCTA";
+import { Highlight } from "@/components/site/Highlight";
 import { Reveal } from "@/components/site/primitives";
-import { services } from "@/components/site/data";
+import { services } from "@/content/services";
+import { headFor, pathFor } from "@/content";
+import servicesPage from "../../content/pages/services.json";
 
 export const Route = createFileRoute("/services")({
-  head: () => ({
-    meta: [
-      { title: "Our Services | Web, Marketing, Apps & AI – Eire Tech" },
-      {
-        name: "description",
-        content:
-          "Explore Eire Tech's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business.",
-      },
-      { property: "og:title", content: "Our Services | Web, Marketing, Apps & AI – Eire Tech" },
-      {
-        property: "og:description",
-        content:
-          "Explore Eire Tech's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business.",
-      },
-    ],
-    links: [{ rel: "canonical", href: "https://eiretech360.com/services" }],
-  }),
+  head: () => headFor("services", servicesPage.seo),
   component: ServicesPage,
 });
 
 function ServicesPage() {
+  const { hero, serviceLinkLabel, cta } = servicesPage;
+
   return (
     <Shell>
-      <PageHero
-        eyebrow="Our Services"
-        title={
-          <>
-            Full-spectrum digital solutions,{" "}
-            <span className="brand-gradient-text">under one roof.</span>
-          </>
-        }
-        subtitle="Every service you need to grow, automate and scale your brand, delivered by one connected team."
-      />
+      <PageHero eyebrow={hero.eyebrow} title={<Highlight text={hero.title} />} subtitle={hero.subtitle} />
       <section className="pb-24">
         <div className="mx-auto max-w-7xl space-y-6 px-6">
           {services.map((s, i) => {
@@ -56,7 +36,7 @@ function ServicesPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-slate-950/45" />
                     <span className="absolute left-7 top-7 font-mono text-xs text-white/90">
-                      {String(i + 1).padStart(2, "0")} / 09
+                      {String(i + 1).padStart(2, "0")} / {String(services.length).padStart(2, "0")}
                     </span>
                   </div>
                   <div className="p-8 md:p-12">
@@ -74,10 +54,10 @@ function ServicesPage() {
                       ))}
                     </ul>
                     <a
-                      href="/contact"
+                      href={pathFor("contact")}
                       className="mt-8 inline-flex items-center gap-2 font-bold text-brand-primary-text"
                     >
-                      Discuss this service <ArrowUpRight className="size-4" />
+                      {serviceLinkLabel} <ArrowUpRight className="size-4" />
                     </a>
                   </div>
                 </article>
@@ -87,10 +67,11 @@ function ServicesPage() {
         </div>
       </section>
       <FinalCTA
-        title="Not sure which service fits your business?"
-        accentWord="fits"
-        subtitle="Let’s talk it through together and build a plan that works for you."
-        buttonLabel="Book a Free Consultation"
+        label={cta.label}
+        title={cta.title}
+        subtitle={cta.subtitle}
+        buttonLabel={cta.buttonLabel}
+        buttonTo={cta.buttonTo}
       />
     </Shell>
   );

@@ -4,14 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { MagneticLink, ThemeToggle } from "@/components/site/primitives";
+import { nav as navContent, pathFor, route as routeFor } from "@/content";
 
-const links = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/services", label: "Services" },
-  { to: "/platforms", label: "Platforms" },
-  { to: "/contact", label: "Contact" },
-] as const;
+/** The order the links appear in the bar, by page key. */
+const navOrder = ["home", "about", "services", "platforms", "contact"] as const;
+
+const links = navOrder.map((key) => ({ to: pathFor(key), label: routeFor(key).navLabel }));
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -81,7 +79,9 @@ export function Nav() {
 
           <div className="hidden items-center justify-self-center gap-9 text-sm font-semibold md:inline-flex">
             {links.map((l) => {
-              const active = currentPath === l.to;
+              // The contact link carries a trailing slash because that page is
+              // its own document, so both sides are normalised before comparing.
+              const active = currentPath === (l.to.replace(/\/$/, "") || "/");
               return (
                 <Link
                   key={l.to}
@@ -117,10 +117,10 @@ export function Nav() {
               }
             />
             <MagneticLink
-              to="/contact"
+              to={pathFor("contact")}
               className="hidden items-center gap-1.5 rounded-xl brand-gradient-bg px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-brand-primary/15 transition-all hover:-translate-y-0.5 hover:brand-glow sm:inline-flex"
             >
-              Start a Project
+              {navContent.ctaLabel}
               <ArrowUpRight className="size-3.5" />
             </MagneticLink>
             <button
