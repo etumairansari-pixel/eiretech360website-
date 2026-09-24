@@ -1,16 +1,20 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  NotSignedIn,
+  checkSession,
   getAt,
   loadContent,
   runBuild,
   saveContent,
   setAt,
+  signOut,
   type BuildResult,
   type Loaded,
   type Path,
   type Route,
   type Seo,
 } from "./api";
+import { Login } from "./Login";
 import { collectionSchema, globalSchema, pageSchema, type Section } from "./schema";
 import { FieldInput, RepeaterList, type Ctx } from "./components/Fields";
 import { SearchListing } from "./components/SearchListing";
@@ -19,6 +23,7 @@ type View =
   { kind: "page"; key: string } | { kind: "collection"; key: string } | { kind: "global" };
 
 export default function App() {
+  const [signedIn, setSignedIn] = useState<boolean | null>(null);
   const [data, setData] = useState<Loaded | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [view, setView] = useState<View>({ kind: "page", key: "home" });
@@ -33,9 +38,27 @@ export default function App() {
   const previewRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
+    checkSession().then(setSignedIn);
+  }, []);
+
+  useEffect(() => {
+    if (!signedIn) return;
     loadContent()
       .then(setData)
-      .catch((error) => setLoadError(String(error.message ?? error)));
+      .catch((error) => {
+        if (error instanceof NotSignedIn) {
+          setSignedIn(false);
+          return;
+        }
+        setLoadError(String(error.message ?? error));
+      });
+  }, [signedIn]);
+
+  const leave = useCallback(async () => {
+    await signOut();
+    setData(null);
+    setDirty(false);
+    setSignedIn(false);
   }, []);
 
   // Leaving with unsaved edits would silently lose them.
@@ -61,16 +84,28 @@ export default function App() {
     void catalog;
     void siteUrl;
 
-    const result = await saveContent(content);
-    setSaving(false);
+    try {
+      const result = await saveContent(content);
 
-    if (result.ok) {
-      setDirty(false);
-      setStatus(`Saved at ${new Date().toLocaleTimeString()}`);
-      // The dev server reloads on the file change; nudge the preview too.
-      previewRef.current?.contentWindow?.location.reload();
-    } else {
-      setErrors(result.errors);
+      if (result.ok) {
+        setDirty(false);
+        setStatus(`Saved at ${new Date().toLocaleTimeString()}`);
+        // The dev server reloads on the file change; nudge the preview too.
+        previewRef.current?.contentWindow?.location.reload();
+      } else {
+        setErrors(result.errors);
+      }
+    } catch (error) {
+      // The session expired or the server restarted. The edits are still in
+      // state, so signing back in returns to them rather than losing them.
+      if (error instanceof NotSignedIn) {
+        setSignedIn(false);
+        setErrors(["Your session ended. Sign in again and press Save."]);
+      } else {
+        setErrors([String((error as Error).message ?? error)]);
+      }
+    } finally {
+      setSaving(false);
     }
   }, [data]);
 
@@ -102,6 +137,21 @@ export default function App() {
       onChange: update,
     };
   }, [data, update]);
+
+  if (signedIn === null) {
+    return <div className="grid h-full place-items-center text-sm text-ink-soft">Loading…</div>;
+  }
+
+  if (!signedIn) {
+    return (
+      <Login
+        onSignedIn={() => {
+          setLoadError(null);
+          setSignedIn(true);
+        }}
+      />
+    );
+  }
 
   if (loadError) {
     return (
@@ -138,6 +188,7 @@ export default function App() {
         building={building}
         onSave={save}
         onPublish={publish}
+        onSignOut={leave}
         previewOpen={previewOpen}
         onTogglePreview={() => setPreviewOpen((v) => !v)}
       />
@@ -267,6 +318,7 @@ function Header({
   building,
   onSave,
   onPublish,
+  onSignOut,
   previewOpen,
   onTogglePreview,
 }: {
@@ -276,6 +328,7 @@ function Header({
   building: boolean;
   onSave: () => void;
   onPublish: () => void;
+  onSignOut: () => void;
   previewOpen: boolean;
   onTogglePreview: () => void;
 }) {
@@ -307,6 +360,18 @@ function Header({
           disabled={!dirty || saving}
         >
           {saving ? "Saving…" : "Save"}
+        </button>
+
+        <button
+          type="button"
+          className="btn"
+          title="Sign out"
+          onClick={() => {
+            if (dirty && !confirm("You have unsaved changes. Sign out anyway?")) return;
+            onSignOut();
+          }}
+        >
+          Sign out
         </button>
       </div>
     </header>

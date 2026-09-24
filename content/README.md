@@ -12,9 +12,15 @@ pays for an extra request.
 ## Editing
 
 ```bash
-npm run admin     # the editor, at http://localhost:5174
-npm run dev       # the site, at http://localhost:8080 — the editor previews this
+npm run admin:password   # once, to set the editor's password
+npm run admin            # the editor, at http://localhost:5174
+npm run dev              # the site, at http://localhost:8080 — the editor previews this
 ```
+
+The editor asks for that password before it shows or saves anything. Only a
+scrypt hash of it is stored, in `.env.local`, which git ignores — so it never
+leaves the machine and is not in the repository. Forgotten it? Run
+`npm run admin:password` again.
 
 Save in the editor and the dev server updates immediately. When the changes are
 ready to go live, press **Publish** (or run `npm run build`) and upload

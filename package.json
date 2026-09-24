@@ -15,7 +15,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "admin": "node scripts/admin-server.mjs",
-    "build:icons": "node scripts/generate-icon-registry.mjs"
+    "build:icons": "node scripts/generate-icon-registry.mjs",
+    "admin:password": "node scripts/admin-password.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

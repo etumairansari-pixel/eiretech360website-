@@ -22,9 +22,13 @@ HTML, which is what keeps the meta tags visible to crawlers and costs the page
 no extra request.
 
 ```bash
-npm run admin     # the content editor, at http://localhost:5174
-npm run dev       # the site, at http://localhost:8080 — the editor previews this
+npm run admin:password   # once, to set the editor's password
+npm run admin            # the content editor, at http://localhost:5174
+npm run dev              # the site, at http://localhost:8080 — the editor previews this
 ```
+
+The editor is password-protected and bound to `127.0.0.1`. Only a scrypt hash
+of the password is stored, in `.env.local`, which git ignores.
 
 Save in the editor and the dev server updates straight away. **Publish** in the
 editor (or `npm run build`) produces `dist-static/` to upload. See
@@ -36,6 +40,7 @@ markers and what changing a slug affects.
 | Script                    | What it does                                                   |
 | ------------------------- | -------------------------------------------------------------- |
 | `npm run admin`           | Content editor (reads and writes `content/`)                   |
+| `npm run admin:password`  | Set the content editor's password                              |
 | `npm run dev`             | Dev server                                                     |
 | `npm run build`           | SSR build (Nitro → Cloudflare) into `.output/`                 |
 | `npm run build:static`    | Static SPA build into `dist-static/`                           |

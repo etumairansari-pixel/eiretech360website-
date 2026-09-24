@@ -49,8 +49,41 @@ export type Catalog = {
 
 export type Loaded = Content & { catalog: Catalog; siteUrl: string };
 
+/** Thrown when the server says there is no valid session. */
+export class NotSignedIn extends Error {
+  constructor() {
+    super("Not signed in");
+    this.name = "NotSignedIn";
+  }
+}
+
+export async function checkSession(): Promise<boolean> {
+  const response = await fetch("/api/session");
+  if (!response.ok) return false;
+  const body = await response.json();
+  return Boolean(body.signedIn);
+}
+
+export async function signIn(
+  password: string,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const response = await fetch("/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ password }),
+  });
+
+  const body = await response.json().catch(() => ({}));
+  return response.ok ? { ok: true } : { ok: false, error: body.error ?? "Could not sign in." };
+}
+
+export async function signOut(): Promise<void> {
+  await fetch("/api/logout", { method: "POST" });
+}
+
 export async function loadContent(): Promise<Loaded> {
   const response = await fetch("/api/content");
+  if (response.status === 401) throw new NotSignedIn();
   if (!response.ok) throw new Error(`Could not load content (${response.status})`);
   return response.json();
 }
@@ -63,6 +96,8 @@ export async function saveContent(content: Content): Promise<SaveResult> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(content),
   });
+
+  if (response.status === 401) throw new NotSignedIn();
 
   const body = await response.json().catch(() => ({ ok: false, errors: ["Unexpected reply"] }));
   return body as SaveResult;

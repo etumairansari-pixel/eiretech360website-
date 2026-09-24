@@ -18,6 +18,18 @@ import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { createServer as createViteServer } from "vite";
 import { iconCatalog } from "./icon-catalog.mjs";
+import {
+  COOKIE,
+  createSession,
+  destroySession,
+  isValidSession,
+  loginLockRemaining,
+  readCookie,
+  readPasswordHash,
+  recordLoginFailure,
+  recordLoginSuccess,
+  verifyPassword,
+} from "./admin-auth.mjs";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const contentDir = path.join(rootDir, "content");
@@ -25,6 +37,15 @@ const pagesDir = path.join(contentDir, "pages");
 
 const PORT = Number(process.env.ADMIN_PORT ?? 5174);
 const SITE_URL = process.env.SITE_DEV_URL ?? "http://localhost:8080";
+
+const passwordHash = readPasswordHash();
+
+if (!passwordHash) {
+  console.error("\n  No admin password is set.\n");
+  console.error("  Set one first:  npm run admin:password\n");
+  console.error("  It is stored as a hash in .env.local, which git ignores.\n");
+  process.exit(1);
+}
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 const writeJson = (file, value) => fs.writeFileSync(file, JSON.stringify(value, null, 2) + "\n");
@@ -273,8 +294,61 @@ const vite = await createViteServer({
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", `http://localhost:${PORT}`);
+  const token = readCookie(req.headers.cookie, COOKIE);
 
   try {
+    if (url.pathname === "/api/session" && req.method === "GET") {
+      json(res, 200, { signedIn: isValidSession(token) });
+      return;
+    }
+
+    if (url.pathname === "/api/login" && req.method === "POST") {
+      const wait = loginLockRemaining();
+      if (wait > 0) {
+        json(res, 429, {
+          ok: false,
+          error: `Too many attempts. Try again in ${Math.ceil(wait / 1000)}s.`,
+        });
+        return;
+      }
+
+      const { password } = await readBody(req);
+
+      if (typeof password !== "string" || !verifyPassword(password, passwordHash)) {
+        recordLoginFailure();
+        console.log(`  failed sign-in  ${new Date().toLocaleTimeString()}`);
+        json(res, 401, { ok: false, error: "That password is not right." });
+        return;
+      }
+
+      recordLoginSuccess();
+      const session = createSession();
+
+      res.setHeader(
+        "Set-Cookie",
+        // Path-scoped, not readable from JavaScript, and not sent on requests
+        // another site initiates.
+        `${COOKIE}=${session}; HttpOnly; SameSite=Strict; Path=/; Max-Age=43200`,
+      );
+      json(res, 200, { ok: true });
+      return;
+    }
+
+    if (url.pathname === "/api/logout" && req.method === "POST") {
+      destroySession(token);
+      res.setHeader("Set-Cookie", `${COOKIE}=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0`);
+      json(res, 200, { ok: true });
+      return;
+    }
+
+    // Everything else under /api needs a session. The editor's own files are
+    // still served — they hold no content, and gating them would mean fighting
+    // Vite's module and hot-reload requests for nothing.
+    if (url.pathname.startsWith("/api/") && !isValidSession(token)) {
+      json(res, 401, { ok: false, error: "Sign in first." });
+      return;
+    }
+
     if (url.pathname === "/api/content" && req.method === "GET") {
       json(res, 200, {
         ...loadContent(),
@@ -319,7 +393,8 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, "127.0.0.1", () => {
   console.log(`\n  Eire Tech content admin\n`);
-  console.log(`  Editor    http://localhost:${PORT}`);
+  console.log(`  Editor    http://localhost:${PORT}   (password required)`);
   console.log(`  Preview   ${SITE_URL}   (run \`npm run dev\` in another terminal)`);
-  console.log(`  Content   ${path.relative(process.cwd(), contentDir)}\n`);
+  console.log(`  Content   ${path.relative(process.cwd(), contentDir)}`);
+  console.log(`\n  Change the password with: npm run admin:password\n`);
 });
