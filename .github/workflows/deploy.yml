@@ -130,6 +130,10 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
+            # Hostinger rejects FTP rename/upload operations for dotfiles.
+            # Keep the already-installed root and admin .htaccess files in
+            # place while uploading the actual site and admin bundle.
+            **/.htaccess
 
       # The upload can report success while a folder never arrived, which then
       # only shows up as a 404 someone has to work backwards from. Ask the live
