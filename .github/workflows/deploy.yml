@@ -165,7 +165,7 @@ jobs:
           set net:max-retries 3
           set net:reconnect-interval-base 5
           set net:timeout 60
-          mirror --reverse --verbose --no-perms --no-umask --exclude-glob .htaccess ./dist-static/ "$FTP_REMOTE_DIR"
+          mirror --reverse --verbose --no-delete --no-perms --no-umask --exclude-glob .htaccess ./dist-static/ "$FTP_REMOTE_DIR"
           bye
           EOF
           }
