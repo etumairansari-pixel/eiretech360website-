@@ -5,8 +5,7 @@ import {
   isLocal,
   getAt,
   loadContent,
-  runBuild,
-  saveContent,
+  commitContent,
   setAt,
   signOut,
   type BuildResult,
@@ -29,6 +28,7 @@ export default function App() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [view, setView] = useState<View>({ kind: "page", key: "home" });
   const [dirty, setDirty] = useState(false);
+  const [hasDraft, setHasDraft] = useState(false);
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [status, setStatus] = useState<string | null>(null);
@@ -45,7 +45,21 @@ export default function App() {
   useEffect(() => {
     if (!signedIn) return;
     loadContent()
-      .then(setData)
+      .then((loaded) => {
+        try {
+          const cached = localStorage.getItem("eiretech-admin-content-draft");
+          if (cached) {
+            const draft = JSON.parse(cached) as Partial<Loaded>;
+            setData({ ...loaded, ...draft, catalog: loaded.catalog, siteUrl: loaded.siteUrl });
+            setHasDraft(true);
+            setStatus("Local draft loaded");
+            return;
+          }
+        } catch {
+          localStorage.removeItem("eiretech-admin-content-draft");
+        }
+        setData(loaded);
+      })
       .catch((error) => {
         if (error instanceof NotSignedIn) {
           setSignedIn(false);
@@ -59,6 +73,7 @@ export default function App() {
     await signOut();
     setData(null);
     setDirty(false);
+    setHasDraft(false);
     setSignedIn(false);
   }, []);
 
@@ -86,25 +101,15 @@ export default function App() {
     void siteUrl;
 
     try {
-      const result = await saveContent(content);
-
-      if (result.ok) {
-        setDirty(false);
-        setStatus(`Saved at ${new Date().toLocaleTimeString()}`);
-        // The dev server reloads on the file change; nudge the preview too.
-        previewRef.current?.contentWindow?.location.reload();
-      } else {
-        setErrors(result.errors);
-      }
+      localStorage.setItem("eiretech-admin-content-draft", JSON.stringify(content));
+      setDirty(false);
+      setHasDraft(true);
+      setStatus(`Saved locally at ${new Date().toLocaleTimeString()}`);
+      // Nudge the preview too. The editor itself immediately reflects the
+      // cached changes, while the public static site changes only on Commit.
+      previewRef.current?.contentWindow?.location.reload();
     } catch (error) {
-      // The session expired or the server restarted. The edits are still in
-      // state, so signing back in returns to them rather than losing them.
-      if (error instanceof NotSignedIn) {
-        setSignedIn(false);
-        setErrors(["Your session ended. Sign in again and press Save."]);
-      } else {
-        setErrors([String((error as Error).message ?? error)]);
-      }
+      setErrors([String((error as Error).message ?? error)]);
     } finally {
       setSaving(false);
     }
@@ -122,13 +127,26 @@ export default function App() {
     return () => window.removeEventListener("keydown", onKey);
   }, [save]);
 
-  const publish = useCallback(async () => {
+  const commit = useCallback(async () => {
+    if (!data || dirty || !hasDraft) return;
     setBuilding(true);
     setBuildResult(null);
-    const result = await runBuild();
-    setBuilding(false);
-    setBuildResult(result);
-  }, []);
+    const { catalog, siteUrl, ...content } = data;
+    void catalog;
+    void siteUrl;
+    try {
+      const result = await commitContent(content);
+      setBuildResult(result);
+      if (result.ok) {
+        localStorage.removeItem("eiretech-admin-content-draft");
+        setHasDraft(false);
+      }
+    } catch (error) {
+      setBuildResult({ ok: false, code: 0, output: String((error as Error).message ?? error) });
+    } finally {
+      setBuilding(false);
+    }
+  }, [data, dirty, hasDraft]);
 
   const ctx: Ctx | null = useMemo(() => {
     if (!data) return null;
@@ -200,7 +218,8 @@ export default function App() {
         status={status}
         building={building}
         onSave={save}
-        onPublish={publish}
+        onCommit={commit}
+        hasDraft={hasDraft}
         onSignOut={leave}
         previewOpen={previewOpen}
         onTogglePreview={() => setPreviewOpen((v) => !v)}
@@ -330,7 +349,8 @@ function Header({
   status,
   building,
   onSave,
-  onPublish,
+  onCommit,
+  hasDraft,
   onSignOut,
   previewOpen,
   onTogglePreview,
@@ -340,7 +360,8 @@ function Header({
   status: string | null;
   building: boolean;
   onSave: () => void;
-  onPublish: () => void;
+  onCommit: () => void;
+  hasDraft: boolean;
   onSignOut: () => void;
   previewOpen: boolean;
   onTogglePreview: () => void;
@@ -350,7 +371,7 @@ function Header({
       <div>
         <h1 className="text-sm font-extrabold tracking-tight">Eire Tech — Content</h1>
         <p className="text-[11px] text-ink-soft">
-          Edits are written to <code>content/</code>. Publish rebuilds the site.
+          Save stores locally. Commit sends the saved changes to GitHub once.
         </p>
       </div>
 
@@ -362,8 +383,8 @@ function Header({
           {previewOpen ? "Hide preview" : "Show preview"}
         </button>
 
-        <button type="button" className="btn" onClick={onPublish} disabled={building || dirty}>
-          {building ? "Building…" : "Publish"}
+        <button type="button" className="btn" onClick={onCommit} disabled={building || dirty || !hasDraft}>
+          {building ? "Committing…" : "Commit"}
         </button>
 
         <button
@@ -400,7 +421,7 @@ function BuildBanner({ result, onDismiss }: { result: BuildResult; onDismiss: ()
         <div className="min-w-0">
           <p className={`text-sm font-semibold ${result.ok ? "text-good" : "text-bad"}`}>
             {result.ok
-              ? "Build finished. dist-static/ is ready to upload."
+              ? "Committed. The live site will update after deployment."
               : `Build failed (exit ${result.code}).`}
           </p>
           <details className="mt-1">

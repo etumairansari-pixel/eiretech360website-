@@ -348,7 +348,7 @@ function ServicePanel({
           className="font-mono text-[11px] uppercase tracking-[0.4em] text-white"
           style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
         >
-          {s.title}
+             <Highlight text={s.title} />
         </span>
         <div className="grid size-9 place-items-center rounded-md border border-white/25 bg-white/10 text-white backdrop-blur transition-colors group-hover:border-white/50 group-hover:bg-white/20">
           <Icon className="size-4" />
@@ -376,14 +376,14 @@ function ServicePanel({
           <h3 className="mb-4 text-3xl font-extrabold leading-[0.95] tracking-tighter text-white md:text-5xl">
             {s.title}
           </h3>
-          <p className="mb-6 max-w-md text-[15px] leading-relaxed text-white/80">{s.desc}</p>
+           <p className="mb-6 max-w-md text-[15px] leading-relaxed text-white/80"><Highlight text={s.desc} /></p>
           <div className="flex flex-wrap gap-2">
             {s.points.map((t) => (
               <span
                 key={t}
                 className="rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-white/90 backdrop-blur"
               >
-                {t}
+                 <Highlight text={t} />
               </span>
             ))}
           </div>
@@ -432,7 +432,7 @@ function ServiceMobileCard({
           <div className="font-mono text-[10px] uppercase tracking-widest text-brand-primary-text">
             {String(i + 1).padStart(2, "0")} / {s.tag}
           </div>
-          <h3 className="truncate text-lg font-extrabold tracking-tight text-white">{s.title}</h3>
+           <h3 className="truncate text-lg font-extrabold tracking-tight text-white"><Highlight text={s.title} /></h3>
         </div>
         <motion.div
           animate={{ rotate: active ? 45 : 0 }}
@@ -446,12 +446,12 @@ function ServiceMobileCard({
         transition={{ duration: 0.4, delay: active ? 0.15 : 0 }}
         className="pointer-events-none relative px-6 pb-6"
       >
-        <p className="mb-4 text-sm leading-relaxed text-white/90">{s.desc}</p>
+         <p className="mb-4 text-sm leading-relaxed text-white/90"><Highlight text={s.desc} /></p>
         <ul className="space-y-2">
           {s.points.map((p) => (
             <li key={p} className="flex items-center gap-2 text-xs text-white/80">
               <Check className="size-3.5 shrink-0 text-brand-accent-text" />
-              {p}
+               <Highlight text={p} />
             </li>
           ))}
         </ul>
@@ -616,8 +616,8 @@ function Process() {
                     <div className="mb-8 grid size-12 place-items-center rounded-xl border border-brand-line bg-brand-surface text-brand-primary">
                       <Icon className="size-5" />
                     </div>
-                    <div className="mb-3 text-xl font-bold">{s.title}</div>
-                    <p className="text-sm leading-relaxed text-brand-muted">{s.text}</p>
+                    <div className="mb-3 text-xl font-bold"><Highlight text={s.title} /></div>
+                    <p className="text-sm leading-relaxed text-brand-muted"><Highlight text={s.text} /></p>
                     <div className="mt-6 h-px w-10 bg-gradient-to-r from-brand-accent to-transparent transition-all group-hover:w-24" />
                   </div>
                 </div>
@@ -642,7 +642,7 @@ function WhoWeServe() {
           <h2 className="max-w-3xl text-3xl font-extrabold leading-tight tracking-tighter md:text-5xl">
             <Highlight text={serve.title} />
           </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-brand-muted">{serve.body}</p>
+           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-brand-muted"><Highlight text={serve.body} /></p>
         </Spotlight>
       </div>
     </section>

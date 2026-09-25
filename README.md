@@ -34,8 +34,10 @@ The same editor also runs **on the live site**, at a secret path, so the SEO
 specialist can edit from anywhere without installing anything. See
 [admin/README.md](admin/README.md) to set that up.
 
-Save in the editor and the dev server updates straight away. **Publish** in the
-editor (or `npm run build`) produces `dist-static/` to upload. See
+Save in the editor stores a browser-local draft; it does not call GitHub.
+The draft is restored after refresh or signing in again. **Commit** sends the
+saved content to GitHub and starts one deployment (or, locally, writes the
+content files and builds `dist-static/`). See
 [content/README.md](content/README.md) for the file layout, the highlight
 markers and what changing a slug affects.
 

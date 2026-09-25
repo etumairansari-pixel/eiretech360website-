@@ -1,8 +1,9 @@
 # Site content
 
 Every word, meta tag and URL slug on the site lives in this folder. There is no
-database: these files are the content, the admin panel reads and writes them,
-and the build reads them to produce `dist-static/`.
+database: these files are the published content, and the build reads them to
+produce `dist-static/`. The admin panel keeps unsaved work in a browser-local
+draft until Commit is pressed.
 
 That is what keeps the SEO work intact. The titles, descriptions and page copy
 end up **inside the static HTML** rather than being fetched at runtime, so a
@@ -22,9 +23,9 @@ scrypt hash of it is stored, in `.env.local`, which git ignores — so it never
 leaves the machine and is not in the repository. Forgotten it? Run
 `npm run admin:password` again.
 
-Save in the editor and the dev server updates immediately. When the changes are
-ready to go live, press **Publish** (or run `npm run build`) and upload
-`dist-static/`.
+Save in the editor stores a browser-local draft and restores it after refresh or
+sign-in. When the changes are ready to go live, press **Commit** (or run
+`npm run build`) and upload `dist-static/`.
 
 To edit the files by hand instead, just edit them — the editor and the build
 read exactly the same JSON.
@@ -73,6 +74,17 @@ Headings are plain text with markers around the words that need treatment:
 ```json
 "title": "We build digital [g]ecosystems[/g], not just projects."
 ```
+
+Text fields can also contain safe hyperlinks using Markdown-style syntax:
+
+```text
+[see our services](services)
+[visit our LinkedIn](https://www.linkedin.com/company/eire-tech/)
+```
+
+Internal page keys are resolved to their current slug. Only internal paths and
+`http(s)`, `mailto` and `tel` links are rendered; scripts and unsafe schemes are
+shown as plain text.
 
 The editor has buttons for these and shows a preview underneath. Nothing else in
 a field is interpreted, so the text stays plain — an editor cannot inject markup

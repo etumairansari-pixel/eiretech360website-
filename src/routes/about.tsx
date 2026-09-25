@@ -20,7 +20,7 @@ function AboutPage() {
       <PageHero
         eyebrow={hero.eyebrow}
         title={<Highlight text={hero.title} />}
-        subtitle={hero.subtitle}
+        subtitle={<Highlight text={hero.subtitle} />}
       />
       <section className="py-24">
         <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-2">
@@ -32,7 +32,7 @@ function AboutPage() {
           </Reveal>
           <Reveal delay={0.1} className="space-y-5 text-lg leading-relaxed text-brand-muted">
             {story.paragraphs.map((paragraph) => (
-              <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+              <p key={paragraph.slice(0, 40)}><Highlight text={paragraph} /></p>
             ))}
           </Reveal>
         </div>
@@ -47,8 +47,8 @@ function AboutPage() {
                 <Reveal key={item.title} delay={i * 0.06}>
                   <Spotlight className="h-full rounded-2xl border border-brand-line bg-brand-bg p-8">
                     <Icon className="mb-6 size-7 text-brand-primary" />
-                    <h3 className="text-xl font-bold">{item.title}</h3>
-                    <p className="mt-3 text-brand-muted">{item.text}</p>
+                    <h3 className="text-xl font-bold"><Highlight text={item.title} /></h3>
+                    <p className="mt-3 text-brand-muted"><Highlight text={item.text} /></p>
                   </Spotlight>
                 </Reveal>
               );
@@ -62,7 +62,7 @@ function AboutPage() {
           <p className="text-3xl font-bold leading-tight md:text-5xl">
             <Highlight text={mission.title} />
           </p>
-          <p className="mx-auto mt-8 max-w-2xl text-brand-muted">{mission.body}</p>
+          <p className="mx-auto mt-8 max-w-2xl text-brand-muted"><Highlight text={mission.body} /></p>
         </div>
       </section>
       <FinalCTA

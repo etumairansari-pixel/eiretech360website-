@@ -3,10 +3,9 @@
  * The content admin's backend, for the deployed site.
  *
  * Hostinger runs PHP, not Node, so this stands in for scripts/admin-server.mjs
- * once the site is live. It holds no content of its own: it reads the same
- * files from GitHub, commits changes back, and asks the build workflow to
- * publish them. Nothing is stored on the web host, so there is nothing here to
- * drift out of step with the repository.
+ * once the site is live. It reads published files from GitHub and keeps one
+ * protected draft file on the host. Save updates the draft; Publish commits it
+ * back to GitHub; the push automatically starts the build workflow.
  *
  * Secrets live in config.php, which .htaccess refuses to serve.
  */
@@ -186,6 +185,37 @@ function read_repo_file(string $path, array &$result = [])
     $decoded = base64_decode(str_replace("\n", '', $result['body']['content']), true);
 
     return $decoded === false ? null : json_decode($decoded, true);
+}
+
+/** Drafts live on the host and are never exposed through a public URL. */
+function draft_file(): string
+{
+    return __DIR__ . '/.draft.json';
+}
+
+function read_draft(): ?array
+{
+    $file = draft_file();
+    if (!is_file($file)) {
+        return null;
+    }
+
+    $decoded = json_decode((string) file_get_contents($file), true);
+    return is_array($decoded) ? $decoded : null;
+}
+
+function write_draft(array $value): void
+{
+    $tmp = draft_file() . '.tmp';
+    file_put_contents($tmp, json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n", LOCK_EX);
+    rename($tmp, draft_file());
+}
+
+function clear_draft(): void
+{
+    if (is_file(draft_file())) {
+        unlink(draft_file());
+    }
 }
 
 /* ------------------------------------------------------------------
@@ -418,7 +448,7 @@ if ($action === 'content' && $method === 'GET') {
         ? json_decode((string) file_get_contents($catalogFile), true)
         : null;
 
-    reply(200, [
+    $content = [
         'site'         => $site,
         'pages'        => $pages,
         'services'     => $load('content/services.json'),
@@ -427,7 +457,9 @@ if ($action === 'content' && $method === 'GET') {
         'catalog'      => is_array($catalog) ? $catalog : ['icons' => [], 'images' => []],
         // The preview pane points at the live site.
         'siteUrl'      => rtrim($site['site']['url'], '/'),
-    ]);
+    ];
+
+    reply(200, $content);
 }
 
 if ($action === 'content' && $method === 'PUT') {
@@ -438,7 +470,22 @@ if ($action === 'content' && $method === 'PUT') {
         reply(422, ['ok' => false, 'errors' => $errors]);
     }
 
-    // One commit for the whole save, through the Git Data API: a file-at-a-time
+    write_draft($next);
+    reply(200, ['ok' => true, 'draft' => true]);
+}
+
+if (($action === 'publish' || $action === 'commit') && $method === 'POST') {
+    $next = $action === 'commit' ? request_body() : read_draft();
+    if ($next === null) {
+        reply(422, ['ok' => false, 'code' => 422, 'output' => 'There is no saved draft to publish.']);
+    }
+
+    $errors = validate($next);
+    if ($errors) {
+        reply(422, ['ok' => false, 'code' => 422, 'output' => implode("\n", $errors)]);
+    }
+
+    // One commit for the whole publish, through the Git Data API: a file-at-a-time
     // write would leave the repository half-updated if a later call failed.
     $files = [
         'content/site.json'         => $next['site'],
@@ -508,7 +555,13 @@ if ($action === 'content' && $method === 'PUT') {
         reply(502, ['ok' => false, 'errors' => ['GitHub: someone else saved first. Reload and try again.']]);
     }
 
-    reply(200, ['ok' => true]);
+    clear_draft();
+    reply(200, [
+        'ok'     => true,
+        'code'   => 0,
+        'output' => "Committed to GitHub. The deployment will start automatically from the push.\n\n"
+            . 'Progress: https://github.com/' . ADMIN_GITHUB_REPO . '/actions',
+    ]);
 }
 
 if ($action === 'build' && $method === 'POST') {

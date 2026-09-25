@@ -38,3 +38,7 @@ dist-static
 .env
 .env.local
 .env.*.local
+
+# Local content-admin drafts are intentionally not committed.
+.admin-draft.json
+.admin-draft.json.tmp

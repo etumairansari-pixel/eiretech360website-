@@ -54,6 +54,19 @@ function wrapSelection(el: HTMLTextAreaElement | HTMLInputElement, open: string,
   };
 }
 
+function linkSelection(el: HTMLTextAreaElement): { next: string; caret: number } | null {
+  const start = el.selectionStart ?? 0;
+  const end = el.selectionEnd ?? 0;
+  const selected = el.value.slice(start, end) || "link text";
+  const target = window.prompt("Page key or URL", "contact");
+  if (!target) return null;
+  const inserted = `[${selected}](${target.trim()})`;
+  return {
+    next: el.value.slice(0, start) + inserted + el.value.slice(end),
+    caret: start + inserted.length,
+  };
+}
+
 function MarkerButtons({
   targetId,
   onApply,
@@ -93,6 +106,24 @@ function MarkerButtons({
       <button type="button" className="chip" onClick={() => apply("[b]", "[/b]")} title="Emphasis">
         [b]
       </button>
+      <button
+        type="button"
+        className="chip"
+        onClick={() => {
+          const el = document.getElementById(targetId) as HTMLTextAreaElement | null;
+          if (!el) return;
+          const result = linkSelection(el);
+          if (!result) return;
+          onApply(result.next, result.caret);
+          requestAnimationFrame(() => {
+            el.focus();
+            el.setSelectionRange(result.caret, result.caret);
+          });
+        }}
+        title="Add hyperlink"
+      >
+        Link
+      </button>
     </span>
   );
 }
@@ -100,7 +131,7 @@ function MarkerButtons({
 /** Renders marker syntax the way the site will paint it. */
 export function MarkerPreview({ text }: { text: string }) {
   const parts: ReactNode[] = [];
-  const re = /\[(gg|g|b)\]([\s\S]*?)\[\/\1\]/g;
+  const re = /\[(gg|g|b)\]([\s\S]*?)\[\/\1\]|\[([^\]\n]+)\]\(([^)\s]+)\)/g;
   let last = 0;
   let match: RegExpExecArray | null;
   let i = 0;
@@ -108,14 +139,18 @@ export function MarkerPreview({ text }: { text: string }) {
   while ((match = re.exec(text))) {
     if (match.index > last)
       parts.push(<span key={`t${i++}`}>{text.slice(last, match.index)}</span>);
-    parts.push(
-      <span
-        key={`m${i++}`}
-        className={match[1] === "b" ? "font-semibold text-ink" : "gradient-text font-extrabold"}
-      >
-        {match[2]}
-      </span>,
-    );
+    if (match[1]) {
+      parts.push(
+        <span
+          key={`m${i++}`}
+          className={match[1] === "b" ? "font-semibold text-ink" : "gradient-text font-extrabold"}
+        >
+          {match[2]}
+        </span>,
+      );
+    } else {
+      parts.push(<span key={`a${i++}`} className="underline text-brand-primary-text">{match[3]}</span>);
+    }
     last = match.index + match[0].length;
     if (re.lastIndex === match.index) re.lastIndex += 1;
   }
@@ -295,7 +330,31 @@ export function FieldInput({
 
     case "textarea":
       return (
-        <Wrap id={id} label={field.label} help={field.help}>
+        <Wrap
+          id={id}
+          label={field.label}
+          help={field.help}
+          right={
+            <button
+              type="button"
+              className="chip"
+              title="Add hyperlink"
+              onClick={() => {
+                const el = document.getElementById(id) as HTMLTextAreaElement | null;
+                if (!el) return;
+                const result = linkSelection(el);
+                if (!result) return;
+                set(result.next);
+                requestAnimationFrame(() => {
+                  el.focus();
+                  el.setSelectionRange(result.caret, result.caret);
+                });
+              }}
+            >
+              Link
+            </button>
+          }
+        >
           <textarea
             id={id}
             className="field"
@@ -304,6 +363,11 @@ export function FieldInput({
             onChange={(e) => set(e.target.value)}
             placeholder={field.placeholder}
           />
+          {/\[[^\]\n]+\]\([^\s)]+\)/.test(String(value ?? "")) ? (
+            <p className="mt-2 rounded-lg bg-surface px-3 py-2 text-[15px] leading-snug">
+              <MarkerPreview text={String(value ?? "")} />
+            </p>
+          ) : null}
         </Wrap>
       );
 

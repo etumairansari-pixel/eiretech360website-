@@ -1,4 +1,5 @@
 import { Fragment, type ReactNode } from "react";
+import { pathFor } from "@/content";
 
 /**
  * Renders a headline or paragraph written in the admin panel.
@@ -8,10 +9,10 @@ import { Fragment, type ReactNode } from "react";
  *   [g]…[/g]   the brand gradient
  *   [gg]…[/gg] the gradient plus the hero's glow
  *   [b]…[/b]   emphasised body copy
+ *   [label](target) an internal page key or safe external URL
  *
  * A newline becomes a line break. Nothing else is interpreted, so the fields
- * stay plain text — an editor cannot inject markup through them, and React
- * escapes the segments anyway.
+ * stay data-only — links are allow-listed and React escapes every segment.
  */
 
 const RULES = [
@@ -20,61 +21,52 @@ const RULES = [
   { open: "[b]", close: "[/b]", className: "font-semibold text-brand-text" },
 ] as const;
 
-/** Matches any opening marker, so the scanner can find the next one cheaply. */
-const OPEN = /\[(gg|g|b)\]/;
+const TOKEN = /\[(gg|g|b)\]([\s\S]*?)\[\/\1\]|\[([^\]\n]+)\]\(([^)\s]+)\)/g;
+
+function hrefFor(target: string): string | null {
+  if (/^(https?:|mailto:|tel:)/i.test(target)) return target;
+  if (target.startsWith("/")) return target;
+  if (/^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(target)) return pathFor(target);
+  return null;
+}
 
 function parse(text: string, keyPrefix: string): ReactNode[] {
   const out: ReactNode[] = [];
-  let rest = text;
+  let last = 0;
   let index = 0;
+  let match: RegExpExecArray | null;
 
-  while (rest.length > 0) {
-    const match = OPEN.exec(rest);
-
-    if (!match) {
+  while ((match = TOKEN.exec(text))) {
+    if (match.index > last) {
       out.push(
         <Fragment key={`${keyPrefix}-t${index}`}>
-          {withBreaks(rest, `${keyPrefix}-${index}`)}
-        </Fragment>,
-      );
-      break;
-    }
-
-    const rule = RULES.find((r) => r.open === match[0]);
-    const closeAt = rule ? rest.indexOf(rule.close, match.index + rule.open.length) : -1;
-
-    // An unclosed marker is treated as literal text rather than swallowing the
-    // rest of the field, so a half-finished edit still renders something sane.
-    if (!rule || closeAt === -1) {
-      out.push(
-        <Fragment key={`${keyPrefix}-t${index}`}>
-          {withBreaks(rest.slice(0, match.index + match[0].length), `${keyPrefix}-${index}`)}
-        </Fragment>,
-      );
-      rest = rest.slice(match.index + match[0].length);
-      index += 1;
-      continue;
-    }
-
-    if (match.index > 0) {
-      out.push(
-        <Fragment key={`${keyPrefix}-t${index}`}>
-          {withBreaks(rest.slice(0, match.index), `${keyPrefix}-${index}`)}
+          {withBreaks(text.slice(last, match.index), `${keyPrefix}-${index}`)}
         </Fragment>,
       );
       index += 1;
     }
 
-    const inner = rest.slice(match.index + rule.open.length, closeAt);
-    out.push(
-      <span key={`${keyPrefix}-m${index}`} className={rule.className}>
-        {withBreaks(inner, `${keyPrefix}-m${index}`)}
-      </span>,
-    );
+    if (match[1]) {
+      const rule = RULES.find((item) => item.open === `[${match[1]}]`)!;
+      out.push(<span key={`${keyPrefix}-m${index}`} className={rule.className}>{withBreaks(match[2], `${keyPrefix}-m${index}`)}</span>);
+    } else {
+      const href = hrefFor(match[4]);
+      if (!href) {
+        out.push(<Fragment key={`${keyPrefix}-t${index}`}>{match[0]}</Fragment>);
+      } else {
+        const external = /^(https?:|mailto:|tel:)/i.test(href);
+        out.push(
+          <a key={`${keyPrefix}-a${index}`} href={href} {...(external && /^https?:/i.test(href) ? { target: "_blank", rel: "noreferrer" } : {})} className="underline decoration-brand-primary/40 underline-offset-4 hover:text-brand-primary-text">
+            {match[3]}
+          </a>,
+        );
+      }
+    }
     index += 1;
-
-    rest = rest.slice(closeAt + rule.close.length);
+    last = TOKEN.lastIndex;
   }
+
+  if (last < text.length) out.push(<Fragment key={`${keyPrefix}-t${index}`}>{withBreaks(text.slice(last), `${keyPrefix}-${index}`)}</Fragment>);
 
   return out;
 }

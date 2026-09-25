@@ -21,7 +21,7 @@ function PlatformsPage() {
       <PageHero
         eyebrow={hero.eyebrow}
         title={<Highlight text={hero.title} />}
-        subtitle={hero.subtitle}
+        subtitle={<Highlight text={hero.subtitle} />}
       />
       <section className="pb-24">
         <div className="mx-auto grid max-w-7xl gap-5 px-6 md:grid-cols-2 lg:grid-cols-3">
@@ -31,7 +31,7 @@ function PlatformsPage() {
               <Reveal key={group.title} delay={i * 0.05}>
                 <Spotlight className="h-full rounded-3xl border border-brand-line bg-brand-surface p-8">
                   <Icon className="size-7 text-brand-primary" />
-                  <h2 className="mt-6 text-xl font-bold">{group.title}</h2>
+                  <h2 className="mt-6 text-xl font-bold"><Highlight text={group.title} /></h2>
                   <div className="mt-6 flex flex-wrap gap-2">
                     {group.tools.map((t) => (
                       <span
@@ -47,7 +47,7 @@ function PlatformsPage() {
             );
           })}
         </div>
-        <p className="mx-auto mt-14 max-w-3xl px-6 text-center text-lg text-brand-muted">{outro}</p>
+        <p className="mx-auto mt-14 max-w-3xl px-6 text-center text-lg text-brand-muted"><Highlight text={outro} /></p>
       </section>
       <FinalCTA
         label={cta.label}

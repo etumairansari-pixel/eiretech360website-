@@ -99,6 +99,8 @@ jobs:
           # A secret cannot be read from a step's `if`, so carry it as an output.
           if [ -n "$ADMIN_PATH" ]; then
             echo "admin=true" >> "$GITHUB_OUTPUT"
+            test -f "dist-static/$ADMIN_PATH/index.html" || { echo "::error::Admin index.html was not included in the build package"; exit 1; }
+            test -f "dist-static/$ADMIN_PATH/api.php" || { echo "::error::Admin api.php was not included in the build package"; exit 1; }
           else
             echo "admin=false" >> "$GITHUB_OUTPUT"
           fi
@@ -118,10 +120,9 @@ jobs:
           # upload outright if the folder has since gone. Pointing at a name
           # with no manifest behind it makes the run treat the server as empty
           # and upload everything, without deleting anything.
-          state-name: >-
-            ${{ github.event.inputs.full_upload == 'true'
-                && format('.ftp-deploy-full-{0}.json', github.run_id)
-                || '.ftp-deploy-sync-state.json' }}
+          # Use a fresh manifest on every deployment so a stale FTP manifest
+          # cannot skip the secret admin folder and leave a 404.
+          state-name: .ftp-deploy-${{ github.run_id }}.json
           # Without this the action would delete anything on the server that
           # this build did not produce.
           dangerous-clean-slate: false
@@ -142,16 +143,20 @@ jobs:
           base="${SITE_URL:-https://eiretech360.com}"
           url="${base%/}/$ADMIN_PATH/api.php?action=session"
 
-          body=$(curl --silent --show-error --max-time 30 "$url" || true)
+          for attempt in $(seq 1 12); do
+            body=$(curl --silent --show-error --max-time 30 "$url" || true)
+            if printf '%s' "$body" | grep -q '"signedIn"'; then
+              echo "The editor answered at ${base%/}/$ADMIN_PATH/"
+              exit 0
+            fi
+            echo "Editor check attempt $attempt/12 did not receive a session response; retrying..."
+            sleep 5
+          done
 
-          if printf '%s' "$body" | grep -q '"signedIn"'; then
-            echo "The editor answered at ${base%/}/$ADMIN_PATH/"
-          else
-            echo "::error title=Editor not reachable::Uploaded, but ${base%/}/$ADMIN_PATH/ is not being served. The files may not have reached the server, or PHP is not enabled for that folder."
-            echo "What came back instead:"
-            printf '%s' "$body" | head -c 300
-            exit 1
-          fi
+          echo "::error title=Editor not reachable::Uploaded, but ${base%/}/$ADMIN_PATH/ did not answer after retries."
+          echo "What came back instead:"
+          printf '%s' "$body" | head -c 300
+          exit 1
 
       # Always attached, so the site can be uploaded by hand whenever the FTP
       # details are missing or the host is refusing connections.

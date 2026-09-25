@@ -50,7 +50,7 @@ export function FinalCTA({
             <Highlight text={title} />
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-brand-muted">
-            {subtitle}
+            <Highlight text={subtitle} />
           </p>
           <div className="mt-10 flex justify-center">
             <MagneticLink

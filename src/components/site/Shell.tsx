@@ -21,7 +21,7 @@ export function PageHero({
 }: {
   eyebrow: string;
   title: ReactNode;
-  subtitle: string;
+  subtitle: ReactNode;
 }) {
   return (
     <section className="relative overflow-hidden pb-20 pt-40">

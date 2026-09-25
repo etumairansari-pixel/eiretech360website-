@@ -116,7 +116,7 @@ export async function loadContent(): Promise<Loaded> {
   return response.json();
 }
 
-export type SaveResult = { ok: true } | { ok: false; errors: string[] };
+export type SaveResult = { ok: true; draft: true } | { ok: false; errors: string[] };
 
 export async function saveContent(content: Content): Promise<SaveResult> {
   const response = await fetch(endpoint("content"), {
@@ -133,8 +133,13 @@ export async function saveContent(content: Content): Promise<SaveResult> {
 
 export type BuildResult = { ok: boolean; code: number; output: string };
 
-export async function runBuild(): Promise<BuildResult> {
-  const response = await fetch(endpoint("build"), { method: "POST" });
+/** Commits the browser-saved content and starts one deployment. */
+export async function commitContent(content: Content): Promise<BuildResult> {
+  const response = await fetch(endpoint("commit"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(content),
+  });
   return response.json();
 }
 

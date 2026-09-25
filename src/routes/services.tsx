@@ -21,7 +21,7 @@ function ServicesPage() {
       <PageHero
         eyebrow={hero.eyebrow}
         title={<Highlight text={hero.title} />}
-        subtitle={hero.subtitle}
+        subtitle={<Highlight text={hero.subtitle} />}
       />
       <section className="pb-24">
         <div className="mx-auto max-w-7xl space-y-6 px-6">
@@ -47,13 +47,13 @@ function ServicesPage() {
                     <div className="mb-6 grid size-12 place-items-center rounded-xl bg-brand-primary/10 text-brand-primary">
                       <Icon className="size-6" />
                     </div>
-                    <h2 className="text-3xl font-extrabold tracking-tight">{s.title}</h2>
-                    <p className="mt-3 text-brand-muted">{s.desc}</p>
+                    <h2 className="text-3xl font-extrabold tracking-tight"><Highlight text={s.title} /></h2>
+                    <p className="mt-3 text-brand-muted"><Highlight text={s.desc} /></p>
                     <ul className="mt-7 grid gap-3 sm:grid-cols-2">
                       {s.points.map((p) => (
                         <li key={p} className="flex gap-2 text-sm">
                           <Check className="mt-0.5 size-4 shrink-0 text-brand-accent-text" />
-                          {p}
+                          <Highlight text={p} />
                         </li>
                       ))}
                     </ul>

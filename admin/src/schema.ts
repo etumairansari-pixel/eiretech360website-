@@ -52,7 +52,7 @@ export type Section = {
 };
 
 const richHelp =
-  "Wrap words in [g]…[/g] for the brand gradient, or [gg]…[/gg] to add the hero glow.";
+  "Use the toolbar for highlights and links. Links use [text](page-key-or-URL), e.g. [contact us](contact).";
 
 const ctaSection = (): Section => ({
   id: "cta",

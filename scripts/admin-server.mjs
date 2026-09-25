@@ -2,9 +2,8 @@
  * The content admin.
  *
  * Serves the editor UI from admin/ and a small API over the files in content/.
- * There is no database: the editor reads and writes the same JSON the site
- * imports at build time, so a save is a file change, and the site picks it up
- * on the next dev-server reload or production build.
+ * Saves are drafts; only Publish writes the canonical content files and runs a
+ * production build.
  *
  * Runs on localhost only. It writes to the working tree, so it is a local tool,
  * not something to expose.
@@ -34,6 +33,7 @@ import {
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const contentDir = path.join(rootDir, "content");
 const pagesDir = path.join(contentDir, "pages");
+const draftFile = path.join(rootDir, ".admin-draft.json");
 
 const PORT = Number(process.env.ADMIN_PORT ?? 5174);
 const SITE_URL = process.env.SITE_DEV_URL ?? "http://localhost:8080";
@@ -50,6 +50,14 @@ if (!passwordHash) {
 const readJson = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 const writeJson = (file, value) => fs.writeFileSync(file, JSON.stringify(value, null, 2) + "\n");
 
+function readDraft() {
+  try {
+    return readJson(draftFile);
+  } catch {
+    return null;
+  }
+}
+
 /* ------------------------------------------------------------------
    Reading
 ------------------------------------------------------------------ */
@@ -57,7 +65,7 @@ const writeJson = (file, value) => fs.writeFileSync(file, JSON.stringify(value, 
 function loadContent() {
   const site = readJson(path.join(contentDir, "site.json"));
 
-  return {
+  const base = {
     site,
     pages: Object.fromEntries(
       site.routes.map((route) => [route.key, readJson(path.join(pagesDir, route.key + ".json"))]),
@@ -66,6 +74,8 @@ function loadContent() {
     platforms: readJson(path.join(contentDir, "platforms.json")),
     testimonials: readJson(path.join(contentDir, "testimonials.json")),
   };
+
+  return base;
 }
 
 /** The images an editor can pick for a service card. */
@@ -198,12 +208,23 @@ function validate(next) {
    Writing
 ------------------------------------------------------------------ */
 
-function saveContent(next) {
+function saveDraft(next) {
   const errors = validate(next);
   if (errors.length) return { ok: false, errors };
 
-  // Write to a temp file and rename, so an interrupted save cannot leave a
-  // half-written file that the build would fail to parse.
+  const tmp = draftFile + ".tmp";
+  fs.writeFileSync(tmp, JSON.stringify(next, null, 2) + "\n");
+  fs.renameSync(tmp, draftFile);
+
+  return { ok: true, draft: true };
+}
+
+function publishContent(next) {
+  const errors = validate(next);
+  if (errors.length) return { ok: false, errors };
+
+  // Write canonical files only at publish time, so Save never creates a git
+  // change and a draft survives refreshes without changing the public site.
   const atomic = (file, value) => {
     const tmp = file + ".tmp";
     fs.writeFileSync(tmp, JSON.stringify(value, null, 2) + "\n");
@@ -225,6 +246,12 @@ function saveContent(next) {
     if (file.endsWith(".json") && !keep.has(file)) {
       fs.rmSync(path.join(pagesDir, file));
     }
+  }
+
+  try {
+    fs.rmSync(draftFile);
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
   }
 
   return { ok: true };
@@ -368,19 +395,25 @@ const server = http.createServer(async (req, res) => {
 
     if (url.pathname === "/api/content" && req.method === "PUT") {
       const next = await readBody(req);
-      const result = saveContent(next);
+      const result = saveDraft(next);
       json(res, result.ok ? 200 : 422, result);
       if (result.ok) {
-        console.log(`  saved  ${new Date().toLocaleTimeString()}`);
+        console.log(`  draft saved  ${new Date().toLocaleTimeString()}`);
       }
       return;
     }
 
-    if (url.pathname === "/api/build" && req.method === "POST") {
+    if (url.pathname === "/api/commit" && req.method === "POST") {
+      const next = await readBody(req);
+      const result = publishContent(next);
+      if (!result.ok) {
+        json(res, 422, { ok: false, code: 422, output: result.errors.join("\n") });
+        return;
+      }
       console.log("  running npm run build...");
-      const result = await runBuild();
-      console.log(result.ok ? "  build ok" : "  build failed");
-      json(res, 200, result);
+      const build = await runBuild();
+      console.log(build.ok ? "  publish ok" : "  build failed");
+      json(res, 200, build);
       return;
     }
 

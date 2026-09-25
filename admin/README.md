@@ -21,8 +21,8 @@ npm run admin            # http://localhost:5174
 npm run dev              # http://localhost:8080, for the preview pane
 ```
 
-Saving writes straight to `content/`. Nothing is published until you run
-`npm run build` and upload, or push to `main`.
+Saving stores a browser-local draft. Nothing is committed or published until
+you press **Commit**; locally, Commit writes to `content/` and runs the build.
 
 ---
 
@@ -105,11 +105,12 @@ https://eiretech360.com/<ADMIN_PATH>/
 
 1. Open the URL, enter the password.
 2. Edit. The left sidebar has the pages, the lists and the site-wide settings.
-3. **Save** — the change is committed to GitHub.
-4. **Publish** — the site rebuilds and uploads itself. About two minutes.
+3. **Save** — the change is stored in the browser. No GitHub request is made.
+4. **Commit** — the saved content is committed once, then the site rebuilds and uploads itself.
+   About two minutes.
 
 Save and Publish are separate on purpose: several edits can be saved and
-reviewed, then published together.
+reviewed, then published together. Drafts survive refreshes and sign-outs.
 
 ---
 
@@ -123,9 +124,9 @@ the browser  ──►  <secret>/api.php  ──►  GitHub (content/*.json)
                                        npm run build → FTP → Hostinger
 ```
 
-The web host stores no content of its own, so there is no second copy to drift
-out of step with the repository. Every change is an ordinary commit: you can
-see who changed what, and revert it like any other.
+The web host stores drafts temporarily, while published content remains in the
+repository. Every published change is an ordinary commit: you can see who
+changed what, and revert it like any other.
 
 The build runs `scripts/verify-static.mjs`, which fails the deployment if the
 generated HTML does not match `content/`. A bad edit stops before it reaches

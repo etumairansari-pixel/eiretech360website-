@@ -9,7 +9,7 @@
   Header always set X-Robots-Tag "noindex, nofollow, noarchive"
 </IfModule>
 
-<FilesMatch "^(config\.php|\.login-attempts|catalog\.json)$">
+<FilesMatch "^(config\.php|\.login-attempts|\.draft\.json|\.draft\.json\.tmp|catalog\.json)$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
