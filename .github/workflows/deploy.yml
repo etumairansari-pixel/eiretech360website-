@@ -157,14 +157,23 @@ jobs:
 
           # Upload directly. Hostinger rejects the hidden .in.* temporary-file
           # rename used by FTP-Deploy-Action.
-          lftp -u "$FTP_USER","$FTP_PASSWORD" "$scheme://$FTP_HOST:$FTP_PORT" <<EOF
-          $ssl_settings
+          upload() {
+            local transport="$1"
+            local settings="$2"
+            lftp -u "$FTP_USER","$FTP_PASSWORD" "$transport://$FTP_HOST:$FTP_PORT" <<EOF
+          $settings
           set net:max-retries 3
           set net:reconnect-interval-base 5
           set net:timeout 60
           mirror --reverse --verbose --no-perms --no-umask --exclude-glob .htaccess ./dist-static/ "$FTP_REMOTE_DIR"
           bye
           EOF
+          }
+
+          # Some Hostinger FTP endpoints advertise FTP while the account is
+          # configured as FTPS. Try the configured protocol first, then use
+          # plain FTP when the server returns a TLS handshake error.
+          upload "$scheme" "$ssl_settings" || upload "ftp" ""
 
       # The upload can report success while a folder never arrived, which then
       # only shows up as a 404 someone has to work backwards from. Ask the live
