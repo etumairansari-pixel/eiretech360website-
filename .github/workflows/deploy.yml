@@ -150,9 +150,9 @@ jobs:
 
           scheme="${FTP_PROTOCOL:-ftps}"
           if [ "$scheme" = "ftps" ]; then
-            ssl_settings="set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate no;"
+            ssl_settings="set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate no; set ssl:check-hostname no;"
           else
-            ssl_settings=""
+            ssl_settings="set ftp:ssl-force false; set ftp:ssl-protect-data false; set ssl:verify-certificate no; set ssl:check-hostname no;"
           fi
 
           # Upload directly. Hostinger rejects the hidden .in.* temporary-file
@@ -173,7 +173,7 @@ jobs:
           # Some Hostinger FTP endpoints advertise FTP while the account is
           # configured as FTPS. Try the configured protocol first, then use
           # plain FTP when the server returns a TLS handshake error.
-          upload "$scheme" "$ssl_settings" || upload "ftp" ""
+          upload "$scheme" "$ssl_settings" || upload "ftp" "set ftp:ssl-force false; set ftp:ssl-protect-data false; set ssl:verify-certificate no; set ssl:check-hostname no;"
 
       # The upload can report success while a folder never arrived, which then
       # only shows up as a 404 someone has to work backwards from. Ask the live
