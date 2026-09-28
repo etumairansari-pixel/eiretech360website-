@@ -6,7 +6,7 @@ import logoDark from "@/assets/eiretech-logo-dark.png";
 /** Official Eire Tech emblem extracted from the supplied master artwork. */
 export function LogoMark({
   className = "",
-  title = "Eire Tech",
+  title = "Fav/Eiretech",
 }: {
   className?: string;
   title?: string;
@@ -43,7 +43,7 @@ export function Logo({
     return (
       <img
         src={logoDark}
-        alt="Eire Tech 360°"
+        alt="EireTech360 digital company"
         width={1000}
         height={217}
         draggable={false}
@@ -63,8 +63,7 @@ export function Logo({
       />
       <img
         src={logoDark}
-        alt=""
-        aria-hidden
+        alt="EireTech360 digital company"
         width={1000}
         height={217}
         draggable={false}

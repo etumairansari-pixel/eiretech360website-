@@ -65,6 +65,7 @@ const HERO_VIDEOS = [
     desktopPoster: heroDesktop02Poster,
     mobilePosterWebp: heroMobile02PosterWebp,
     desktopPosterWebp: heroDesktop02PosterWebp,
+    desktopPosterAlt: "EireTech360 digital marketing services",
   },
 ];
 
@@ -108,6 +109,7 @@ function HeroVideoBackground() {
   const video = HERO_VIDEOS[active];
   const poster = isMobile ? video.mobilePoster : video.desktopPoster;
   const posterWebp = isMobile ? video.mobilePosterWebp : video.desktopPosterWebp;
+  const posterAlt = (!isMobile && "desktopPosterAlt" in video && video.desktopPosterAlt) || "";
 
   return (
     <>
@@ -119,12 +121,12 @@ function HeroVideoBackground() {
         <source srcSet={posterWebp} type="image/webp" />
         <img
           src={poster}
-          alt=""
+          alt={posterAlt}
           loading="eager"
           fetchPriority="high"
           decoding="async"
           className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-          aria-hidden="true"
+          aria-hidden={posterAlt ? undefined : "true"}
         />
       </picture>
       {shouldLoadVideo && !prefersReducedData ? (
