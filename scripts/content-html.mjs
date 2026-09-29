@@ -246,7 +246,7 @@ export function applyContent(html, which, content = readContent()) {
 
 /** Everything the static build needs to emit the inner route pages. */
 export function staticRoutes(content) {
-  return content.routes
+  const pages = content.routes
     .filter((route) => route.key !== "home" && route.key !== "contact")
     .map((route) => pageBy(content, route.key))
     .map((page) => ({
@@ -260,4 +260,42 @@ export function staticRoutes(content) {
       ogImage: ogImageFor(content, page.key),
       h1: plain(page.hero.title),
     }));
+
+  return [...pages, ...serviceRoutes(content)];
+}
+
+/** Matches slugify() in src/content/services.ts, which names the same pages. */
+export function slugify(text) {
+  return String(text)
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/\[\/?(gg|g|b)\]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/**
+ * One page per service, at /services/<slug>. The path is fixed by the route
+ * file src/routes/services_.$slug.tsx, not by the services page's own slug.
+ */
+export function serviceRoutes(content) {
+  const base = content.site.url.replace(/\/$/, "");
+  const ogImage = /^https?:/.test(content.site.ogImage)
+    ? content.site.ogImage
+    : `${base}${content.site.ogImage}`;
+
+  return content.services.map((service) => {
+    const slug = `services/${String(service.slug ?? "").trim() || slugify(service.title)}`;
+    return {
+      key: `service:${slug}`,
+      slug,
+      path: `/${slug}`,
+      title: service.seo?.title || `${service.title} Services – ${content.site.name}`,
+      description: service.seo?.description || service.desc,
+      robots: "index, follow",
+      url: `${base}/${slug}`,
+      ogImage,
+      h1: plain(service.title),
+    };
+  });
 }

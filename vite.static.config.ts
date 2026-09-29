@@ -213,6 +213,20 @@ function generateRoutingFiles(): Plugin {
           ].join("\n");
         });
 
+      // Each service page sits just below the services page itself.
+      for (const route of staticRouteMeta.filter((r) => r.key.startsWith("service:"))) {
+        urls.push(
+          [
+            "  <url>",
+            `    <loc>${route.url}</loc>`,
+            `    <lastmod>${today}</lastmod>`,
+            "    <changefreq>monthly</changefreq>",
+            "    <priority>0.8</priority>",
+            "  </url>",
+          ].join("\n"),
+        );
+      }
+
       fs.writeFileSync(
         path.join(outDir, "sitemap.xml"),
         `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`,

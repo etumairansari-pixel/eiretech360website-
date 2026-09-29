@@ -7,10 +7,11 @@
   },
   "hero": {
     "eyebrow": "Our Services",
-    "title": "Full-spectrum digital solutions, [g]under one roof.[/g]",
+    "title": "Full Spectrum Digital Solutions, [g]Under One Roof.[/g]",
     "subtitle": "Every service you need to grow, automate and scale your brand, delivered by one connected team."
   },
   "serviceLinkLabel": "Discuss this service",
+  "detailLinkLabel": "Explore this service",
   "cta": {
     "label": "Let's build",
     "title": "Not sure which service [gg]fits[/gg] your business?",

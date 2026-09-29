@@ -334,17 +334,38 @@ function validate(array $next): array
         $errors[] = 'The contact page cannot be removed';
     }
 
-    foreach ([['services', 'services'], ['platforms', 'platforms'], ['testimonials', 'testimonials']] as $pair) {
+    foreach ([['services', 'services'], ['platforms', 'platforms'], ['testimonials', 'testimonials'], ['projects', 'projects']] as $pair) {
         if (!isset($next[$pair[0]]) || !is_array($next[$pair[0]])) {
             $errors[] = $pair[1] . ' must be a list';
         }
     }
 
+    $seenServiceSlug = [];
     foreach ($next['services'] ?? [] as $service) {
+        $serviceSlug = trim((string) ($service['slug'] ?? ''));
+        if ($serviceSlug !== '') {
+            if (!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $serviceSlug)) {
+                $errors[] = ($service['title'] ?? 'A service') . ': the page address "' . $serviceSlug . '" must be lower-case letters, numbers and single hyphens';
+            } elseif (isset($seenServiceSlug[$serviceSlug])) {
+                $errors[] = 'The page address "' . $serviceSlug . '" is used by more than one service';
+            }
+            $seenServiceSlug[$serviceSlug] = true;
+        }
         $need($service['title'] ?? null, 'A service title');
     }
     foreach ($next['platforms'] ?? [] as $group) {
         $need($group['title'] ?? null, 'A platform group title');
+    }
+    $serviceSlugs = [];
+    foreach ($next['services'] ?? [] as $service) {
+        $serviceSlugs[] = trim((string) ($service['slug'] ?? ''));
+    }
+    foreach ($next['projects'] ?? [] as $project) {
+        $need($project['title'] ?? null, 'A project name');
+        $projectService = trim((string) ($project['service'] ?? ''));
+        if (!in_array($projectService, $serviceSlugs, true)) {
+            $errors[] = (($project['title'] ?? '') ?: 'A project') . ': "' . $projectService . '" is not a service page address';
+        }
     }
     foreach ($next['testimonials'] ?? [] as $quote) {
         $need($quote['name'] ?? null, 'A testimonial name');
@@ -454,6 +475,7 @@ if ($action === 'content' && $method === 'GET') {
         'services'     => $load('content/services.json'),
         'platforms'    => $load('content/platforms.json'),
         'testimonials' => $load('content/testimonials.json'),
+        'projects'     => $load('content/projects.json'),
         'catalog'      => is_array($catalog) ? $catalog : ['icons' => [], 'images' => []],
         // The preview pane points at the live site.
         'siteUrl'      => rtrim($site['site']['url'], '/'),
@@ -492,6 +514,7 @@ if (($action === 'publish' || $action === 'commit') && $method === 'POST') {
         'content/services.json'     => $next['services'],
         'content/platforms.json'    => $next['platforms'],
         'content/testimonials.json' => $next['testimonials'],
+        'content/projects.json'     => $next['projects'],
     ];
     foreach ($next['site']['routes'] as $route) {
         $files['content/pages/' . $route['key'] . '.json'] = $next['pages'][$route['key']];

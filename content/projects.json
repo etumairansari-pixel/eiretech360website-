@@ -1,0 +1,243 @@
+[
+  {
+    "title": "Attend by EireTech 360",
+    "category": "SaaS · Workforce management",
+    "service": "app-development",
+    "point": "Web Application Development",
+    "url": "https://attend.eiretech360.com/",
+    "image": "project-attend",
+    "summary": "A multi-company attendance and staff management platform that installs like a mobile app, with geofenced check-ins, leave approvals, reports and attendance-based payroll.",
+    "challenge": "Growing teams were still tracking attendance on spreadsheets, paper registers and chat messages. Late arrivals, missed check-outs and leave requests were hard to verify, and payroll depended on hours of manual reconciliation every month.",
+    "solution": "We designed and built Attend, a secure software-as-a-service platform that any company can use from a phone or computer. Staff check in with one tap, managers approve leave and corrections in seconds, and owners get accurate reports and payroll figures calculated straight from real attendance data.",
+    "facts": [
+      "5 | User roles, from owner to employee",
+      "1 tap | Check-in and check-out",
+      "iOS & Android | Installs without an app store",
+      "PDF & Excel | Branded reports"
+    ],
+    "business": [
+      "Staff check in and out with one tap, on site or working from home, with multiple sessions a day",
+      "Optional geofencing only allows check-in within the office area",
+      "Late arrivals, half days, overtime and total hours are calculated automatically",
+      "Forgotten check-outs are closed automatically and flagged for review",
+      "Leave requests with two-step approval (manager, then HR) and automatic yearly balances",
+      "Correction requests for missing or wrong entries, approved by a manager or HR",
+      "Monthly payroll calculated from attendance, including late penalties and overtime",
+      "Company announcements and instant notifications on phones, even when the app is closed",
+      "Attendance audits by day, week, month, employee or department, downloadable as PDF or Excel",
+      "Fingerprint and Face ID login, light and dark mode, on phone, tablet and desktop"
+    ],
+    "technical": [
+      "Multi-tenant SaaS architecture with strict per-company data isolation enforced on every API request",
+      "Installable Progressive Web App (PWA): home-screen icon, full-screen mode and offline-ready shell",
+      "Role-based access control across Super Admin, Company Admin, HR, Manager and Employee",
+      "Server-side attendance engine with timezone-aware rules for shifts, grace periods, late marks and overtime",
+      "Browser geolocation with configurable office geofences",
+      "Web Push notifications to iOS and Android without a third-party messaging service",
+      "WebAuthn biometric login alongside email and password with forced first-login reset",
+      "Short-lived access tokens with automatic refresh, and a full audit log of sensitive actions",
+      "Configurable approval workflows, shifts, holidays, departments and leave policies per company",
+      "Server-generated PDF and CSV exports carrying each company's branding"
+    ],
+    "stack": [
+      "React",
+      "Progressive Web App",
+      "Node.js",
+      "Express",
+      "MongoDB Atlas",
+      "Web Push",
+      "WebAuthn"
+    ],
+    "quote": "",
+    "quoteName": "",
+    "quoteRole": ""
+  },
+  {
+    "title": "E360 Inventory Suite",
+    "category": "Retail · POS & inventory platform",
+    "service": "website-development",
+    "point": "Custom Website Design and Development",
+    "url": "https://e360pro.com/",
+    "image": "project-e360",
+    "summary": "An all-in-one retail platform that brings the till, stock, suppliers, staff, reporting and the online store together on one live database.",
+    "challenge": "A busy retail shop in Ireland was running its till, stock counts, supplier orders and online sales in separate places. Stock levels drifted out of sync, deals were applied inconsistently, and the owner had no single, trustworthy view of what was happening in the business.",
+    "solution": "We built E360 Inventory Suite, a custom web-based system used in the browser by the owner, managers and staff. The point of sale, back office and online store share the same products and stock, so every sale, refund and delivery is reflected everywhere instantly, and the owner can see and control it all from one dashboard.",
+    "facts": [
+      "1 | Shared database for till, stock and online store",
+      "6 | Languages, including Irish, Urdu and Arabic",
+      "Offline | The till keeps selling if the internet drops",
+      "7 | Staff roles with tailored permissions"
+    ],
+    "business": [
+      "Fast point of sale with barcode scanning and quick-sell buttons for unbarcoded items",
+      "Cash, card, Apple Pay, Google Pay, Revolut, split payments and store credit",
+      "Bundle deals such as \"any 3 for €18\", discount vouchers and held baskets",
+      "Partial and full refunds, exchanges and emailed receipts",
+      "Keeps trading offline and syncs sales automatically when the connection returns",
+      "End-of-shift closing with a cash, card and refund summary for each cashier",
+      "Low-stock alerts, printable barcodes and shelf labels, and a full stock history",
+      "Supplier purchase orders: create, send and receive in one place",
+      "Dashboards and downloadable Excel and PDF reports for every role",
+      "Online store with customer accounts, loyalty points, product reviews, deals and a blog"
+    ],
+    "technical": [
+      "React single-page admin application and a separate customer-facing storefront",
+      "Node.js and Express REST API backed by MongoDB, shared by the POS, back office and storefront",
+      "Offline-first POS: transactions are queued locally and synchronised when the network returns",
+      "Real-time activity updates across devices with Socket.IO",
+      "Role-based access control with owner approval workflows for sensitive actions",
+      "Hardened authentication with rate limiting and security headers",
+      "Activity log with before-and-after values for product and deal edits, plus server-side request logging with retention rules",
+      "Multi-currency cost pricing, channel-specific pricing and a single shared stock ledger",
+      "Internationalisation in six languages, including right-to-left support for Urdu and Arabic",
+      "Cloudinary image hosting and an automated test suite covering sales, refunds, deals, loyalty and the storefront"
+    ],
+    "stack": [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Socket.IO",
+      "Cloudinary",
+      "i18n"
+    ],
+    "quote": "",
+    "quoteName": "",
+    "quoteRole": ""
+  },
+  {
+    "title": "Cliffs of Puff",
+    "category": "E-commerce · Age-restricted retail",
+    "service": "website-development",
+    "point": "E-commerce Websites",
+    "url": "https://cliffsofpuff.com/",
+    "image": "project-cliffs-of-puff",
+    "summary": "A bold, age-verified online store for an Irish vape and CBD retailer, with more than a thousand products across ten categories, seasonal deals and a fast checkout.",
+    "challenge": "Cliffs of Puff needed an online shop that matched the energy of its brand, handled a large and fast-changing catalogue, and sold age-restricted products responsibly, while making it easy for customers to find their favourite brands and deals.",
+    "solution": "We designed and developed a fully branded e-commerce website with mandatory age verification, clear category navigation, search, customer accounts and a streamlined checkout. Seasonal campaigns and bundle offers are built in, so the team can launch promotions like the Halloween Ghost Pack without a developer.",
+    "facts": [
+      "1,000+ | Products online"
+    ],
+    "business": [
+      "Distinctive brand-led design that stands out in a crowded market",
+      "Mandatory 18+ age verification before customers can enter the store",
+      "Ten clear categories, from vape kits and nicotine pouches to CBD edibles",
+      "Search by device, flavour or brand, including Elf Bar, Lost Mary, IVG, Aspire and Vaporesso",
+      "Customer accounts with login, registration and order history",
+      "Deals and seasonal bundles such as \"any 3 nic salts for €18\"",
+      "Best-seller and sale sections that guide shoppers to popular products",
+      "Free shipping over €100, fast dispatch and multiple payment options",
+      "Newsletter sign-up, blog and clear shipping, returns and privacy pages",
+      "Fully responsive shopping on phone, tablet and desktop"
+    ],
+    "technical": [
+      "Custom storefront with a responsive, mobile-first design system",
+      "Age-gate on entry for regulatory compliance",
+      "Catalogue architecture for 1,000+ SKUs across ten categories with brand and flavour search",
+      "Cart and checkout flow with order confirmation and customer account area",
+      "Promotion engine for percentage discounts and mixed bundle offers",
+      "SEO foundations: crawlable category pages, blog, sitemap and legal pages",
+      "Performance-focused product imagery and layout for fast mobile browsing",
+      "Newsletter capture integrated into the site footer"
+    ],
+    "stack": [
+      "E-commerce",
+      "Responsive design",
+      "Age verification",
+      "SEO"
+    ],
+    "quote": "",
+    "quoteName": "",
+    "quoteRole": ""
+  },
+  {
+    "title": "Loom Candy",
+    "category": "E-commerce · WooCommerce",
+    "service": "website-development",
+    "point": "E-commerce Websites",
+    "url": "https://slateblue-stingray-597876.hostingersite.com/",
+    "linkLabel": "Visit Loom Candy",
+    "image": "project-loom-candy",
+    "summary": "A colourful, sweet-shop inspired online vape store with an 18+ age gate, mix-and-match deals, a helpful blog and a checkout built for quick repeat orders.",
+    "challenge": "Loom Candy's brand is playful, bright and flavour-led, and the shop needed a website that felt the same way, while still selling age-restricted products responsibly and making a wide flavour range easy to browse on a phone.",
+    "solution": "We designed a custom WooCommerce theme around the Loom Candy identity, with candy-cloud colours, bold product merchandising and clear category tiles. Built-in bundle deals, a best-sellers rail and a guides blog help customers find the right product, and a mandatory age gate keeps the store compliant.",
+    "facts": [
+      "Custom | WooCommerce theme, built for the brand"
+    ],
+    "business": [
+      "Bright, brand-led design that matches the Loom Candy logo and packaging",
+      "Mandatory 18+ age verification before anyone can browse",
+      "Shop by category: vape bars, pod kits, e-liquids, nicotine pouches, coils and pods, and accessories",
+      "Mix-and-match \"3 for €12\" e-liquid offer and vape bar savings, applied automatically",
+      "Best-sellers and brand sections that guide shoppers to popular products",
+      "Free delivery over €100 and same-day dispatch messaging to boost conversions",
+      "Blog with care guides and buying advice that builds trust and search traffic",
+      "Newsletter sign-up to bring customers back",
+      "Fast, thumb-friendly mobile shopping experience"
+    ],
+    "technical": [
+      "WordPress with WooCommerce for catalogue, cart, checkout and order management",
+      "Custom-built theme (\"Candy Cloud\") rather than an off-the-shelf template",
+      "Product taxonomy for categories, brands and flavour variants",
+      "Bundle and discount rules configured for mix-and-match offers",
+      "Session-based age-gate modal on entry",
+      "Blog and content pages structured for on-page SEO",
+      "Responsive, mobile-first layouts with optimised product imagery"
+    ],
+    "stack": [
+      "WordPress",
+      "WooCommerce",
+      "Custom theme",
+      "PHP",
+      "Responsive design"
+    ],
+    "quote": "",
+    "quoteName": "",
+    "quoteRole": ""
+  },
+  {
+    "title": "Candy Ciao",
+    "category": "E-commerce · WooCommerce",
+    "service": "website-development",
+    "point": "E-commerce Websites",
+    "url": "https://linen-goose-821150.hostingersite.com/",
+    "linkLabel": "Visit Candy Ciao",
+    "image": "project-candy-ciao",
+    "summary": "A bold, editorial-style vape store with a striking red-and-black identity, weekly deals, a buying-guide blog and a clean, distraction-free shopping experience.",
+    "challenge": "Candy Ciao wanted to stand out with a confident, high-contrast brand while keeping the store simple to shop. Customers needed to find products and deals quickly, without the cluttered, discount-heavy look common in the category.",
+    "solution": "We built a custom WooCommerce theme with strong typography, generous spacing and a \"good prices, no visual noise\" approach. Clear category tiles, a most-wanted products section, weekly deal cards and an educational blog guide customers from browsing to checkout, behind a mandatory 18+ age gate.",
+    "facts": [
+      "Custom | WooCommerce theme, built for the brand"
+    ],
+    "business": [
+      "High-impact red-and-black design that reflects the Candy Ciao brand",
+      "Mandatory 18+ age verification on entry",
+      "Clear \"shop by what you need\" categories, from vape bars to accessories",
+      "Weekly deals such as \"3 for €12\" e-liquids, plus a dedicated sale section",
+      "\"Most wanted right now\" best-sellers to help shoppers decide faster",
+      "Buying guides on the blog, such as choosing a first pod kit",
+      "Free delivery on qualifying orders and same-day dispatch messaging",
+      "Newsletter sign-up with consent and age confirmation",
+      "Responsive layout that shops as well on a phone as on desktop"
+    ],
+    "technical": [
+      "WordPress with WooCommerce for products, variants, cart and checkout",
+      "Custom-built theme (\"Candy Commerce\") with a reusable section system",
+      "Product categories, variants and sale scheduling managed in WooCommerce",
+      "Promotion rules for bundle and percentage discounts",
+      "Age-gate on entry and consent-aware newsletter form",
+      "SEO-friendly blog and category architecture",
+      "Mobile-first, performance-minded front end"
+    ],
+    "stack": [
+      "WordPress",
+      "WooCommerce",
+      "Custom theme",
+      "PHP",
+      "Responsive design"
+    ],
+    "quote": "",
+    "quoteName": "",
+    "quoteRole": ""
+  }
+]

@@ -57,6 +57,7 @@ export type Content = {
   services: Record<string, unknown>[];
   platforms: Record<string, unknown>[];
   testimonials: Record<string, unknown>[];
+  projects: Record<string, unknown>[];
 };
 
 export type Catalog = {

@@ -17,6 +17,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { serviceRoutes, slugify } from "./content-html.mjs";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = (file) => JSON.parse(fs.readFileSync(path.join(rootDir, file), "utf8"));
@@ -132,9 +133,84 @@ for (const page of content.pages) {
   console.log(`Verified ${label}: metadata and route content match content/site.json`);
 }
 
-const slugs = content.pages
-  .filter((page) => page.key !== homeKey && page.key !== contactKey)
-  .map((page) => page.slug);
+// Every service has its own page, carrying its own metadata and heading.
+const serviceList = readJson("content/services.json");
+const servicePages = serviceRoutes({ site: content.site, services: serviceList });
+assert.equal(
+  new Set(servicePages.map((page) => page.slug)).size,
+  servicePages.length,
+  "Each service needs its own page address",
+);
+
+for (const page of servicePages) {
+  const file = path.join(outDir, page.slug, "index.html");
+  const label = `/${page.slug}`;
+  assert.ok(fs.existsSync(file), `${file} was not emitted`);
+
+  const html = fs.readFileSync(file, "utf8");
+  const head = html.match(/<head>([\s\S]*?)<\/head>/)?.[1] ?? "";
+
+  const titles = [...head.matchAll(/<title>(.*?)<\/title>/g)].map((m) => decode(m[1]));
+  assert.deepEqual(titles, [page.title], `${label}: exact title`);
+  const descriptions = [...head.matchAll(/<meta\s+name="description"\s+content="([^"]*)"/g)];
+  assert.deepEqual(descriptions.map((m) => decode(m[1])), [page.description], `${label}: description`);
+  assert.ok(head.includes(`rel="canonical" href="${page.url}"`), `${label}: canonical`);
+
+  const headings = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)].map((m) => plain(m[1]));
+  assert.deepEqual(headings, [page.h1], `${label}: exactly one H1, the service title`);
+
+  const service = serviceList.find(
+    (s) => label === `/services/${String(s.slug ?? "").trim() || slugify(s.title)}`,
+  );
+  for (const point of service.points) {
+    assert.ok(html.includes(`id="${slugify(point)}"`), `${label}: a section for "${point}"`);
+  }
+
+  console.log(`Verified ${label}: metadata, heading and a section per bullet point`);
+}
+
+// A gallery line naming an image that does not exist would silently drop out.
+for (const service of serviceList) {
+  for (const line of service.gallery ?? []) {
+    const key = line.split("|")[0].trim();
+    assert.ok(
+      ["jpg", "webp", "png"].some((ext) => fs.existsSync(path.join(rootDir, "src/assets", `${key}.${ext}`))),
+      `${service.title}: the portfolio image "${key}" is not in src/assets`,
+    );
+  }
+  if (service.galleryPoint) {
+    assert.ok(
+      service.points.includes(service.galleryPoint),
+      `${service.title}: "${service.galleryPoint}" is not one of its bullet points`,
+    );
+  }
+}
+
+// Every case study has to land on a real service page, next to its bullet point.
+for (const project of readJson("content/projects.json")) {
+  const page = servicePages.find((p) => p.slug === `services/${project.service}`);
+  assert.ok(page, `${project.title}: "${project.service}" is not a service page`);
+  const html = fs.readFileSync(path.join(outDir, page.slug, "index.html"), "utf8");
+  assert.ok(
+    html.includes(`id="work-${slugify(project.title)}"`),
+    `${project.title}: the case study is missing from /${page.slug}`,
+  );
+  if (project.point) {
+    const service = serviceList.find((s) => `services/${s.slug}` === page.slug);
+    assert.ok(
+      service.points.includes(project.point),
+      `${project.title}: "${project.point}" is not one of ${service.title}'s bullet points`,
+    );
+  }
+  console.log(`Verified ${project.title}: case study on /${page.slug}`);
+}
+
+const slugs = [
+  ...content.pages
+    .filter((page) => page.key !== homeKey && page.key !== contactKey)
+    .map((page) => page.slug),
+  ...servicePages.map((page) => page.slug),
+];
 
 const rewrites = fs.readFileSync(path.join(outDir, ".htaccess"), "utf8");
 assert.ok(
@@ -152,6 +228,9 @@ for (const page of content.pages) {
         ? `${base}/${page.slug}/`
         : `${base}/${page.slug}`;
   assert.ok(sitemap.includes(`<loc>${loc}</loc>`), `sitemap.xml lists ${loc}`);
+}
+for (const page of servicePages) {
+  assert.ok(sitemap.includes(`<loc>${page.url}</loc>`), `sitemap.xml lists ${page.url}`);
 }
 
 console.log("Static SEO checks passed; contact stays a separate document.");

@@ -486,7 +486,7 @@ function Sidebar({
           item(
             view.kind === "collection" && view.key === key,
             schema.label,
-            `${(data[key as "services" | "platforms" | "testimonials"] ?? []).length} ${schema.itemLabel}s`,
+            `${(data[key as "services" | "platforms" | "testimonials" | "projects"] ?? []).length} ${schema.itemLabel}s`,
             () => onSelect({ kind: "collection", key }),
           ),
         )}
@@ -617,7 +617,7 @@ function PageForm({
 
 function CollectionForm({ data, collection, ctx }: { data: Loaded; collection: string; ctx: Ctx }) {
   const repeater = collectionSchema[collection];
-  const rows = (data[collection as "services" | "platforms" | "testimonials"] ?? []) as Record<
+  const rows = (data[collection as "services" | "platforms" | "testimonials" | "projects"] ?? []) as Record<
     string,
     unknown
   >[];

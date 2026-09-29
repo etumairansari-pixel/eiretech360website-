@@ -163,7 +163,7 @@ define('ADMIN_GITHUB_WORKFLOW', '${php(env.workflow)}');
 // because the PHP side cannot parse the JavaScript catalogue.
 const images = fs
   .readdirSync(path.join(rootDir, "src/assets"))
-  .filter((file) => /^svc-.*\.jpg$/.test(file))
+  .filter((file) => /^(svc|project)-.*\.jpg$/.test(file))
   .map((file) => file.replace(/\.jpg$/, ""))
   .sort();
 

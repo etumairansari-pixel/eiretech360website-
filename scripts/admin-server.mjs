@@ -73,6 +73,7 @@ function loadContent() {
     services: readJson(path.join(contentDir, "services.json")),
     platforms: readJson(path.join(contentDir, "platforms.json")),
     testimonials: readJson(path.join(contentDir, "testimonials.json")),
+    projects: readJson(path.join(contentDir, "projects.json")),
   };
 
   return base;
@@ -83,7 +84,7 @@ function imageCatalog() {
   const dir = path.join(rootDir, "src/assets");
   return fs
     .readdirSync(dir)
-    .filter((file) => /^svc-.*\.jpg$/.test(file))
+    .filter((file) => /^(svc|project)-.*\.jpg$/.test(file))
     .map((file) => file.replace(/\.jpg$/, ""))
     .sort();
 }
@@ -174,12 +175,34 @@ function validate(next) {
     [next.services, "services"],
     [next.platforms, "platforms"],
     [next.testimonials, "testimonials"],
+    [next.projects, "projects"],
   ]) {
     if (!Array.isArray(list)) errors.push(`${label} must be a list`);
   }
 
-  for (const service of next.services ?? []) require(service.title, "A service title");
+  const serviceSlugs = new Set();
+  for (const service of next.services ?? []) {
+    require(service.title, "A service title");
+    const slug = String(service.slug ?? "").trim();
+    if (!slug) continue;
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+      errors.push(
+        `${service.title || "A service"}: the page address "${slug}" must be lower-case letters, numbers and single hyphens`,
+      );
+    } else if (serviceSlugs.has(slug)) {
+      errors.push(`The page address "${slug}" is used by more than one service`);
+    }
+    serviceSlugs.add(slug);
+  }
   for (const group of next.platforms ?? []) require(group.title, "A platform group title");
+  const serviceAddresses = new Set((next.services ?? []).map((s) => String(s.slug ?? "").trim()));
+  for (const project of next.projects ?? []) {
+    require(project.title, "A project name");
+    const service = String(project.service ?? "").trim();
+    if (!serviceAddresses.has(service)) {
+      errors.push(`${project.title || "A project"}: "${service}" is not a service page address`);
+    }
+  }
   for (const quote of next.testimonials ?? []) {
     require(quote.name, "A testimonial name");
     require(quote.quote, `${quote.name || "A testimonial"}: the quote`);
@@ -238,6 +261,7 @@ function publishContent(next) {
   atomic(path.join(contentDir, "services.json"), next.services);
   atomic(path.join(contentDir, "platforms.json"), next.platforms);
   atomic(path.join(contentDir, "testimonials.json"), next.testimonials);
+  atomic(path.join(contentDir, "projects.json"), next.projects);
 
   // Any page file left behind by a removed page would still be imported by a
   // route that no longer exists, so clear it out.

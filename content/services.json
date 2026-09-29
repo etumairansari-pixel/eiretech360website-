@@ -2,6 +2,7 @@
   {
     "icon": "megaphone",
     "title": "Digital Marketing",
+    "slug": "digital-marketing",
     "tag": "Reach",
     "image": "svc-marketing",
     "desc": "Boost your visibility and engagement with data-driven strategies across every channel.",
@@ -10,11 +11,36 @@
       "Social Media Marketing",
       "Paid Advertising (Google, Meta, and more)",
       "Content Strategy and Creation"
+    ],
+    "seo": {
+      "title": "Digital Marketing Services | SEO, PPC & Social – Eire Tech",
+      "description": "Grow traffic, leads and sales with Eire Tech's digital marketing services: SEO, social media marketing, Google and Meta ads, and content that converts."
+    },
+    "intro": "Digital marketing works best when every channel pulls in the same direction. Eire Tech plans, runs and measures your search, social, paid and content activity as one connected programme, so each pound or dollar you spend builds on the last instead of competing with it.\n\nWe start with your goals, your customers and your numbers, not a pre-packaged bundle. From there we build a data-driven marketing strategy, launch the channels that fit, and report on the results that matter to your business: qualified leads, sales and return on ad spend.",
+    "details": [
+      "Our SEO services make your website easier to find for the people already searching for what you sell. We run technical SEO audits, fix crawl and speed issues, research the keywords your customers actually use, optimise on-page content and meta data, and build local SEO and authority signals over time. The result is steady, compounding organic traffic that keeps working long after a campaign ends.",
+      "We manage social media marketing across Facebook, Instagram, LinkedIn, TikTok and X with a clear content calendar, consistent brand voice and active community management. Every post has a purpose, whether that is building awareness, starting conversations or driving traffic, and we track engagement and conversions so your social channels contribute to real business growth.",
+      "Our pay-per-click management covers Google Ads, Meta Ads, LinkedIn Ads and more. We handle audience research, campaign structure, ad copy and creative, landing page recommendations and conversion tracking, then optimise bids and budgets every week. You get transparent reporting on cost per lead and return on ad spend, not vanity metrics.",
+      "Great content earns attention, trust and search rankings. We build a content strategy around your audience's questions and your keyword opportunities, then create blog articles, landing pages, email newsletters, guides and social content that educate your buyers and move them towards a decision."
+    ],
+    "benefits": [
+      "One strategy across SEO, social, paid media and content, managed by one team",
+      "Clear monthly reporting focused on leads, sales and return on investment",
+      "Campaigns built on keyword, audience and competitor research, not guesswork",
+      "Continuous testing and optimisation to lower cost per acquisition",
+      "Flexible engagement for start-ups, SMEs and established brands"
+    ],
+    "faqs": [
+      "How long does SEO take to show results? | Most businesses see early movement within two to three months, with stronger, compounding results from six months onwards. Timing depends on your competition, website health and how much content you already have.",
+      "Which digital marketing channels are right for my business? | It depends on where your customers spend their time and how they buy. We audit your market and goals first, then recommend a mix of SEO, social, paid ads and content that gives you the best return for your budget.",
+      "Do you manage Google Ads and Meta Ads budgets? | Yes. We set up, manage and optimise campaigns on Google, Meta, LinkedIn and other platforms. Your ad spend is paid directly to the platform, and our management fee is kept separate and transparent.",
+      "How do you measure digital marketing performance? | We set up conversion tracking and analytics from day one, then report on the metrics tied to revenue: qualified leads, sales, cost per acquisition and return on ad spend."
     ]
   },
   {
     "icon": "workflow",
     "title": "Marketing & Business Automation",
+    "slug": "marketing-business-automation",
     "tag": "Flow",
     "image": "svc-automation",
     "desc": "Save time and increase efficiency by automating the workflows that slow your team down.",
@@ -23,11 +49,36 @@
       "Automated Email and SMS Campaigns",
       "Workflow and Process Automation",
       "Lead Nurturing Systems"
+    ],
+    "seo": {
+      "title": "Marketing & Business Automation Services | Eire Tech",
+      "description": "Automate your CRM, email and SMS campaigns, lead nurturing and business workflows with Eire Tech. Save hours every week and never lose a lead again."
+    },
+    "intro": "Manual follow-ups, copy-and-paste data entry and disconnected tools quietly drain your team's time and let good leads slip away. Eire Tech designs and builds marketing and business automation that connects your systems and handles the repetitive work for you.\n\nWe map how leads, customers and information move through your business today, find the bottlenecks, and replace them with reliable automated workflows. Your team spends less time on admin and more time on the work that actually grows revenue.",
+    "details": [
+      "We set up, migrate and integrate CRM platforms such as HubSpot, Salesforce, Zoho, GoHighLevel and Pipedrive. That includes pipeline design, custom fields, lead scoring, user permissions and integrations with your website forms, ad platforms, phone system and accounting software, so every customer interaction lands in one place.",
+      "Automated email marketing and SMS campaigns reach the right person at the right moment without anyone pressing send. We build welcome sequences, abandoned-cart and re-engagement flows, appointment reminders and post-purchase follow-ups, all personalised with your CRM data and measured against opens, clicks and conversions.",
+      "Business process automation removes the repetitive tasks that slow your team down. Using tools like Zapier, Make, n8n and custom integrations, we automate data entry, reporting, invoicing, onboarding, internal notifications and approvals, so work moves forward accurately and instantly.",
+      "Most leads are not ready to buy on day one. We build lead nurturing systems that score, segment and follow up with every prospect automatically, delivering helpful content over time and alerting your sales team the moment a lead shows buying intent."
+    ],
+    "benefits": [
+      "Hours saved every week by removing manual, repetitive tasks",
+      "Faster lead response times and fewer missed opportunities",
+      "One accurate view of every customer across your tools",
+      "Scalable workflows that grow with your business",
+      "Documentation and training so your team stays in control"
+    ],
+    "faqs": [
+      "Which CRM should my business use? | The right CRM depends on your team size, sales process and budget. We compare options such as HubSpot, Zoho, Salesforce and GoHighLevel against your requirements and recommend the best fit before we build anything.",
+      "Can you automate our existing tools without replacing them? | Usually, yes. We connect the software you already use through native integrations, APIs and platforms like Zapier, Make and n8n, and only suggest new tools when they clearly save time or money.",
+      "Is automated email and SMS marketing compliant? | We build campaigns with consent capture, unsubscribe handling and data protection requirements such as GDPR in mind, so your automation stays compliant as it scales.",
+      "How long does a marketing automation project take? | A focused project, such as a CRM setup or a lead nurturing sequence, typically takes two to six weeks. Larger multi-system automation is delivered in phases so you see value early."
     ]
   },
   {
     "icon": "sparkles",
     "title": "Brand Management",
+    "slug": "brand-management",
     "tag": "Identity",
     "image": "svc-brand",
     "desc": "Build a consistent, powerful identity across every platform your audience sees you on.",
@@ -36,11 +87,36 @@
       "Brand Guidelines and Voice",
       "Cross-Platform Brand Consistency",
       "Reputation Management"
+    ],
+    "seo": {
+      "title": "Brand Management Services | Strategy & Identity – Eire Tech",
+      "description": "Build a brand people recognise and trust. Eire Tech delivers brand strategy, positioning, guidelines, tone of voice and online reputation management."
+    },
+    "intro": "Your brand is what people say about you when you are not in the room. Strong brand management makes sure that story is clear, consistent and working in your favour, on every website, social profile, advert and customer conversation.\n\nEire Tech helps start-ups define who they are and helps established businesses sharpen and protect the brand they have built. We combine strategy, creative direction and ongoing management so your identity stays recognisable and trusted as you grow.",
+    "details": [
+      "We define where your brand stands in the market and why customers should choose you. Through audience research, competitor analysis and workshops, we shape your brand purpose, value proposition, positioning statement and key messages, giving every future marketing decision a clear foundation.",
+      "Brand guidelines turn your identity into a practical toolkit. We document logo usage, colour palettes, typography, imagery style and layout rules, alongside a tone of voice guide with real writing examples, so your team, agencies and freelancers all produce work that looks and sounds unmistakably like you.",
+      "Customers meet your brand on your website, social media, emails, adverts, packaging and in person. We audit every touchpoint, fix inconsistencies and manage your brand presence across platforms, so the experience feels joined up wherever someone discovers you.",
+      "Online reputation management protects the trust you have earned. We monitor reviews, social mentions and search results, respond professionally to feedback, encourage reviews from happy customers and put plans in place to handle negative comments quickly and calmly."
+    ],
+    "benefits": [
+      "A clear positioning that sets you apart from competitors",
+      "Practical brand guidelines your whole team can follow",
+      "A consistent experience across every channel and touchpoint",
+      "Proactive review and reputation monitoring",
+      "Strategy and design delivered by one connected team"
+    ],
+    "faqs": [
+      "What is included in brand management? | Brand management covers your strategy and positioning, visual identity, tone of voice, brand guidelines and the ongoing work of keeping every channel consistent and your reputation protected.",
+      "Do I need a rebrand or just a brand refresh? | If your business, audience or offer has fundamentally changed, a rebrand may be right. If your foundations are sound but look dated or inconsistent, a refresh is usually faster and more cost-effective. We help you decide after a brand audit.",
+      "How do you handle negative reviews? | We respond quickly, professionally and constructively, move complex issues to a private conversation, and help you gather more reviews from satisfied customers so your overall rating reflects your real service.",
+      "Can you work with our existing logo and design? | Absolutely. Many clients keep their logo and we build the strategy, guidelines and consistency around it, only recommending changes where they would clearly strengthen the brand."
     ]
   },
   {
     "icon": "radio",
     "title": "ATL & TTL Campaigns",
+    "slug": "atl-ttl-campaigns",
     "tag": "Broadcast",
     "image": "svc-atl",
     "desc": "Strategic above-the-line and through-the-line advertising for maximum market reach.",
@@ -49,11 +125,36 @@
       "Outdoor and Print Advertising",
       "Integrated Multi-Channel Campaigns",
       "Campaign Planning and Execution"
+    ],
+    "seo": {
+      "title": "ATL & TTL Advertising Campaigns – Eire Tech",
+      "description": "Reach mass audiences with Eire Tech's ATL and TTL advertising: TV, radio, print, outdoor billboards and integrated campaigns planned and measured end to end."
+    },
+    "intro": "Above-the-line (ATL) advertising builds broad awareness through mass media, while through-the-line (TTL) campaigns combine that reach with targeted digital activity that drives action. Used together, they put your brand in front of large audiences and turn attention into measurable results.\n\nEire Tech plans, creates and manages ATL and TTL campaigns from the first idea to the final report. We align every channel behind one creative concept and one set of goals, so your traditional and digital advertising reinforce each other.",
+    "details": [
+      "We develop traditional media campaigns across television, radio and cinema that build large-scale brand awareness. Our team handles the creative concept, scripting, production coordination and media buying, choosing stations, slots and schedules that reach your target audience efficiently.",
+      "Outdoor advertising and print advertising keep your brand visible in the real world. We design and place billboards, transit and street furniture ads, digital out-of-home screens, newspaper and magazine adverts, flyers and brochures, making sure every format is bold, legible and on-brand.",
+      "Integrated multi-channel campaigns connect offline and online media under one message. A radio or billboard campaign can drive people to search, social and a dedicated landing page, where digital ads, retargeting and email capture and convert that interest.",
+      "Strong campaigns come from careful campaign planning. We define objectives and audiences, build the media plan and budget, manage suppliers and timelines, oversee execution and track results with clear KPIs such as reach, frequency, brand lift, website traffic and leads."
+    ],
+    "benefits": [
+      "Mass-market reach combined with targeted digital conversion",
+      "One creative idea carried consistently across every channel",
+      "Media planning and buying focused on value for your budget",
+      "End-to-end management of suppliers, production and timelines",
+      "Clear post-campaign reporting on reach, response and results"
+    ],
+    "faqs": [
+      "What is the difference between ATL, BTL and TTL advertising? | ATL (above the line) uses mass media such as TV, radio and outdoor to build awareness. BTL (below the line) targets specific audiences directly, for example through events or direct mail. TTL (through the line) blends both approaches, usually combining mass reach with targeted digital activity.",
+      "Is traditional advertising still effective? | Yes, especially for building brand awareness and trust at scale. It is most effective when combined with digital channels that capture and measure the demand it creates, which is exactly what a TTL campaign does.",
+      "How do you measure the results of an ATL campaign? | We use reach and frequency data, dedicated URLs and QR codes, promo codes, search and website traffic uplift, call tracking and brand awareness surveys to connect offline activity to real outcomes.",
+      "What budget do I need for an ATL or TTL campaign? | Budgets vary widely by market, media and duration. We build a plan around what you want to achieve and what you can invest, and show you the expected reach before any money is committed."
     ]
   },
   {
     "icon": "globe",
     "title": "Website Development",
+    "slug": "website-development",
     "tag": "Web",
     "image": "svc-web",
     "desc": "Responsive, high-performance websites tailored to your business goals, not templates.",
@@ -62,11 +163,36 @@
       "E-commerce Websites",
       "Website Maintenance and Support",
       "Speed and SEO Optimization"
+    ],
+    "seo": {
+      "title": "Website Design & Development Services | Eire Tech",
+      "description": "Custom, fast and SEO-ready websites and e-commerce stores built by Eire Tech. Responsive web design, development, maintenance and speed optimisation."
+    },
+    "intro": "Your website is often the first impression a customer has of your business, and it should work as hard as your best salesperson. Eire Tech designs and develops custom websites that look professional, load fast, rank well in search engines and turn visitors into enquiries and sales.\n\nWe do not force your business into a template. Every project starts with your goals, your audience and your content, and ends with a responsive, secure website that your team can easily update and that is ready to grow with you.",
+    "details": [
+      "Our custom website design and development covers everything from strategy and sitemap to UX wireframes, visual design and clean, modern code. We build on the right platform for you, whether that is WordPress, a headless CMS or a fully custom React build, with responsive layouts, accessibility best practice and clear calls to action on every page.",
+      "We build e-commerce websites that make buying simple. Using Shopify, WooCommerce or a custom solution, we set up product catalogues, secure checkout, payment gateways, shipping and tax rules, inventory integrations and conversion-focused product pages that help you sell more online.",
+      "A website is never really finished. Our website maintenance and support plans cover security updates, backups, uptime monitoring, bug fixes, content changes and performance checks, so your site stays secure, fast and up to date without taking up your team's time.",
+      "Fast, well-structured websites rank higher and convert better. We improve Core Web Vitals, compress images, optimise code and hosting, and put technical SEO foundations in place, including structured data, clean URLs, meta tags, XML sitemaps and mobile-first performance."
+    ],
+    "benefits": [
+      "Custom design built around your brand and business goals",
+      "Mobile-first, responsive websites that load fast on any device",
+      "SEO-ready structure from the very first line of code",
+      "Easy-to-use content management for your team",
+      "Ongoing maintenance, security and support after launch"
+    ],
+    "faqs": [
+      "How long does it take to build a website? | A professional business website typically takes four to eight weeks, while larger e-commerce or custom web projects take eight to sixteen weeks. We agree a clear timeline and milestones before we begin.",
+      "Will my website be mobile-friendly and SEO-ready? | Yes. Every site we build is fully responsive and includes technical SEO foundations such as fast load times, clean URLs, meta tags, structured data and an XML sitemap.",
+      "Which platform do you build websites on? | We recommend the platform that fits your needs, most often WordPress, Shopify, WooCommerce or a custom React-based build. We explain the trade-offs so you can choose with confidence.",
+      "Can I update the website myself after launch? | Yes. We build with an easy-to-use content management system and provide training, so your team can update text, images, products and blog posts without needing a developer."
     ]
   },
   {
     "icon": "smartphone",
     "title": "App Development",
+    "slug": "app-development",
     "tag": "Mobile",
     "image": "svc-app",
     "desc": "Custom mobile and web applications engineered to scale with your business.",
@@ -75,11 +201,36 @@
       "Web Application Development",
       "UI/UX Design for Apps",
       "App Maintenance and Updates"
+    ],
+    "seo": {
+      "title": "Mobile & Web App Development Services | Eire Tech",
+      "description": "Custom iOS, Android and web app development by Eire Tech. From UI/UX design to launch, maintenance and updates, we build apps that scale with your business."
+    },
+    "intro": "A well-built app can open new revenue streams, improve customer loyalty and streamline how your business runs. Eire Tech designs and develops custom mobile and web applications that are fast, secure, intuitive and engineered to scale.\n\nWe take your idea from discovery and prototyping through design, development, testing and launch, then keep improving it with real user feedback. You work with one team from the first workshop to the latest release.",
+    "details": [
+      "We develop native and cross-platform mobile apps for iOS and Android using Swift, Kotlin, React Native and Flutter. Our team handles app architecture, secure APIs, push notifications, in-app payments, offline support and App Store and Google Play submission, so your app is polished and ready for real users.",
+      "Web application development turns complex processes into simple, browser-based tools. We build customer portals, dashboards, SaaS products, booking systems and internal business applications with modern frameworks, secure authentication, cloud hosting and integrations with the software you already use.",
+      "Great apps feel effortless to use. Our UI/UX design process includes user research, user journeys, wireframes, interactive prototypes and usability testing, resulting in clean, accessible interfaces that users understand instantly and keep coming back to.",
+      "After launch, our app maintenance and updates keep your product reliable and relevant. We handle operating system updates, bug fixes, performance and security monitoring, analytics reviews and new feature releases, so your app keeps improving as your business and users grow."
+    ],
+    "benefits": [
+      "One team for strategy, design, development and launch",
+      "Scalable architecture built for long-term growth",
+      "User-centred UI/UX that drives adoption and retention",
+      "Transparent sprints, demos and progress updates",
+      "Reliable post-launch support, updates and monitoring"
+    ],
+    "faqs": [
+      "Should I build a native or cross-platform app? | Native apps offer the best performance and access to device features, while cross-platform frameworks like React Native and Flutter reach iOS and Android from one codebase at a lower cost. We recommend the right approach based on your features, budget and timeline.",
+      "How long does it take to develop an app? | A focused minimum viable product (MVP) often takes eight to twelve weeks. More complex apps with integrations and advanced features take longer and are delivered in phases.",
+      "Do you publish the app to the App Store and Google Play? | Yes. We prepare store listings, handle the submission and review process, and make sure your app meets Apple and Google guidelines.",
+      "Who owns the app source code? | You do. Once the project is complete, you own the source code and intellectual property for your application."
     ]
   },
   {
     "icon": "brain-circuit",
     "title": "Custom AI Development",
+    "slug": "custom-ai-development",
     "tag": "Intelligence",
     "image": "svc-ai",
     "desc": "Intelligent, tailor-made AI solutions to automate and optimize business operations.",
@@ -88,11 +239,36 @@
       "Workflow Automation Powered by AI",
       "Custom AI Tools and Integrations",
       "Data Analysis and Insights"
+    ],
+    "seo": {
+      "title": "Custom AI Development & AI Chatbots – Eire Tech",
+      "description": "Custom AI solutions by Eire Tech: AI chatbots, virtual assistants, AI-powered workflow automation, custom AI integrations and data analysis for your business."
+    },
+    "intro": "Artificial intelligence is no longer just for large enterprises. With the right approach, businesses of every size can use AI to answer customers instantly, automate complex work and make better decisions from their data.\n\nEire Tech builds practical, custom AI solutions around your real business problems. We identify where AI will create measurable value, design it responsibly with your data security in mind, and integrate it into the tools your team already uses.",
+    "details": [
+      "We build AI chatbots and virtual assistants that answer customer questions, qualify leads, book appointments and support your staff around the clock. Trained on your own content and connected to your systems, they give accurate, on-brand answers on your website, WhatsApp, social media and internal tools, and hand over to a human when needed.",
+      "AI-powered workflow automation goes beyond simple rules. We use large language models and machine learning to read documents, classify emails, extract data, summarise information and draft responses, taking hours of repetitive knowledge work off your team's plate.",
+      "Every business is different, so off-the-shelf AI rarely fits perfectly. We develop custom AI tools and integrations, from internal knowledge assistants to content generators and recommendation engines, and connect leading AI models securely to your CRM, website, databases and business software through APIs.",
+      "Your data holds answers you have not had time to find. We build AI data analysis and business intelligence solutions that clean and combine your data, surface trends, forecast demand and present clear insights in dashboards, so you can make faster, better-informed decisions."
+    ],
+    "benefits": [
+      "AI built around your specific processes, not generic demos",
+      "Secure handling of your business and customer data",
+      "Seamless integration with the tools you already use",
+      "Measurable time and cost savings from day one",
+      "Ongoing tuning and improvement as your needs evolve"
+    ],
+    "faqs": [
+      "How can AI help my business? | AI can answer customer queries 24/7, automate repetitive admin, process documents, personalise marketing and uncover insights in your data. We start with a discovery session to find the use cases with the clearest return for your business.",
+      "Is my business data safe when using AI? | Yes. We design every solution with data privacy and security in mind, use enterprise-grade AI providers and hosting options, control what data the AI can access, and align with regulations such as GDPR.",
+      "Can an AI chatbot be trained on my own content? | Yes. We connect your chatbot to your website, documents, product information and FAQs so it answers accurately in your brand voice, and we keep its knowledge up to date.",
+      "Do I need a lot of data to get started with AI? | Not always. Many valuable AI solutions, such as chatbots and document automation, work with the content you already have. We assess your data and recommend what is realistic before you invest."
     ]
   },
   {
     "icon": "palette",
     "title": "Graphic Designing",
+    "slug": "graphic-design",
     "tag": "Visual",
     "image": "svc-design",
     "desc": "Creative visual identities, branding materials, and marketing collateral that get noticed.",
@@ -101,11 +277,51 @@
       "Marketing Collateral and Print Design",
       "Social Media Creatives",
       "Packaging and Product Design"
+    ],
+    "seo": {
+      "title": "Graphic Design Services | Logo, Print & Social – Eire Tech",
+      "description": "Professional graphic design services by Eire Tech: logo and brand identity design, marketing collateral, print design, social media creatives and packaging."
+    },
+    "intro": "Good design makes people stop, understand and remember. Eire Tech's graphic design team creates visuals that capture attention, communicate your message clearly and keep your brand consistent across every format, from a business card to a billboard.\n\nEvery design starts with your goals and your audience. We combine creative thinking with marketing know-how, so your artwork does not just look good, it helps you sell.",
+    "details": [
+      "Your logo and visual identity are the foundation of how people recognise you. We design distinctive, versatile logos along with colour palettes, typography and supporting brand elements, and deliver every file format you need for print, web and social media.",
+      "We create marketing collateral and print design that supports your sales and marketing, including brochures, flyers, business cards, posters, presentations, sales sheets, banners and exhibition stands. Every piece is print-ready, on-brand and designed to guide readers towards action.",
+      "Social media creatives need to stand out in a fast-moving feed. We design scroll-stopping posts, carousels, stories, ad creatives and cover images sized for every platform, keeping your feed consistent and your paid social campaigns performing.",
+      "Packaging is often the final moment before a customer buys. Our packaging and product design covers labels, boxes, bags and product inserts that reflect your brand, meet printing and regulatory requirements, and stand out on the shelf and online."
+    ],
+    "benefits": [
+      "Creative design grounded in strategy and marketing goals",
+      "Consistent visuals across print, digital and social media",
+      "Print-ready and web-ready files in every format you need",
+      "Clear revision rounds and fast turnaround times",
+      "Design that works hand in hand with our branding and marketing teams"
+    ],
+    "faqs": [
+      "What files will I receive for my logo? | You receive your logo in all standard formats, including vector files (AI, EPS, SVG, PDF) and web-ready PNG and JPG files, in full colour, single colour and reversed versions.",
+      "How many design revisions are included? | Each project includes agreed revision rounds so you can refine the design with confidence. We confirm the number of revisions in your proposal before work begins.",
+      "Can you design social media posts every month? | Yes. We offer ongoing social media creative packages that deliver a consistent set of on-brand posts, stories and ad creatives each month.",
+      "Do you handle printing as well as design? | We prepare professional print-ready files and can coordinate with trusted printers on your behalf to manage quality, materials and delivery."
+    ],
+    "galleryPoint": "Logo and Identity Design",
+    "gallery": [
+      "design-attend-logo | Primary logo | Attend by EireTech 360 | light",
+      "design-attend-logo-reversed | Reversed logo for dark backgrounds | Attend by EireTech 360 | dark",
+      "design-attend-mark | App icon | Attend by EireTech 360 | light",
+      "design-e360-colour | Primary logo | E360 Inventory Suite | dark",
+      "design-e360-mono | Monochrome logo | E360 Inventory Suite | dark",
+      "design-stockie-logo | Primary logo | E360 Stock.ie | light",
+      "design-stockie-logo-reversed | Reversed logo for dark backgrounds | E360 Stock.ie | dark",
+      "design-stockie-mark | Brand mark | E360 Stock.ie | light",
+      "design-cliffs-of-puff | Mascot logo | Cliffs of Puff | light",
+      "design-candy-ciao | Mascot logo | Candy Ciao Vape Store | dark",
+      "design-loom-candy | Neon logo | Loom Candy Vape Store | dark",
+      "design-halloween | Halloween campaign artwork | Seasonal campaign | dark"
     ]
   },
   {
     "icon": "film",
     "title": "Video Editing & Animation",
+    "slug": "video-editing-animation",
     "tag": "Motion",
     "image": "svc-video",
     "desc": "Engaging visual content that tells your brand's story and brings it to life.",
@@ -114,6 +330,30 @@
       "Social Media Reels and Shorts",
       "Motion Graphics and Animation",
       "Explainer Videos"
+    ],
+    "seo": {
+      "title": "Video Editing & Animation Services – Eire Tech",
+      "description": "Professional video editing and animation by Eire Tech: promotional videos, social media reels and shorts, motion graphics and animated explainer videos."
+    },
+    "intro": "Video is the most engaging way to tell your brand's story, and audiences now expect it on every platform. Eire Tech produces and edits videos and animations that grab attention in the first seconds and leave viewers with a clear message and a reason to act.\n\nFrom a single social reel to a full brand film, we handle scripting, editing, animation, sound design and delivery in the right formats for every channel you use.",
+    "details": [
+      "Promotional videos showcase your products, services and people in a way that builds trust and drives action. We handle concept, scripting, editing, colour grading, music and captions, delivering polished brand films, product videos, testimonials and advertisements for your website, social media and paid campaigns.",
+      "Short-form video is where attention lives today. We edit social media reels and shorts for Instagram, TikTok, YouTube Shorts and LinkedIn with strong hooks, fast pacing, on-screen captions and trending formats, turning your raw footage into content people watch, share and act on.",
+      "Motion graphics and animation bring ideas, data and brands to life. We create animated logos, kinetic typography, infographics, lower thirds and 2D animation that make complex information easy to understand and give your content a premium, professional finish.",
+      "Explainer videos simplify what you do in 60 to 120 seconds. We write the script, design the visuals, add a professional voiceover and animate the story, producing an explainer video that answers key questions and boosts conversions on your website and landing pages."
+    ],
+    "benefits": [
+      "Videos edited for each platform's format and audience",
+      "Storytelling focused on engagement and conversions",
+      "Professional motion graphics, captions and sound design",
+      "Fast turnaround for ongoing social media content",
+      "Creative that aligns with your wider brand and campaigns"
+    ],
+    "faqs": [
+      "Can you edit footage we have already filmed? | Yes. Send us your raw footage and we will edit it into polished videos, adding music, captions, graphics and colour correction.",
+      "What is the ideal length for social media videos? | Most reels and shorts perform best between 15 and 60 seconds, while explainer videos are usually 60 to 120 seconds. We tailor the length to each platform and goal.",
+      "How long does an explainer video take to produce? | A typical animated explainer video takes two to four weeks, covering scripting, storyboard, design, voiceover and animation, with review points along the way.",
+      "Do you add subtitles and captions? | Yes. We add clear, on-brand captions to improve accessibility and engagement, since many people watch social videos with the sound off."
     ]
   }
 ]

@@ -117,6 +117,7 @@ export type ServicesContent = {
   seo: Seo;
   hero: PageHero;
   serviceLinkLabel: string;
+  detailLinkLabel?: string;
   cta: Cta;
 };
 
@@ -161,6 +162,49 @@ export type Service = {
   image: string;
   desc: string;
   points: string[];
+  /** The URL segment under /services/. Falls back to the slugified title. */
+  slug?: string;
+  seo?: { title: string; description: string };
+  /** The detail page's overview; paragraphs are separated by a blank line. */
+  intro?: string;
+  /** One paragraph per bullet point, in the same order as `points`. */
+  details?: string[];
+  benefits?: string[];
+  /** One per entry, written as "Question? | Answer". */
+  faqs?: string[];
+  /** Portfolio artwork, one per entry: "image-key | Title | Brand | light or dark". */
+  gallery?: string[];
+  /** The bullet point whose section links to the gallery. */
+  galleryPoint?: string;
+};
+
+/** One entry in content/projects.json: a case study shown on a service page. */
+export type Project = {
+  title: string;
+  category: string;
+  /** The slug of the service whose page shows this project. */
+  service: string;
+  /** Optional bullet point of that service the project demonstrates. */
+  point?: string;
+  url: string;
+  /** The live-site button text. Defaults to "Visit <domain>". */
+  linkLabel?: string;
+  /** A key in the image registry, e.g. "project-attend". */
+  image: string;
+  summary: string;
+  challenge: string;
+  solution: string;
+  /** One per entry, written as "Value | Label". */
+  facts: string[];
+  /** Plain-language highlights for business readers. */
+  business: string[];
+  /** Implementation detail for technical readers. */
+  technical: string[];
+  stack: string[];
+  /** Client feedback. The block is hidden until a quote is filled in. */
+  quote?: string;
+  quoteName?: string;
+  quoteRole?: string;
 };
 
 export type Platform = {
