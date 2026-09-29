@@ -421,7 +421,7 @@ export const globalSchema: Section[] = [
         path: ["offices"],
         label: "Offices",
         kind: "lines",
-        help: "One per line, headquarters first: Label | Place | Time zone. Shown on the About, contact and service pages; the footer shows only the address below.",
+        help: "One per line, headquarters first: Label | Place | Time zone. Shown on the About and contact pages; the footer shows only the address below.",
       },
       {
         path: ["footer", "address"],
