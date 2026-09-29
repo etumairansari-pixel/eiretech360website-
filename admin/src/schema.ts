@@ -440,7 +440,7 @@ export const globalSchema: Section[] = [
         label: "Profiles",
         itemLabel: "profile",
         titleKey: "label",
-        help: "LinkedIn and Facebook have their own icons; anything else uses the LinkedIn glyph.",
+        help: "Instagram, LinkedIn and Facebook have their own icons; anything else uses the LinkedIn glyph. Name the network exactly as written here.",
         fields: [
           { path: ["label"], label: "Network", kind: "text" },
           { path: ["href"], label: "URL", kind: "url" },

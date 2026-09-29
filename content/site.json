@@ -14,12 +14,16 @@
   },
   "social": [
     {
+      "label": "Instagram",
+      "href": "https://www.instagram.com/eiretech360/"
+    },
+    {
       "label": "LinkedIn",
-      "href": "https://www.linkedin.com/company/eire-tech/"
+      "href": "https://www.linkedin.com/in/eiretech360/"
     },
     {
       "label": "Facebook",
-      "href": "https://www.facebook.com/people/EireTech/61591366410652/"
+      "href": "https://www.facebook.com/profile.php?id=61595071314425"
     }
   ],
   "nav": {

@@ -79,7 +79,7 @@ Text fields can also contain safe hyperlinks using Markdown-style syntax:
 
 ```text
 [see our services](services)
-[visit our LinkedIn](https://www.linkedin.com/company/eire-tech/)
+[visit our LinkedIn](https://www.linkedin.com/in/eiretech360/)
 ```
 
 Internal page keys are resolved to their current slug. Only internal paths and
