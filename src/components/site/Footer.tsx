@@ -4,7 +4,6 @@ import { Logo } from "@/components/Logo";
 import {
   contact as office,
   footer as footerContent,
-  offices,
   pathFor,
   route as routeFor,
   site,
@@ -190,32 +189,7 @@ export function Footer() {
               {footerContent.ctaLabel} <ArrowUpRight className="size-4" />
             </Link>
 
-            {offices.length > 0 ? (
-              <div className="mt-6 text-sm leading-relaxed text-brand-muted">
-                <p className="font-semibold text-brand-text">{footerContent.visitTitle}</p>
-                {footerContent.visitLine ? <p className="mt-1">{footerContent.visitLine}</p> : null}
-                <ul className="mt-3 space-y-3">
-                  {offices.map((o, i) => (
-                    <li key={o.label}>
-                      <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-brand-primary-text">
-                        {o.label}
-                      </span>
-                      <span className="text-brand-text">{o.place}</span>
-                      {i === 0 && footerContent.address.length > 0 ? (
-                        <address className="not-italic">
-                          {footerContent.address.map((line, j) => (
-                            <span key={line}>
-                              {line}
-                              {j < footerContent.address.length - 1 ? <br /> : null}
-                            </span>
-                          ))}
-                        </address>
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : footerContent.address.length > 0 && (
+            {footerContent.address.length > 0 && (
               <div className="mt-6 text-sm leading-relaxed text-brand-muted">
                 <p className="font-semibold text-brand-text">{footerContent.visitTitle}</p>
                 <p className="mt-1">{footerContent.visitLine}</p>

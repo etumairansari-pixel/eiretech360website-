@@ -415,13 +415,13 @@ export const globalSchema: Section[] = [
         help: "One per line, written as: Label | service page address, e.g. AI Development | custom-ai-development. Without an address the line links to the services page.",
       },
       { path: ["footer", "ctaLabel"], label: "Button label", kind: "text" },
-      { path: ["footer", "visitTitle"], label: "Offices heading", kind: "text" },
-      { path: ["footer", "visitLine"], label: "Offices subheading", kind: "text" },
+      { path: ["footer", "visitTitle"], label: "Address heading", kind: "text" },
+      { path: ["footer", "visitLine"], label: "Address subheading", kind: "text" },
       {
         path: ["offices"],
         label: "Offices",
         kind: "lines",
-        help: "One per line, headquarters first: Label | Place | Time zone. Shown in the footer, on the About, contact and service pages.",
+        help: "One per line, headquarters first: Label | Place | Time zone. Shown on the About, contact and service pages; the footer shows only the address below.",
       },
       {
         path: ["footer", "address"],

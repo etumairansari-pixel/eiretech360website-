@@ -125,7 +125,7 @@ function officesCard(content) {
         `<li><strong>${esc(place)}</strong><small>${esc(label)}${zone ? " · " + esc(zone) : ""}</small></li>`,
     )
     .join("");
-  return `<div class="contact-card"><span>${esc(content.footer.visitTitle || "Offices")}</span><ul class="office-list">${rows}</ul></div>`;
+  return `<div class="contact-card"><span>Our Offices</span><ul class="office-list">${rows}</ul></div>`;
 }
 
 /** Strips highlight markers, for meta tags and attributes. */
