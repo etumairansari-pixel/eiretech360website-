@@ -33,8 +33,14 @@ const footerOrder = ["home", "about", "services", "platforms", "contact"] as con
 const pages = footerOrder.map((key) => ({ to: pathFor(key), label: routeFor(key).footerLabel }));
 
 // Capability columns, mirroring how enterprise sites let visitors scan what a
-// firm actually does straight from the footer.
-const capabilities = footerContent.capabilities;
+// firm actually does straight from the footer. Each line is "Label | slug";
+// the slug opens that service's page, and a line without one opens /services.
+// The slug is written into site.json rather than looked up, so the footer —
+// on every page — never pulls the whole services file into the bundle.
+const capabilities = footerContent.capabilities.map((line) => {
+  const [label = "", slug = ""] = line.split("|").map((part) => part.trim());
+  return { label, slug };
+});
 
 const socialIcons = { LinkedIn: LinkedInIcon, Facebook: FacebookIcon } as const;
 
@@ -103,14 +109,25 @@ export function Footer() {
             </div>
             <ul className="space-y-3 text-sm">
               {capabilities.map((c) => (
-                <li key={c}>
-                  <Link
-                    to="/services"
-                    className="text-brand-muted transition-colors hover:text-brand-primary-text"
-                    data-hover
-                  >
-                    {c}
-                  </Link>
+                <li key={c.label}>
+                  {c.slug ? (
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: c.slug }}
+                      className="text-brand-muted transition-colors hover:text-brand-primary-text"
+                      data-hover
+                    >
+                      {c.label}
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/services"
+                      className="text-brand-muted transition-colors hover:text-brand-primary-text"
+                      data-hover
+                    >
+                      {c.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

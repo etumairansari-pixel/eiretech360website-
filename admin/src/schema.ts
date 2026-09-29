@@ -402,7 +402,7 @@ export const globalSchema: Section[] = [
         path: ["footer", "capabilities"],
         label: "Capabilities column",
         kind: "lines",
-        help: "One per line. Each links to the services page.",
+        help: "One per line, written as: Label | service page address, e.g. AI Development | custom-ai-development. Without an address the line links to the services page.",
       },
       { path: ["footer", "ctaLabel"], label: "Button label", kind: "text" },
       { path: ["footer", "visitTitle"], label: "Visit heading", kind: "text" },

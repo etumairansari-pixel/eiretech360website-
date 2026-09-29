@@ -169,6 +169,18 @@ for (const page of servicePages) {
   console.log(`Verified ${label}: metadata, heading and a section per bullet point`);
 }
 
+// A footer capability pointing at a missing service page would be a dead link.
+for (const line of site.footer.capabilities) {
+  const slug = (line.split("|")[1] ?? "").trim();
+  if (!slug) continue;
+  assert.ok(
+    servicePages.some((page) => page.slug === `services/${slug}`),
+    `Footer capability "${line}": "${slug}" is not a service page`,
+  );
+  const html = fs.readFileSync(path.join(outDir, "services", "index.html"), "utf8");
+  assert.ok(html.includes(`href="/services/${slug}"`), `Footer links to /services/${slug}`);
+}
+
 // A gallery line naming an image that does not exist would silently drop out.
 for (const service of serviceList) {
   for (const line of service.gallery ?? []) {
