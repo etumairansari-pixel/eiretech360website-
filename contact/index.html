@@ -796,6 +796,14 @@
       const supabaseUrl = "https://ovmwpsuwauoowalfwzlf.supabase.co";
       const publishableKey =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92bXdwc3V3YXVvb3dhbGZ3emxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2OTUwMjcsImV4cCI6MjA5OTI3MTAyN30.BE7xGHSoUTG7oN5Ceb4yYwRNcSr5sh31Gpys7wDcG8A";
+      // "Start a Project" scrolls to the form without adding #contact-form to the URL.
+      document.querySelectorAll('a[href="#contact-form"]').forEach((link) => {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          document.querySelector("#contact-form").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
       const form = document.querySelector("#contact-form");
       const button = document.querySelector("#submit");
       const status = document.querySelector("#status");

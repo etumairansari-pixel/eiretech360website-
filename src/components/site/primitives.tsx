@@ -57,12 +57,10 @@ function useMagnet(strength = 0.25) {
 /** Magnetic internal router link. */
 export function MagneticLink({
   to,
-  hash,
   children,
   className,
 }: {
   to: string;
-  hash?: string;
   children: ReactNode;
   className?: string;
 }) {
@@ -71,7 +69,6 @@ export function MagneticLink({
   return (
     <MotionLink
       to={to}
-      hash={hash}
       ref={ref as never}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}

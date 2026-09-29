@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound, useLocation } from "@tanstack/react-router";
 import { ArrowUpRight, Check, ChevronDown, ChevronRight } from "lucide-react";
 import { Shell } from "@/components/site/Shell";
@@ -9,6 +9,7 @@ import { LogoMark } from "@/components/Logo";
 import { DesignGallery } from "@/components/site/DesignGallery";
 import { ReelGallery } from "@/components/site/ReelGallery";
 import { ProjectShowcase, projectAnchor } from "@/components/site/ProjectShowcase";
+import { SectionLink, openSection } from "@/components/site/SectionLink";
 import { serviceBySlug, services, type Service } from "@/content/services";
 import { projectsFor } from "@/content/projects";
 import { headFor, pathFor, route, site } from "@/content";
@@ -44,7 +45,7 @@ function structuredData(service: Service) {
         name: service.title,
         itemListElement: service.sections.map((section) => ({
           "@type": "Offer",
-          itemOffered: { "@type": "Service", name: section.title, url: `${url}#${section.anchor}` },
+          itemOffered: { "@type": "Service", name: section.title, url },
         })),
       },
     },
@@ -82,48 +83,32 @@ function structuredData(service: Service) {
 }
 
 /**
- * Scrolls to the section named in the URL hash once React has rendered it.
- *
- * On a fresh load the browser jumps inside the prerendered overlay, which is
- * removed as soon as React paints, so the jump has to be repeated on the real
- * page. The lookup is scoped to #root because the overlay holds the same ids
- * until it goes.
+ * Opens the section a link asked for. Links pass it in history state so the
+ * address bar keeps the clean page URL; an older link that still carries a
+ * #hash is honoured too, and the hash is then dropped from the address bar.
  */
-function useScrollToHash() {
-  const hash = useLocation({ select: (location) => location.hash });
+function useOpenSection() {
+  const section = useLocation({ select: (location) => location.state.section ?? "" });
+  const key = useLocation({ select: (location) => (location.state as { key?: string }).key ?? "" });
+  // Read once: stripping the hash below updates the router's location, and a
+  // live dependency on it would cancel the scroll that is still settling.
+  const [linkedHash] = useState(() =>
+    typeof window === "undefined" ? "" : decodeURIComponent(window.location.hash.slice(1)),
+  );
 
   useEffect(() => {
-    if (!hash) return;
-    const target = document
-      .getElementById("root")
-      ?.querySelector<HTMLElement>(`[id="${CSS.escape(hash)}"]`);
-    if (!target) return;
-
-    // Web fonts and images land after the first jump and reflow the text above
-    // the section — on a phone by hundreds of pixels — so keep re-aligning
-    // while the layout settles, and stop as soon as the visitor scrolls.
-    let settled = false;
-    const jump = () => {
-      if (!settled) target.scrollIntoView({ block: "start" });
-    };
-    const stop = () => {
-      settled = true;
-    };
-    const events = ["wheel", "touchstart", "keydown"] as const;
-    for (const name of events) window.addEventListener(name, stop, { passive: true });
-    const observer = new ResizeObserver(jump);
-    observer.observe(document.body);
-    const start = window.setTimeout(jump, 150);
-    const end = window.setTimeout(stop, 3000);
-
-    return () => {
-      stop();
-      observer.disconnect();
-      window.clearTimeout(start);
-      window.clearTimeout(end);
-      for (const name of events) window.removeEventListener(name, stop);
-    };
-  }, [hash]);
+    const id = section || linkedHash;
+    if (!id) return;
+    const cleanup = openSection(id);
+    if (window.location.hash) {
+      window.history.replaceState(
+        window.history.state,
+        "",
+        window.location.pathname + window.location.search,
+      );
+    }
+    return cleanup;
+  }, [section, key, linkedHash]);
 }
 
 function ServiceDetailPage() {
@@ -134,7 +119,7 @@ function ServiceDetailPage() {
   const others = services.filter((s) => s.slug !== service.slug);
   const work = projectsFor(service.slug);
 
-  useScrollToHash();
+  useOpenSection();
 
   return (
     <Shell>
@@ -231,16 +216,16 @@ function ServiceDetailPage() {
             <ol className="mt-6 grid gap-3 sm:grid-cols-2">
               {service.sections.map((section, i) => (
                 <li key={section.anchor}>
-                  <a
-                    href={`#${section.anchor}`}
-                    className="group flex items-center gap-3 rounded-2xl border border-brand-line bg-brand-bg px-4 py-3.5 text-sm font-semibold transition-colors hover:border-brand-primary/50 hover:text-brand-primary-text"
+                  <SectionLink
+                    to={section.anchor}
+                    className="group flex w-full items-center gap-3 rounded-2xl border border-brand-line bg-brand-bg px-4 py-3.5 text-left text-sm font-semibold transition-colors hover:border-brand-primary/50 hover:text-brand-primary-text"
                   >
                     <span className="font-mono text-xs text-brand-primary-text">
                       [{String(i + 1).padStart(2, "0")}]
                     </span>
                     <Highlight text={section.title} />
                     <ArrowUpRight className="ml-auto size-4 shrink-0 rotate-90 opacity-50 transition-opacity group-hover:opacity-100" />
-                  </a>
+                  </SectionLink>
                 </li>
               ))}
             </ol>
@@ -250,29 +235,29 @@ function ServiceDetailPage() {
                   Featured work
                 </span>
                 {work.map((project) => (
-                  <a
+                  <SectionLink
                     key={project.title}
-                    href={`#${projectAnchor(project)}`}
+                    to={projectAnchor(project)}
                     className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
                   >
                     {project.title}
-                  </a>
+                  </SectionLink>
                 ))}
                 {service.gallery.length ? (
-                  <a
-                    href="#portfolio"
+                  <SectionLink
+                    to="portfolio"
                     className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
                   >
                     Design portfolio
-                  </a>
+                  </SectionLink>
                 ) : null}
                 {service.videos.length ? (
-                  <a
-                    href="#reels"
+                  <SectionLink
+                    to="reels"
                     className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
                   >
                     Video reels
-                  </a>
+                  </SectionLink>
                 ) : null}
               </p>
             ) : null}
@@ -326,32 +311,32 @@ function ServiceDetailPage() {
                   {work
                     .filter((project) => project.point === section.title)
                     .map((project) => (
-                      <a
+                      <SectionLink
                         key={project.title}
-                        href={`#${projectAnchor(project)}`}
+                        to={projectAnchor(project)}
                         className="mr-2 mt-5 inline-flex items-center gap-2 rounded-full border border-brand-primary/25 bg-brand-primary/5 px-4 py-2 text-sm font-bold text-brand-primary-text transition-colors hover:border-brand-primary/60"
                       >
                         See it in action: {project.title}
                         <ArrowUpRight className="size-4 rotate-90" />
-                      </a>
+                      </SectionLink>
                     ))}
                   {service.videos.length && section.title === service.videoPoint ? (
-                    <a
-                      href="#reels"
+                    <SectionLink
+                      to="reels"
                       className="mr-2 mt-5 inline-flex items-center gap-2 rounded-full border border-brand-primary/25 bg-brand-primary/5 px-4 py-2 text-sm font-bold text-brand-primary-text transition-colors hover:border-brand-primary/60"
                     >
                       Watch our reels
                       <ArrowUpRight className="size-4 rotate-90" />
-                    </a>
+                    </SectionLink>
                   ) : null}
                   {service.gallery.length && section.title === service.galleryPoint ? (
-                    <a
-                      href="#portfolio"
+                    <SectionLink
+                      to="portfolio"
                       className="mr-2 mt-5 inline-flex items-center gap-2 rounded-full border border-brand-primary/25 bg-brand-primary/5 px-4 py-2 text-sm font-bold text-brand-primary-text transition-colors hover:border-brand-primary/60"
                     >
                       See our design portfolio
                       <ArrowUpRight className="size-4 rotate-90" />
-                    </a>
+                    </SectionLink>
                   ) : null}
                 </div>
               </div>

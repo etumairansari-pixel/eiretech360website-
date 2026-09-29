@@ -7,6 +7,7 @@ import { Reveal } from "@/components/site/primitives";
 import { services, slugify } from "@/content/services";
 import { projectsFor } from "@/content/projects";
 import { projectAnchor } from "@/components/site/ProjectShowcase";
+import "@/components/site/SectionLink";
 import { headFor, pathFor } from "@/content";
 import servicesPage from "../../content/pages/services.json";
 
@@ -65,7 +66,7 @@ function ServicesPage() {
                           <Link
                             to="/services/$slug"
                             params={{ slug: s.slug }}
-                            hash={slugify(p)}
+                            state={{ section: slugify(p) }}
                             className="flex gap-2 text-sm underline-offset-4 transition-colors hover:text-brand-primary-text hover:underline"
                           >
                             <Check className="mt-0.5 size-4 shrink-0 text-brand-accent-text" />
@@ -84,7 +85,7 @@ function ServicesPage() {
                             key={project.title}
                             to="/services/$slug"
                             params={{ slug: s.slug }}
-                            hash={projectAnchor(project)}
+                            state={{ section: projectAnchor(project) }}
                             className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
                           >
                             {project.title}
@@ -94,7 +95,7 @@ function ServicesPage() {
                           <Link
                             to="/services/$slug"
                             params={{ slug: s.slug }}
-                            hash="portfolio"
+                            state={{ section: "portfolio" }}
                             className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
                           >
                             Design portfolio
@@ -104,7 +105,7 @@ function ServicesPage() {
                           <Link
                             to="/services/$slug"
                             params={{ slug: s.slug }}
-                            hash="reels"
+                            state={{ section: "reels" }}
                             className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
                           >
                             Video reels
