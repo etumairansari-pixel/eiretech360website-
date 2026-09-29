@@ -313,6 +313,7 @@
       "design-stockie-logo-reversed | Reversed logo for dark backgrounds | E360 Stock.ie | dark",
       "design-stockie-mark | Brand mark | E360 Stock.ie | light",
       "design-cliffs-of-puff | Mascot logo | Cliffs of Puff | light",
+      "design-cliffs-halloween-post | Halloween social media post | Cliffs of Puff | dark",
       "design-candy-ciao | Mascot logo | Candy Ciao Vape Store | dark",
       "design-loom-candy | Neon logo | Loom Candy Vape Store | dark",
       "design-halloween | Halloween campaign artwork | Seasonal campaign | dark"
@@ -354,6 +355,13 @@
       "What is the ideal length for social media videos? | Most reels and shorts perform best between 15 and 60 seconds, while explainer videos are usually 60 to 120 seconds. We tailor the length to each platform and goal.",
       "How long does an explainer video take to produce? | A typical animated explainer video takes two to four weeks, covering scripting, storyboard, design, voiceover and animation, with review points along the way.",
       "Do you add subtitles and captions? | Yes. We add clear, on-brand captions to improve accessibility and engagement, since many people watch social videos with the sound off."
+    ],
+    "videoPoint": "Social Media Reels and Shorts",
+    "videos": [
+      "lost-mary-bm6000 | Stop Scrolling: Lost Mary BM6000 flavours | Cliffs of Puff",
+      "pouches | Your Pouch: this-or-that nicotine pouch reel | Cliffs of Puff",
+      "elfliq | Pick Your Flavour: Elfliq nic salts | Cliffs of Puff",
+      "lost-mary | Lost Mary product showcase | Cliffs of Puff"
     ]
   }
 ]

@@ -74,7 +74,7 @@ function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                    {projectsFor(s.slug).length || s.gallery.length ? (
+                    {projectsFor(s.slug).length || s.gallery.length || s.videos.length ? (
                       <p className="mt-6 flex flex-wrap items-center gap-2 text-sm">
                         <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-muted">
                           Featured work
@@ -98,6 +98,16 @@ function ServicesPage() {
                             className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
                           >
                             Design portfolio
+                          </Link>
+                        ) : null}
+                        {s.videos.length ? (
+                          <Link
+                            to="/services/$slug"
+                            params={{ slug: s.slug }}
+                            hash="reels"
+                            className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
+                          >
+                            Video reels
                           </Link>
                         ) : null}
                       </p>

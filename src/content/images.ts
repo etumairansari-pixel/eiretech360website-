@@ -1,5 +1,5 @@
 /**
- * The images content/site.json may name.
+ * The images (and portfolio videos) content/site.json may name.
  *
  * Vite rewrites each import to the hashed URL the build emits, which is why
  * the content file stores a key rather than a path: a bare string in JSON
@@ -17,6 +17,15 @@ import designCliffsOfPuff from "@/assets/design-cliffs-of-puff.webp";
 import designCandyCiao from "@/assets/design-candy-ciao.webp";
 import designLoomCandy from "@/assets/design-loom-candy.webp";
 import designHalloween from "@/assets/design-halloween.webp";
+import designCliffsHalloweenPost from "@/assets/design-cliffs-halloween-post.webp";
+import videoLostMary from "@/assets/video-lost-mary.mp4";
+import videoLostMaryPoster from "@/assets/video-lost-mary-poster.webp";
+import videoPouches from "@/assets/video-pouches.mp4";
+import videoPouchesPoster from "@/assets/video-pouches-poster.webp";
+import videoElfliq from "@/assets/video-elfliq.mp4";
+import videoElfliqPoster from "@/assets/video-elfliq-poster.webp";
+import videoLostMaryBm6000 from "@/assets/video-lost-mary-bm6000.mp4";
+import videoLostMaryBm6000Poster from "@/assets/video-lost-mary-bm6000-poster.webp";
 import projectAttend from "@/assets/project-attend.jpg";
 import projectCliffsOfPuff from "@/assets/project-cliffs-of-puff.jpg";
 import projectE360 from "@/assets/project-e360.jpg";
@@ -33,6 +42,15 @@ import svcVideo from "@/assets/svc-video.jpg";
 import svcWeb from "@/assets/svc-web.jpg";
 
 export const images = {
+  "design-cliffs-halloween-post": designCliffsHalloweenPost,
+  "video-lost-mary": videoLostMary,
+  "video-lost-mary-poster": videoLostMaryPoster,
+  "video-pouches": videoPouches,
+  "video-pouches-poster": videoPouchesPoster,
+  "video-elfliq": videoElfliq,
+  "video-elfliq-poster": videoElfliqPoster,
+  "video-lost-mary-bm6000": videoLostMaryBm6000,
+  "video-lost-mary-bm6000-poster": videoLostMaryBm6000Poster,
   "design-attend-mark": designAttendMark,
   "design-attend-logo": designAttendLogo,
   "design-attend-logo-reversed": designAttendLogoReversed,

@@ -190,6 +190,21 @@ for (const service of serviceList) {
       `${service.title}: the portfolio image "${key}" is not in src/assets`,
     );
   }
+  for (const line of service.videos ?? []) {
+    const key = line.split("|")[0].trim();
+    for (const file of [`video-${key}.mp4`, `video-${key}-poster.webp`]) {
+      assert.ok(
+        fs.existsSync(path.join(rootDir, "src/assets", file)),
+        `${service.title}: the reel file "${file}" is not in src/assets`,
+      );
+    }
+  }
+  if (service.videoPoint) {
+    assert.ok(
+      service.points.includes(service.videoPoint),
+      `${service.title}: "${service.videoPoint}" is not one of its bullet points`,
+    );
+  }
   if (service.galleryPoint) {
     assert.ok(
       service.points.includes(service.galleryPoint),

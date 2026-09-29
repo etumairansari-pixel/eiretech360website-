@@ -517,6 +517,18 @@ export const collectionSchema: Record<string, Repeater> = {
         help: "Optional. One design per line: image-key | Title | Brand | light or dark. Designs with the same brand are grouped.",
       },
       {
+        path: ["videos"],
+        label: "Video reels",
+        kind: "lines",
+        help: "Optional. One per line: key | Title | Brand. The key names src/assets/video-<key>.mp4 and video-<key>-poster.webp.",
+      },
+      {
+        path: ["videoPoint"],
+        label: "Reels bullet point",
+        kind: "text",
+        help: "Optional. The bullet point whose section links to the reels, written exactly as above.",
+      },
+      {
         path: ["galleryPoint"],
         label: "Portfolio bullet point",
         kind: "text",
@@ -538,6 +550,8 @@ export const collectionSchema: Record<string, Repeater> = {
       faqs: [],
       gallery: [],
       galleryPoint: "",
+      videos: [],
+      videoPoint: "",
     },
   },
   platforms: {

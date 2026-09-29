@@ -27,6 +27,8 @@ export type GalleryItem = {
 
 export type GalleryGroup = { brand: string; items: GalleryItem[] };
 
+export type Reel = { src: string; poster: string; title: string; brand: string };
+
 export type Service = {
   icon: LucideIcon;
   title: string;
@@ -44,7 +46,23 @@ export type Service = {
   /** Portfolio artwork, grouped by brand in the order first listed. */
   gallery: GalleryGroup[];
   galleryPoint: string;
+  videos: Reel[];
+  videoPoint: string;
 };
+
+function parseReels(lines: string[]): Reel[] {
+  return lines
+    .map((line) => {
+      const [key = "", title = "", brand = ""] = line.split("|").map((part) => part.trim());
+      return {
+        src: imageFor(`video-${key}`),
+        poster: imageFor(`video-${key}-poster`),
+        title,
+        brand,
+      };
+    })
+    .filter((reel) => reel.src && reel.poster);
+}
 
 function parseGallery(lines: string[]): GalleryGroup[] {
   const groups: GalleryGroup[] = [];
@@ -108,6 +126,8 @@ export const services: Service[] = (raw as ServiceContent[]).map((service) => {
       .filter((faq): faq is { question: string; answer: string } => !!faq?.question),
     gallery: parseGallery(service.gallery ?? []),
     galleryPoint: service.galleryPoint ?? "",
+    videos: parseReels(service.videos ?? []),
+    videoPoint: service.videoPoint ?? "",
   };
 });
 

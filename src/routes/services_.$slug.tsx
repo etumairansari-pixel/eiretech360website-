@@ -7,6 +7,7 @@ import { Highlight } from "@/components/site/Highlight";
 import { Reveal, SectionLabel } from "@/components/site/primitives";
 import { LogoMark } from "@/components/Logo";
 import { DesignGallery } from "@/components/site/DesignGallery";
+import { ReelGallery } from "@/components/site/ReelGallery";
 import { ProjectShowcase, projectAnchor } from "@/components/site/ProjectShowcase";
 import { serviceBySlug, services, type Service } from "@/content/services";
 import { projectsFor } from "@/content/projects";
@@ -243,7 +244,7 @@ function ServiceDetailPage() {
                 </li>
               ))}
             </ol>
-            {work.length || service.gallery.length ? (
+            {work.length || service.gallery.length || service.videos.length ? (
               <p className="mt-6 flex flex-wrap items-center gap-2 text-sm">
                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-muted">
                   Featured work
@@ -263,6 +264,14 @@ function ServiceDetailPage() {
                     className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
                   >
                     Design portfolio
+                  </a>
+                ) : null}
+                {service.videos.length ? (
+                  <a
+                    href="#reels"
+                    className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
+                  >
+                    Video reels
                   </a>
                 ) : null}
               </p>
@@ -326,6 +335,15 @@ function ServiceDetailPage() {
                         <ArrowUpRight className="size-4 rotate-90" />
                       </a>
                     ))}
+                  {service.videos.length && section.title === service.videoPoint ? (
+                    <a
+                      href="#reels"
+                      className="mr-2 mt-5 inline-flex items-center gap-2 rounded-full border border-brand-primary/25 bg-brand-primary/5 px-4 py-2 text-sm font-bold text-brand-primary-text transition-colors hover:border-brand-primary/60"
+                    >
+                      Watch our reels
+                      <ArrowUpRight className="size-4 rotate-90" />
+                    </a>
+                  ) : null}
                   {service.gallery.length && section.title === service.galleryPoint ? (
                     <a
                       href="#portfolio"
@@ -344,6 +362,7 @@ function ServiceDetailPage() {
 
       <ProjectShowcase projects={work} serviceTitle={service.title} />
       <DesignGallery groups={service.gallery} />
+      <ReelGallery reels={service.videos} />
 
       {/* Why choose us */}
       {service.benefits.length ? (

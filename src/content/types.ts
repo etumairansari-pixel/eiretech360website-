@@ -179,6 +179,10 @@ export type Service = {
   gallery?: string[];
   /** The bullet point whose section links to the gallery. */
   galleryPoint?: string;
+  /** Portfolio reels, one per entry: "key | Title | Brand", naming video-<key>.mp4 and its poster. */
+  videos?: string[];
+  /** The bullet point whose section links to the reels. */
+  videoPoint?: string;
 };
 
 /** One entry in content/projects.json: a case study shown on a service page. */
