@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   ArrowUpRight,
   Check,
@@ -30,7 +30,8 @@ import { Shell } from "@/components/site/Shell";
 import { LogoMark } from "@/components/Logo";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { Highlight } from "@/components/site/Highlight";
-import { services } from "@/content/services";
+import { services, slugify } from "@/content/services";
+import "@/components/site/SectionLink";
 import { headFor, linkTo } from "@/content";
 import homePage from "../../content/pages/home.json";
 import testimonials from "../../content/testimonials.json";
@@ -304,10 +305,21 @@ function ServicePanel({
   onActivate: () => void;
 }) {
   const Icon = s.icon;
+  const navigate = useNavigate();
+  // Whether the panel was already open when the press began. A mouse opens it
+  // on hover, so a click opens the service; on touch the first tap only
+  // expands the panel and a second tap opens the service.
+  const openOnPress = useRef(false);
   return (
     <motion.div
       onMouseEnter={onActivate}
-      onClick={onActivate}
+      onPointerDown={() => {
+        openOnPress.current = active;
+      }}
+      onClick={() => {
+        if (openOnPress.current) navigate({ to: "/services/$slug", params: { slug: s.slug } });
+        else onActivate();
+      }}
       style={{
         flexGrow: active ? 16 : 1,
         flexBasis: 0,
@@ -379,16 +391,33 @@ function ServicePanel({
             {s.title}
           </h3>
            <p className="mb-6 max-w-md text-[15px] leading-relaxed text-white/80"><Highlight text={s.desc} /></p>
-          <div className="flex flex-wrap gap-2">
+          <div className={`flex flex-wrap gap-2 ${active ? "pointer-events-auto" : ""}`}>
             {s.points.map((t) => (
-              <span
+              <Link
                 key={t}
-                className="rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-white/90 backdrop-blur"
+                to="/services/$slug"
+                params={{ slug: s.slug }}
+                state={{ section: slugify(t) }}
+                onClick={(event) => event.stopPropagation()}
+                tabIndex={active ? 0 : -1}
+                className="rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-white/90 backdrop-blur transition-colors hover:border-white/50 hover:bg-white/20"
               >
-                 <Highlight text={t} />
-              </span>
+                <Highlight text={t} />
+              </Link>
             ))}
           </div>
+          <Link
+            to="/services/$slug"
+            params={{ slug: s.slug }}
+            onClick={(event) => event.stopPropagation()}
+            tabIndex={active ? 0 : -1}
+            className={`mt-6 inline-flex items-center gap-2 rounded-full brand-gradient-bg px-6 py-3 text-sm font-bold text-white transition-shadow hover:brand-glow ${
+              active ? "pointer-events-auto" : ""
+            }`}
+          >
+            Explore {s.title}
+            <ArrowUpRight className="size-4" />
+          </Link>
         </div>
       </motion.div>
     </motion.div>
@@ -446,17 +475,36 @@ function ServiceMobileCard({
       <motion.div
         animate={{ opacity: active ? 1 : 0, y: active ? 0 : 10 }}
         transition={{ duration: 0.4, delay: active ? 0.15 : 0 }}
-        className="pointer-events-none relative px-6 pb-6"
+        className={`relative px-6 pb-6 ${active ? "" : "pointer-events-none"}`}
       >
          <p className="mb-4 text-sm leading-relaxed text-white/90"><Highlight text={s.desc} /></p>
-        <ul className="space-y-2">
+        <ul className="space-y-1">
           {s.points.map((p) => (
-            <li key={p} className="flex items-center gap-2 text-xs text-white/80">
-              <Check className="size-3.5 shrink-0 text-brand-accent-text" />
-               <Highlight text={p} />
+            <li key={p}>
+              <Link
+                to="/services/$slug"
+                params={{ slug: s.slug }}
+                state={{ section: slugify(p) }}
+                onClick={(event) => event.stopPropagation()}
+                tabIndex={active ? 0 : -1}
+                className="flex items-center gap-2 py-1 text-xs text-white/80 underline-offset-4 hover:text-white hover:underline"
+              >
+                <Check className="size-3.5 shrink-0 text-brand-accent-text" />
+                <Highlight text={p} />
+              </Link>
             </li>
           ))}
         </ul>
+        <Link
+          to="/services/$slug"
+          params={{ slug: s.slug }}
+          onClick={(event) => event.stopPropagation()}
+          tabIndex={active ? 0 : -1}
+          className="mt-5 inline-flex items-center gap-2 rounded-full brand-gradient-bg px-5 py-2.5 text-sm font-bold text-white"
+        >
+          Explore service
+          <ArrowUpRight className="size-4" />
+        </Link>
       </motion.div>
     </motion.div>
   );
