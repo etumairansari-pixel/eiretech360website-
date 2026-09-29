@@ -115,6 +115,19 @@ function shellChunk(text, className = "") {
   );
 }
 
+/** The offices block for the contact page, or nothing when none are listed. */
+function officesCard(content) {
+  const offices = (content.offices ?? []).map((line) => line.split("|").map((part) => part.trim()));
+  if (!offices.length) return "";
+  const rows = offices
+    .map(
+      ([label = "", place = "", zone = ""]) =>
+        `<li><strong>${esc(place)}</strong><small>${esc(label)}${zone ? " · " + esc(zone) : ""}</small></li>`,
+    )
+    .join("");
+  return `<div class="contact-card"><span>${esc(content.footer.visitTitle || "Offices")}</span><ul class="office-list">${rows}</ul></div>`;
+}
+
 /** Strips highlight markers, for meta tags and attributes. */
 function plain(text) {
   return String(text)
@@ -201,6 +214,7 @@ export function tokensFor(content, which) {
     ASIDE_TITLE: esc(page.aside.title),
     ASIDE_BODY: esc(page.aside.body),
     ASIDE_FOOTNOTE: esc(page.aside.footnote),
+    CONTACT_OFFICES: officesCard(content),
 
     CONTACT_EMAIL: esc(content.contact.email),
     CONTACT_PHONE: esc(content.contact.phone),

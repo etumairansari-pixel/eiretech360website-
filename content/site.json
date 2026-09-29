@@ -36,14 +36,19 @@
       "Brand Management | brand-management"
     ],
     "ctaLabel": "Talk to an Expert",
-    "visitTitle": "Visit Us",
-    "visitLine": "Our Washington office.",
+    "visitTitle": "Our Offices",
+    "visitLine": "One team, connected across three time zones.",
     "address": [
       "1717 N Street NW",
       "Ste 1",
       "Washington, DC 20036"
     ]
   },
+  "offices": [
+    "Headquarters | Washington, DC, United States | Eastern Time (ET)",
+    "Europe chapter | Ireland | Irish Time (GMT/IST)",
+    "Asia desk | Karachi, Pakistan | Pakistan Time (PKT)"
+  ],
   "routes": [
     {
       "key": "home",

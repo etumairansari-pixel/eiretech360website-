@@ -376,6 +376,18 @@
         background: var(--surface);
         text-decoration: none;
       }
+      .office-list {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .office-list small {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+      }
       .contact-card span {
         display: block;
         color: var(--muted);
@@ -725,6 +737,7 @@
           <a class="contact-card" href="%%CONTACT_PHONE_HREF%%"
             ><span>Phone</span><strong>%%CONTACT_PHONE%%</strong></a
           >
+          %%CONTACT_OFFICES%%
           <p>%%ASIDE_FOOTNOTE%%</p>
         </aside>
       </div>

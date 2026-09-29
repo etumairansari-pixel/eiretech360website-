@@ -20,6 +20,14 @@ const data = raw as unknown as SiteSettings;
 
 export const { site, contact, social, nav, footer, routes } = data;
 
+export type Office = { label: string; place: string; zone: string };
+
+/** The company's offices, headquarters first. */
+export const offices: Office[] = (data.offices ?? []).map((line) => {
+  const [label = "", place = "", zone = ""] = line.split("|").map((part) => part.trim());
+  return { label, place, zone };
+});
+
 /** A page's slug and navigation labels, by key. */
 export function route(key: string) {
   const found = routes.find((r) => r.key === key);

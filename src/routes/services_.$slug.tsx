@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createFileRoute, Link, notFound, useLocation } from "@tanstack/react-router";
-import { ArrowUpRight, Check, ChevronDown, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Check, ChevronDown, ChevronRight, MapPin } from "lucide-react";
 import { Shell } from "@/components/site/Shell";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { Highlight } from "@/components/site/Highlight";
@@ -10,7 +10,7 @@ import { DesignGallery } from "@/components/site/DesignGallery";
 import { ProjectShowcase, projectAnchor } from "@/components/site/ProjectShowcase";
 import { serviceBySlug, services, type Service } from "@/content/services";
 import { projectsFor } from "@/content/projects";
-import { headFor, pathFor, route, site } from "@/content";
+import { headFor, offices, pathFor, route, site } from "@/content";
 import servicesPage from "../../content/pages/services.json";
 
 const SITE_URL = site.url.replace(/\/$/, "");
@@ -365,6 +365,19 @@ function ServiceDetailPage() {
                     </li>
                   ))}
                 </ul>
+                {offices.length ? (
+                  <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-brand-line pt-6 text-sm">
+                    <span className="font-semibold">One team, three continents:</span>
+                    {offices.map((o) => (
+                      <span key={o.label} className="inline-flex items-center gap-1.5 text-brand-muted">
+                        <MapPin className="size-4 text-brand-primary-text" />
+                        <span>
+                          <span className="font-semibold text-brand-text">{o.place}</span> · {o.label}
+                        </span>
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             </Reveal>
           </div>

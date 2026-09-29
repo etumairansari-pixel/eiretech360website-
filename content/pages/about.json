@@ -43,6 +43,11 @@
       }
     ]
   },
+  "global": {
+    "label": "Global Presence",
+    "title": "One connected team, [g]across three continents.[/g]",
+    "body": "Eire Tech is a startup of enthusiastic, dedicated and professional young people who connect technology and users around the world. We work as one virtually connected team, with our headquarters in Washington, DC, our Europe chapter in Ireland and our Asia desk in Karachi, Pakistan, so there is always someone close to your time zone."
+  },
   "mission": {
     "label": "Our Mission",
     "title": "Help businesses reduce manual effort, strengthen their brand and stay ahead through [g]smart strategy and intelligent automation.[/g]",

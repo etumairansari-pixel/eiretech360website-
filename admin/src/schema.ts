@@ -288,6 +288,16 @@ export const pageSchema: Record<string, Section[]> = {
       ],
     },
     {
+      id: "global",
+      title: "Global presence",
+      help: "The offices themselves are edited under Site settings, Footer.",
+      fields: [
+        { path: ["global", "label"], label: "Section label", kind: "text" },
+        { path: ["global", "title"], label: "Heading", kind: "rich", help: richHelp },
+        { path: ["global", "body"], label: "Paragraph", kind: "textarea", rows: 4 },
+      ],
+    },
+    {
       id: "mission",
       title: "Our mission",
       fields: [
@@ -405,8 +415,14 @@ export const globalSchema: Section[] = [
         help: "One per line, written as: Label | service page address, e.g. AI Development | custom-ai-development. Without an address the line links to the services page.",
       },
       { path: ["footer", "ctaLabel"], label: "Button label", kind: "text" },
-      { path: ["footer", "visitTitle"], label: "Visit heading", kind: "text" },
-      { path: ["footer", "visitLine"], label: "Visit subheading", kind: "text" },
+      { path: ["footer", "visitTitle"], label: "Offices heading", kind: "text" },
+      { path: ["footer", "visitLine"], label: "Offices subheading", kind: "text" },
+      {
+        path: ["offices"],
+        label: "Offices",
+        kind: "lines",
+        help: "One per line, headquarters first: Label | Place | Time zone. Shown in the footer, on the About, contact and service pages.",
+      },
       {
         path: ["footer", "address"],
         label: "Address",

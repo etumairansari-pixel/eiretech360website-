@@ -11,7 +11,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportError } from "../lib/error-reporting";
 import { ThemeProvider, themeInitScript } from "../lib/theme";
-import { contact, site, social } from "../content";
+import { contact, footer, offices, site, social } from "../content";
 
 const SITE_URL = site.url.replace(/\/$/, "");
 
@@ -34,6 +34,22 @@ const organizationSchema = {
     availableLanguage: ["English"],
   },
   sameAs: social.map((profile) => profile.href),
+  // Headquarters address, from the footer's address lines.
+  ...(footer.address.length
+    ? {
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: footer.address.slice(0, -1).join(", "),
+          addressLocality: "Washington",
+          addressRegion: "DC",
+          postalCode: footer.address.at(-1)?.match(/\d{5}/)?.[0],
+          addressCountry: "US",
+        },
+      }
+    : {}),
+  ...(offices.length
+    ? { location: offices.map((o) => ({ "@type": "Place", name: `${site.name} ${o.label}`, address: o.place })) }
+    : {}),
 };
 
 const FONTS_HREF =

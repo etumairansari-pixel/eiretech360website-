@@ -47,6 +47,8 @@ export type SiteSettings = {
     visitLine: string;
     address: string[];
   };
+  /** One per entry, written as "Label | Place | Time zone". The first is headquarters. */
+  offices?: string[];
   routes: RouteEntry[];
 };
 
@@ -133,6 +135,7 @@ export type AboutContent = {
   hero: PageHero;
   story: { label: string; title: RichText; paragraphs: string[] };
   differences: { label: string; items: IconItem[] };
+  global?: { label: string; title: RichText; body: string };
   mission: { label: string; title: RichText; body: string };
   cta: Cta;
 };

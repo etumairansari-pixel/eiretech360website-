@@ -3,9 +3,10 @@ import { Shell, PageHero } from "@/components/site/Shell";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { Highlight } from "@/components/site/Highlight";
 import { Reveal, SectionLabel, Spotlight } from "@/components/site/primitives";
-import { headFor } from "@/content";
+import { headFor, offices } from "@/content";
 import aboutPage from "../../content/pages/about.json";
 import { iconFor } from "@/content/icons";
+import { Globe2, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => headFor("about", aboutPage.seo),
@@ -14,6 +15,7 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   const { hero, story, differences, mission, cta } = aboutPage;
+  const global = (aboutPage as { global?: { label: string; title: string; body: string } }).global;
 
   return (
     <Shell>
@@ -56,7 +58,44 @@ function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="py-24">
+      {global && offices.length ? (
+        <section className="py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-end">
+              <Reveal>
+                <SectionLabel>{global.label}</SectionLabel>
+                <h2 className="text-4xl font-extrabold tracking-tight">
+                  <Highlight text={global.title} />
+                </h2>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <p className="text-lg leading-relaxed text-brand-muted">
+                  <Highlight text={global.body} />
+                </p>
+              </Reveal>
+            </div>
+            <div className="mt-12 grid gap-4 md:grid-cols-3">
+              {offices.map((o, i) => (
+                <Reveal key={o.label} delay={i * 0.06}>
+                  <Spotlight className="h-full rounded-2xl border border-brand-line bg-brand-surface p-8">
+                    {i === 0 ? (
+                      <MapPin className="mb-6 size-7 text-brand-primary" />
+                    ) : (
+                      <Globe2 className="mb-6 size-7 text-brand-primary" />
+                    )}
+                    <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-brand-primary-text">
+                      {o.label}
+                    </p>
+                    <h3 className="mt-2 text-xl font-bold">{o.place}</h3>
+                    {o.zone ? <p className="mt-2 text-sm text-brand-muted">{o.zone}</p> : null}
+                  </Spotlight>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+      <section className="bg-brand-surface py-24">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <SectionLabel>{mission.label}</SectionLabel>
           <p className="text-3xl font-bold leading-tight md:text-5xl">
