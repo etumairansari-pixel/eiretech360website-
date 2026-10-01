@@ -37,5 +37,26 @@
     "body": "Have a project, a question, or simply want to explore what's possible? We would love to hear from you.",
     "footnote": "We typically respond within 24 hours."
   },
-  "footerBlurb": "Your connected digital growth and automation partner for strategy, design, development, marketing, and AI."
+  "footerBlurb": "Your connected digital growth and automation partner for strategy, design, development, marketing, and AI.",
+  "process": {
+    "eyebrow": "What happens next",
+    "title": "From first message to a clear plan.",
+    "steps": [
+      "We review your enquiry | A member of our team reads every message and looks at your goals, timeline and current website or channels before we reply.",
+      "You hear back within one business day | You get a personal reply with our first thoughts and, where useful, a few questions to understand the project better.",
+      "A free consultation | We talk through your goals, budget and timeline, and recommend the services that will make the biggest difference for your business.",
+      "A clear proposal | You receive a written plan covering scope, deliverables, timeline and cost, so you can decide with confidence and no obligation."
+    ]
+  },
+  "faq": {
+    "eyebrow": "Questions",
+    "title": "Before you get in touch.",
+    "items": [
+      "Is the first consultation really free? | Yes. The first consultation is free and comes with no obligation. It helps us understand your business, and helps you decide whether we are the right partner for the project.",
+      "What should I include in my message? | A short description of your business, what you want to achieve, any deadlines, and links to your current website or social profiles. Rough ideas are welcome; we will help you shape them.",
+      "Do you work with businesses outside the US? | Yes. We work with clients around the world, remotely and across time zones, from our headquarters in Washington, DC.",
+      "Which services can I ask about? | Anything we offer: digital marketing, marketing automation, brand management, ATL and TTL campaigns, website and app development, custom AI, graphic design, and video editing and animation. Not sure what you need? Choose \"Other\" and tell us your goals.",
+      "How much does a project cost? | Every project is priced on its scope, so there is no one-size-fits-all fee. After the consultation we send a clear proposal with deliverables and costs set out up front."
+    ]
+  }
 }

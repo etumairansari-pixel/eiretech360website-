@@ -126,6 +126,8 @@ export type ServicesContent = {
 export type PlatformsContent = {
   seo: Seo;
   hero: PageHero;
+  /** How tools are chosen; points are written as "Title | Text". */
+  approach?: { label: string; title: RichText; intro: string; points: string[] };
   outro: string;
   cta: Cta;
 };
@@ -154,6 +156,10 @@ export type ContactContent = {
     serviceOptions: string[];
   };
   aside: { eyebrow: string; title: string; body: string; footnote: string };
+  /** The steps after an enquiry, one per entry as "Title | Text". */
+  process?: { eyebrow: string; title: string; steps: string[] };
+  /** One per entry, written as "Question? | Answer". */
+  faq?: { eyebrow: string; title: string; items: string[] };
   footerBlurb: string;
 };
 
@@ -218,6 +224,10 @@ export type Platform = {
   icon: string;
   title: string;
   tools: string[];
+  /** What the group's tools are used for. */
+  desc?: string;
+  /** The related service page, written as "Label | service-slug". */
+  service?: string;
 };
 
 export type Testimonial = {

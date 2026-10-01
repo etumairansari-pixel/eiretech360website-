@@ -181,6 +181,31 @@ for (const line of site.footer.capabilities) {
   assert.ok(html.includes(`href="/services/${slug}"`), `Footer links to /services/${slug}`);
 }
 
+// A platform group's related service must be a real service page.
+for (const group of readJson("content/platforms.json")) {
+  const slug = (String(group.service ?? "").split("|")[1] ?? "").trim();
+  if (!slug) continue;
+  assert.ok(
+    servicePages.some((page) => page.slug === `services/${slug}`),
+    `Platform group "${group.title}": "${slug}" is not a service page`,
+  );
+}
+
+// Pages should give crawlers enough to read without running JavaScript.
+for (const [label, file] of [
+  ["/", "index.html"],
+  ["/contact/", "contact/index.html"],
+  ["/platforms", "platforms/index.html"],
+]) {
+  const html = fs.readFileSync(path.join(outDir, file), "utf8");
+  const body = html.slice(html.indexOf("<body"));
+  const words = plain(body.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, " "))
+    .split(" ")
+    .filter(Boolean).length;
+  assert.ok(words >= 300, `${label}: only ${words} words in the HTML; aim for at least 300`);
+  console.log(`Verified ${label}: ${words} words readable without JavaScript`);
+}
+
 // A gallery line naming an image that does not exist would silently drop out.
 for (const service of serviceList) {
   for (const line of service.gallery ?? []) {

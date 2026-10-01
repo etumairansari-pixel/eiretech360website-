@@ -338,8 +338,11 @@ function prerenderRoutes(): Plugin {
         },
       });
 
-      const { render } = (await import(pathToFileURL(path.join(ssrDir, "entry.mjs")).href)) as {
+      const { render, renderHomeBody } = (await import(
+        pathToFileURL(path.join(ssrDir, "entry.mjs")).href
+      )) as {
         render: (url: string) => Promise<string>;
+        renderHomeBody: () => Promise<string>;
       };
 
       for (const route of routes) {
@@ -359,6 +362,30 @@ function prerenderRoutes(): Plugin {
             `<div id="shell" style="overflow-y:auto;background:var(--bg,#fff)"><style>#shell [style*="opacity:0"]{opacity:1!important;transform:none!important}</style>${body}</div>`,
           ),
         );
+      }
+
+      // The homepage keeps its hand-written hero shell for a fast first paint;
+      // the rest of the page goes in underneath it, so the document carries the
+      // whole page's copy and links instead of a hero and two buttons.
+      {
+        const file = path.join(outDir, "index.html");
+        const html = fs.readFileSync(file, "utf8");
+        const heroEnd = html.indexOf("</main>", html.indexOf('<main class="shell-hero">'));
+        if (heroEnd === -1) throw new Error("index.html: no shell hero to append the homepage body to");
+        // This copy is for readers without JavaScript and is replaced by the
+        // live page as soon as React paints, so its images never load: on a
+        // wide screen the body starts inside the viewport, and even lazy images
+        // there would take bandwidth from the hero poster. The text, alt text
+        // and links, which are what crawlers read, all stay.
+        const body = stripHoistedTags(await renderHomeBody()).replace(/<img\b[^>]*>/g, (tag) =>
+          tag.replace(/\s(src|srcset)=/g, " data-$1="),
+        );
+        const at = heroEnd + "</main>".length;
+        fs.writeFileSync(
+          file,
+          `${html.slice(0, at)}<div class="shell-body bg-brand-bg text-brand-text">${body}</div>${html.slice(at)}`,
+        );
+        routes.push({ url: "/", file: "index.html" });
       }
 
       // Every asset the prerendered markup points at has to exist in the client

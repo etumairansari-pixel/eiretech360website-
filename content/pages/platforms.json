@@ -10,6 +10,17 @@
     "title": "The technology behind [g]our work.[/g]",
     "subtitle": "We work with industry-leading platforms and tools to build, automate and scale your digital presence with confidence."
   },
+  "approach": {
+    "label": "Our Approach",
+    "title": "How we choose the [g]right stack.[/g]",
+    "intro": "There is no single best platform. We recommend tools based on what your business needs today and where you want it to be in a few years, not on what is fashionable.",
+    "points": [
+      "Goals first | We start with what you want to achieve, then choose the tools that get you there with the least complexity and cost.",
+      "Built to integrate | Every platform we recommend has to work with the rest of your stack, so data flows cleanly between your website, CRM and marketing tools.",
+      "Easy for your team | We favour tools your team can use and update confidently, without needing a developer for every small change.",
+      "Room to grow | We plan for growth from day one, so you can add users, products and channels without starting again."
+    ]
+  },
   "outro": "Our team stays current with the latest platforms and technologies so you always get modern, future-proof solutions—not outdated approaches.",
   "cta": {
     "label": "Let's build",

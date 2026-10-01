@@ -244,6 +244,21 @@ export const pageSchema: Record<string, Section[]> = {
   platforms: [
     pageHeroSection(),
     {
+      id: "approach",
+      title: "How we choose tools",
+      fields: [
+        { path: ["approach", "label"], label: "Section label", kind: "text" },
+        { path: ["approach", "title"], label: "Heading", kind: "rich", help: richHelp },
+        { path: ["approach", "intro"], label: "Intro paragraph", kind: "textarea", rows: 3 },
+        {
+          path: ["approach", "points"],
+          label: "Principles",
+          kind: "lines",
+          help: "One per line, written as: Title | Description",
+        },
+      ],
+    },
+    {
       id: "outro",
       title: "Closing paragraph",
       help: "Sits under the platform grid. The groups are edited under Platforms.",
@@ -339,6 +354,36 @@ export const pageSchema: Record<string, Section[]> = {
         { path: ["aside", "title"], label: "Heading", kind: "text" },
         { path: ["aside", "body"], label: "Body copy", kind: "textarea", rows: 3 },
         { path: ["aside", "footnote"], label: "Footnote", kind: "text" },
+      ],
+    },
+    {
+      id: "process",
+      title: "What happens next",
+      help: "The steps shown under the form.",
+      fields: [
+        { path: ["process", "eyebrow"], label: "Small label", kind: "text" },
+        { path: ["process", "title"], label: "Heading", kind: "text" },
+        {
+          path: ["process", "steps"],
+          label: "Steps",
+          kind: "lines",
+          help: "One per line, written as: Title | Description",
+        },
+      ],
+    },
+    {
+      id: "faq",
+      title: "Questions",
+      help: "The FAQs under the steps. They are also sent to Google as FAQ structured data.",
+      fields: [
+        { path: ["faq", "eyebrow"], label: "Small label", kind: "text" },
+        { path: ["faq", "title"], label: "Heading", kind: "text" },
+        {
+          path: ["faq", "items"],
+          label: "Questions and answers",
+          kind: "lines",
+          help: "One per line, written as: Question? | Answer",
+        },
       ],
     },
     {
@@ -569,8 +614,15 @@ export const collectionSchema: Record<string, Repeater> = {
         kind: "lines",
         help: "One per line. Each becomes a pill.",
       },
+      { path: ["desc"], label: "Description", kind: "textarea", rows: 2 },
+      {
+        path: ["service"],
+        label: "Related service",
+        kind: "text",
+        help: "Optional, written as: Label | service page address, e.g. Website Development | website-development",
+      },
     ],
-    blank: { title: "", icon: "sparkles", tools: [] },
+    blank: { title: "", icon: "sparkles", tools: [], desc: "", service: "" },
   },
   testimonials: {
     path: ["testimonials"],

@@ -22,3 +22,18 @@ export async function render(url: string): Promise<string> {
 
   return renderToString(<RouterProvider router={router} />);
 }
+
+/**
+ * The homepage below its hero, plus the footer. The homepage ships a
+ * hand-written hero shell for speed; this fills in the rest so crawlers that
+ * do not run JavaScript still read the whole page.
+ */
+export async function renderHomeBody(): Promise<string> {
+  const flags = globalThis as { __EIRE_HOME_BODY__?: boolean };
+  flags.__EIRE_HOME_BODY__ = true;
+  try {
+    return await render("/");
+  } finally {
+    delete flags.__EIRE_HOME_BODY__;
+  }
+}

@@ -7,7 +7,9 @@
       "Shopify",
       "Wix",
       "Webflow"
-    ]
+    ],
+    "desc": "We build and manage websites and online stores on the platform that suits your business, from flexible WordPress sites to Shopify stores that are simple to run day to day.",
+    "service": "Website Development | website-development"
   },
   {
     "icon": "workflow",
@@ -18,7 +20,9 @@
       "Zapier",
       "Make",
       "ActiveCampaign"
-    ]
+    ],
+    "desc": "We set up and connect CRMs and automation tools so leads, customers and data move between your systems on their own, without manual copy-and-paste.",
+    "service": "Marketing & Business Automation | marketing-business-automation"
   },
   {
     "icon": "palette",
@@ -27,7 +31,9 @@
       "Adobe Creative Suite",
       "Figma",
       "Canva"
-    ]
+    ],
+    "desc": "Our designers create logos, brand assets, social content and print artwork with professional design tools, and deliver files ready for every format you need.",
+    "service": "Graphic Designing | graphic-design"
   },
   {
     "icon": "megaphone",
@@ -37,7 +43,9 @@
       "Meta Business Suite",
       "Google Analytics",
       "SEMrush / Ahrefs"
-    ]
+    ],
+    "desc": "We plan, run and measure paid and organic campaigns with the leading ad platforms, analytics and SEO research tools, so every decision is backed by data.",
+    "service": "Digital Marketing | digital-marketing"
   },
   {
     "icon": "code-2",
@@ -47,7 +55,9 @@
       "Flutter",
       "Firebase",
       "AWS"
-    ]
+    ],
+    "desc": "We build mobile and web apps with modern cross-platform frameworks and dependable cloud services, so one codebase can serve iOS, Android and the web.",
+    "service": "App Development | app-development"
   },
   {
     "icon": "brain-circuit",
@@ -56,6 +66,8 @@
       "OpenAI / Custom AI Models",
       "Chatbot Platforms",
       "Custom Automation Pipelines"
-    ]
+    ],
+    "desc": "We connect leading AI models to your business data and tools to power chatbots, document processing and smart automations that save your team hours.",
+    "service": "Custom AI Development | custom-ai-development"
   }
 ]

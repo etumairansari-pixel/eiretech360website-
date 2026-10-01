@@ -27,6 +27,7 @@ import heroMobile02Poster from "@/assets/hero-mobile-02-poster.jpg";
 import heroMobile02PosterWebp from "@/assets/hero-mobile-02-poster.webp";
 
 import { Shell } from "@/components/site/Shell";
+import { Footer } from "@/components/site/Footer";
 import { LogoMark } from "@/components/Logo";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { Highlight } from "@/components/site/Highlight";
@@ -753,10 +754,17 @@ function Testimonials() {
   );
 }
 
+/**
+ * Set only by the build's prerender step (src/entry-prerender.tsx), which
+ * renders the homepage body into the static shell under its lightweight hero.
+ */
+function renderingHomeBody() {
+  return (globalThis as { __EIRE_HOME_BODY__?: boolean }).__EIRE_HOME_BODY__ === true;
+}
+
 function Home() {
-  return (
-    <Shell>
-      <Hero />
+  const body = (
+    <>
       <Marquee />
       <Mission />
       <ServicesOverview />
@@ -771,6 +779,23 @@ function Home() {
         buttonLabel={homePage.cta.buttonLabel}
         buttonTo={homePage.cta.buttonTo}
       />
+    </>
+  );
+
+  // The shell already paints its own nav and hero, so only the rest is added.
+  if (renderingHomeBody()) {
+    return (
+      <>
+        {body}
+        <Footer />
+      </>
+    );
+  }
+
+  return (
+    <Shell>
+      <Hero />
+      {body}
     </Shell>
   );
 }

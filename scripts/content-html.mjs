@@ -115,6 +115,49 @@ function shellChunk(text, className = "") {
   );
 }
 
+/** Splits "Left | Right" lines, dropping any without both halves. */
+function pairs(lines = []) {
+  return lines
+    .map((line) => {
+      const at = String(line).indexOf("|");
+      return at === -1 ? null : [line.slice(0, at).trim(), line.slice(at + 1).trim()];
+    })
+    .filter((pair) => pair && pair[0] && pair[1]);
+}
+
+/**
+ * The "what happens next" steps and FAQs under the contact form, with FAQ
+ * structured data. Empty when the content file has neither.
+ */
+function contactMore(page) {
+  const steps = pairs(page.process?.steps);
+  const faqs = pairs(page.faq?.items);
+  let html = "";
+
+  if (steps.length) {
+    html += `<section class="more"><div class="wrap"><p class="eyebrow">${esc(page.process.eyebrow)}</p><h2>${esc(page.process.title)}</h2><ol class="steps">${steps
+      .map(([title, text]) => `<li><strong>${esc(title)}</strong><p>${esc(text)}</p></li>`)
+      .join("")}</ol></div></section>`;
+  }
+
+  if (faqs.length) {
+    const schema = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map(([q, a]) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: { "@type": "Answer", text: a },
+      })),
+    }).replace(/</g, "\\u003c");
+    html += `<section class="more faq"><div class="wrap"><p class="eyebrow">${esc(page.faq.eyebrow)}</p><h2>${esc(page.faq.title)}</h2><div class="faq-list">${faqs
+      .map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`)
+      .join("")}</div></div><script type="application/ld+json">${schema}</script></section>`;
+  }
+
+  return html;
+}
+
 /** The offices block for the contact page, or nothing when none are listed. */
 function officesCard(content) {
   const offices = (content.offices ?? []).map((line) => line.split("|").map((part) => part.trim()));
@@ -215,6 +258,7 @@ export function tokensFor(content, which) {
     ASIDE_BODY: esc(page.aside.body),
     ASIDE_FOOTNOTE: esc(page.aside.footnote),
     CONTACT_OFFICES: officesCard(content),
+    CONTACT_MORE: contactMore(page),
 
     CONTACT_EMAIL: esc(content.contact.email),
     CONTACT_PHONE: esc(content.contact.phone),
