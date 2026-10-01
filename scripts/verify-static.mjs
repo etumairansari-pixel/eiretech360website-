@@ -191,18 +191,39 @@ for (const group of readJson("content/platforms.json")) {
   );
 }
 
-// Pages should give crawlers enough to read without running JavaScript.
-for (const [label, file] of [
-  ["/", "index.html"],
-  ["/contact/", "contact/index.html"],
-  ["/platforms", "platforms/index.html"],
+// Check useful route copy, not an arbitrary SEO word target. Google has no
+// preferred word count; navigation and footer text must not mask a missing body.
+const homeCopy = readJson("content/pages/home.json");
+const contactCopy = readJson("content/pages/contact.json");
+const platformCopy = readJson("content/pages/platforms.json");
+const afterSeparator = (line) => line.split("|").slice(1).join("|").trim();
+for (const [label, file, requiredCopy] of [
+  ["/", "index.html", [
+    homeCopy.mission.body,
+    homeCopy.why.body,
+    ...homeCopy.why.reasons.map((reason) => reason.text),
+  ]],
+  ["/contact/", "contact/index.html", [
+    ...contactCopy.process.steps.map(afterSeparator),
+    ...contactCopy.faq.items.map(afterSeparator),
+  ]],
+  ["/platforms", "platforms/index.html", [
+    platformCopy.approach.intro,
+    ...platformCopy.approach.points.map(afterSeparator),
+    ...readJson("content/platforms.json").map((group) => group.desc),
+  ]],
 ]) {
   const html = fs.readFileSync(path.join(outDir, file), "utf8");
-  const body = html.slice(html.indexOf("<body"));
-  const words = plain(body.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, " "))
-    .split(" ")
-    .filter(Boolean).length;
-  assert.ok(words >= 300, `${label}: only ${words} words in the HTML; aim for at least 300`);
+  const body = html.match(/<body\b[^>]*>([\s\S]*?)<\/body>/)?.[1];
+  assert.ok(body, `${label}: a complete HTML body is required`);
+  const text = plain(body
+    .replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]*>/g, " "));
+  for (const copy of requiredCopy) {
+    assert.ok(copy?.trim(), `${label}: required route copy must not be empty`);
+    assert.ok(text.includes(unmark(copy)), `${label}: missing crawlable copy: ${copy}`);
+  }
+  const words = text.split(" ").filter(Boolean).length;
   console.log(`Verified ${label}: ${words} words readable without JavaScript`);
 }
 
