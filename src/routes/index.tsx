@@ -7,13 +7,35 @@ import { services } from "@/content/services";
 import { projects } from "@/content/projects";
 import { headFor, pathFor } from "@/content";
 import homePage from "../../content/pages/home.json";
-import testimonials from "../../content/testimonials.json";
+import testimonialContent from "../../content/testimonials.json";
+import platforms from "../../content/platforms.json";
+import { slugify } from "@/content/services";
+const testimonials = testimonialContent.filter(
+  (item) => item.approved && item.company && item.project,
+);
 
 export const Route = createFileRoute("/")({
   head: () => headFor("home", homePage.seo),
   component: Home,
 });
 const mainServices = services.filter((s) => !s.parent);
+const serviceGroups = [
+  {
+    title: "Reach customers",
+    subtitle: "Visibility, demand and a stronger brand.",
+    slugs: ["digital-marketing", "brand-management", "atl-ttl-campaigns"],
+  },
+  {
+    title: "Build better systems",
+    subtitle: "Less manual work. Better digital experiences.",
+    slugs: ["marketing-business-automation", "website-development", "app-development"],
+  },
+  {
+    title: "Create and innovate",
+    subtitle: "AI, design and content that support your business.",
+    slugs: ["custom-ai-development", "graphic-design", "video-editing-animation"],
+  },
+];
 const marketingServices = services.filter((s) => s.parent === "digital-marketing");
 
 function Hero() {
@@ -31,10 +53,10 @@ function Hero() {
               </span>
             ))}
           </h1>
-          <p className="dm-hero-subtitle">Your brand's online success starts here.</p>
+          <p className="dm-hero-subtitle">More leads. Smarter operations. Connected growth.</p>
           <p>
-            Digital marketing, development and automation. The right strategy to connect with your
-            audience and move your business forward.
+            Connect marketing, automation and digital systems to reach the right customers, reduce
+            manual work and give your business room to grow.
           </p>
           <div className="dm-actions">
             <a href={pathFor("contact")} className="dm-button">
@@ -71,13 +93,39 @@ function Hero() {
         {[
           ["09", "Connected capabilities"],
           ["04", "Marketing disciplines"],
-          ["03", "Markets: Ireland, Europe & USA"],
+          ["US", "Headquarters ? Washington, DC"],
         ].map(([number, label]) => (
           <div key={label}>
             <strong>{number}</strong>
             <span>{label}</span>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+function ProjectProof() {
+  return (
+    <section className="dm-section dm-proof-strip">
+      <div className="dm-container">
+        <p className="dm-eyebrow">Built by Eire Tech</p>
+        <div className="dm-proof-grid">
+          {projects.slice(0, 3).map((project) => (
+            <Link
+              key={project.title}
+              to="/services/$slug"
+              params={{ slug: project.service }}
+              state={{ section: `work-${slugify(project.title)}` }}
+            >
+              <span>{project.category}</span>
+              <h3>
+                {project.title}
+                <ArrowUpRight size={17} />
+              </h3>
+              <p>{project.outcome}</p>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -89,6 +137,7 @@ function Home() {
     <Shell>
       <div className="dm-site">
         <Hero />
+        <ProjectProof />
         <div className="dm-channel-strip">
           <div className="dm-container">
             {[
@@ -166,40 +215,50 @@ function Home() {
               </h2>
               <p>One team. Connected capabilities. A strategy built around your goals.</p>
             </div>
-            <div className="dm-service-grid">
-              {mainServices.map((s) => {
-                const Icon = s.icon;
-                return (
-                  <Link
-                    to="/services/$slug"
-                    params={{ slug: s.slug }}
-                    key={s.slug}
-                    className="dm-service-card"
-                  >
-                    <div className="dm-card-photo">
-                      <img
-                        src={s.img}
-                        alt={`${s.title} services`}
-                        width={600}
-                        height={400}
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="dm-card-content">
-                      <Icon size={28} />
-                      <h3>{s.title}</h3>
-                      <p>
-                        <Highlight text={s.desc} />
-                      </p>
-                      <span>
-                        Explore service
-                        <ArrowUpRight size={17} />
-                      </span>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
+            {serviceGroups.map((group) => (
+              <div className="dm-capability-group" key={group.title}>
+                <div className="dm-capability-heading">
+                  <h3>{group.title}</h3>
+                  <p>{group.subtitle}</p>
+                </div>{" "}
+                <div className="dm-service-grid">
+                  {mainServices
+                    .filter((service) => group.slugs.includes(service.slug))
+                    .map((s) => {
+                      const Icon = s.icon;
+                      return (
+                        <Link
+                          to="/services/$slug"
+                          params={{ slug: s.slug }}
+                          key={s.slug}
+                          className="dm-service-card"
+                        >
+                          <div className="dm-card-photo">
+                            <img
+                              src={s.img}
+                              alt={`${s.title} services`}
+                              width={600}
+                              height={400}
+                              loading="lazy"
+                            />
+                          </div>
+                          <div className="dm-card-content">
+                            <Icon size={28} />
+                            <h3>{s.title}</h3>
+                            <p>
+                              <Highlight text={s.desc} />
+                            </p>
+                            <span>
+                              Explore service
+                              <ArrowUpRight size={17} />
+                            </span>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
         <section className="dm-section">
@@ -229,6 +288,53 @@ function Home() {
                   </Link>
                 );
               })}
+            </div>
+          </div>
+        </section>
+        <section className="dm-section dm-soft" id="featured-projects">
+          <div className="dm-container">
+            <div className="dm-section-heading">
+              <p className="dm-eyebrow">Featured case studies</p>
+              <h2>
+                Business challenges.
+                <br />
+                <span>Working solutions.</span>
+              </h2>
+              <p>Explore what we built and the capabilities each project delivers.</p>
+            </div>
+            <div className="dm-case-grid">
+              {projects.slice(0, 4).map((project) => (
+                <article className="dm-case-card" key={project.title}>
+                  <img
+                    src={project.img}
+                    alt={`${project.title} project`}
+                    width={900}
+                    height={550}
+                    loading="lazy"
+                  />
+                  <div className="dm-case-copy">
+                    <p className="dm-eyebrow">{project.category}</p>
+                    <h3>{project.title}</h3>
+                    <dl>
+                      <dt>Challenge</dt>
+                      <dd>{project.challenge}</dd>
+                      <dt>Solution</dt>
+                      <dd>{project.solution}</dd>
+                      <dt>Delivered outcome</dt>
+                      <dd>{project.outcome}</dd>
+                    </dl>
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: project.service }}
+                      state={{ section: `work-${slugify(project.title)}` }}
+                      className="dm-text-link"
+                    >
+                      Explore case study
+                      <ArrowUpRight size={17} />
+                    </Link>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -285,61 +391,64 @@ function Home() {
             </div>
           </div>
         </section>
+
         <section className="dm-section">
           <div className="dm-container">
             <div className="dm-section-heading">
-              <p className="dm-eyebrow">Our portfolio</p>
+              <p className="dm-eyebrow">Platforms and tools</p>
               <h2>
-                Real projects.
+                The right tools.
                 <br />
-                <span>Thoughtful solutions.</span>
+                <span>Connected to your goals.</span>
               </h2>
+              <p>We choose platforms around your workflows, team and business needs.</p>
             </div>
-            <div className="dm-portfolio-grid">
-              {projects.slice(0, 4).map((p) => (
-                <Link
-                  key={p.title}
-                  to="/services/$slug"
-                  params={{ slug: p.service }}
-                  className="dm-project"
-                >
-                  <img src={p.img} alt={p.title} width={900} height={550} loading="lazy" />
-                  <div>
-                    <h3>{p.title}</h3>
-                    <span>
-                      View project
-                      <ArrowUpRight size={18} />
-                    </span>
-                  </div>
-                </Link>
+            <div className="dm-platform-summary">
+              {platforms.slice(0, 4).map((platform) => (
+                <article key={platform.title}>
+                  <h3>{platform.title}</h3>
+                  <p>{platform.desc}</p>
+                  <span>{platform.tools.slice(0, 3).join(" ? ")}</span>
+                </article>
               ))}
+            </div>
+            <div className="dm-actions">
+              <Link to="/platforms" className="dm-text-link">
+                Explore platforms and tools
+                <ArrowUpRight size={18} />
+              </Link>
             </div>
           </div>
         </section>
-        <section className="dm-section dm-soft">
-          <div className="dm-container">
-            <div className="dm-section-heading">
-              <p className="dm-eyebrow">Client perspectives</p>
-              <h2>
-                Good work starts with
-                <br />
-                <span>a good partnership.</span>
-              </h2>
+        {testimonials.length > 0 && (
+          <section className="dm-section dm-soft">
+            <div className="dm-container">
+              <div className="dm-section-heading">
+                <p className="dm-eyebrow">Client perspectives</p>
+                <h2>
+                  Good work starts with
+                  <br />
+                  <span>a good partnership.</span>
+                </h2>
+              </div>
+              <div className="dm-testimonials">
+                {testimonials.map((t) => (
+                  <blockquote key={t.name}>
+                    <Quote size={28} />
+                    <p>{t.quote}</p>
+                    <footer>
+                      <strong>{t.name}</strong>
+                      <span>
+                        {t.role} ? {t.company}
+                      </span>
+                      <span>{t.project}</span>
+                    </footer>
+                  </blockquote>
+                ))}
+              </div>
             </div>
-            <div className="dm-testimonials">
-              {testimonials.map((t) => (
-                <blockquote key={t.name}>
-                  <Quote size={28} />
-                  <p>{t.quote}</p>
-                  <footer>
-                    <strong>{t.name}</strong>
-                    <span>{t.role}</span>
-                  </footer>
-                </blockquote>
-              ))}
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
         <section className="dm-section">
           <div className="dm-container dm-split">
             <div>

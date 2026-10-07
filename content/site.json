@@ -10,7 +10,7 @@
   "contact": {
     "email": "info@eiretech360.com",
     "phone": "+1 (202) 369-4980",
-    "phoneHref": "tel:+1 (202) 369-4980"
+    "phoneHref": "tel:+12023694980"
   },
   "social": [
     {
@@ -33,15 +33,18 @@
     "blurb": "Eire Tech: Digital Growth & Automation Partner. Blending strategy, creativity and AI to transform how your brand shows up, scales and runs.",
     "capabilities": [
       "Digital Marketing | digital-marketing",
-      "Automation | marketing-business-automation",
+      "Marketing & Business Automation | marketing-business-automation",
+      "Brand Management | brand-management",
+      "ATL & TTL Campaigns | atl-ttl-campaigns",
       "Website Development | website-development",
       "App Development | app-development",
-      "AI Development | custom-ai-development",
-      "Brand Management | brand-management"
+      "Custom AI Development | custom-ai-development",
+      "Graphic Designing | graphic-design",
+      "Video Editing & Animation | video-editing-animation"
     ],
     "ctaLabel": "Talk to an Expert",
-    "visitTitle": "Visit Us",
-    "visitLine": "Our Washington headquarters.",
+    "visitTitle": "Headquarters",
+    "visitLine": "Washington, DC, United States",
     "address": [
       "1717 N Street NW",
       "Ste 1",

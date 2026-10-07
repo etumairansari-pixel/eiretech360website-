@@ -50,7 +50,8 @@
     ],
     "quote": "",
     "quoteName": "",
-    "quoteRole": ""
+    "quoteRole": "",
+    "outcome": "Attendance, leave approvals and payroll calculations in one platform, with one-tap check-ins and downloadable reports."
   },
   {
     "title": "E360 Inventory Suite",
@@ -103,7 +104,8 @@
     ],
     "quote": "",
     "quoteName": "",
-    "quoteRole": ""
+    "quoteRole": "",
+    "outcome": "One shared stock database connects the till, back office and online store, with an offline-capable point of sale."
   },
   {
     "title": "Cliffs of Puff",
@@ -148,7 +150,8 @@
     ],
     "quote": "",
     "quoteName": "",
-    "quoteRole": ""
+    "quoteRole": "",
+    "outcome": "A searchable catalogue of more than 1,000 products, with age verification, customer accounts and seasonal offers."
   },
   {
     "title": "Loom Candy",
@@ -193,7 +196,8 @@
     ],
     "quote": "",
     "quoteName": "",
-    "quoteRole": ""
+    "quoteRole": "",
+    "outcome": "A custom WooCommerce storefront with automatic bundle deals, mobile shopping and a content hub."
   },
   {
     "title": "Candy Ciao",
@@ -238,6 +242,7 @@
     ],
     "quote": "",
     "quoteName": "",
-    "quoteRole": ""
+    "quoteRole": "",
+    "outcome": "A custom WooCommerce storefront with clear category navigation, scheduled offers and buying guides."
   }
 ]

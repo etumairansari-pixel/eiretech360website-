@@ -15,3 +15,30 @@ export async function submitContact(payload: ContactPayload) {
   });
   if (!response.ok) throw new Error(`Contact service returned ${response.status}.`);
 }
+
+/** Keep qualification details in the existing message field for email and storage. */
+export function contactPayload(form: FormData): ContactPayload {
+  const payload = Object.fromEntries(
+    ["fullName", "email", "phone", "company", "service"].map((key) => [
+      key,
+      String(form.get(key) ?? ""),
+    ]),
+  );
+  const details = [
+    ["Business goal", "goal"],
+    ["Current website", "website"],
+    ["Timeline", "timeline"],
+    ["Budget", "budget"],
+  ]
+    .map(([label, key]) => {
+      const value = String(form.get(key) ?? "").trim();
+      return value ? `${label}: ${value}` : "";
+    })
+    .filter(Boolean);
+  return {
+    ...payload,
+    message: [...details, "", "Project details:", String(form.get("message") ?? "").trim()]
+      .join("\n")
+      .slice(0, 5000),
+  };
+}

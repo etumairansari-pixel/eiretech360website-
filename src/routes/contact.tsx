@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { ArrowUpRight, ChevronDown, ChevronRight } from "lucide-react";
-import { contact, headFor, offices } from "@/content";
+import { contact, footer, headFor, offices } from "@/content";
 import { imageFor } from "@/content/images";
 import { Shell } from "@/components/site/Shell";
 import { Highlight } from "@/components/site/Highlight";
-import { submitContact } from "@/lib/contact-submit";
+import { contactPayload, submitContact } from "@/lib/contact-submit";
 import contactPage from "../../content/pages/contact.json";
 
 export const Route = createFileRoute("/contact")({
@@ -23,7 +23,7 @@ function ContactPage() {
     setSending(true);
     setStatus(null);
     try {
-      await submitContact(Object.fromEntries(new FormData(form).entries()));
+      await submitContact(contactPayload(new FormData(form)));
       form.reset();
       setStatus("success");
     } catch {
@@ -128,11 +128,48 @@ function ContactPage() {
                   </select>
                 </label>
                 <label className="dm-field-full">
+                  What would you like to improve? *
+                  <select required name="goal" defaultValue="">
+                    <option value="">Choose your main business goal</option>
+                    {contactPage.form.goalOptions.map((goal) => (
+                      <option key={goal}>{goal}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="dm-field-full">
+                  Current website
+                  <input
+                    type="url"
+                    name="website"
+                    maxLength={300}
+                    placeholder="https://yourwebsite.com"
+                    autoComplete="url"
+                  />
+                </label>
+                <label>
+                  Preferred timeline
+                  <select name="timeline" defaultValue="">
+                    <option value="">Select a timeline (optional)</option>
+                    {contactPage.form.timelineOptions.map((option) => (
+                      <option key={option}>{option}</option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  Budget range
+                  <select name="budget" defaultValue="">
+                    <option value="">Select a range (optional)</option>
+                    {contactPage.form.budgetOptions.map((option) => (
+                      <option key={option}>{option}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="dm-field-full">
                   Tell us about your project *
                   <textarea
                     required
                     minLength={10}
-                    maxLength={5000}
+                    maxLength={4000}
                     name="message"
                     placeholder="Your goals, timeline and what success looks like..."
                     rows={6}
@@ -171,7 +208,17 @@ function ContactPage() {
                 <strong>{contact.phone}</strong>
               </a>
               <div className="dm-contact-offices">
-                <span>Our Offices</span>
+                <span>Headquarters</span>
+                <address className="not-italic">
+                  {footer.address.map((line) => (
+                    <div key={line}>{line}</div>
+                  ))}
+                </address>
+                <address className="not-italic">
+                  {footer.address.map((line) => (
+                    <div key={line}>{line}</div>
+                  ))}
+                </address>
                 {offices.map((office) => (
                   <p key={office.label}>
                     <strong>{office.label}</strong>

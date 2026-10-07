@@ -8,6 +8,7 @@ import { headerVisibleAfterScroll } from "@/lib/header-scroll";
 const links = ["home", "services", "about", "platforms", "contact"].map((key) => ({
   to: pathFor(key),
   label: routeFor(key).navLabel,
+  key,
 }));
 function ServiceMenu({ mobile = false, onNavigate }: { mobile?: boolean; onNavigate: () => void }) {
   const [expanded, setExpanded] = useState("");
@@ -81,6 +82,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [visible, setVisible] = useState(true);
+  const [atTop, setAtTop] = useState(true);
   const menuRef = useRef<HTMLDivElement>(null);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   useEffect(() => {
@@ -90,6 +92,7 @@ export function Nav() {
     const read = () => {
       frame = 0;
       const y = Math.max(0, window.scrollY);
+      setAtTop(y <= 12);
       const next = headerVisibleAfterScroll(previousY, y, shown);
       if (Math.abs(y - previousY) >= 6 || y <= 12) previousY = y;
       if (next !== shown) {
@@ -104,6 +107,7 @@ export function Nav() {
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(read);
     };
+    read();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -129,9 +133,12 @@ export function Nav() {
     };
   }, []);
   return (
-    <header className={`dm-nav${visible ? "" : " dm-nav-hidden"}`} inert={!visible}>
+    <header
+      className={`dm-nav${visible ? "" : " dm-nav-hidden"}${atTop && !open && (pathname === "/" || pathname.startsWith("/services/") || pathname.startsWith("/contact")) ? " dm-nav-blended" : ""}`}
+      inert={!visible}
+    >
       <div className="dm-container dm-nav-inner">
-        <Link to="/" aria-label="Eire Tech home">
+        <Link to="/" aria-label="Eire Tech home" className="dm-nav-logo">
           <Logo tone="light" className="h-10 md:h-12" />
         </Link>
         <nav aria-label="Main navigation" className="dm-nav-links">
@@ -159,7 +166,12 @@ export function Nav() {
             >
               <Link
                 to={l.to}
-                aria-current={pathname === l.to ? "page" : undefined}
+                aria-current={
+                  pathname.replace(/\/$/, "") === l.to.replace(/\/$/, "") ||
+                  (l.key === "services" && pathname.startsWith("/services/"))
+                    ? "page"
+                    : undefined
+                }
                 aria-expanded={l.to === pathFor("services") ? servicesOpen : undefined}
                 onClick={() => setServicesOpen(false)}
               >
@@ -173,18 +185,26 @@ export function Nav() {
         </nav>
         <div className="dm-nav-actions">
           <a href={contact.phoneHref} className="dm-nav-phone" aria-label={`Call ${contact.phone}`}>
-            <Phone size={15} />
-            {contact.phone}
+            <span className="dm-nav-phone-icon">
+              <Phone size={17} />
+            </span>
+            <span>
+              <small>Talk to our team</small>
+              <strong>{contact.phone}</strong>
+            </span>
           </a>
           <a href={pathFor("contact")} className="dm-button dm-nav-cta">
             {navContent.ctaLabel}
-            <ArrowUpRight size={16} />
+            <span className="dm-nav-cta-arrow" aria-hidden="true">
+              <ArrowUpRight size={18} />
+            </span>
           </a>
           <button
             className="dm-menu-button"
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
+            aria-controls="mobile-navigation"
             onClick={() => setOpen(!open)}
           >
             {open ? <X /> : <Menu />}
@@ -192,10 +212,19 @@ export function Nav() {
         </div>
       </div>
       {open && (
-        <nav aria-label="Mobile navigation" className="dm-mobile-nav">
+        <nav id="mobile-navigation" aria-label="Mobile navigation" className="dm-mobile-nav">
           {links.map((l) => (
             <div key={l.to}>
-              <Link to={l.to} onClick={() => setOpen(false)}>
+              <Link
+                to={l.to}
+                aria-current={
+                  pathname.replace(/\/$/, "") === l.to.replace(/\/$/, "") ||
+                  (l.key === "services" && pathname.startsWith("/services/"))
+                    ? "page"
+                    : undefined
+                }
+                onClick={() => setOpen(false)}
+              >
                 {l.label}
               </Link>
               {l.to === pathFor("services") && (

@@ -19,6 +19,7 @@ export type Project = {
   summary: string;
   challenge: string;
   solution: string;
+  outcome: string;
   facts: { value: string; label: string }[];
   business: string[];
   technical: string[];
@@ -39,6 +40,7 @@ export const projects: Project[] = (raw as ProjectContent[]).map((project) => ({
   summary: project.summary,
   challenge: project.challenge,
   solution: project.solution,
+  outcome: project.outcome ?? project.summary,
   facts: (project.facts ?? [])
     .map((line) => {
       const at = line.indexOf("|");

@@ -3,7 +3,7 @@
  *
  * The admin panel writes them and the site reads them at build time, so the two
  * ends share these types. Anything optional here is genuinely optional in the
- * JSON — the templates fall back rather than render a gap.
+ * JSON â€” the templates fall back rather than render a gap.
  */
 
 /** A heading or paragraph that may carry [g], [gg] and [b] highlight markers. */
@@ -154,6 +154,9 @@ export type ContactContent = {
     successMessage: string;
     errorMessage: string;
     serviceOptions: string[];
+    goalOptions?: string[];
+    timelineOptions?: string[];
+    budgetOptions?: string[];
   };
   aside: { eyebrow: string; title: string; body: string; footnote: string };
   /** The steps after an enquiry, one per entry as "Title | Text". */
@@ -209,6 +212,7 @@ export type Project = {
   summary: string;
   challenge: string;
   solution: string;
+  outcome?: string;
   /** One per entry, written as "Value | Label". */
   facts: string[];
   /** Plain-language highlights for business readers. */

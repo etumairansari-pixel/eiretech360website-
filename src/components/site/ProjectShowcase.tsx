@@ -78,9 +78,7 @@ function ProjectCase({ project }: { project: Project }) {
           <dl
             className={`mt-10 gap-px overflow-hidden rounded-2xl border border-brand-line bg-brand-line ${
               project.facts.length === 1 ? "inline-grid" : "grid"
-            } ${
-              factColumns[Math.min(project.facts.length, 4)]
-            }`}
+            } ${factColumns[Math.min(project.facts.length, 4)]}`}
           >
             {project.facts.map((fact) => (
               <div key={fact.value + fact.label} className="bg-brand-bg p-5 pr-10">
@@ -111,6 +109,11 @@ function ProjectCase({ project }: { project: Project }) {
               <Highlight text={project.solution} />
             </p>
           </div>
+        </div>
+
+        <div className="mt-6 border-l-2 border-brand-accent bg-brand-accent/5 p-6">
+          <h4 className="text-sm font-semibold text-brand-text">Delivered outcome</h4>
+          <p className="mt-3 leading-relaxed text-brand-muted">{project.outcome}</p>
         </div>
 
         {/* Both panels stay in the markup, so crawlers and no-JS readers get both. */}
@@ -199,7 +202,7 @@ function ProjectCase({ project }: { project: Project }) {
               <figcaption className="mt-5 text-sm">
                 <span className="font-bold">{project.feedback.name}</span>
                 {project.feedback.role ? (
-                  <span className="text-brand-muted"> · {project.feedback.role}</span>
+                  <span className="text-brand-muted"> Â· {project.feedback.role}</span>
                 ) : null}
               </figcaption>
             ) : null}
@@ -227,8 +230,8 @@ export function ProjectShowcase({
           {serviceTitle} projects we've delivered
         </h2>
         <p className="mt-4 max-w-2xl text-lg text-brand-muted">
-          Live products built by our team. Switch between the business and technical overview
-          to see each one from the angle that matters to you.
+          Live products built by our team. Switch between the business and technical overview to see
+          each one from the angle that matters to you.
         </p>
         <div className="mt-10 space-y-8">
           {projects.map((project) => (
