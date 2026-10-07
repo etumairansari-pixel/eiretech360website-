@@ -1,194 +1,210 @@
-import { Link, useRouterState } from "@tanstack/react-router";
-import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { ArrowUpRight, ChevronDown, ChevronRight, Menu, Phone, X } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { MagneticLink, ThemeToggle } from "@/components/site/primitives";
-import { nav as navContent, pathFor, route as routeFor } from "@/content";
-
-/** The order the links appear in the bar, by page key. */
-const navOrder = ["home", "about", "services", "platforms", "contact"] as const;
-
-const links = navOrder.map((key) => ({ to: pathFor(key), label: routeFor(key).navLabel }));
-
+import { contact, nav as navContent, pathFor, route as routeFor } from "@/content";
+import { serviceNavigation } from "@/content/service-navigation";
+import { headerVisibleAfterScroll } from "@/lib/header-scroll";
+const links = ["home", "services", "about", "platforms", "contact"].map((key) => ({
+  to: pathFor(key),
+  label: routeFor(key).navLabel,
+}));
+function ServiceMenu({ mobile = false, onNavigate }: { mobile?: boolean; onNavigate: () => void }) {
+  const [expanded, setExpanded] = useState("");
+  return (
+    <div className={mobile ? "dm-mobile-services" : "dm-nav-dropdown"}>
+      {serviceNavigation.map((item) => (
+        <div
+          key={item.slug}
+          className="dm-service-menu-group"
+          onMouseEnter={() => {
+            if (!mobile) setExpanded(item.slug);
+          }}
+          onMouseLeave={() => {
+            if (!mobile) setExpanded("");
+          }}
+          onFocus={() => {
+            if (!mobile) setExpanded(item.slug);
+          }}
+          onBlur={(event) => {
+            if (!mobile && !event.currentTarget.contains(event.relatedTarget as Node))
+              setExpanded("");
+          }}
+        >
+          <div className="dm-service-menu-row">
+            <Link to="/services/$slug" params={{ slug: item.slug }} onClick={onNavigate}>
+              {item.label}
+            </Link>
+            {item.children.length > 0 && (
+              <button
+                type="button"
+                aria-label={`Show ${item.label} services`}
+                aria-expanded={expanded === item.slug}
+                aria-controls={`${mobile ? "mobile" : "desktop"}-submenu-${item.slug}`}
+                onClick={() => setExpanded(expanded === item.slug ? "" : item.slug)}
+              >
+                {mobile ? <ChevronDown size={15} /> : <ChevronRight size={15} />}
+              </button>
+            )}
+          </div>
+          {item.children.length > 0 && (
+            <div
+              id={`${mobile ? "mobile" : "desktop"}-submenu-${item.slug}`}
+              className="dm-service-submenu"
+              hidden={expanded !== item.slug}
+            >
+              <span className="dm-submenu-label">{item.label}</span>
+              {item.children.map((child) => (
+                <Link
+                  key={`${child.slug}-${child.section}`}
+                  to="/services/$slug"
+                  params={{ slug: child.slug }}
+                  state={child.section ? { section: child.section } : {}}
+                  onClick={onNavigate}
+                >
+                  {child.label}
+                  <ArrowUpRight size={14} />
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+      <Link to="/services" onClick={onNavigate} className="dm-all-services">
+        View all services
+        <ArrowUpRight size={14} />
+      </Link>
+    </div>
+  );
+}
 export function Nav() {
   const [open, setOpen] = useState(false);
-  // Slides out of view on scroll-down and back in on scroll-up.
+  const [servicesOpen, setServicesOpen] = useState(false);
   const [visible, setVisible] = useState(true);
-  const [atTop, setAtTop] = useState(true);
-  const lastY = useRef(0);
-
+  const menuRef = useRef<HTMLDivElement>(null);
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   useEffect(() => {
+    let previousY = window.scrollY;
+    let shown = true;
     let frame = 0;
-
     const read = () => {
       frame = 0;
-      const y = window.scrollY;
-      const top = y < 60;
-      // Ignore sub-pixel jitter so the bar doesn't flicker.
-      if (Math.abs(y - lastY.current) > 6) {
-        setVisible(y < lastY.current || top);
-        lastY.current = y;
+      const y = Math.max(0, window.scrollY);
+      const next = headerVisibleAfterScroll(previousY, y, shown);
+      if (Math.abs(y - previousY) >= 6 || y <= 12) previousY = y;
+      if (next !== shown) {
+        shown = next;
+        setVisible(next);
+        if (!next) {
+          setOpen(false);
+          setServicesOpen(false);
+        }
       }
-      setAtTop(top);
     };
-
-    // Reading scrollY directly in the scroll handler forces a layout flush on
-    // every event. Coalescing into a single rAF puts the read on a frame
-    // boundary where layout is already clean — same behaviour, one update per
-    // frame instead of one per event.
     const onScroll = () => {
-      if (frame) return;
-      frame = requestAnimationFrame(read);
+      if (!frame) frame = requestAnimationFrame(read);
     };
-
-    read();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if (frame) cancelAnimationFrame(frame);
+      cancelAnimationFrame(frame);
     };
   }, []);
-
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-
-  // Dark-glass only while sitting on the home video hero. Once scrolled past it,
-  // the revealed bar switches to the theme-aware solid style so it stays readable
-  // over page content.
-  const overHero = pathname === "/" && atTop;
-  const currentPath = pathname.replace(/\/$/, "") || "/";
-
-  const headerClass = overHero
-    ? "border-white/10 bg-slate-950/60 text-white backdrop-blur-md"
-    : "border-brand-line bg-brand-bg/80 text-brand-text backdrop-blur-md";
-
+  useEffect(() => {
+    const close = (event: PointerEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node))
+        setServicesOpen(false);
+    };
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        setServicesOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", close);
+    document.addEventListener("keydown", escape);
+    return () => {
+      document.removeEventListener("pointerdown", close);
+      document.removeEventListener("keydown", escape);
+    };
+  }, []);
   return (
-    <>
-      <nav
-        className={`fixed top-0 z-40 w-full border-b transition-transform duration-300 ${visible ? "translate-y-0" : "-translate-y-full"} ${headerClass}`}
-      >
-        <div className="mx-auto grid h-20 max-w-7xl grid-cols-[1fr_auto] items-center gap-4 px-5 md:h-[92px] md:grid-cols-[1fr_auto_1fr] md:px-6">
-          <Link
-            to="/"
-            className="justify-self-start transition hover:-translate-y-0.5"
-            data-hover
-            aria-label="Eire Tech home"
-          >
-            <Logo className="h-10 md:h-12" tone={overHero ? "light" : "auto"} />
-          </Link>
-
-          <div className="hidden items-center justify-self-center gap-9 text-sm font-semibold md:inline-flex">
-            {links.map((l) => {
-              // The contact link carries a trailing slash because that page is
-              // its own document, so both sides are normalised before comparing.
-              const active = currentPath === (l.to.replace(/\/$/, "") || "/");
-              return (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  className={`group relative px-0.5 py-2 transition-colors ${
-                    active
-                      ? overHero
-                        ? "text-white"
-                        : "text-brand-primary-text"
-                      : overHero
-                        ? "text-white/72 hover:text-white"
-                        : "text-brand-muted hover:text-brand-text"
-                  }`}
-                  data-hover
-                >
-                  {l.label}
-                  <span
-                    className={`absolute -bottom-1 left-0 h-[2px] rounded-full brand-gradient-bg transition-all duration-300 ${
-                      active ? "w-full" : "w-0 group-hover:w-full"
-                    }`}
-                  />
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="flex items-center justify-self-end gap-3">
-            <ThemeToggle
-              className={
-                overHero
-                  ? "!border-white/20 !bg-white/10 !text-white hover:!border-white/35 hover:!text-white"
-                  : "shadow-sm shadow-slate-950/5"
-              }
-            />
-            <MagneticLink
-              to={pathFor("contact")}
-              className="hidden items-center gap-1.5 rounded-xl brand-gradient-bg px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-brand-primary/15 transition-all hover:-translate-y-0.5 hover:brand-glow sm:inline-flex"
+    <header className={`dm-nav${visible ? "" : " dm-nav-hidden"}`} inert={!visible}>
+      <div className="dm-container dm-nav-inner">
+        <Link to="/" aria-label="Eire Tech home">
+          <Logo tone="light" className="h-10 md:h-12" />
+        </Link>
+        <nav aria-label="Main navigation" className="dm-nav-links">
+          {links.map((l) => (
+            <div
+              key={l.to}
+              ref={l.to === pathFor("services") ? menuRef : undefined}
+              className="dm-nav-item"
+              onMouseEnter={() => {
+                if (l.to === pathFor("services")) setServicesOpen(true);
+              }}
+              onMouseLeave={() => {
+                if (l.to === pathFor("services")) setServicesOpen(false);
+              }}
+              onFocus={() => {
+                if (l.to === pathFor("services")) setServicesOpen(true);
+              }}
+              onBlur={(event) => {
+                if (
+                  l.to === pathFor("services") &&
+                  !event.currentTarget.contains(event.relatedTarget as Node)
+                )
+                  setServicesOpen(false);
+              }}
             >
-              {navContent.ctaLabel}
-              <ArrowUpRight className="size-3.5" />
-            </MagneticLink>
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              aria-label="Open menu"
-              className={`grid size-10 place-items-center rounded-full border md:hidden ${
-                overHero
-                  ? "border-white/25 bg-white/10 text-white"
-                  : "border-brand-line bg-brand-surface text-brand-text"
-              }`}
-              data-hover
-            >
-              <Menu className="size-5" />
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[90] bg-brand-bg/95 backdrop-blur-xl md:hidden"
-          >
-            <div className="flex h-20 items-center justify-between px-6">
               <Link
-                to="/"
-                onClick={() => setOpen(false)}
-                className="inline-flex"
-                aria-label="Eire Tech home"
+                to={l.to}
+                aria-current={pathname === l.to ? "page" : undefined}
+                aria-expanded={l.to === pathFor("services") ? servicesOpen : undefined}
+                onClick={() => setServicesOpen(false)}
               >
-                <Logo className="h-10" />
+                {l.label}
               </Link>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label="Close menu"
-                className="grid size-10 place-items-center rounded-full border border-brand-line"
-                data-hover
-              >
-                <X className="size-5" />
-              </button>
+              {l.to === pathFor("services") && (
+                <>{servicesOpen && <ServiceMenu onNavigate={() => setServicesOpen(false)} />}</>
+              )}
             </div>
-            <div className="flex flex-col gap-2 px-6 pt-10">
-              {links.map((l, i) => (
-                <motion.div
-                  key={l.to}
-                  initial={{ opacity: 0, x: -24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.06 * i, duration: 0.4 }}
-                >
-                  <Link
-                    to={l.to}
-                    onClick={() => setOpen(false)}
-                    className="flex items-center justify-between border-b border-brand-line py-5 text-3xl font-extrabold tracking-tight"
-                  >
-                    {l.label}
-                    <ArrowUpRight className="size-5 text-brand-primary" />
-                  </Link>
-                </motion.div>
-              ))}
+          ))}
+        </nav>
+        <div className="dm-nav-actions">
+          <a href={contact.phoneHref} className="dm-nav-phone" aria-label={`Call ${contact.phone}`}>
+            <Phone size={15} />
+            {contact.phone}
+          </a>
+          <a href={pathFor("contact")} className="dm-button dm-nav-cta">
+            {navContent.ctaLabel}
+            <ArrowUpRight size={16} />
+          </a>
+          <button
+            className="dm-menu-button"
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
+      </div>
+      {open && (
+        <nav aria-label="Mobile navigation" className="dm-mobile-nav">
+          {links.map((l) => (
+            <div key={l.to}>
+              <Link to={l.to} onClick={() => setOpen(false)}>
+                {l.label}
+              </Link>
+              {l.to === pathFor("services") && (
+                <ServiceMenu mobile onNavigate={() => setOpen(false)} />
+              )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+          ))}
+        </nav>
+      )}
+    </header>
   );
 }

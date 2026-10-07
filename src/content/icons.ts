@@ -26,6 +26,8 @@ import {
   Route as RouteIcon,
   Hammer,
   TrendingUp,
+  Target,
+  Search,
   type LucideIcon,
 } from "lucide-react";
 
@@ -49,6 +51,8 @@ export const icons = {
   route: RouteIcon,
   hammer: Hammer,
   "trending-up": TrendingUp,
+  target: Target,
+  search: Search,
 } satisfies Record<string, LucideIcon>;
 
 export type IconName = keyof typeof icons;

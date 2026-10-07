@@ -1,0 +1,71 @@
+{
+  "provider": "Unsplash",
+  "license": "https://unsplash.com/license",
+  "photos": [
+    {
+      "file": "src/assets/photo-marketing.webp",
+      "source": "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+      "subject": "Team collaborating around a table"
+    },
+    {
+      "file": "src/assets/photo-automation.webp",
+      "source": "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
+      "subject": "Business dashboards on a laptop"
+    },
+    {
+      "file": "src/assets/photo-brand.webp",
+      "source": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0",
+      "subject": "Team reviewing a presentation"
+    },
+    {
+      "file": "src/assets/photo-atl.webp",
+      "source": "https://images.unsplash.com/photo-1511578314322-379afb476865",
+      "subject": "Live business event"
+    },
+    {
+      "file": "src/assets/photo-web.webp",
+      "source": "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+      "subject": "Web developer workstation"
+    },
+    {
+      "file": "src/assets/photo-app.webp",
+      "source": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+      "subject": "Mobile phone and app interface"
+    },
+    {
+      "file": "src/assets/photo-ai.webp",
+      "source": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+      "subject": "Data analytics on a computer screen"
+    },
+    {
+      "file": "src/assets/photo-design.webp",
+      "source": "https://images.unsplash.com/photo-1558655146-9f40138edfeb",
+      "subject": "Designer arranging creative artwork"
+    },
+    {
+      "file": "src/assets/photo-video.webp",
+      "source": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d",
+      "subject": "Professional video editing timeline"
+    },
+    {
+      "file": "src/assets/photo-seo.webp",
+      "source": "https://images.unsplash.com/photo-1553877522-43269d4ea984",
+      "subject": "Search and marketing research workspace"
+    },
+    {
+      "file": "src/assets/photo-ppc.webp",
+      "source": "https://images.unsplash.com/photo-1556761175-b413da4baf72",
+      "subject": "Business team planning a campaign"
+    },
+    {
+      "file": "src/assets/photo-social.webp",
+      "source": "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07",
+      "subject": "Social media on a smartphone"
+    },
+    {
+      "file": "src/assets/photo-content.webp",
+      "source": "https://images.unsplash.com/photo-1455390582262-044cdead277a",
+      "subject": "Writing and content planning"
+    }
+  ]
+}

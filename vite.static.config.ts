@@ -11,7 +11,7 @@ const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
 // Replace only inner pages' fallback; keep the selected commit's homepage intact.
 const STATIC_SHELL =
-  /<div id="shell" class="shell-fallback">[\s\S]*?(?=\s*(?:<script type="module"|<\/body>))/;
+  /<div id="shell" class="shell-fallback"[^>]*>[\s\S]*?(?=\s*(?:<script type="module"|<\/body>))/;
 
 /**
  * Tailwind emits a single ~100 KB stylesheet, and as a plain <link> it is a
@@ -64,8 +64,7 @@ function inlineStylesheet(): Plugin {
 
 /**
  * The inner pages, read from content/site.json so the admin panel owns their
- * slugs and metadata. Home and contact are excluded: each ships as its own
- * hand-written document and is filled by fillDocuments() below.
+ * slugs and metadata. Home is excluded; every inner page, including contact, uses the React layout.
  */
 const staticRouteMeta = staticRoutes(readContent());
 
@@ -183,10 +182,7 @@ function generateRoutingFiles(): Plugin {
 
       const robots = path.join(outDir, "robots.txt");
       if (fs.existsSync(robots)) {
-        fs.writeFileSync(
-          robots,
-          fs.readFileSync(robots, "utf8").replace(/%%SITE_URL%%/g, base),
-        );
+        fs.writeFileSync(robots, fs.readFileSync(robots, "utf8").replace(/%%SITE_URL%%/g, base));
       }
 
       // Priorities follow the order the pages are listed in: the first page is
@@ -302,7 +298,7 @@ function stripHoistedTags(markup: string) {
 
 function prerenderRoutes(): Plugin {
   const routes = staticRouteMeta.map((route) => ({
-    url: route.path,
+    url: route.path.replace(/\/$/, ""),
     file: `${route.slug}/index.html`,
   }));
 
@@ -338,11 +334,8 @@ function prerenderRoutes(): Plugin {
         },
       });
 
-      const { render, renderHomeBody } = (await import(
-        pathToFileURL(path.join(ssrDir, "entry.mjs")).href
-      )) as {
+      const { render } = (await import(pathToFileURL(path.join(ssrDir, "entry.mjs")).href)) as {
         render: (url: string) => Promise<string>;
-        renderHomeBody: () => Promise<string>;
       };
 
       for (const route of routes) {
@@ -364,26 +357,18 @@ function prerenderRoutes(): Plugin {
         );
       }
 
-      // The homepage keeps its hand-written hero shell for a fast first paint;
-      // the rest of the page goes in underneath it, so the document carries the
-      // whole page's copy and links instead of a hero and two buttons.
+      // Render the same homepage used by the client so the new layout also
+      // appears on first paint and remains complete without JavaScript.
       {
         const file = path.join(outDir, "index.html");
         const html = fs.readFileSync(file, "utf8");
-        const heroEnd = html.indexOf("</main>", html.indexOf('<main class="shell-hero">'));
-        if (heroEnd === -1) throw new Error("index.html: no shell hero to append the homepage body to");
-        // This copy is for readers without JavaScript and is replaced by the
-        // live page as soon as React paints, so its images never load: on a
-        // wide screen the body starts inside the viewport, and even lazy images
-        // there would take bandwidth from the hero poster. The text, alt text
-        // and links, which are what crawlers read, all stay.
-        const body = stripHoistedTags(await renderHomeBody()).replace(/<img\b[^>]*>/g, (tag) =>
-          tag.replace(/\s(src|srcset)=/g, " data-$1="),
-        );
-        const at = heroEnd + "</main>".length;
+        const body = stripHoistedTags(await render("/"));
         fs.writeFileSync(
           file,
-          `${html.slice(0, at)}<div class="shell-body bg-brand-bg text-brand-text">${body}</div>${html.slice(at)}`,
+          html.replace(
+            STATIC_SHELL,
+            `<div id="shell" style="overflow-y:auto;background:#fff">${body}</div>`,
+          ),
         );
         routes.push({ url: "/", file: "index.html" });
       }
@@ -434,7 +419,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(rootDir, "index.html"),
-        contact: path.resolve(rootDir, "contact/index.html"),
       },
       output: {
         manualChunks(id) {

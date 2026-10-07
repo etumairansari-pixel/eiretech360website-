@@ -48,12 +48,18 @@ const organizationSchema = {
       }
     : {}),
   ...(offices.length
-    ? { location: offices.map((o) => ({ "@type": "Place", name: `${site.name} ${o.label}`, address: o.place })) }
+    ? {
+        location: offices.map((o) => ({
+          "@type": "Place",
+          name: `${site.name} ${o.label}`,
+          address: o.place,
+        })),
+      }
     : {}),
 };
 
 const FONTS_HREF =
-  "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap";
+  "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap";
 
 // The font stylesheet is fetched at low priority as media="print", then promoted
 // to media="all" once it lands, so it never blocks the first paint.

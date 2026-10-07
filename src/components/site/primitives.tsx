@@ -92,7 +92,7 @@ export function MagneticAnchor({ children, className, ...rest }: ComponentPropsW
       style={{ x: sx, y: sy }}
       className={className}
       data-hover
-      {...(rest as never)}
+      {...(rest as ComponentPropsWithoutRef<typeof motion.a>)}
     >
       {children}
     </motion.a>

@@ -164,6 +164,8 @@ export type ContactContent = {
 };
 
 export type Service = {
+  parent?: string;
+  headline?: string;
   icon: string;
   title: string;
   tag: string;

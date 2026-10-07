@@ -1,8 +1,77 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "./reference-ui.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+.marketing-hero {
+  padding: 140px 0 76px;
+  background: radial-gradient(ellipse at 90% 20%, #164b7e 0%, transparent 50%), #071c38;
+  color: white;
+}
+.marketing-visual {
+  position: relative;
+  height: 440px;
+  overflow: hidden;
+  border: 1px solid #ffffff30;
+  border-radius: 28px 28px 90px 28px;
+  box-shadow: 0 24px 80px #00000030;
+}
+.marketing-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 999px;
+  padding: 14px 24px;
+  background: #0b6fc4;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.marketing-button:hover {
+  background: #095ba2;
+  transform: translateY(-2px);
+}
+.marketing-eyebrow {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--brand-blue-text);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.marketing-card {
+  display: block;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--elevated);
+}
+a.marketing-card:hover {
+  border-color: var(--brand-blue);
+  background: var(--surface);
+}
+.marketing-end {
+  padding: 80px 0;
+  background: radial-gradient(ellipse at bottom left, #164b7e, transparent 65%), #071c38;
+  color: white;
+}
+@media (max-width: 640px) {
+  .marketing-hero {
+    padding: 116px 0 48px;
+  }
+  .marketing-visual {
+    height: 350px;
+  }
+  .marketing-card {
+    padding: 24px;
+  }
+}
 
 /* ------------------------------------------------------------------
    Brand constants — pulled from the Eire Tech logo.
@@ -57,7 +126,7 @@
   --hairline: rgb(255 255 255 / 6%);
 
   /* On the dark surfaces the raw brand colours already clear 4.5:1. */
-  --brand-blue-text: var(--brand-blue);
+  --brand-blue-text: #1e9bf0;
   --brand-green-text: var(--brand-green);
 
   --on-brand: #04070b;
@@ -107,14 +176,14 @@
   --color-destructive: #e5484d;
   --color-destructive-foreground: #ffffff;
 
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
 }
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --animate-spin-slow: spin 14s linear infinite;
@@ -128,36 +197,73 @@
   --animate-shimmer: shimmer 2.4s linear infinite;
 
   @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
   @keyframes spin-reverse {
-    from { transform: rotate(360deg); }
-    to { transform: rotate(0deg); }
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
   }
   @keyframes pulse-slow {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 0.55; }
+    0%,
+    100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.55;
+    }
   }
   @keyframes grow {
-    0% { transform: scaleX(0); }
-    100% { transform: scaleX(1); }
+    0% {
+      transform: scaleX(0);
+    }
+    100% {
+      transform: scaleX(1);
+    }
   }
   @keyframes flash-out {
-    0%, 72% { opacity: 1; visibility: visible; }
-    100% { opacity: 0; visibility: hidden; }
+    0%,
+    72% {
+      opacity: 1;
+      visibility: visible;
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
   }
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
   @keyframes orbit {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
   @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
   }
 }
 
@@ -246,7 +352,12 @@
 }
 
 @utility brand-gradient-bg {
-  background-image: linear-gradient(90deg, var(--brand-blue-deep), var(--brand-blue) 55%, var(--brand-green));
+  background-image: linear-gradient(
+    90deg,
+    var(--brand-blue-deep),
+    var(--brand-blue) 55%,
+    var(--brand-green)
+  );
 }
 
 /* Glow that adapts: strong in dark, restrained in light */
@@ -254,7 +365,8 @@
   box-shadow: 0 0 40px -8px color-mix(in oklab, var(--brand-blue) var(--glow-strength), transparent);
 }
 @utility accent-glow {
-  box-shadow: 0 0 40px -8px color-mix(in oklab, var(--brand-green) var(--glow-strength), transparent);
+  box-shadow: 0 0 40px -8px
+    color-mix(in oklab, var(--brand-green) var(--glow-strength), transparent);
 }
 
 /* Keep mobile scrolling GPU-light while preserving the desktop treatment. */
@@ -273,4 +385,11 @@
   .animate-orbit {
     animation: none !important;
   }
+}
+
+/* Site-wide square corners, including component and responsive styles. */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
 }

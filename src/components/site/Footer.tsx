@@ -67,7 +67,7 @@ const socialIcons = {
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-brand-line bg-brand-surface">
+    <footer className="dm-footer relative overflow-hidden border-t border-brand-line bg-brand-surface">
       <div className="pointer-events-none absolute -bottom-32 left-1/2 size-[520px] -translate-x-1/2 rounded-full bg-brand-primary/10 blur-[140px]" />
       <div className="pointer-events-none absolute -bottom-12 -right-8 select-none text-[12rem] font-black leading-none tracking-[-0.08em] text-brand-text/[0.025] md:text-[20rem]">
         e
@@ -76,7 +76,7 @@ export function Footer() {
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
           <div>
-            <Logo className="h-12" />
+            <Logo className="h-12" tone="light" />
 
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-brand-muted">
               {footerContent.blurb}

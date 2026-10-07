@@ -4,7 +4,7 @@
  * The content files are imported, not fetched: Vite inlines them at build time,
  * so the copy is in the bundle the browser already downloads and a page costs
  * no extra request. The admin panel edits the same files, and a rebuild carries
- * the change into the static HTML — which is what keeps the meta tags and page
+ * the change into the static HTML â€” which is what keeps the meta tags and page
  * copy visible to crawlers without JavaScript.
  *
  * Only this module and content/site.json are shared by every page. A page's own
@@ -44,8 +44,7 @@ export function route(key: string) {
 /**
  * The site-relative path for a page key.
  *
- * Home is "/", the contact page keeps its trailing slash because it ships as
- * its own document, and everything else is "/slug".
+ * Home is "/", the contact page keeps its existing trailing slash for URL compatibility, and everything else is "/slug".
  */
 export function pathFor(key: string): string {
   const found = routes.find((r) => r.key === key);

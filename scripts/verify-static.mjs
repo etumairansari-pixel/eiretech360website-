@@ -117,16 +117,18 @@ for (const page of content.pages) {
 
   if (page.key === homeKey) {
     assert.ok(
-      html.includes('id="shell" class="shell-fallback"'),
-      "Keep the selected commit's lightweight homepage shell",
+      html.includes('class="dm-home-hero dm-cinematic-hero"') &&
+        html.includes('class="dm-cinematic-media"') &&
+        html.includes("<picture>"),
+      "Homepage cinematic hero and responsive poster must render without JavaScript",
     );
   }
 
   if (page.key === contactKey) {
-    assert.ok(html.includes("<form"), "Contact must remain a standalone form");
+    assert.ok(html.includes("<form"), "Contact must render its form");
     assert.ok(
-      !html.includes('id="root"') && !html.includes('id="prerendered"'),
-      "Contact must not mount the SPA redirect",
+      html.includes('id="root"') && html.includes('class="dm-nav') && html.includes("dm-footer"),
+      "Contact must use the shared React layout",
     );
   }
 
@@ -153,7 +155,11 @@ for (const page of servicePages) {
   const titles = [...head.matchAll(/<title>(.*?)<\/title>/g)].map((m) => decode(m[1]));
   assert.deepEqual(titles, [page.title], `${label}: exact title`);
   const descriptions = [...head.matchAll(/<meta\s+name="description"\s+content="([^"]*)"/g)];
-  assert.deepEqual(descriptions.map((m) => decode(m[1])), [page.description], `${label}: description`);
+  assert.deepEqual(
+    descriptions.map((m) => decode(m[1])),
+    [page.description],
+    `${label}: description`,
+  );
   assert.ok(head.includes(`rel="canonical" href="${page.url}"`), `${label}: canonical`);
 
   const headings = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)].map((m) => plain(m[1]));
@@ -198,27 +204,41 @@ const contactCopy = readJson("content/pages/contact.json");
 const platformCopy = readJson("content/pages/platforms.json");
 const afterSeparator = (line) => line.split("|").slice(1).join("|").trim();
 for (const [label, file, requiredCopy] of [
-  ["/", "index.html", [
-    homeCopy.mission.body,
-    homeCopy.why.body,
-    ...homeCopy.why.reasons.map((reason) => reason.text),
-  ]],
-  ["/contact/", "contact/index.html", [
-    ...contactCopy.process.steps.map(afterSeparator),
-    ...contactCopy.faq.items.map(afterSeparator),
-  ]],
-  ["/platforms", "platforms/index.html", [
-    platformCopy.approach.intro,
-    ...platformCopy.approach.points.map(afterSeparator),
-    ...readJson("content/platforms.json").map((group) => group.desc),
-  ]],
+  [
+    "/",
+    "index.html",
+    [
+      homeCopy.mission.body,
+      homeCopy.why.body,
+      ...homeCopy.why.reasons.map((reason) => reason.text),
+    ],
+  ],
+  [
+    "/contact/",
+    "contact/index.html",
+    [
+      ...contactCopy.process.steps.map(afterSeparator),
+      ...contactCopy.faq.items.map(afterSeparator),
+    ],
+  ],
+  [
+    "/platforms",
+    "platforms/index.html",
+    [
+      platformCopy.approach.intro,
+      ...platformCopy.approach.points.map(afterSeparator),
+      ...readJson("content/platforms.json").map((group) => group.desc),
+    ],
+  ],
 ]) {
   const html = fs.readFileSync(path.join(outDir, file), "utf8");
   const body = html.match(/<body\b[^>]*>([\s\S]*?)<\/body>/)?.[1];
   assert.ok(body, `${label}: a complete HTML body is required`);
-  const text = plain(body
-    .replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, " ")
-    .replace(/<[^>]*>/g, " "));
+  const text = plain(
+    body
+      .replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, " ")
+      .replace(/<[^>]*>/g, " "),
+  );
   for (const copy of requiredCopy) {
     assert.ok(copy?.trim(), `${label}: required route copy must not be empty`);
     assert.ok(text.includes(unmark(copy)), `${label}: missing crawlable copy: ${copy}`);
@@ -232,7 +252,9 @@ for (const service of serviceList) {
   for (const line of service.gallery ?? []) {
     const key = line.split("|")[0].trim();
     assert.ok(
-      ["jpg", "webp", "png"].some((ext) => fs.existsSync(path.join(rootDir, "src/assets", `${key}.${ext}`))),
+      ["jpg", "webp", "png"].some((ext) =>
+        fs.existsSync(path.join(rootDir, "src/assets", `${key}.${ext}`)),
+      ),
       `${service.title}: the portfolio image "${key}" is not in src/assets`,
     );
   }
@@ -279,9 +301,7 @@ for (const project of readJson("content/projects.json")) {
 }
 
 const slugs = [
-  ...content.pages
-    .filter((page) => page.key !== homeKey && page.key !== contactKey)
-    .map((page) => page.slug),
+  ...content.pages.filter((page) => page.key !== homeKey).map((page) => page.slug),
   ...servicePages.map((page) => page.slug),
 ];
 
@@ -306,7 +326,7 @@ for (const page of servicePages) {
   assert.ok(sitemap.includes(`<loc>${page.url}</loc>`), `sitemap.xml lists ${page.url}`);
 }
 
-console.log("Static SEO checks passed; contact stays a separate document.");
+console.log("Static SEO checks passed; contact uses the shared React layout.");
 
 // --- Drift against the supplied SEO sheet, reported but never fatal. --------
 const drift = [];

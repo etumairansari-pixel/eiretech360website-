@@ -30,6 +30,8 @@ export type GalleryGroup = { brand: string; items: GalleryItem[] };
 export type Reel = { src: string; poster: string; title: string; brand: string };
 
 export type Service = {
+  parent: string;
+  headline: string;
   icon: LucideIcon;
   title: string;
   slug: string;
@@ -67,7 +69,9 @@ function parseReels(lines: string[]): Reel[] {
 function parseGallery(lines: string[]): GalleryGroup[] {
   const groups: GalleryGroup[] = [];
   for (const line of lines) {
-    const [key = "", title = "", brand = "", tone = ""] = line.split("|").map((part) => part.trim());
+    const [key = "", title = "", brand = "", tone = ""] = line
+      .split("|")
+      .map((part) => part.trim());
     const img = imageFor(key);
     // An unknown image key would render a broken image, so it is skipped.
     if (!img) continue;
@@ -94,6 +98,8 @@ export const services: Service[] = (raw as ServiceContent[]).map((service) => {
   const details = service.details ?? [];
 
   return {
+    parent: service.parent ?? "",
+    headline: service.headline ?? service.title,
     icon: iconFor(service.icon),
     title: service.title,
     slug,

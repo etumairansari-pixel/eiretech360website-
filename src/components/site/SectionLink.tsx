@@ -11,16 +11,24 @@ declare module "@tanstack/react-router" {
 }
 
 /**
- * The section's element on the live page. Scoped to #root because the
- * prerendered overlay carries the same ids until React replaces it.
+ * Resolve the visible document, including SSR pages without a #root wrapper
+ * and the prerendered shell shown before the client takes over.
  */
 function sectionElement(id: string) {
-  return document.getElementById("root")?.querySelector<HTMLElement>(`[id="${CSS.escape(id)}"]`);
+  const selector = `[id="${CSS.escape(id)}"]`;
+  return (
+    document.getElementById("shell")?.querySelector<HTMLElement>(selector) ??
+    document.getElementById("root")?.querySelector<HTMLElement>(selector) ??
+    document.getElementById(id)
+  );
 }
 
 /** Smoothly scrolls to a section on the current page without touching the URL. */
 export function scrollToSection(id: string) {
-  sectionElement(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  sectionElement(id)?.scrollIntoView({
+    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    block: "start",
+  });
 }
 
 /**
@@ -58,7 +66,7 @@ export function openSection(id: string): () => void {
   };
 }
 
-/** A link to a section on the same page that leaves the URL unchanged. */
+/** Native fragment links also work before JavaScript loads or when it is disabled. */
 export function SectionLink({
   to,
   className,
@@ -69,8 +77,25 @@ export function SectionLink({
   children: ReactNode;
 }) {
   return (
-    <button type="button" onClick={() => scrollToSection(to)} className={className}>
+    <a
+      href={`#${encodeURIComponent(to)}`}
+      onClick={(event) => {
+        if (
+          event.defaultPrevented ||
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        )
+          return;
+        if (!sectionElement(to)) return;
+        event.preventDefault();
+        scrollToSection(to);
+      }}
+      className={className}
+    >
       {children}
-    </button>
+    </a>
   );
 }

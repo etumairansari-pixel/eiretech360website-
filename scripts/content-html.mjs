@@ -237,6 +237,20 @@ export function tokensFor(content, which) {
     NAV_PLATFORMS_LABEL: esc(pageBy(content, "platforms").navLabel),
     NAV_CONTACT_LABEL: esc(pageBy(content, "contact").navLabel),
     NAV_CTA_LABEL: esc(content.nav.ctaLabel),
+    NAV_SERVICE_MENU: content.services
+      .filter((service) => !service.parent)
+      .map((service) => {
+        const slug = service.slug || slugify(service.title);
+        const children = content.services.filter((child) => child.parent === slug);
+        const entries = children.length
+          ? children.map((child) => ({
+              label: child.title,
+              href: `/services/${child.slug || slugify(child.title)}`,
+            }))
+          : service.points.map((label) => ({ label, href: `/services/${slug}#${slugify(label)}` }));
+        return `<div class="contact-service-group"><a href="/services/${esc(slug)}">${esc(service.title)}</a><details><summary>Explore ${esc(service.title)}</summary>${entries.map((entry) => `<a href="${esc(entry.href)}">${esc(entry.label)}</a>`).join("")}</details></div>`;
+      })
+      .join(""),
 
     HERO_EYEBROW: esc(page.hero.eyebrow),
     HERO_TITLE: shellChunk(page.hero.title, "gradient-text"),
@@ -305,7 +319,7 @@ export function applyContent(html, which, content = readContent()) {
 /** Everything the static build needs to emit the inner route pages. */
 export function staticRoutes(content) {
   const pages = content.routes
-    .filter((route) => route.key !== "home" && route.key !== "contact")
+    .filter((route) => route.key !== "home")
     .map((route) => pageBy(content, route.key))
     .map((page) => ({
       key: page.key,

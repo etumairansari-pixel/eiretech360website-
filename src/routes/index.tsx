@@ -1,801 +1,398 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { motion } from "motion/react";
-import { useEffect, useState, useRef } from "react";
-import {
-  ArrowUpRight,
-  Check,
-  Compass,
-  Route as RouteIcon,
-  Hammer,
-  TrendingUp,
-  Quote,
-  Star,
-  ShieldCheck,
-} from "lucide-react";
-import circuitImg from "@/assets/circuit.jpg";
-import heroDesktop01 from "@/assets/hero-desktop-01.mp4";
-import heroDesktop01Poster from "@/assets/hero-desktop-01-poster.jpg";
-import heroDesktop01PosterWebp from "@/assets/hero-desktop-01-poster.webp";
-import heroDesktop02 from "@/assets/hero-desktop-02.mp4";
-import heroDesktop02Poster from "@/assets/hero-desktop-02-poster.jpg";
-import heroDesktop02PosterWebp from "@/assets/hero-desktop-02-poster.webp";
-import heroMobile01 from "@/assets/hero-mobile-01.mp4";
-import heroMobile01Poster from "@/assets/hero-mobile-01-poster.jpg";
-import heroMobile01PosterWebp from "@/assets/hero-mobile-01-poster.webp";
-import heroMobile02 from "@/assets/hero-mobile-02.mp4";
-import heroMobile02Poster from "@/assets/hero-mobile-02-poster.jpg";
-import heroMobile02PosterWebp from "@/assets/hero-mobile-02-poster.webp";
-
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowUpRight, Check, ChevronDown, Quote } from "lucide-react";
 import { Shell } from "@/components/site/Shell";
-import { Footer } from "@/components/site/Footer";
-import { LogoMark } from "@/components/Logo";
-import { FinalCTA } from "@/components/site/FinalCTA";
 import { Highlight } from "@/components/site/Highlight";
-import { services, slugify } from "@/content/services";
-import "@/components/site/SectionLink";
-import { headFor, linkTo } from "@/content";
+import { HeroVideo } from "@/components/site/HeroVideo";
+import { services } from "@/content/services";
+import { projects } from "@/content/projects";
+import { headFor, pathFor } from "@/content";
 import homePage from "../../content/pages/home.json";
 import testimonials from "../../content/testimonials.json";
-import { iconFor } from "@/content/icons";
-import {
-  Counter,
-  MagneticLink,
-  Reveal,
-  SectionLabel,
-  Spotlight,
-} from "@/components/site/primitives";
 
 export const Route = createFileRoute("/")({
   head: () => headFor("home", homePage.seo),
   component: Home,
 });
+const mainServices = services.filter((s) => !s.parent);
+const marketingServices = services.filter((s) => s.parent === "digital-marketing");
 
-/* ---------------- Hero video background ---------------- */
-const HERO_VIDEOS = [
-  {
-    mobile: heroMobile01,
-    desktop: heroDesktop01,
-    mobilePoster: heroMobile01Poster,
-    desktopPoster: heroDesktop01Poster,
-    mobilePosterWebp: heroMobile01PosterWebp,
-    desktopPosterWebp: heroDesktop01PosterWebp,
-  },
-  {
-    mobile: heroMobile02,
-    desktop: heroDesktop02,
-    mobilePoster: heroMobile02Poster,
-    desktopPoster: heroDesktop02Poster,
-    mobilePosterWebp: heroMobile02PosterWebp,
-    desktopPosterWebp: heroDesktop02PosterWebp,
-    desktopPosterAlt: "EireTech360 digital marketing services",
-  },
-];
-
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(() =>
-    typeof window === "undefined" ? false : window.matchMedia(query).matches,
-  );
-
-  useEffect(() => {
-    const media = window.matchMedia(query);
-    const onChange = () => setMatches(media.matches);
-    onChange();
-    media.addEventListener("change", onChange);
-    return () => media.removeEventListener("change", onChange);
-  }, [query]);
-
-  return matches;
-}
-
-function HeroVideoBackground() {
-  const [active, setActive] = useState(0);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 767px)");
-  const prefersReducedData = useMediaQuery("(prefers-reduced-data: reduce)");
-
-  useEffect(() => {
-    if (prefersReducedData) return;
-    setShouldLoadVideo(false);
-    const timer = window.setTimeout(() => setShouldLoadVideo(true), isMobile ? 7000 : 1200);
-    return () => window.clearTimeout(timer);
-  }, [isMobile, prefersReducedData]);
-
-  useEffect(() => {
-    if (!shouldLoadVideo) return;
-    const rotation = window.setInterval(() => {
-      setActive((current) => (current + 1) % HERO_VIDEOS.length);
-    }, 8000);
-    return () => window.clearInterval(rotation);
-  }, [shouldLoadVideo]);
-
-  const video = HERO_VIDEOS[active];
-  const poster = isMobile ? video.mobilePoster : video.desktopPoster;
-  const posterWebp = isMobile ? video.mobilePosterWebp : video.desktopPosterWebp;
-  const posterAlt = (!isMobile && "desktopPosterAlt" in video && video.desktopPosterAlt) || "";
-
-  return (
-    <>
-      {/* The poster is the LCP element. WebP is ~44% lighter than the JPEG;
-          <picture> keeps the JPEG as the fallback, and <picture> itself is an
-          unpositioned inline wrapper so the img still absolutely fills the
-          same ancestor. */}
-      <picture>
-        <source srcSet={posterWebp} type="image/webp" />
-        <img
-          src={poster}
-          alt={posterAlt}
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-          aria-hidden={posterAlt ? undefined : "true"}
-        />
-      </picture>
-      {shouldLoadVideo && !prefersReducedData ? (
-        <video
-          key={`${video.mobile}-${video.desktop}`}
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
-          poster={poster}
-          aria-hidden="true"
-        >
-          <source src={video.mobile} media="(max-width: 767px)" type="video/mp4" />
-          <source src={video.desktop} media="(min-width: 768px)" type="video/mp4" />
-        </video>
-      ) : null}
-    </>
-  );
-}
-
-/* ---------------- Hero ---------------- */
 function Hero() {
-  const hero = homePage.hero;
-
   return (
-    <section className="relative isolate overflow-hidden pb-24">
-      {/* CraftTech-style video panel: full-bleed footage, fixed dark scrim
-          (not brand-bg — it must stay dark in light mode too), text on top. */}
-      <div className="relative flex aspect-[9/19] w-full flex-col justify-end overflow-hidden shadow-2xl md:aspect-[14/7]">
-        <div className="absolute inset-0">
-          <HeroVideoBackground />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-slate-950/25" />
-        </div>
-
-        <div className="relative mx-auto w-full max-w-7xl px-6 pb-12 md:pb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.05 }}
-            className="mb-8 hidden items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-brand-accent backdrop-blur md:inline-flex"
-          >
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-accent opacity-75" />
-              <span className="relative inline-flex size-2 rounded-full bg-brand-accent" />
-            </span>
-            {hero.badge}
-          </motion.div>
-
-          <h1 className="mb-8 text-5xl font-extrabold leading-[0.92] tracking-tighter text-white md:text-8xl">
-            {hero.headline.map((w, i) => (
-              <span key={w} className="mr-3 inline-block overflow-hidden align-top md:mr-4">
-                <motion.span
-                  initial={{ y: "110%" }}
-                  animate={{ y: "0%" }}
-                  transition={{ duration: 0.5, delay: 0.04 + i * 0.06, ease: [0.2, 0, 0, 1] }}
-                  className="inline-block"
-                >
-                  <Highlight text={w} />
-                </motion.span>
+    <section className="dm-home-hero dm-cinematic-hero">
+      <HeroVideo />
+      <div className="dm-container dm-hero-grid">
+        <div className="dm-hero-copy">
+          <p className="dm-overline">{homePage.hero.badge}</p>
+          <h1>
+            {homePage.hero.headline.map((text, i) => (
+              <span key={i}>
+                <Highlight text={text} />
+                {i < homePage.hero.headline.length - 1 && <br />}
               </span>
             ))}
           </h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.35 }}
-            className="mb-10 max-w-xl text-lg leading-relaxed text-white/80"
-          ></motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.45 }}
-            className="flex flex-col gap-4 sm:flex-row sm:flex-wrap"
-          >
-            <MagneticLink
-              to={linkTo(hero.primaryTo)}
-              className="group inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-full brand-gradient-bg px-8 py-4 font-bold text-white transition-shadow hover:brand-glow sm:w-80"
-            >
-              {hero.primaryLabel}
-              <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
-            </MagneticLink>
-            <MagneticLink
-              to={linkTo(hero.secondaryTo)}
-              className="inline-flex w-full items-center justify-center whitespace-nowrap rounded-full border border-white/30 px-8 py-4 font-bold text-white transition-colors hover:border-brand-accent/70 hover:text-brand-accent sm:w-80"
-            >
-              {hero.secondaryLabel}
-            </MagneticLink>
-          </motion.div>
+          <p className="dm-hero-subtitle">Your brand's online success starts here.</p>
+          <p>
+            Digital marketing, development and automation. The right strategy to connect with your
+            audience and move your business forward.
+          </p>
+          <div className="dm-actions">
+            <a href={pathFor("contact")} className="dm-button">
+              {homePage.hero.primaryLabel}
+              <ArrowUpRight size={18} />
+            </a>
+            <a href="#our-services" className="dm-button dm-button-outline">
+              Discover our services
+              <ArrowUpRight size={18} />
+            </a>
+          </div>
+          <div className="dm-hero-note">
+            <Check size={18} /> Ireland, Europe &amp; USA{" "}
+            <span>Strategy &middot; Creativity &middot; Growth</span>
+          </div>
         </div>
-      </div>
-
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="mt-16 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-brand-line pt-8 md:grid-cols-4">
-          {hero.stats.map((it) => (
-            <div key={it.label}>
-              <div
-                className={
-                  "text-3xl font-extrabold tracking-tight md:text-5xl " +
-                  (it.accent ? "brand-gradient-text" : "")
-                }
-              >
-                <Counter to={it.value} suffix={it.suffix} />
-              </div>
-              <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-brand-muted">
-                {it.label}
-              </div>
-            </div>
+        <aside className="dm-hero-aside">
+          <span className="dm-aside-label">One partner. Every possibility.</span>
+          <h2>
+            Built for your
+            <br />
+            <span>next chapter.</span>
+          </h2>
+          <p>Connect your marketing, technology and creativity in one place.</p>
+          {marketingServices.slice(0, 3).map((service) => (
+            <Link key={service.slug} to="/services/$slug" params={{ slug: service.slug }}>
+              {service.title}
+              <ArrowUpRight size={17} />
+            </Link>
           ))}
-        </div>
+        </aside>
       </div>
-    </section>
-  );
-}
-
-/* ---------------- Marquee ---------------- */
-function Marquee() {
-  const items = homePage.marquee;
-  return (
-    <section className="mask-fade-x overflow-hidden border-y border-brand-line bg-brand-surface py-7">
-      <div className="animate-marquee flex w-max gap-10 whitespace-nowrap font-mono text-xl uppercase tracking-tight md:text-2xl">
-        {[...items, ...items, ...items, ...items].map((t, i) => (
-          <span key={i} className="flex items-center gap-10 text-brand-muted">
-            {t}
-            <span className="inline-flex size-7 items-center justify-center rounded-md bg-white ring-1 ring-brand-accent/40">
-              <LogoMark className="size-5" />
-            </span>
-          </span>
+      <div className="dm-container dm-hero-capabilities">
+        {[
+          ["09", "Connected capabilities"],
+          ["04", "Marketing disciplines"],
+          ["03", "Markets: Ireland, Europe & USA"],
+        ].map(([number, label]) => (
+          <div key={label}>
+            <strong>{number}</strong>
+            <span>{label}</span>
+          </div>
         ))}
       </div>
     </section>
   );
 }
-
-/* ---------------- Mission ---------------- */
-function Mission() {
-  const mission = homePage.mission;
-
-  return (
-    <section className="py-28">
-      <div className="mx-auto max-w-4xl px-6 text-center">
-        <Reveal>
-          <SectionLabel>
-            <span className="mx-auto">{mission.label}</span>
-          </SectionLabel>
-        </Reveal>
-        <Reveal delay={0.05}>
-          <h2 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-5xl">
-            <Highlight text={mission.title} />
-          </h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-brand-muted">
-            <Highlight text={mission.body} />
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- Services expanding panels ---------------- */
-function ServicePanel({
-  s,
-  i,
-  active,
-  onActivate,
-}: {
-  s: (typeof services)[number];
-  i: number;
-  active: boolean;
-  onActivate: () => void;
-}) {
-  const Icon = s.icon;
-  const navigate = useNavigate();
-  // Whether the panel was already open when the press began. A mouse opens it
-  // on hover, so a click opens the service; on touch the first tap only
-  // expands the panel and a second tap opens the service.
-  const openOnPress = useRef(false);
-  return (
-    <motion.div
-      onMouseEnter={onActivate}
-      onPointerDown={() => {
-        openOnPress.current = active;
-      }}
-      onClick={() => {
-        if (openOnPress.current) navigate({ to: "/services/$slug", params: { slug: s.slug } });
-        else onActivate();
-      }}
-      style={{
-        flexGrow: active ? 16 : 1,
-        flexBasis: 0,
-        transition: "flex-grow 700ms cubic-bezier(0.22,1,0.36,1)",
-      }}
-      className="group relative h-[540px] min-w-[68px] shrink-0 cursor-pointer overflow-hidden border-r border-brand-line last:border-r-0"
-      data-hover
-    >
-      <motion.img
-        src={s.img}
-        alt={s.title}
-        loading="lazy"
-        animate={{ scale: active ? 1.03 : 1.18, opacity: active ? 1 : 0.62 }}
-        transition={{ duration: 1, ease: [0.2, 0, 0, 1] }}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <motion.div
-        aria-hidden
-        animate={{ opacity: active ? 0 : 0.58 }}
-        className="absolute inset-0 bg-slate-950"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-transparent" />
-      <motion.div
-        animate={{ opacity: active ? 1 : 0, scaleX: active ? 1 : 0 }}
-        transition={{ duration: 0.6, delay: active ? 0.1 : 0 }}
-        style={{ transformOrigin: "left" }}
-        className="brand-gradient-bg absolute inset-x-0 top-0 h-px"
-      />
-
-      {/* collapsed */}
-      <motion.div
-        animate={{ opacity: active ? 0 : 1 }}
-        transition={{ duration: 0.25 }}
-        className="absolute inset-0 flex flex-col items-center justify-between py-7"
-      >
-        <span className="font-mono text-[10px] tracking-widest text-white/60">
-          {String(i + 1).padStart(2, "0")}
-        </span>
-        <span
-          className="font-mono text-[11px] uppercase tracking-[0.4em] text-white"
-          style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-        >
-             <Highlight text={s.title} />
-        </span>
-        <div className="grid size-9 place-items-center rounded-md border border-white/25 bg-white/10 text-white backdrop-blur transition-colors group-hover:border-white/50 group-hover:bg-white/20">
-          <Icon className="size-4" />
-        </div>
-      </motion.div>
-
-      {/* expanded */}
-      <motion.div
-        animate={{ opacity: active ? 1 : 0, x: active ? 0 : -20 }}
-        transition={{ duration: 0.5, delay: active ? 0.2 : 0, ease: [0.2, 0, 0, 1] }}
-        className="pointer-events-none relative flex h-full flex-col justify-between p-8 md:p-10"
-      >
-        <div className="flex items-start justify-between gap-6">
-          <div className="grid size-14 place-items-center rounded-2xl border border-brand-primary/50 bg-gradient-to-br from-brand-primary/20 to-brand-primary/5 text-brand-primary backdrop-blur brand-glow">
-            <Icon className="size-6" />
-          </div>
-          <div className="text-right font-mono text-[10px] uppercase tracking-[0.25em] text-brand-primary-text">
-            / {s.tag}
-            <div className="mt-1 text-brand-muted">
-              {String(i + 1).padStart(2, "0")} — {String(services.length).padStart(2, "0")}
-            </div>
-          </div>
-        </div>
-        <div className="max-w-[520px]">
-          <h3 className="mb-4 text-3xl font-extrabold leading-[0.95] tracking-tighter text-white md:text-5xl">
-            {s.title}
-          </h3>
-           <p className="mb-6 max-w-md text-[15px] leading-relaxed text-white/80"><Highlight text={s.desc} /></p>
-          <div className={`flex flex-wrap gap-2 ${active ? "pointer-events-auto" : ""}`}>
-            {s.points.map((t) => (
-              <Link
-                key={t}
-                to="/services/$slug"
-                params={{ slug: s.slug }}
-                state={{ section: slugify(t) }}
-                onClick={(event) => event.stopPropagation()}
-                tabIndex={active ? 0 : -1}
-                className="rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-white/90 backdrop-blur transition-colors hover:border-white/50 hover:bg-white/20"
-              >
-                <Highlight text={t} />
-              </Link>
-            ))}
-          </div>
-          <Link
-            to="/services/$slug"
-            params={{ slug: s.slug }}
-            onClick={(event) => event.stopPropagation()}
-            tabIndex={active ? 0 : -1}
-            className={`mt-6 inline-flex items-center gap-2 rounded-full brand-gradient-bg px-6 py-3 text-sm font-bold text-white transition-shadow hover:brand-glow ${
-              active ? "pointer-events-auto" : ""
-            }`}
-          >
-            Explore {s.title}
-            <ArrowUpRight className="size-4" />
-          </Link>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function ServiceMobileCard({
-  s,
-  i,
-  active,
-  onToggle,
-}: {
-  s: (typeof services)[number];
-  i: number;
-  active: boolean;
-  onToggle: () => void;
-}) {
-  const Icon = s.icon;
-  return (
-    <motion.div
-      layout
-      onClick={onToggle}
-      animate={{ height: active ? 480 : 96 }}
-      className={`relative w-full cursor-pointer overflow-hidden rounded-2xl border text-white ${
-        active ? "border-brand-primary/50" : "border-brand-line"
-      }`}
-      data-hover
-    >
-      <motion.img
-        src={s.img}
-        alt={s.title}
-        loading="lazy"
-        animate={{ opacity: active ? 0.9 : 0.55, scale: active ? 1.02 : 1.12 }}
-        transition={{ duration: 0.7 }}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/25" />
-      <div className="relative flex items-center gap-4 p-5">
-        <div className="grid size-12 shrink-0 place-items-center rounded-xl border border-brand-primary/40 bg-brand-primary/10 text-brand-primary backdrop-blur">
-          <Icon className="size-5" />
-        </div>
-        <div className="min-w-0 flex-1">
-          <div className="font-mono text-[10px] uppercase tracking-widest text-brand-primary-text">
-            {String(i + 1).padStart(2, "0")} / {s.tag}
-          </div>
-           <h3 className="truncate text-lg font-extrabold tracking-tight text-white"><Highlight text={s.title} /></h3>
-        </div>
-        <motion.div
-          animate={{ rotate: active ? 45 : 0 }}
-          className="grid size-8 shrink-0 place-items-center rounded-full border border-brand-line text-brand-muted"
-        >
-          +
-        </motion.div>
-      </div>
-      <motion.div
-        animate={{ opacity: active ? 1 : 0, y: active ? 0 : 10 }}
-        transition={{ duration: 0.4, delay: active ? 0.15 : 0 }}
-        className={`relative px-6 pb-6 ${active ? "" : "pointer-events-none"}`}
-      >
-         <p className="mb-4 text-sm leading-relaxed text-white/90"><Highlight text={s.desc} /></p>
-        <ul className="space-y-1">
-          {s.points.map((p) => (
-            <li key={p}>
-              <Link
-                to="/services/$slug"
-                params={{ slug: s.slug }}
-                state={{ section: slugify(p) }}
-                onClick={(event) => event.stopPropagation()}
-                tabIndex={active ? 0 : -1}
-                className="flex items-center gap-2 py-1 text-xs text-white/80 underline-offset-4 hover:text-white hover:underline"
-              >
-                <Check className="size-3.5 shrink-0 text-brand-accent-text" />
-                <Highlight text={p} />
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <Link
-          to="/services/$slug"
-          params={{ slug: s.slug }}
-          onClick={(event) => event.stopPropagation()}
-          tabIndex={active ? 0 : -1}
-          className="mt-5 inline-flex items-center gap-2 rounded-full brand-gradient-bg px-5 py-2.5 text-sm font-bold text-white"
-        >
-          Explore service
-          <ArrowUpRight className="size-4" />
-        </Link>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function ServicesOverview() {
-  const [active, setActive] = useState(0);
-  const section = homePage.servicesSection;
-
-  return (
-    <section className="relative overflow-hidden bg-brand-surface py-28">
-      <div className="dot-bg pointer-events-none absolute inset-0 -z-10 opacity-50" />
-      <div className="pointer-events-none absolute -left-40 top-1/3 -z-10 size-[500px] rounded-full bg-brand-primary/10 blur-[140px]" />
-      <div className="pointer-events-none absolute -right-40 bottom-0 -z-10 size-[500px] rounded-full bg-brand-secondary/10 blur-[140px]" />
-
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-14 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <div>
-            <SectionLabel>{section.label}</SectionLabel>
-            <h2 className="max-w-2xl text-4xl font-extrabold tracking-tighter md:text-6xl">
-              <Highlight text={section.title} />
-            </h2>
-            <div className="brand-gradient-bg mt-5 h-1 w-20" />
-          </div>
-          <p className="max-w-sm text-sm leading-relaxed text-brand-muted">{section.intro}</p>
-        </div>
-
-        <div className="hidden overflow-hidden rounded-3xl border border-brand-line bg-brand-bg shadow-2xl lg:flex">
-          {services.map((s, i) => (
-            <ServicePanel
-              key={s.title}
-              s={s}
-              i={i}
-              active={active === i}
-              onActivate={() => setActive(i)}
-            />
-          ))}
-        </div>
-
-        <div className="flex flex-col gap-4 lg:hidden">
-          {services.map((s, i) => (
-            <ServiceMobileCard
-              key={s.title}
-              s={s}
-              i={i}
-              active={active === i}
-              onToggle={() => setActive(active === i ? -1 : i)}
-            />
-          ))}
-        </div>
-
-        <Reveal delay={0.1} className="mt-12 flex justify-center">
-          <MagneticLink
-            to={linkTo("services")}
-            className="group inline-flex items-center gap-2 rounded-full border border-brand-primary/40 bg-brand-primary/5 px-7 py-3.5 font-bold text-brand-primary-text transition-colors hover:bg-brand-primary/10"
-          >
-            {section.buttonLabel}
-            <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
-          </MagneticLink>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- Why Eire Tech ---------------- */
-function WhyEireTech() {
-  const why = homePage.why;
-
-  return (
-    <section className="py-28">
-      <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 md:grid-cols-2">
-        <div>
-          <SectionLabel>{why.label}</SectionLabel>
-          <h2 className="mb-6 text-4xl font-extrabold tracking-tighter md:text-5xl">
-            <Highlight text={why.title} />
-          </h2>
-          <p className="mb-8 leading-relaxed text-brand-muted">{why.body}</p>
-          <div>
-            {why.reasons.map(({ number: n, title: t, text: d }, idx) => (
-              <Reveal key={n} delay={idx * 0.06}>
-                <div
-                  className="group flex items-start gap-5 border-b border-brand-line py-5"
-                  data-hover
-                >
-                  <span className="font-mono text-sm text-brand-accent-text">{n}</span>
-                  <div className="flex-1">
-                    <div className="font-bold transition-transform group-hover:translate-x-1">
-                      {t}
-                    </div>
-                    <p className="mt-1 text-sm text-brand-muted">{d}</p>
-                  </div>
-                  <ArrowUpRight className="mt-1 size-4 text-brand-muted transition-all group-hover:rotate-45 group-hover:text-brand-primary-text" />
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-
-        <Reveal delay={0.1}>
-          <div className="relative">
-            <div className="animate-pulse-slow absolute inset-0 rounded-3xl bg-brand-primary/25 blur-[90px]" />
-            <div className="relative aspect-square overflow-hidden rounded-3xl border border-brand-line shadow-2xl">
-              <img
-                src={circuitImg}
-                alt="Glowing circuit board"
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 to-transparent" />
-              <div className="absolute left-4 top-4 size-6 border-l-2 border-t-2 border-brand-primary/60" />
-              <div className="absolute right-4 top-4 size-6 border-r-2 border-t-2 border-brand-primary/60" />
-              <div className="absolute bottom-4 left-4 size-6 border-b-2 border-l-2 border-brand-primary/60" />
-              <div className="absolute bottom-4 right-4 size-6 border-b-2 border-r-2 border-brand-primary/60" />
-              <div className="absolute inset-x-6 bottom-6 flex items-end justify-between">
-                <div>
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-brand-primary-text">
-                    {why.captionEyebrow}
-                  </div>
-                  <div className="mt-2 text-2xl font-bold text-white">{why.captionTitle}</div>
-                </div>
-                <LogoMark className="size-14 shrink-0" />
-              </div>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- Process ---------------- */
-function Process() {
-  const process = homePage.process;
-
-  return (
-    <section className="bg-brand-surface py-28">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-16">
-          <SectionLabel>{process.label}</SectionLabel>
-          <h2 className="text-4xl font-extrabold tracking-tighter md:text-5xl">
-            <Highlight text={process.title} />
-          </h2>
-        </div>
-        <div className="grid gap-px overflow-hidden rounded-2xl border border-brand-line bg-brand-line md:grid-cols-4">
-          {process.steps.map((s, i) => {
-            const Icon = iconFor(s.icon);
-            return (
-              <Reveal key={s.title} delay={i * 0.08}>
-                <div
-                  className="group relative h-full overflow-hidden bg-brand-bg p-8 transition-colors hover:bg-brand-elevated"
-                  data-hover
-                >
-                  <div className="absolute -right-4 -top-6 text-[110px] font-extrabold leading-none text-brand-text/[0.04] transition-colors group-hover:text-brand-primary/10">
-                    {i + 1}
-                  </div>
-                  <div className="relative">
-                    <div className="mb-8 grid size-12 place-items-center rounded-xl border border-brand-line bg-brand-surface text-brand-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <div className="mb-3 text-xl font-bold"><Highlight text={s.title} /></div>
-                    <p className="text-sm leading-relaxed text-brand-muted"><Highlight text={s.text} /></p>
-                    <div className="mt-6 h-px w-10 bg-gradient-to-r from-brand-accent to-transparent transition-all group-hover:w-24" />
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- Who We Serve ---------------- */
-function WhoWeServe() {
-  const serve = homePage.serve;
-
-  return (
-    <section className="py-28">
-      <div className="mx-auto max-w-5xl px-6">
-        <Spotlight className="overflow-hidden rounded-3xl border border-brand-line bg-brand-surface p-10 md:p-16">
-          <SectionLabel>{serve.label}</SectionLabel>
-          <h2 className="max-w-3xl text-3xl font-extrabold leading-tight tracking-tighter md:text-5xl">
-            <Highlight text={serve.title} />
-          </h2>
-           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-brand-muted"><Highlight text={serve.body} /></p>
-        </Spotlight>
-      </div>
-    </section>
-  );
-}
-
-function Testimonials() {
-  const section = homePage.testimonialsSection;
-
-  return (
-    <section className="relative overflow-hidden bg-brand-surface py-28">
-      <LogoMark
-        className="pointer-events-none absolute -left-28 top-1/2 size-[34rem] -translate-y-1/2 opacity-[0.025]"
-        title=""
-      />
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <div>
-            <SectionLabel>{section.label}</SectionLabel>
-            <h2 className="max-w-2xl text-4xl font-extrabold tracking-tighter md:text-6xl">
-              <Highlight text={section.title} />
-            </h2>
-          </div>
-          <div className="flex items-center gap-2 rounded-full border border-brand-line bg-brand-bg px-4 py-2 text-xs text-brand-muted">
-            <ShieldCheck className="size-4 text-brand-accent-text" /> {section.badge}
-          </div>
-        </div>
-        <div className="grid gap-5 lg:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={i * 0.08}>
-              <Spotlight className="relative h-full overflow-hidden rounded-3xl border border-brand-line bg-brand-bg p-8 shadow-xl shadow-brand-primary/[0.03]">
-                <Quote className="absolute right-7 top-7 size-10 text-brand-primary/10" />
-                <div className="mb-7 flex gap-1" role="img" aria-label="5 out of 5 stars">
-                  {Array.from({ length: 5 }).map((_, n) => (
-                    <Star
-                      key={n}
-                      aria-hidden
-                      className="size-4 fill-brand-accent text-brand-accent"
-                    />
-                  ))}
-                </div>
-                <blockquote className="text-lg font-medium leading-relaxed">“{t.quote}”</blockquote>
-                <div className="mt-8 flex items-center gap-4 border-t border-brand-line pt-6">
-                  <div className="grid size-12 place-items-center rounded-full brand-gradient-bg font-bold text-white shadow-lg">
-                    {t.initials}
-                  </div>
-                  <div>
-                    <div className="font-bold">{t.name}</div>
-                    <div className="mt-0.5 text-xs text-brand-muted">{t.role}</div>
-                  </div>
-                </div>
-              </Spotlight>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/**
- * Set only by the build's prerender step (src/entry-prerender.tsx), which
- * renders the homepage body into the static shell under its lightweight hero.
- */
-function renderingHomeBody() {
-  return (globalThis as { __EIRE_HOME_BODY__?: boolean }).__EIRE_HOME_BODY__ === true;
-}
-
 function Home() {
-  const body = (
-    <>
-      <Marquee />
-      <Mission />
-      <ServicesOverview />
-      <WhyEireTech />
-      <Process />
-      <WhoWeServe />
-      <Testimonials />
-      <FinalCTA
-        label={homePage.cta.label}
-        title={homePage.cta.title}
-        subtitle={homePage.cta.subtitle}
-        buttonLabel={homePage.cta.buttonLabel}
-        buttonTo={homePage.cta.buttonTo}
-      />
-    </>
-  );
-
-  // The shell already paints its own nav and hero, so only the rest is added.
-  if (renderingHomeBody()) {
-    return (
-      <>
-        {body}
-        <Footer />
-      </>
-    );
-  }
-
+  const mission = homePage.mission;
+  const why = homePage.why;
   return (
     <Shell>
-      <Hero />
-      {body}
+      <div className="dm-site">
+        <Hero />
+        <div className="dm-channel-strip">
+          <div className="dm-container">
+            {[
+              "Search Engine Optimization",
+              "Google & Meta Ads",
+              "Social Media Marketing",
+              "Content Strategy",
+              "Web & App Development",
+            ].map((t) => (
+              <span key={t}>{t}</span>
+            ))}
+          </div>
+        </div>
+        <section className="dm-section">
+          <div className="dm-container dm-split">
+            <div>
+              <p className="dm-eyebrow">Your digital growth partner</p>
+              <h2>
+                Digital expertise.
+                <br />
+                <span>Business-focused thinking.</span>
+              </h2>
+              <p className="dm-lead">{homePage.seo.description}</p>
+              <a href={pathFor("contact")} className="dm-button">
+                Let's build your growth plan
+                <ArrowUpRight size={18} />
+              </a>
+            </div>
+            <div className="dm-feature-photo">
+              <img
+                src={mainServices[0].img}
+                alt="Digital marketing collaboration"
+                width={1000}
+                height={700}
+                loading="lazy"
+              />
+              <div className="dm-photo-label">A connected approach to digital growth.</div>
+            </div>
+          </div>
+        </section>
+        <section className="dm-section dm-soft">
+          <div className="dm-container dm-split">
+            <div className="dm-feature-photo">
+              <img
+                src={mainServices[4].img}
+                alt="Website strategy and development workspace"
+                width={1000}
+                height={700}
+                loading="lazy"
+              />
+            </div>
+            <div>
+              <p className="dm-eyebrow">{mission.label}</p>
+              <h2>
+                <Highlight text={mission.title} />
+              </h2>
+              <p>
+                <Highlight text={mission.body} />
+              </p>
+              <a href="/services/digital-marketing" className="dm-text-link">
+                Explore digital marketing
+                <ArrowUpRight size={18} />
+              </a>
+            </div>
+          </div>
+        </section>
+        <section id="our-services" className="dm-section dm-showcase">
+          <div className="dm-container">
+            <div className="dm-section-heading">
+              <p className="dm-eyebrow">Our services</p>
+              <h2>
+                Everything your business needs
+                <br />
+                <span>to grow online.</span>
+              </h2>
+              <p>One team. Connected capabilities. A strategy built around your goals.</p>
+            </div>
+            <div className="dm-service-grid">
+              {mainServices.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <Link
+                    to="/services/$slug"
+                    params={{ slug: s.slug }}
+                    key={s.slug}
+                    className="dm-service-card"
+                  >
+                    <div className="dm-card-photo">
+                      <img
+                        src={s.img}
+                        alt={`${s.title} services`}
+                        width={600}
+                        height={400}
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="dm-card-content">
+                      <Icon size={28} />
+                      <h3>{s.title}</h3>
+                      <p>
+                        <Highlight text={s.desc} />
+                      </p>
+                      <span>
+                        Explore service
+                        <ArrowUpRight size={17} />
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+        <section className="dm-section">
+          <div className="dm-container">
+            <div className="dm-section-heading">
+              <p className="dm-eyebrow">Digital marketing services</p>
+              <h2>
+                The right audience.
+                <br />
+                <span>The right channels.</span>
+              </h2>
+            </div>
+            <div className="dm-marketing-grid">
+              {marketingServices.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <Link
+                    to="/services/$slug"
+                    params={{ slug: s.slug }}
+                    key={s.slug}
+                    className="dm-marketing-card"
+                  >
+                    <Icon size={32} />
+                    <h3>{s.title}</h3>
+                    <p>{s.tag}</p>
+                    <ArrowUpRight size={22} />
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+        <section className="dm-section dm-soft">
+          <div className="dm-container dm-split">
+            <div>
+              <p className="dm-eyebrow">{why.label}</p>
+              <h2>
+                <Highlight text={why.title} />
+              </h2>
+              <p>{why.body}</p>
+              <div className="dm-reasons">
+                {why.reasons.map((r) => (
+                  <div key={r.number}>
+                    <span>{r.number}</span>
+                    <div>
+                      <h3>{r.title}</h3>
+                      <p>{r.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="dm-feature-photo dm-tall-photo">
+              <img
+                src={marketingServices[1].img}
+                alt="Business strategy meeting"
+                width={1000}
+                height={1200}
+                loading="lazy"
+              />
+              <div className="dm-photo-label">Your goals. Our shared focus.</div>
+            </div>
+          </div>
+        </section>
+        <section className="dm-section dm-brand">
+          <div className="dm-container">
+            <div className="dm-section-heading">
+              <p className="dm-eyebrow">Our approach</p>
+              <h2>
+                A clear direction.
+                <br />
+                <span>At every step.</span>
+              </h2>
+            </div>
+            <div className="dm-process">
+              {homePage.process.steps.map((s, i) => (
+                <div key={s.title}>
+                  <strong>0{i + 1}</strong>
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="dm-section">
+          <div className="dm-container">
+            <div className="dm-section-heading">
+              <p className="dm-eyebrow">Our portfolio</p>
+              <h2>
+                Real projects.
+                <br />
+                <span>Thoughtful solutions.</span>
+              </h2>
+            </div>
+            <div className="dm-portfolio-grid">
+              {projects.slice(0, 4).map((p) => (
+                <Link
+                  key={p.title}
+                  to="/services/$slug"
+                  params={{ slug: p.service }}
+                  className="dm-project"
+                >
+                  <img src={p.img} alt={p.title} width={900} height={550} loading="lazy" />
+                  <div>
+                    <h3>{p.title}</h3>
+                    <span>
+                      View project
+                      <ArrowUpRight size={18} />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="dm-section dm-soft">
+          <div className="dm-container">
+            <div className="dm-section-heading">
+              <p className="dm-eyebrow">Client perspectives</p>
+              <h2>
+                Good work starts with
+                <br />
+                <span>a good partnership.</span>
+              </h2>
+            </div>
+            <div className="dm-testimonials">
+              {testimonials.map((t) => (
+                <blockquote key={t.name}>
+                  <Quote size={28} />
+                  <p>{t.quote}</p>
+                  <footer>
+                    <strong>{t.name}</strong>
+                    <span>{t.role}</span>
+                  </footer>
+                </blockquote>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="dm-section">
+          <div className="dm-container dm-split">
+            <div>
+              <p className="dm-eyebrow">Clear answers</p>
+              <h2>
+                Questions about
+                <br />
+                <span>your next step?</span>
+              </h2>
+              <p>Start with your business goals. We'll help you find a practical direction.</p>
+            </div>
+            <div className="dm-faq">
+              {[
+                [
+                  "Which digital marketing services can I choose?",
+                  "We offer SEO, PPC management, social media marketing and content strategy, supported by website development, design and automation.",
+                ],
+                [
+                  "Do you work with businesses outside Ireland?",
+                  "Yes. Our service strategies support businesses across Ireland, Europe and the USA, with an approach suited to each target market.",
+                ],
+                [
+                  "How do we get started?",
+                  "Contact us with your website, business goals and current challenges. We can discuss the most relevant services and a practical next step.",
+                ],
+              ].map(([q, a]) => (
+                <details key={q}>
+                  <summary>
+                    {q}
+                    <ChevronDown size={18} />
+                  </summary>
+                  <p>{a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="dm-cta">
+          <div className="dm-container">
+            <span className="dm-cta-label">Ready for your next chapter?</span>
+            <h2>
+              Let's turn your ideas into
+              <br />
+              digital business growth.
+            </h2>
+            <p>{homePage.cta.subtitle}</p>
+            <a href={pathFor("contact")} className="dm-button">
+              {homePage.cta.buttonLabel}
+              <ArrowUpRight size={18} />
+            </a>
+          </div>
+        </section>
+      </div>
     </Shell>
   );
 }

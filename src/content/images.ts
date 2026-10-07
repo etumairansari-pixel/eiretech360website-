@@ -31,17 +31,25 @@ import projectCliffsOfPuff from "@/assets/project-cliffs-of-puff.jpg";
 import projectE360 from "@/assets/project-e360.jpg";
 import projectCandyCiao from "@/assets/project-candy-ciao.jpg";
 import projectLoomCandy from "@/assets/project-loom-candy.jpg";
-import svcAi from "@/assets/svc-ai.jpg";
-import svcApp from "@/assets/svc-app.jpg";
-import svcAtl from "@/assets/svc-atl.jpg";
-import svcAutomation from "@/assets/svc-automation.jpg";
-import svcBrand from "@/assets/svc-brand.jpg";
-import svcDesign from "@/assets/svc-design.jpg";
-import svcMarketing from "@/assets/svc-marketing.jpg";
-import svcVideo from "@/assets/svc-video.jpg";
-import svcWeb from "@/assets/svc-web.jpg";
+import svcAi from "@/assets/photo-ai.webp";
+import svcApp from "@/assets/photo-app.webp";
+import svcAtl from "@/assets/photo-atl.webp";
+import svcAutomation from "@/assets/photo-automation.webp";
+import svcBrand from "@/assets/photo-brand.webp";
+import svcDesign from "@/assets/photo-design.webp";
+import svcMarketing from "@/assets/photo-marketing.webp";
+import svcVideo from "@/assets/photo-video.webp";
+import svcWeb from "@/assets/photo-web.webp";
+import svcSeo from "@/assets/photo-seo.webp";
+import svcPpc from "@/assets/photo-ppc.webp";
+import svcSocial from "@/assets/photo-social.webp";
+import svcContent from "@/assets/photo-content.webp";
 
 export const images = {
+  "svc-seo": svcSeo,
+  "svc-ppc": svcPpc,
+  "svc-social": svcSocial,
+  "svc-content": svcContent,
   "design-cliffs-halloween-post": designCliffsHalloweenPost,
   "video-lost-mary": videoLostMary,
   "video-lost-mary-poster": videoLostMaryPoster,

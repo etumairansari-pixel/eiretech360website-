@@ -14,6 +14,7 @@ import { serviceBySlug, services, type Service } from "@/content/services";
 import { projectsFor } from "@/content/projects";
 import { headFor, pathFor, route, site } from "@/content";
 import servicesPage from "../../content/pages/services.json";
+import { MarketingPage } from "@/components/site/MarketingPage";
 
 const SITE_URL = site.url.replace(/\/$/, "");
 
@@ -120,6 +121,18 @@ function ServiceDetailPage() {
   const work = projectsFor(service.slug);
 
   useOpenSection();
+
+  if (service.slug === "digital-marketing" || service.parent === "digital-marketing") {
+    return (
+      <Shell>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: structuredData(service) }}
+        />
+        <MarketingPage service={service} />
+      </Shell>
+    );
+  }
 
   return (
     <Shell>
