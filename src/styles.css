@@ -393,3 +393,8 @@ a.marketing-card:hover {
 *::after {
   border-radius: 0 !important;
 }
+/* Consistent heading case across all pages and highlighted heading text. */
+:is(h1, h2, h3, h4, h5, h6),
+:is(h1, h2, h3, h4, h5, h6) :is(span, a, strong, em, b) {
+  text-transform: capitalize !important;
+}
