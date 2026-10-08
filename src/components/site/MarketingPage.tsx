@@ -1,14 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Check, ChevronDown, ChevronRight } from "lucide-react";
 import { services, type Service } from "@/content/services";
-import { imageFor } from "@/content/images";
+import { servicePhoto } from "@/content/service-photography";
 import { pathFor } from "@/content";
 import { SectionLink } from "./SectionLink";
 import { Highlight } from "./Highlight";
 const channels = ["Google Search", "Meta Ads", "LinkedIn", "Instagram", "YouTube"];
 export function MarketingPage({ service }: { service: Service }) {
   const overview = !service.parent;
-  const children = services.filter((s) => s.parent === "digital-marketing");
+  const family = service.parent || service.slug;
+  const parent = services.find((s) => s.slug === family)!;
+  const children = services.filter((s) => s.parent === family);
+  const isMarketing = family === "digital-marketing";
   const questions = [
     {
       question: "Which markets do you support?",
@@ -37,8 +40,8 @@ export function MarketingPage({ service }: { service: Service }) {
             <ChevronRight size={13} />
             {!overview && (
               <>
-                <Link to="/services/$slug" params={{ slug: "digital-marketing" }}>
-                  Digital Marketing
+                <Link to="/services/$slug" params={{ slug: family }}>
+                  {parent.title}
                 </Link>
                 <ChevronRight size={13} />
               </>
@@ -49,12 +52,13 @@ export function MarketingPage({ service }: { service: Service }) {
             <div>
               <p className="dm-overline">{service.tag}</p>
               <h1>{service.title}</h1>
-              <p className="dm-hero-subtitle">
-                {overview ? "Your brand's online success starts here." : service.headline}
-              </p>
+              <p className="dm-hero-subtitle">{service.headline}</p>
               <p>
-                Reach the right people. Build meaningful connections. Turn your digital presence
-                into business opportunity.
+                {isMarketing
+                  ? "Reach the right people. Build meaningful connections. Turn your digital presence into business opportunity."
+                  : family === "brand-management"
+                    ? "Build a consistent identity, communicate clearly and strengthen customer trust."
+                    : "Connect your business tools, simplify follow-up and reduce repetitive work."}
               </p>
               <div className="dm-actions">
                 <a href={pathFor("contact")} className="dm-button">
@@ -70,8 +74,8 @@ export function MarketingPage({ service }: { service: Service }) {
             <div className="dm-service-hero-photo">
               <span className="dm-banner-kicker">Ireland &middot; Europe &middot; USA</span>
               <img
-                src={service.img}
-                alt={`${service.title} strategy and execution`}
+                src={servicePhoto(service.slug, 0).src}
+                alt={servicePhoto(service.slug, 0).alt}
                 width={1100}
                 height={800}
                 fetchPriority="high"
@@ -89,7 +93,24 @@ export function MarketingPage({ service }: { service: Service }) {
       </section>
       <div className="dm-channel-strip">
         <div className="dm-container">
-          {channels.map((c) => (
+          {(isMarketing
+            ? channels
+            : family === "brand-management"
+              ? [
+                  "Brand strategy",
+                  "Visual identity",
+                  "Brand voice",
+                  "Consistency",
+                  "Customer trust",
+                ]
+              : [
+                  "CRM integration",
+                  "Workflow automation",
+                  "Lead nurturing",
+                  "Reporting",
+                  "Connected systems",
+                ]
+          ).map((c) => (
             <span key={c}>{c}</span>
           ))}
         </div>
@@ -100,7 +121,7 @@ export function MarketingPage({ service }: { service: Service }) {
             <p className="dm-eyebrow">A strategy with purpose</p>
             <h2>
               {overview
-                ? "Your digital growth starts with the right direction."
+                ? `${service.title}, built around your business.`
                 : `${service.title}, built around your goals.`}
             </h2>
             <a href={pathFor("contact")} className="dm-button">
@@ -109,12 +130,8 @@ export function MarketingPage({ service }: { service: Service }) {
             </a>
             <div className="dm-overview-photo">
               <img
-                src={
-                  overview || service.slug === "seo-services"
-                    ? imageFor("svc-automation")
-                    : service.img
-                }
-                alt={`${service.title} research and planning`}
+                src={servicePhoto(service.slug, 1).src}
+                alt={servicePhoto(service.slug, 1).alt}
                 width={1000}
                 height={650}
                 loading="lazy"
@@ -135,9 +152,9 @@ export function MarketingPage({ service }: { service: Service }) {
         <section className="dm-section dm-brand">
           <div className="dm-container">
             <div className="dm-section-heading">
-              <p className="dm-eyebrow">Our digital marketing services</p>
+              <p className="dm-eyebrow">Explore {parent.title.toLowerCase()}</p>
               <h2>
-                The right channels.
+                The right capabilities.
                 <br />
                 <span>Working together.</span>
               </h2>
@@ -198,23 +215,8 @@ export function MarketingPage({ service }: { service: Service }) {
             <div className={`dm-container dm-split ${i % 2 === 1 ? "dm-split-reverse" : ""}`}>
               <div className="dm-section-photo">
                 <img
-                  src={
-                    overview
-                      ? imageFor(["svc-ai", "svc-social", "svc-automation", "svc-content"][i % 4])
-                      : service.slug === "seo-services"
-                        ? imageFor(
-                            [
-                              "svc-web",
-                              "svc-ai",
-                              "svc-seo",
-                              "svc-marketing",
-                              "svc-ppc",
-                              "svc-automation",
-                            ][i % 6],
-                          )
-                        : service.img
-                  }
-                  alt={`${section.title} expertise`}
+                  src={servicePhoto(service.slug, i + 2).src}
+                  alt={servicePhoto(service.slug, i + 2).alt}
                   width={1000}
                   height={800}
                   loading="lazy"

@@ -1,8 +1,8 @@
 {
   "$comment": "Copy and metadata for the home page. Its slug and navigation labels live in content/site.json.",
   "seo": {
-    "title": "Eire Tech | Digital Growth & Automation Partner",
-    "description": "Eire Tech helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
+    "title": "EireTech360 | Digital Growth, Automation, Web & AI Solutions",
+    "description": "EireTech360 helps businesses grow, automate & innovate with expert web development, digital marketing, app development, branding & AI solutions.",
     "robots": "index, follow"
   },
   "hero": {
@@ -53,7 +53,7 @@
   "mission": {
     "label": "Our Mission",
     "title": "Technology and Creativity, [g]Working as one.[/g]",
-    "body": "Eire Tech 360 is a company that helps online businesses grow in Ireland and around the world. EireTech provides digital solutions, including Digital Marketing, SEO, Automation, Web Development, and Branding services. We help clients grow their businesses online through Google Search Engines and Social Media with a focus on client satisfaction. We provide smart strategies along with modern [b]SEO, AEO, and GEO solutions.[/b]"
+    "body": "EireTech360 helps businesses in Ireland, Europe and the USA connect digital marketing, automation, web development and branding. From our Washington, DC headquarters, we work remotely with your team to improve visibility, reduce manual work and build the digital systems your business needs to grow."
   },
   "servicesSection": {
     "label": "Everything Under One Roof",
@@ -62,7 +62,7 @@
     "buttonLabel": "See How We Can Help"
   },
   "why": {
-    "label": "Why Eire Tech",
+    "label": "Why EireTech360",
     "title": "We Build [g]Ecosystems[/g], not just deliverables.",
     "body": "Whether you're just establishing your presence or ready to scale through automation and AI, our team works closely with you — as an extension of your own — to deliver outcomes that matter.",
     "reasons": [
@@ -129,7 +129,7 @@
   "cta": {
     "label": "Let's build",
     "title": "Let's build something [gg]exceptional[/gg] together",
-    "subtitle": "Ready to power your next phase of growth? Connect with Eire Tech and let's talk about what's possible.",
+    "subtitle": "Ready to power your next phase of growth? Connect with EireTech360 and let's talk about what's possible.",
     "buttonLabel": "Connect With Us",
     "buttonTo": "contact"
   }

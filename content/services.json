@@ -539,5 +539,323 @@
       "Support across Ireland, Europe and the USA",
       "Clear reporting and ongoing improvement"
     ]
+  },
+  {
+    "title": "CRM Integration & Implementation",
+    "slug": "crm-integration",
+    "parent": "marketing-business-automation",
+    "headline": "CRM Integration Services & CRM Implementation Solutions",
+    "icon": "workflow",
+    "tag": "Connected customer systems",
+    "image": "detail-analytics",
+    "desc": "Managing customer relationships becomes difficult when sales, marketing and customer data are spread across different systems. A properly configured CRM brings that information together, giving your team a clearer view of leads, customers and sales opportunities.",
+    "intro": "Managing customer relationships becomes difficult when sales, marketing and customer data are spread across different systems. A properly configured CRM brings that information together, giving your team a clearer view of leads, customers and sales opportunities.\n\nOur CRM integration services help businesses connect customer data, automate routine processes and build more efficient sales and marketing workflows. From initial CRM setup and data migration to third-party integrations and automation, we create practical solutions for businesses across Ireland, Europe and the USA.",
+    "points": [
+      "CRM Implementation Services",
+      "CRM Integration With Your Business Tools",
+      "HubSpot, Salesforce and Other CRM Platforms",
+      "CRM Data Migration",
+      "CRM Automation and Workflow Setup",
+      "Website and CRM Integration",
+      "Sales Pipeline and CRM Reporting",
+      "CRM Consulting and System Optimisation",
+      "CRM Solutions for Ireland, Europe and the USA",
+      "Improve Your Sales and Customer Management With the Right CRM"
+    ],
+    "details": [
+      "A successful CRM project starts with understanding how your business actually works.\n\nBefore configuring a system, we look at your customer journey, sales process, lead sources, existing tools and reporting requirements. This helps create a CRM structure that supports your team rather than forcing employees to adapt to unnecessary complexity.\n\nOur CRM implementation services can include system configuration, contact and company records, custom fields, sales pipelines, deal stages, user permissions, dashboards and workflow setup.\n\nWhether you're moving away from spreadsheets or replacing an existing platform, the objective is to create a CRM that is organised, scalable and easy to use.",
+      "Your CRM shouldn't operate as an isolated system.\n\nConnecting it with the tools your business already uses can reduce manual work and improve the accuracy of customer information.\n\nCRM integrations can connect your system with:\n\nBusiness websites and contact forms\n\nEmail marketing platforms\n\neCommerce systems\n\nCalendars and scheduling tools\n\nAccounting and invoicing software\n\nMarketing automation platforms\n\nCustomer support systems\n\nOther business applications and APIs\n\nFor example, a website enquiry can automatically create a new contact or sales opportunity inside the CRM. Your sales team can then follow up without manually copying information from emails or spreadsheets.",
+      "Different businesses need different CRM platforms.\n\nHubSpot may suit companies looking to connect marketing, sales and customer service activities. Salesforce offers extensive customisation for more complex sales operations, while Microsoft Dynamics 365 can fit organisations already working within the Microsoft ecosystem.\n\nWe can also support CRM projects involving platforms such as Zoho CRM and Pipedrive.\n\nRather than choosing software because it is popular, the priority should be finding a solution that matches your processes, team size, integration requirements and future plans.",
+      "Moving customer information from an old system into a new CRM requires careful planning.\n\nDuplicate contacts, incomplete records and inconsistent fields can create problems if everything is transferred without review.\n\nOur CRM data migration process focuses on organising and mapping existing information before it enters the new system. Contacts, companies, opportunities and other relevant records can be structured according to the requirements of the new CRM.\n\nA cleaner database gives sales and marketing teams more reliable information to work with from day one.",
+      "Many everyday sales and marketing tasks can be automated.\n\nCRM automation can help with lead assignment, follow-up reminders, internal notifications, customer segmentation and repetitive administrative tasks.\n\nFor example, when a qualified lead enters the system, the CRM can assign it to the appropriate salesperson, create a follow-up task and trigger relevant internal notifications.\n\nAutomation isn't about adding complexity. It should remove unnecessary manual steps while making important processes more consistent.",
+      "Connecting your website directly to your CRM can make lead management significantly easier.\n\nContact forms, landing pages, quote requests and other conversion points can send customer information directly into the CRM.\n\nThis also creates better visibility across digital marketing campaigns. When CRM data is connected correctly, businesses can gain a clearer understanding of which channels are generating valuable enquiries rather than simply producing website traffic.\n\nFor companies investing in SEO, Google Ads, paid social or content marketing, this connection can provide valuable insight into marketing performance.",
+      "A well-structured CRM gives managers a clearer picture of what is happening across the sales process.\n\nDashboards and reports can track metrics such as new leads, active opportunities, deal values, pipeline stages, conversion rates and sales performance.\n\nInstead of collecting information manually from different sources, teams can access relevant data from one central system.\n\nBetter reporting can also reveal where opportunities are slowing down or being lost, helping businesses make more informed sales and marketing decisions.",
+      "Already using a CRM but not getting enough value from it?\n\nThe problem isn't always the software. Poor configuration, disconnected tools, inconsistent data and overly complicated workflows can prevent teams from using a CRM effectively.\n\nOur CRM consulting services can help identify gaps in an existing setup and recommend practical improvements.\n\nThis may involve simplifying pipelines, improving automation, connecting additional applications, restructuring customer data or creating more useful reporting dashboards.",
+      "Businesses operating across different markets need CRM systems that can grow with them.\n\nWe provide CRM setup, integration and implementation support for businesses in Ireland, Europe and the USA, with solutions tailored to individual workflows and technology requirements.\n\nFor organisations operating within Ireland and the European Union, CRM processes should also take relevant data protection and GDPR requirements into consideration when customer information is collected, stored and processed.",
+      "A CRM should give your team better visibility, cleaner customer data and more efficient processes.\n\nFrom CRM implementation and system integration to data migration, workflow automation and ongoing optimisation, we help businesses create CRM systems designed around real operational needs.\n\nWhether you're implementing a CRM for the first time, connecting existing business tools or improving an outdated setup, Eire Tech 360 can help you create a more connected approach to customer and sales management.\n\nTalk to our team about the right CRM solution for your business."
+    ],
+    "seo": {
+      "title": "CRM Integration & Implementation | EireTech360",
+      "description": "Managing customer relationships becomes difficult when sales, marketing and customer data are spread across different systems. A properly configured CRM brin"
+    }
+  },
+  {
+    "title": "Lead Nurturing",
+    "slug": "lead-nurturing",
+    "parent": "marketing-business-automation",
+    "headline": "Lead Nurturing & Marketing Automation Services",
+    "icon": "target",
+    "tag": "Consistent customer follow-up",
+    "image": "detail-campaign",
+    "desc": "Generating leads is only the beginning. Many potential customers are interested in a product or service but aren't ready to buy immediately. Without consistent follow-up, those opportunities can quickly go cold.",
+    "intro": "Generating leads is only the beginning. Many potential customers are interested in a product or service but aren't ready to buy immediately. Without consistent follow-up, those opportunities can quickly go cold.\n\nOur lead nurturing services help businesses stay connected with prospects throughout the buying journey. By combining marketing automation, personalised communication, lead scoring and CRM workflows, we create structured follow-up systems that move interested prospects closer to a sales conversation.\n\nWe support businesses across Ireland, Europe and the USA with lead nurturing strategies designed around their customers, sales cycles and marketing goals.",
+    "points": [
+      "Build a Lead Nurturing Strategy Around the Buyer Journey",
+      "Marketing Automation for Consistent Follow-Up",
+      "Email Lead Nurturing",
+      "Lead Scoring and Qualification",
+      "CRM Integration and Sales Handoff",
+      "Behaviour-Based Lead Nurturing",
+      "Lead Segmentation and Personalisation",
+      "Re-Engage Leads That Have Gone Quiet",
+      "Lead Nurturing for Ireland, Europe and the USA",
+      "Measure and Improve Lead Nurturing Performance",
+      "Turn More Leads Into Sales Opportunities"
+    ],
+    "details": [
+      "Not every lead should receive the same message.\n\nSomeone who has just downloaded a guide is at a different stage from a prospect who has visited your pricing page several times or requested product information.\n\nAn effective lead nurturing strategy recognises those differences.\n\nWe map the customer journey and identify important stages between initial interest and sales readiness. Content and follow-up can then be planned around what a prospect is likely to need at each stage.\n\nInstead of repeatedly asking people to buy, nurturing helps answer questions, build confidence and create logical opportunities for the next conversation.",
+      "Manual follow-up becomes difficult as lead volume grows.\n\nMarketing automation allows businesses to create workflows that respond to customer actions automatically. A form submission might trigger a welcome email, while a returning prospect could receive different content based on previous interactions.\n\nAutomated workflows can support:\n\nWelcome and follow-up sequences\n\nEducational email campaigns\n\nLead nurturing emails\n\nBehaviour-based communication\n\nSales reminders and alerts\n\nRe-engagement campaigns\n\nCRM updates\n\nSales handoffs\n\nAutomation helps create consistency without requiring employees to remember every follow-up manually.",
+      "Email remains an effective channel for developing relationships with prospects when messages are relevant to their interests.\n\nRather than sending the same promotional emails to everyone, email lead nurturing can deliver different content based on a prospect's needs, behaviour or position in the sales funnel.\n\nEarly-stage leads may benefit from educational information, guides or common questions. Prospects showing stronger buying intent may need case studies, comparisons, demonstrations or information about the next step.\n\nThe objective is to make each email useful instead of simply increasing sending frequency.",
+      "Sales teams shouldn't have to treat every lead as equally ready to buy.\n\nLead scoring can help identify prospects showing stronger signs of purchase intent.\n\nScores may consider factors such as website activity, email engagement, form submissions, content downloads and relevant customer characteristics. When a lead reaches an agreed qualification level, the CRM can alert or assign the opportunity to the sales team.\n\nThis creates a clearer distinction between prospects who need more nurturing and those who may be ready for direct sales contact.\n\nCurrent lead-nurturing providers increasingly combine behavioural and demographic signals with CRM data rather than relying on engagement alone.",
+      "Lead nurturing becomes much more useful when marketing and sales systems work together.\n\nCRM integration can keep lead activity, contact information and lifecycle stages connected. When someone takes an important action, their CRM record can update automatically.\n\nA qualified lead can then be assigned to the appropriate salesperson along with useful context about previous interactions.\n\nThis creates a smoother marketing-to-sales handoff and reduces the risk of interested prospects sitting unnoticed in a database.",
+      "Traditional drip campaigns often send messages according to a fixed schedule.\n\nBehaviour-based nurturing can go further.\n\nInstead of only asking how many days have passed, workflows can consider what a prospect actually did. Visiting an important service page, returning to the website or engaging with specific content can indicate changing levels of interest.\n\nThese signals can trigger relevant communication or notify sales when appropriate.\n\nThe result is a customer journey that responds to engagement rather than treating every prospect identically.",
+      "Relevant communication starts with understanding who you're speaking to.\n\nLeads can be segmented according to factors such as service interest, industry, location, source, customer type or stage in the buying journey.\n\nThat information can then shape the content they receive.\n\nPersonalisation doesn't need to mean adding someone's first name to every email. A more useful form of personalisation is ensuring the message itself reflects the prospect's interests and needs.\n\nThis makes nurturing feel more like a useful conversation and less like a generic marketing sequence.",
+      "A prospect who isn't ready today may still become a customer later.\n\nInstead of abandoning inactive leads, re-engagement campaigns can create opportunities to restart the conversation.\n\nNew resources, product updates, useful insights or relevant offers can be used to reconnect with prospects who previously showed interest.\n\nThis can help businesses get more value from leads already in their CRM rather than relying entirely on generating new enquiries.",
+      "Buying behaviour, sales cycles and customer expectations can vary across markets.\n\nWe create nurturing workflows for businesses targeting customers in Ireland, Europe and the USA, adapting communication and customer journeys to the audience being served.\n\nFor businesses communicating with customers in Ireland and European markets, relevant consent, privacy and GDPR requirements should also be considered when building automated marketing workflows.\n\nA successful system should combine effective follow-up with responsible customer communication.",
+      "A nurturing system shouldn't be judged only by email opens or clicks.\n\nThe more important question is whether leads are progressing.\n\nUseful measurements can include engagement, qualified leads, sales handoffs, conversion rates, pipeline progression and revenue contribution.\n\nPerformance data can then be used to refine scoring rules, messages, timing and workflow logic.\n\nLead nurturing is an ongoing process. As customer behaviour changes, the system should change with it.",
+      "Generating more leads isn't always the solution. Sometimes the bigger opportunity is improving what happens to the leads you already have.\n\nA structured combination of lead nurturing, marketing automation, lead scoring, CRM integration and personalised follow-up can help businesses build stronger relationships with prospects while giving sales teams better-qualified opportunities.\n\nEire Tech 360 helps businesses create automated nurturing systems around their customer journey and sales process."
+    ],
+    "seo": {
+      "title": "Lead Nurturing | EireTech360",
+      "description": "Generating leads is only the beginning. Many potential customers are interested in a product or service but aren't ready to buy immediately. Without consiste"
+    }
+  },
+  {
+    "title": "Workflow Automation",
+    "slug": "workflow-automation",
+    "parent": "marketing-business-automation",
+    "headline": "Workflow Automation & Business Process Automation Services",
+    "icon": "workflow",
+    "tag": "Reduce repetitive work",
+    "image": "detail-laptop",
+    "desc": "Repetitive tasks can quietly consume hours every week. Copying information between systems, updating spreadsheets, sending routine follow-ups, preparing reports and chasing approvals all take time that could be spent on higher-value work.",
+    "intro": "Repetitive tasks can quietly consume hours every week. Copying information between systems, updating spreadsheets, sending routine follow-ups, preparing reports and chasing approvals all take time that could be spent on higher-value work.\n\nOur workflow automation services help businesses replace repetitive manual processes with reliable, connected workflows. From sales and marketing to finance, customer service and internal operations, we identify where automation can save time, reduce errors and keep work moving.\n\nWe provide business process automation solutions for companies across Ireland, Europe and the USA, designed around the tools and processes they already use.",
+    "points": [
+      "Business Process Automation Built Around Real Workflows",
+      "Automate Repetitive Business Tasks",
+      "Connect Your Business Tools",
+      "CRM and Sales Workflow Automation",
+      "Automated Approval Workflows",
+      "Reporting and Data Automation",
+      "AI-Powered Workflow Automation",
+      "Customer Onboarding Automation",
+      "Workflow Automation for Ireland, Europe and the USA",
+      "Review, Test and Improve Automated Processes",
+      "Reduce Manual Work With Smarter Automation"
+    ],
+    "details": [
+      "Automation works best when the process is understood before the technology is introduced.\n\nWe start by looking at how work currently moves through your business. Where does information enter? Who needs to review it? Which tasks are repeated? Where do delays happen?\n\nOnce the process is mapped, we can identify which steps are suitable for business process automation and which still require human judgement.\n\nThe result is a practical automation plan based on genuine operational needs rather than automating tasks simply because the technology exists.",
+      "Many everyday tasks follow predictable rules and don't need to be completed manually every time.\n\nWorkflow automation can help streamline activities such as:\n\nData entry and data transfer\n\nLead routing and follow-ups\n\nApproval processes\n\nCustomer onboarding\n\nInvoice and payment workflows\n\nDocument processing\n\nInternal notifications\n\nRecurring reports\n\nAppointment and task reminders\n\nCRM record updates\n\nAutomating these repetitive processes can reduce administrative workload while improving consistency across teams.",
+      "Businesses often use several platforms to manage different parts of their operations. Problems appear when those systems don't communicate.\n\nA lead may arrive through a website form, customer details may sit in a CRM, invoices may be managed in accounting software and project information may live somewhere else entirely.\n\nOur process automation services can connect compatible applications so information moves between systems with less manual intervention.\n\nThis may involve CRMs, email platforms, spreadsheets, project management tools, accounting software, eCommerce platforms, databases and other business applications.\n\nInstead of employees acting as the bridge between disconnected tools, integrations can keep information moving automatically.",
+      "Sales teams should spend their time building relationships and closing opportunities—not repeatedly updating systems.\n\nCRM workflow automation can help capture leads, assign opportunities, update records, create follow-up tasks and trigger notifications based on predefined conditions.\n\nFor example, when a potential customer submits a website enquiry, their details can be added to the CRM automatically. The appropriate salesperson can be notified and a follow-up task created without someone manually transferring the information.\n\nThis creates a more consistent sales process and reduces the chance of valuable enquiries being overlooked.",
+      "Approval processes can become unnecessarily slow when requests move through long email chains.\n\nAutomated workflows can route requests to the correct person based on predefined business rules.\n\nPurchase requests, expenses, documents, contracts or other internal approvals can move through structured stages, with notifications sent when action is required.\n\nIf an approval remains incomplete, reminders or escalation rules can help keep the process moving.\n\nThis gives teams clearer visibility into where a request is and what needs to happen next.",
+      "Recurring reports are another area where businesses can lose significant time.\n\nEmployees may spend hours collecting information from different systems, updating spreadsheets and preparing the same reports every week or month.\n\nData and reporting automation can collect information from connected sources, process it according to defined rules and update dashboards or reports automatically.\n\nThis can reduce repetitive data handling and give decision-makers faster access to useful business information.",
+      "Modern automation can go beyond simple “if this happens, do that” rules.\n\nAI workflow automation can support processes involving documents, emails, text and other less structured information. Depending on the use case, AI can help classify information, summarise content, extract relevant details or route requests to the appropriate workflow.\n\nHowever, AI isn't necessary for every process.\n\nSimple rule-based automation can often be more reliable and cost-effective. We focus on using the right approach for the task rather than adding AI where it provides little practical value.",
+      "A smooth onboarding experience can make an important first impression.\n\nAutomated onboarding workflows can help organise forms, documents, internal tasks, customer communications and account updates after a new client or customer signs up.\n\nInstead of relying on employees to remember every step, the workflow can trigger tasks and notifications at the appropriate stage.\n\nThis helps create a more consistent experience while giving your team clearer visibility over onboarding progress.",
+      "Businesses across different markets face the same fundamental challenge: too much valuable time is spent on work that can be streamlined.\n\nWe provide workflow and business process automation for companies across Ireland, Europe and the USA, with solutions designed around existing systems, operational requirements and growth plans.\n\nFor businesses operating in Ireland and the European Union, automation involving personal information should also be designed with relevant data protection and GDPR requirements in mind.\n\nThe objective is not simply to automate more. It is to automate the processes where doing so creates measurable operational value.",
+      "A workflow needs to remain reliable after it goes live.\n\nBusiness processes change, software platforms evolve and new exceptions can appear over time. Automated workflows should therefore be monitored and reviewed rather than forgotten after implementation.\n\nTesting, error handling and performance monitoring can help identify where workflows need adjustment.\n\nAs your business grows, existing automation can also be expanded to connect additional systems or support new processes.",
+      "The best automation is often the one your team barely notices.\n\nInformation reaches the right system. Follow-ups happen on time. Approvals move forward. Reports are prepared consistently. Employees spend less time copying data and chasing routine tasks.\n\nFrom workflow automation and business process automation to CRM workflows, system integrations, reporting and AI-powered automation, we help businesses create more efficient ways of working.\n\nEireTech360 can help identify repetitive processes, connect your existing tools and build automated workflows around the way your business operates.\n\nTalk to our team about the business processes you want to simplify and automate."
+    ],
+    "seo": {
+      "title": "Workflow Automation | EireTech360",
+      "description": "Repetitive tasks can quietly consume hours every week. Copying information between systems, updating spreadsheets, sending routine follow-ups, preparing repo"
+    }
+  },
+  {
+    "title": "Brand Strategy & Positioning",
+    "slug": "brand-positioning",
+    "parent": "brand-management",
+    "headline": "Brand Strategy & Brand Positioning Services",
+    "icon": "compass",
+    "tag": "A clear market position",
+    "image": "detail-strategy",
+    "desc": "A strong brand is more than a memorable logo or attractive website. It is how customers recognise your business, understand its value and decide why they should choose you over competitors.",
+    "intro": "A strong brand is more than a memorable logo or attractive website. It is how customers recognise your business, understand its value and decide why they should choose you over competitors.\n\nOur brand strategy services help businesses develop a clear identity, communicate their strengths and establish a distinctive market position. From audience research and competitive analysis to brand messaging and identity development, we create strategies that support consistent communication and long-term growth.\n\nWe work with startups, growing companies and established businesses across Ireland, Europe and the USA.",
+    "points": [
+      "Brand Strategy Services for Businesses",
+      "Brand Positioning Strategy",
+      "Market Research and Competitor Analysis",
+      "Brand Identity Development",
+      "Brand Messaging and Tone of Voice",
+      "Target Audience and Customer Research",
+      "Rebranding and Brand Development",
+      "Brand Strategy for Ireland, Europe and the USA",
+      "Brand Consistency Across Digital Channels",
+      "Build a Stronger Brand Identity"
+    ],
+    "details": [
+      "Every successful brand needs a clear direction.\n\nBefore developing visuals or marketing campaigns, we explore what your business offers, who your customers are and what makes your services different.\n\nOur approach to brand development focuses on defining your purpose, values, audience and competitive advantages.\n\nA well-planned strategy provides direction for website content, advertising, social media, customer communication and future marketing decisions.\n\nInstead of relying on disconnected campaigns, your business can communicate through one consistent identity.",
+      "Customers often compare several businesses before making a decision. Clear positioning helps them understand why your company deserves consideration.\n\nOur brand positioning services focus on identifying the qualities that distinguish your business within its market.\n\nWe examine customer expectations, competitor messaging, industry trends and opportunities for differentiation.\n\nThis research helps establish a positioning statement that explains who your business serves, what it offers and why its approach matters.\n\nThe objective is not simply to appear different. It is to communicate differences that customers genuinely value.",
+      "Effective branding begins with understanding the market.\n\nOur research process explores customer preferences, competitor strengths, market gaps and changing buying behaviour.\n\nCompetitor analysis helps identify common messaging patterns and opportunities where your business can communicate something more meaningful.\n\nWe also examine how competing brands present their services, pricing, values and customer experience.\n\nThese insights provide a practical foundation for brand decisions rather than relying entirely on assumptions.",
+      "Your visual identity should reflect the personality and positioning of your business.\n\nBrand identity development connects strategic thinking with visual communication, including logos, typography, colour palettes, imagery and design guidelines.\n\nA consistent identity helps customers recognise your business across websites, social media, presentations and marketing materials.\n\nWe focus on creating visual direction that supports your brand message rather than following design trends without a clear purpose.",
+      "Even a well-designed brand can struggle when its messaging is unclear.\n\nOur brand messaging strategy helps define how your business communicates its value across different channels.\n\nThis includes developing key messages, value propositions, brand personality and tone-of-voice guidelines.\n\nA professional services company may need confident, straightforward language, while a consumer brand might benefit from a warmer conversational style.\n\nThe goal is to create communication that sounds natural, reflects your identity and remains consistent wherever customers encounter your business.",
+      "A brand cannot connect with everyone in exactly the same way.\n\nUnderstanding your ideal customers helps determine which messages, benefits and experiences deserve attention.\n\nWe explore audience characteristics, customer challenges, buying motivations and decision-making behaviour.\n\nThese insights support more relevant marketing campaigns, website messaging and customer experiences.\n\nWhen your brand speaks directly to the people most likely to need your services, communication becomes clearer and more purposeful.",
+      "Businesses change over time.\n\nNew services, changing audiences, stronger competitors or expansion into new markets may require an updated brand direction.\n\nOur rebranding strategy can help assess existing positioning, identify weaknesses and establish a clearer identity.\n\nRebranding does not always mean replacing everything. Sometimes refining your messaging, visual consistency or customer proposition is enough.\n\nThe right approach depends on your existing reputation, business objectives and market opportunities.",
+      "Different markets can have different customer expectations, cultural preferences and competitive conditions.\n\nWe provide branding and positioning support for businesses operating across Ireland, Europe and the USA.\n\nWhether your company is building recognition locally or entering international markets, your brand should maintain a consistent identity while communicating effectively with its intended audience.\n\nMarket-specific research can help refine messaging, positioning and communication without losing the core identity of your business.",
+      "Customers may discover your business through Google, social media, advertising, referrals or your website.\n\nEvery interaction contributes to their perception of your brand.\n\nA consistent branding strategy connects visual identity, messaging and customer experience across these touchpoints.\n\nClear guidelines help ensure your website, social content, advertisements and sales materials communicate the same core message.\n\nThis consistency makes your business easier to recognise and understand.",
+      "Strong branding begins with clear decisions about your audience, market position and business value.\n\nFrom brand strategy and positioning to competitor research, brand identity development and messaging, our services help businesses create a more focused and recognisable presence.\n\nEireTech360 works with companies looking to establish a new brand, improve existing positioning or develop a consistent identity across digital channels.\n\nContact our team to discuss brand strategy and positioning services for your business."
+    ],
+    "seo": {
+      "title": "Brand Strategy & Positioning | EireTech360",
+      "description": "A strong brand is more than a memorable logo or attractive website. It is how customers recognise your business, understand its value and decide why they sho"
+    }
+  },
+  {
+    "title": "Brand Guidelines & Voice",
+    "slug": "brand-guidelines-voice",
+    "parent": "brand-management",
+    "headline": "Brand Identity Guidelines & Voice Development",
+    "icon": "palette",
+    "tag": "A recognisable brand identity",
+    "image": "detail-design",
+    "desc": "Your brand should look familiar and sound consistent wherever customers find it. Whether someone visits your website, reads an email or sees a social media post, the experience should feel connected.",
+    "intro": "Your brand should look familiar and sound consistent wherever customers find it. Whether someone visits your website, reads an email or sees a social media post, the experience should feel connected.\n\nOur brand guidelines services help businesses establish clear visual and communication standards. From logo usage and typography to brand voice development and messaging, we create practical guidelines that make consistent branding easier for everyone involved.\n\nWe support startups, growing companies and established organisations across Ireland, Europe and the USA.",
+    "points": [
+      "Professional Brand Guidelines Development",
+      "Brand Style Guide Creation",
+      "Brand Voice Development",
+      "Tone of Voice Guidelines",
+      "Brand Messaging Framework",
+      "Visual Identity Guidelines",
+      "Brand Consistency Across Marketing Channels",
+      "Brand Guidelines for Growing Teams",
+      "Branding Services Across Ireland, Europe and the USA",
+      "Update and Improve Existing Brand Guidelines",
+      "Create a Consistent Brand Identity"
+    ],
+    "details": [
+      "A business can have an attractive logo and still struggle with inconsistent branding.\n\nDifferent colours, mismatched fonts and changing communication styles can make even established companies appear disconnected.\n\nOur brand guidelines development process brings these elements into one structured reference.\n\nWe review your existing identity, understand your audience and define how the brand should appear across digital and physical materials.\n\nThe result is a practical guide that designers, marketers, developers and internal teams can follow without repeatedly guessing which approach is correct.",
+      "A brand style guide documents the visual rules that keep your identity recognisable.\n\nDepending on your requirements, it can cover:\n\nLogo variations, placement and spacing\n\nPrimary and secondary brand colours\n\nTypography and font hierarchy\n\nPhotography and illustration styles\n\nIcons and graphic elements\n\nWebsite and social media applications\n\nCorrect and incorrect branding examples\n\nThese standards help teams produce consistent materials while leaving enough flexibility for different formats and campaigns.",
+      "Your visual identity helps people recognise your business. Your voice helps them understand its personality.\n\nBrand voice development defines how your company communicates through written and spoken language.\n\nWe explore your values, audience expectations and communication goals to establish a voice that feels appropriate for your business.\n\nA technology company might need clear, knowledgeable language, while a lifestyle brand may benefit from a more conversational approach.\n\nThe objective is not to make every business sound identical. It is to develop a distinctive communication style that customers can recognise.",
+      "Brand voice and tone are closely related, but they serve different purposes.\n\nYour brand voice represents your consistent personality. Tone changes according to the situation.\n\nA promotional campaign may sound energetic, while a customer support response should be calm and helpful.\n\nOur tone of voice guidelines explain how to adjust communication without losing your identity.\n\nWe can define vocabulary preferences, sentence style, levels of formality and practical examples for different customer interactions.\n\nThis helps employees communicate naturally while maintaining a consistent brand personality.",
+      "Consistent communication requires more than choosing the right words.\n\nCustomers should understand what your business offers, who it serves and why its services matter.\n\nA brand messaging framework provides direction for communicating those ideas clearly.\n\nWe help organise core messages, value propositions, supporting statements and audience-specific communication.\n\nThese principles can guide website copy, advertising, presentations, email campaigns and other marketing materials.\n\nClear messaging reduces confusion and makes it easier for teams to explain your business consistently.",
+      "Visual consistency matters across every customer touchpoint.\n\nA logo may appear on a website, business card, social media graphic or digital advertisement. Without documented standards, each version can look slightly different.\n\nOur visual identity guidelines establish rules for colours, typography, logo applications and supporting design elements.\n\nWe also consider how these elements work across different screen sizes and marketing formats.\n\nThe aim is to maintain a recognisable identity without limiting creativity unnecessarily.",
+      "Customers rarely interact with a business through one channel alone.\n\nThey may discover you through Google, explore your website, follow your social media accounts and later receive an email.\n\nA consistent brand identity helps connect those experiences.\n\nWe develop guidelines that support coordinated communication across websites, social media, paid advertising, presentations and customer-facing materials.\n\nWhen everyone follows the same principles, your brand becomes easier to recognise and your marketing feels more connected.",
+      "As businesses expand, more people become responsible for creating content and communicating with customers.\n\nNew employees, external designers, agencies and development teams may interpret your brand differently without clear instructions.\n\nA documented brand standards guide provides a shared reference for everyone.\n\nIt can also simplify onboarding and reduce repeated design decisions, allowing teams to work more efficiently while protecting your established identity.",
+      "Businesses working across international markets need consistent branding that remains relevant to different audiences.\n\nWe provide brand guidelines and voice development support for companies across Ireland, Europe and the USA.\n\nRegional differences in language, terminology and customer expectations can influence how messages are presented.\n\nA clear brand framework helps businesses adapt communication to different markets without losing their core identity.",
+      "Brand guidelines should evolve alongside your business.\n\nNew services, website redesigns, marketing channels or changes in positioning may require updated standards.\n\nWe can review existing documentation, identify inconsistencies and recommend improvements to visual and verbal guidelines.\n\nThis helps established brands maintain continuity while adapting to changing business requirements.",
+      "Strong branding depends on consistency, clarity and a recognisable personality.\n\nFrom brand style guide creation and visual identity guidelines to brand voice development and messaging frameworks, our services help businesses communicate with greater confidence.\n\nEireTech360 helps companies develop practical branding standards that support their websites, marketing campaigns and everyday customer communication.\n\nContact our team to discuss brand guidelines and voice development for your business."
+    ],
+    "seo": {
+      "title": "Brand Guidelines & Voice | EireTech360",
+      "description": "Your brand should look familiar and sound consistent wherever customers find it. Whether someone visits your website, reads an email or sees a social media p"
+    }
+  },
+  {
+    "title": "Brand Consistency Across Digital Platforms",
+    "slug": "brand-consistency",
+    "parent": "brand-management",
+    "headline": "Brand Consistency Across Digital Platforms",
+    "icon": "layers-3",
+    "tag": "One connected brand experience",
+    "image": "detail-creative",
+    "desc": "A business might spend months getting its website exactly right, only to have its social media pages tell a completely different story. The website uses carefully chosen colours and professional photography, but the Instagram account has three different logo versions and promotional graphics that don't match anything else.",
+    "intro": "A business might spend months getting its website exactly right, only to have its social media pages tell a completely different story. The website uses carefully chosen colours and professional photography, but the Instagram account has three different logo versions and promotional graphics that don't match anything else.\n\nIt happens quite often, especially when different people are responsible for different parts of the marketing.\n\nThe issue isn't necessarily poor design. More often, nobody has established how the brand should be presented outside its original website or logo files.\n\nThat's where brand consistency becomes important. We help businesses bring their digital channels into line, keeping their identity recognisable without making every piece of content look the same.",
+    "points": [
+      "A Familiar Brand Is Easier to Recognise",
+      "Your Website Shouldn't Feel Like a Different Company",
+      "Social Media Needs Flexibility, Not a Different Identity",
+      "The Way You Write Is Part of Your Brand",
+      "Where Marketing Campaigns Often Lose Consistency",
+      "Guidelines That Make Everyday Work Easier",
+      "One Business, Different Markets",
+      "Finding the Small Things That Don't Match",
+      "Make Every Interaction Feel Connected"
+    ],
+    "details": [
+      "Think about the businesses you recognise immediately. You probably don't need to read their names every time. Certain colours, photographs or ways of communicating are enough.\n\nThat familiarity doesn't happen by accident.\n\nWhen a business regularly changes its visual style or messaging, customers have to work harder to recognise it. A Facebook advertisement may look appealing, but if the website it links to feels unrelated, something is lost along the way.\n\nConsistent branding helps avoid those unnecessary disconnects.\n\nIt also gives the people creating your marketing materials a clearer idea of what belongs to your brand and what doesn't.",
+      "Websites often receive more attention than other marketing channels. Businesses invest in their design, refine their service pages and carefully select images.\n\nThen a new advertising campaign launches with completely different fonts, colours and messaging.\n\nSomeone clicking through may wonder whether they've reached the correct website.\n\nWe look at these connections rather than reviewing each platform in isolation.\n\nThat means checking how advertisements relate to landing pages, whether website messaging reflects your social content and whether the visual identity stays recognisable throughout.\n\nSometimes a few adjustments are enough. Other situations call for clearer design standards across the business.",
+      "Instagram, Facebook and LinkedIn aren't interchangeable. Their audiences behave differently, and the content that works on one platform may feel out of place on another.\n\nTrying to publish identical graphics everywhere isn't the answer.\n\nA LinkedIn post might use a straightforward layout with detailed information. Instagram may call for stronger visuals and shorter captions.\n\nBoth can still belong to the same brand.\n\nWe help businesses establish which elements should remain consistent and where creative flexibility makes sense. That might include colours, logo placement, image treatments or the general style of promotional graphics.\n\nThe result should feel familiar, not repetitive.",
+      "Visual differences are easy to spot. Changes in tone are less obvious, but customers notice them too.\n\nImagine a business whose website uses friendly, straightforward language. Its automated emails, however, are full of complicated phrases and formal expressions nobody would use in an ordinary conversation.\n\nThe messages may be technically correct, yet they don't sound like the same company.\n\nBrand voice is about finding a way of communicating that suits your business and carrying it through different situations.\n\nA customer complaint shouldn't receive the same tone as a promotional announcement. Still, both responses should reflect the same underlying personality.\n\nWe review existing communication and help establish practical guidance for the people writing it.",
+      "One of the easiest places to spot disconnected branding is between an advertisement and its landing page.\n\nThe advertisement makes a specific promise, perhaps highlighting a service or special offer. The visitor clicks, expecting more information, but arrives on a generic page with different wording.\n\nNow they have to search for what interested them in the first place.\n\nThis isn't only a design problem. It's also a customer experience problem.\n\nWe review how messaging, visuals and calls to action carry through campaigns, websites and follow-up communication.\n\nThe intention is simple: people should know they've arrived in the right place.",
+      "Brand guidelines don't need to be enormous documents that nobody opens.\n\nFor most teams, the useful information is surprisingly practical.\n\nWhich logo should appear on a dark background? Can a designer introduce another colour? What kind of photography suits the business? Should customer emails sound formal or conversational?\n\nWhen those decisions are documented, people spend less time asking questions or correcting avoidable mistakes.\n\nIt's particularly helpful when a business works with several freelancers, agencies or internal departments.\n\nWe help organise visual and communication standards into guidance that can actually be used during everyday work.",
+      "A company serving customers in Ireland, Europe and the USA may need to adjust how it communicates.\n\nCertain expressions are familiar in one market but unusual in another. Promotional messages may also need to reflect different customer expectations.\n\nThose changes shouldn't mean abandoning the brand's identity.\n\nA business can adapt its wording and campaign content while keeping its visual style, values and overall personality intact.\n\nWe help companies find that balance, particularly when several teams or marketing partners are producing materials for different audiences.",
+      "Inconsistent branding usually develops gradually.\n\nAn old logo stays on a downloadable brochure. A social media template gets changed without updating the others. Someone creates a new landing page using a different font.\n\nIndividually, these details may seem insignificant.\n\nTogether, they can leave a business looking less coordinated than it really is.\n\nA brand consistency audit brings those materials together for review. We examine the main digital touchpoints, identify differences and recommend which changes are worth prioritising.\n\nThere's no reason to replace perfectly good materials simply for the sake of making changes.",
+      "Customers don't care which department created your website or who designed your latest advertisement. They expect to deal with the same business throughout.\n\nThat's what good cross-platform branding should achieve.\n\nEireTech360 works with businesses to align their websites, social media, digital campaigns and customer communications, keeping the details consistent while allowing each channel to work in its own way.\n\nIf your business looks or sounds different depending on where customers find it, we can help bring those pieces together."
+    ],
+    "seo": {
+      "title": "Brand Consistency Across Digital Platforms | EireTech360",
+      "description": "A business might spend months getting its website exactly right, only to have its social media pages tell a completely different story. The website uses care"
+    }
+  },
+  {
+    "title": "Reputation Management",
+    "slug": "reputation-management",
+    "parent": "brand-management",
+    "headline": "Online Reputation Management for Businesses",
+    "icon": "users",
+    "tag": "Build customer trust",
+    "image": "detail-research",
+    "desc": "A business can spend years building a good name, yet a customer who's never dealt with it may form an opinion in less than five minutes. All they need is a Google search, a few reviews and perhaps a quick look through its social media pages.",
+    "intro": "A business can spend years building a good name, yet a customer who's never dealt with it may form an opinion in less than five minutes. All they need is a Google search, a few reviews and perhaps a quick look through its social media pages.\n\nWhat they find isn't always the full story.\n\nA complaint might have been resolved weeks ago, but the review still sits there unanswered. An old business listing may show incorrect opening hours. Meanwhile, positive feedback from satisfied customers goes unnoticed.\n\nThese are the everyday issues that make online reputation management worth taking seriously.\n\nAt EireTech360, we work with businesses across Ireland, Europe and the USA to keep customer feedback organised, improve review responses and make their online presence more reliable.",
+    "points": [
+      "Your Customers Are Talking. Are You Listening?",
+      "Google Reviews Deserve Proper Attention",
+      "When a Review Is Unfair or Negative",
+      "Reviews Can Point to Problems Inside the Business",
+      "Your Reputation Exists Outside Google",
+      "Where Local SEO Fits In",
+      "A Reputation Management Process That Fits",
+      "A Good Reputation Starts With Good Service"
+    ],
+    "details": [
+      "Most businesses know what customers say directly to their staff. What happens online is harder to follow.\n\nOne person leaves a Google review. Another writes about their experience on Trustpilot. Someone else mentions the company in a Facebook discussion.\n\nNone of these conversations necessarily reaches the right person.\n\nRather than monitoring every website available, the sensible approach is to find out where your customers actually spend their time.\n\nFor some businesses, Google is enough to keep a team busy. Others need to watch several platforms, particularly if they sell products or operate in different locations.\n\nA clear monitoring routine means important feedback is less likely to be missed.",
+      "Think about how you choose a restaurant, tradesperson or local service. Chances are, you read at least a few reviews before making contact.\n\nYour customers do the same.\n\nA good overall rating helps, but the individual comments often tell a more useful story. People notice recent experiences, recurring complaints and whether someone from the business bothers to respond.\n\nGoogle reviews management shouldn't become an exercise in collecting as many five-star ratings as possible.\n\nA better approach is to invite genuine customers to share their experiences, check incoming reviews regularly and respond when appropriate.\n\nThere's also no need to write lengthy replies to every positive comment. A brief, specific thank-you often sounds more sincere.",
+      "Not every complaint is accurate. Sometimes there's a misunderstanding, an incomplete account of events or a problem that has already been fixed.\n\nResponding immediately, especially when frustrated, can make matters worse.\n\nBefore posting anything publicly, someone should check the details with the team involved.\n\nIf the business made a mistake, acknowledge it. If the situation needs further investigation, explain how the customer can get in touch.\n\nPersonal details should stay out of public conversations.\n\nNegative review management is less about winning an argument and more about showing that the business handles difficult situations responsibly.\n\nAnd if a review breaches the platform's rules, reporting it through the proper process may be appropriate.",
+      "Suppose several customers complain about waiting too long for a response.\n\nThe marketing team could write polite replies to all of them. But unless the communication problem is addressed, similar reviews will probably keep appearing.\n\nThat's why customer feedback management needs to go beyond public responses.\n\nRepeated comments about delivery, pricing, staff behaviour or product quality can reveal issues that deserve attention internally.\n\nPositive reviews can be equally useful.\n\nIf customers regularly mention helpful staff or clear communication, those are strengths worth protecting.\n\nThe point is to learn something from the feedback rather than simply clear another notification.",
+      "Google may be the first place customers look, but it isn't the only place they form opinions.\n\nA discussion on social media, a review on an industry website or a public customer complaint can also influence decisions.\n\nBrand reputation monitoring involves paying attention to those relevant conversations.\n\nNot every mention needs a reply. Sometimes people are sharing ordinary opinions. Sometimes a factual correction or customer support response is needed.\n\nKnowing when to respond is just as important as knowing what to say.",
+      "For businesses serving local customers, Google Business Profile information often appears before the company website.\n\nReviews, photographs, opening hours and contact details all contribute to that first impression.\n\nIf the information is outdated, customers may lose confidence before making an enquiry.\n\nKeeping listings accurate and encouraging genuine reviews makes sense as part of a wider local SEO approach.\n\nIt won't guarantee a top Google ranking, but it does help people find dependable information about your business.",
+      "A small service business doesn't need the same monitoring setup as a company with several locations.\n\nThe starting point should be a review of what's already happening.\n\nWhich platforms receive feedback? Are complaints going unanswered? Do staff know who should respond? Are the same issues appearing repeatedly?\n\nAnswers to those questions help determine what needs fixing first.\n\nFor companies working internationally, review practices should also reflect local expectations and applicable privacy rules, including GDPR where relevant.\n\nThe best process is one your team can realistically maintain.",
+      "No amount of review management can compensate for consistently poor customer experiences.\n\nWhat it can do is make sure feedback reaches the right people, complaints receive proper attention and potential customers see how your business handles its responsibilities.\n\nThat matters whether you're running a local shop, an online business or a company serving customers in several countries.\n\nGet in touch to discuss how we can help you manage customer reviews and build a more dependable online reputation."
+    ],
+    "seo": {
+      "title": "Reputation Management | EireTech360",
+      "description": "A business can spend years building a good name, yet a customer who's never dealt with it may form an opinion in less than five minutes. All they need is a G"
+    }
+  },
+  {
+    "title": "Email Marketing",
+    "slug": "email-marketing",
+    "parent": "marketing-business-automation",
+    "headline": "Email Marketing & Automated Campaign Services",
+    "icon": "megaphone",
+    "tag": "Relevant messages. Consistent follow-up.",
+    "image": "detail-writing",
+    "desc": "Reach the right subscribers with useful campaigns, clear messaging and automated customer journeys.",
+    "intro": "Email marketing helps you stay connected with people who have shown an interest in your business. EireTech360 plans, designs and builds campaigns that give subscribers useful information and a clear next step, from their first enquiry to their next purchase.\n\nWe support businesses in Ireland, Europe and the USA with campaign strategy, email copy, reusable templates, segmentation, automation and reporting. The approach is built around your audience and goals, with practical handover for your team.",
+    "points": [
+      "Email Marketing Strategy Built Around Your Goals",
+      "Audience Segmentation and Relevant Messaging",
+      "Email Copywriting and Responsive Design",
+      "Automated Welcome and Customer Journeys",
+      "Promotional Campaigns and E-commerce Email",
+      "Email Platform Setup and CRM Integration",
+      "List Quality, Preferences and Deliverability",
+      "Campaign Testing and Performance Reporting",
+      "Email Marketing for Ireland, Europe and the USA",
+      "Build an Email Programme Your Team Can Maintain"
+    ],
+    "details": [
+      "Every campaign needs a clear purpose. We begin with your audience, offer, existing customer journey and business goals, then define where email can support enquiries, sales, repeat purchases or customer retention.\n\nYour plan sets out campaign themes, audience groups, sending frequency and the actions you want readers to take. This gives your team a practical schedule rather than a collection of disconnected messages.",
+      "A new subscriber, a returning customer and an inactive contact need different messages. We organise your audience using the information available in your systems, such as interests, purchase history and previous engagement.\n\nSegments help match each message to a useful offer or next step. Personalisation focuses on relevance, with clear rules and checks to avoid incorrect names, outdated information or unnecessary messages.",
+      "We write subject lines, preview text and email copy that explain the value of your message clearly. Each campaign has a focused call to action, supported by a design that reflects your brand and is easy to scan.\n\nTemplates are prepared for mobile and desktop reading, with accessible text, sensible image use and a usable reading order. Your team receives reusable layouts for newsletters, promotions, announcements and customer updates.",
+      "A welcome sequence introduces your business when someone subscribes. Other journeys can help customers understand a product, prepare for an appointment or find useful information after a purchase.\n\nWe map the timing, triggers and exit conditions before building each flow. Automation is coordinated with your regular campaigns so subscribers receive a useful sequence without overlapping messages.",
+      "For online retailers, email can support launches, seasonal offers and repeat orders. We plan campaigns around your catalogue, available stock and promotion rules, with a consistent journey from the message to the landing page.\n\nWhere your platform and permissions support it, we can configure cart reminders, post-purchase journeys and product recommendations. Each flow is reviewed against your customer experience and current business priorities.",
+      "We work with your existing email platform or help assess an appropriate option for your team. Setup can include templates, audience fields, subscription forms, campaign tracking and connections with your website, store or CRM.\n\nIntegrations are tested so customer details, preferences and relevant events move between systems as intended. We document the process and provide a handover so your team can manage day-to-day campaigns confidently.",
+      "A useful email programme starts with a relevant subscriber list. We review signup sources, outdated records, duplicate contacts and engagement patterns, and help organise a clearer subscription and preference experience.\n\nTechnical checks can include sender authentication, unsubscribe links and email rendering. We avoid purchased-list outreach and unnecessary sending. Inbox placement depends on multiple factors, so ongoing monitoring matters alongside the initial setup.",
+      "Before a campaign is sent, we check links, layout, audience selection and the intended customer journey. Where audience size supports a useful comparison, tests can explore subject lines, content or calls to action.\n\nReporting focuses on clicks, enquiries, purchases and other agreed outcomes. Opens are interpreted carefully because email privacy features can affect those figures. Findings help guide the next campaign rather than becoming a report with no clear next step.",
+      "We support businesses reaching customers in Ireland, Europe and the USA. Campaign planning considers language, time zones, seasonal priorities and the audience you want to reach.\n\nSubscription preferences and regional requirements should be reviewed with your responsible team before launch. Our role is to implement the agreed campaign approach and keep the customer experience consistent across your channels.",
+      "Email marketing works best as a repeatable process: a clear plan, useful content, reliable sending and regular review. We can help with an initial setup, ongoing campaign production or improvements to your existing programme.\n\nTell us about your audience, current platform and what you want to improve. We will discuss the most relevant campaigns, deliverables and a practical next step for your business."
+    ],
+    "seo": {
+      "title": "Email Marketing & Automated Campaign Services | EireTech360",
+      "description": "Email marketing strategy, campaigns, templates and automated journeys for businesses in Ireland, Europe and the USA. Build a useful programme with EireTech360."
+    },
+    "faqs": [
+      "Can you improve our existing email campaigns? | Yes. We can review your current audience, templates, journeys and reporting, then identify practical improvements before planning new campaigns.",
+      "Do we need a new email platform? | Not necessarily. We assess your current setup first and recommend a change only where your requirements justify it.",
+      "What results will you report? | We agree the measures before launch, such as clicks, qualified enquiries, purchases or repeat orders. Performance depends on your audience, offer and customer journey.",
+      "Can our team manage campaigns after setup? | Yes. Reusable templates, documentation and a handover can help your team maintain the programme. Ongoing campaign support can also be discussed."
+    ]
   }
 ]

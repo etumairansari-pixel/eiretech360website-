@@ -1,8 +1,8 @@
 {
   "$comment": "Copy and metadata for the platforms page. Its slug and navigation labels live in content/site.json.",
   "seo": {
-    "title": "Digital Platforms & Tools | Eire Tech Solutions",
-    "description": "Discover Eire Tech's powerful digital platforms designed to streamline operations, automate workflows & drive smarter business growth.",
+    "title": "Digital Platforms & Tools | EireTech360 Solutions",
+    "description": "Discover EireTech360's powerful digital platforms designed to streamline operations, automate workflows & drive smarter business growth.",
     "robots": "index, follow"
   },
   "hero": {

@@ -155,6 +155,7 @@ export type ContactContent = {
     errorMessage: string;
     serviceOptions: string[];
     goalOptions?: string[];
+    marketOptions?: string[];
     timelineOptions?: string[];
     budgetOptions?: string[];
   };

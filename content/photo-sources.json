@@ -66,6 +66,86 @@
       "file": "src/assets/photo-content.webp",
       "source": "https://images.unsplash.com/photo-1455390582262-044cdead277a",
       "subject": "Writing and content planning"
+    },
+    {
+      "file": "src/assets/detail-research.webp",
+      "source": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3",
+      "subject": "Digital research and planning"
+    },
+    {
+      "file": "src/assets/detail-analytics.webp",
+      "source": "https://images.unsplash.com/photo-1599658880436-c61792e70672",
+      "subject": "Marketing analytics"
+    },
+    {
+      "file": "src/assets/detail-strategy.webp",
+      "source": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40",
+      "subject": "Business strategy and documents"
+    },
+    {
+      "file": "src/assets/detail-workshop.webp",
+      "source": "https://images.unsplash.com/photo-1531482615713-2afd69097998",
+      "subject": "Collaborative workshop"
+    },
+    {
+      "file": "src/assets/detail-planning.webp",
+      "source": "https://images.unsplash.com/photo-1552664730-d307ca884978",
+      "subject": "Team planning meeting"
+    },
+    {
+      "file": "src/assets/detail-campaign.webp",
+      "source": "https://images.unsplash.com/photo-1557804506-669a67965ba0",
+      "subject": "Campaign planning"
+    },
+    {
+      "file": "src/assets/detail-creative.webp",
+      "source": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6",
+      "subject": "Creative workspace"
+    },
+    {
+      "file": "src/assets/detail-laptop.webp",
+      "source": "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+      "subject": "Digital team working"
+    },
+    {
+      "file": "src/assets/detail-mobile.webp",
+      "source": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+      "subject": "Mobile digital experience"
+    },
+    {
+      "file": "src/assets/detail-writing.webp",
+      "source": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173",
+      "subject": "Writing and research"
+    },
+    {
+      "file": "src/assets/detail-content.webp",
+      "source": "https://images.unsplash.com/photo-1499750310107-5fef28a66643",
+      "subject": "Content workspace"
+    },
+    {
+      "file": "src/assets/detail-camera.webp",
+      "source": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32",
+      "subject": "Content production camera"
+    },
+    {
+      "file": "src/assets/detail-design.webp",
+      "source": "https://images.unsplash.com/photo-1523726491678-bf852e717f6a",
+      "subject": "Design workspace"
+    },
+    {
+      "file": "src/assets/detail-social.webp",
+      "source": "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0",
+      "subject": "Social media applications"
+    },
+    {
+      "file": "src/assets/detail-presentation.webp",
+      "source": "https://images.unsplash.com/photo-1521737711867-e3b97375f902",
+      "subject": "Business collaboration"
+    },
+    {
+      "file": "src/assets/detail-workspace.webp",
+      "source": "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
+      "subject": "Professional workspace"
     }
   ]
 }

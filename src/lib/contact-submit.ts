@@ -26,6 +26,7 @@ export function contactPayload(form: FormData): ContactPayload {
   );
   const details = [
     ["Business goal", "goal"],
+    ["Target market", "market"],
     ["Current website", "website"],
     ["Timeline", "timeline"],
     ["Budget", "budget"],

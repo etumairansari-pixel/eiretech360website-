@@ -16,6 +16,8 @@ export const Route = createFileRoute("/services")({
   component: ServicesPage,
 });
 
+const mainServices = services.filter((service) => !service.parent);
+
 function ServicesPage() {
   const { hero, serviceLinkLabel, detailLinkLabel, cta } = servicesPage;
 
@@ -28,133 +30,131 @@ function ServicesPage() {
       />
       <section className="pb-24">
         <div className="mx-auto max-w-7xl space-y-6 px-6">
-          {services
-            .filter((s) => !s.parent)
-            .map((s, i) => {
-              const Icon = s.icon;
-              return (
-                <Reveal key={s.title}>
-                  <article className="group grid overflow-hidden rounded-3xl border border-brand-line bg-brand-surface lg:grid-cols-[.8fr_1.2fr]">
-                    <div className="relative min-h-64 overflow-hidden">
-                      <img
-                        src={s.img}
-                        alt={`${s.title} services`}
-                        loading="lazy"
-                        decoding="async"
-                        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-slate-950/45" />
-                      <span className="absolute left-7 top-7 font-mono text-xs text-white/90">
-                        {String(i + 1).padStart(2, "0")} /{" "}
-                        {String(services.length).padStart(2, "0")}
-                      </span>
+          {mainServices.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <Reveal key={s.title}>
+                <article className="group grid overflow-hidden rounded-3xl border border-brand-line bg-brand-surface lg:grid-cols-[.8fr_1.2fr]">
+                  <div className="relative min-h-64 overflow-hidden">
+                    <img
+                      src={s.img}
+                      alt={`${s.title} services`}
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-slate-950/45" />
+                    <span className="absolute left-7 top-7 font-mono text-xs text-white/90">
+                      {String(i + 1).padStart(2, "0")} /{" "}
+                      {String(mainServices.length).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <div className="p-8 md:p-12">
+                    <div className="mb-6 grid size-12 place-items-center rounded-xl bg-brand-primary/10 text-brand-primary">
+                      <Icon className="size-6" />
                     </div>
-                    <div className="p-8 md:p-12">
-                      <div className="mb-6 grid size-12 place-items-center rounded-xl bg-brand-primary/10 text-brand-primary">
-                        <Icon className="size-6" />
-                      </div>
-                      <h2 className="text-3xl font-extrabold tracking-tight">
-                        <Link
-                          to="/services/$slug"
-                          params={{ slug: s.slug }}
-                          className="transition-colors hover:text-brand-primary-text"
-                        >
-                          <Highlight text={s.title} />
-                        </Link>
-                      </h2>
-                      <p className="mt-3 text-brand-muted">
-                        <Highlight text={s.desc} />
-                      </p>
-                      {s.slug === "digital-marketing" && (
-                        <div className="mt-6 grid gap-2 sm:grid-cols-2">
-                          {services
-                            .filter((child) => child.parent === s.slug)
-                            .map((child) => (
-                              <Link
-                                key={child.slug}
-                                to="/services/$slug"
-                                params={{ slug: child.slug }}
-                                className="flex items-center justify-between gap-3 rounded-xl border border-brand-primary/20 bg-brand-bg p-4 text-sm font-bold transition-colors hover:border-brand-primary hover:text-brand-primary-text"
-                              >
-                                {child.title}
-                                <ArrowUpRight className="size-4 shrink-0" />
-                              </Link>
-                            ))}
-                        </div>
-                      )}
-                      <ul className="mt-7 grid gap-3 sm:grid-cols-2">
-                        {s.points.map((p) => (
-                          <li key={p}>
+                    <h2 className="text-3xl font-extrabold tracking-tight">
+                      <Link
+                        to="/services/$slug"
+                        params={{ slug: s.slug }}
+                        className="transition-colors hover:text-brand-primary-text"
+                      >
+                        <Highlight text={s.title} />
+                      </Link>
+                    </h2>
+                    <p className="mt-3 text-brand-muted">
+                      <Highlight text={s.desc} />
+                    </p>
+                    {services.some((child) => child.parent === s.slug) && (
+                      <div className="mt-6 grid gap-2 sm:grid-cols-2">
+                        {services
+                          .filter((child) => child.parent === s.slug)
+                          .map((child) => (
                             <Link
+                              key={child.slug}
                               to="/services/$slug"
-                              params={{ slug: s.slug }}
-                              state={{ section: slugify(p) }}
-                              className="flex gap-2 text-sm underline-offset-4 transition-colors hover:text-brand-primary-text hover:underline"
+                              params={{ slug: child.slug }}
+                              className="flex items-center justify-between gap-3 rounded-xl border border-brand-primary/20 bg-brand-bg p-4 text-sm font-bold transition-colors hover:border-brand-primary hover:text-brand-primary-text"
                             >
-                              <Check className="mt-0.5 size-4 shrink-0 text-brand-accent-text" />
-                              <Highlight text={p} />
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                      {projectsFor(s.slug).length || s.gallery.length || s.videos.length ? (
-                        <p className="mt-6 flex flex-wrap items-center gap-2 text-sm">
-                          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-muted">
-                            Featured work
-                          </span>
-                          {projectsFor(s.slug).map((project) => (
-                            <Link
-                              key={project.title}
-                              to="/services/$slug"
-                              params={{ slug: s.slug }}
-                              state={{ section: projectAnchor(project) }}
-                              className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
-                            >
-                              {project.title}
+                              {child.title}
+                              <ArrowUpRight className="size-4 shrink-0" />
                             </Link>
                           ))}
-                          {s.gallery.length ? (
-                            <Link
-                              to="/services/$slug"
-                              params={{ slug: s.slug }}
-                              state={{ section: "portfolio" }}
-                              className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
-                            >
-                              Design portfolio
-                            </Link>
-                          ) : null}
-                          {s.videos.length ? (
-                            <Link
-                              to="/services/$slug"
-                              params={{ slug: s.slug }}
-                              state={{ section: "reels" }}
-                              className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
-                            >
-                              Video reels
-                            </Link>
-                          ) : null}
-                        </p>
-                      ) : null}
-                      <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
-                        <Link
-                          to="/services/$slug"
-                          params={{ slug: s.slug }}
-                          className="inline-flex items-center gap-2 rounded-full brand-gradient-bg px-6 py-3 font-bold text-white transition-shadow hover:brand-glow"
-                        >
-                          {detailLinkLabel} <ArrowUpRight className="size-4" />
-                        </Link>
-                        <a
-                          href={pathFor("contact")}
-                          className="inline-flex items-center gap-2 font-bold text-brand-primary-text"
-                        >
-                          {serviceLinkLabel} <ArrowUpRight className="size-4" />
-                        </a>
                       </div>
+                    )}
+                    <ul className="mt-7 grid gap-3 sm:grid-cols-2">
+                      {s.points.map((p) => (
+                        <li key={p}>
+                          <Link
+                            to="/services/$slug"
+                            params={{ slug: s.slug }}
+                            state={{ section: slugify(p) }}
+                            className="flex gap-2 text-sm underline-offset-4 transition-colors hover:text-brand-primary-text hover:underline"
+                          >
+                            <Check className="mt-0.5 size-4 shrink-0 text-brand-accent-text" />
+                            <Highlight text={p} />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    {projectsFor(s.slug).length || s.gallery.length || s.videos.length ? (
+                      <p className="mt-6 flex flex-wrap items-center gap-2 text-sm">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-muted">
+                          Featured work
+                        </span>
+                        {projectsFor(s.slug).map((project) => (
+                          <Link
+                            key={project.title}
+                            to="/services/$slug"
+                            params={{ slug: s.slug }}
+                            state={{ section: projectAnchor(project) }}
+                            className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
+                          >
+                            {project.title}
+                          </Link>
+                        ))}
+                        {s.gallery.length ? (
+                          <Link
+                            to="/services/$slug"
+                            params={{ slug: s.slug }}
+                            state={{ section: "portfolio" }}
+                            className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
+                          >
+                            Design portfolio
+                          </Link>
+                        ) : null}
+                        {s.videos.length ? (
+                          <Link
+                            to="/services/$slug"
+                            params={{ slug: s.slug }}
+                            state={{ section: "reels" }}
+                            className="rounded-full border border-brand-primary/25 bg-brand-primary/5 px-3 py-1 font-semibold text-brand-primary-text transition-colors hover:border-brand-primary/60"
+                          >
+                            Video reels
+                          </Link>
+                        ) : null}
+                      </p>
+                    ) : null}
+                    <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+                      <Link
+                        to="/services/$slug"
+                        params={{ slug: s.slug }}
+                        className="inline-flex items-center gap-2 rounded-full brand-gradient-bg px-6 py-3 font-bold text-white transition-shadow hover:brand-glow"
+                      >
+                        {detailLinkLabel} <ArrowUpRight className="size-4" />
+                      </Link>
+                      <a
+                        href={pathFor("contact")}
+                        className="inline-flex items-center gap-2 font-bold text-brand-primary-text"
+                      >
+                        {serviceLinkLabel} <ArrowUpRight className="size-4" />
+                      </a>
                     </div>
-                  </article>
-                </Reveal>
-              );
-            })}
+                  </div>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
       <FinalCTA

@@ -1,8 +1,8 @@
 {
   "$comment": "Copy and metadata for the services page. Its slug and navigation labels live in content/site.json.",
   "seo": {
-    "title": "Our Services | Web, Marketing, Apps & AI – Eire Tech",
-    "description": "Explore Eire Tech's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business.",
+    "title": "Our Services | Web, Marketing, Apps & AI – EireTech360",
+    "description": "Explore EireTech360's full range of services-web design, digital marketing, app development, branding & AI automation built to grow your business.",
     "robots": "index, follow"
   },
   "hero": {

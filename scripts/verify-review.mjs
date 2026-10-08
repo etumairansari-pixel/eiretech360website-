@@ -24,7 +24,7 @@ for (const project of read("content/projects.json").slice(0, 4)) {
   assert.ok(page.includes(project.outcome), "Project detail must also contain the outcome");
 }
 const contactHtml = fs.readFileSync("dist-static/contact/index.html", "utf8");
-for (const name of ["goal", "timeline", "budget", "website"])
+for (const name of ["goal", "market", "timeline", "budget", "website"])
   assert.ok(contactHtml.includes(`name="${name}"`));
 for (const line of site.footer.address)
   assert.ok(contactHtml.includes(line), "Contact and footer addresses must match");
@@ -47,6 +47,7 @@ for (const [name, value] of Object.entries({
   email: "example@example.com",
   service: "Digital Marketing",
   goal: "Generate more qualified leads",
+  market: "Ireland",
   website: "https://example.com",
   timeline: "Within 1–3 months",
   budget: "Discuss a budget with us",
@@ -56,6 +57,7 @@ for (const [name, value] of Object.entries({
 const payload = context.exports.contactPayload(form);
 assert.ok(payload.message.includes("Business goal: Generate more qualified leads"));
 assert.ok(payload.message.includes("https://example.com"));
+assert.ok(payload.message.includes("Target market: Ireland"));
 assert.ok(payload.message.includes("A project with clear business goals."));
 assert.equal(payload.email, "example@example.com");
 assert.ok(!("goal" in payload), "Use the existing backend fields");

@@ -137,6 +137,15 @@ function ContactPage() {
                   </select>
                 </label>
                 <label className="dm-field-full">
+                  Target market
+                  <select name="market" defaultValue="">
+                    <option value="">Select a market (optional)</option>
+                    {contactPage.form.marketOptions.map((market) => (
+                      <option key={market}>{market}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="dm-field-full">
                   Current website
                   <input
                     type="url"

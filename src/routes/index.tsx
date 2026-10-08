@@ -93,7 +93,7 @@ function Hero() {
         {[
           ["09", "Connected capabilities"],
           ["04", "Marketing disciplines"],
-          ["US", "Headquarters ? Washington, DC"],
+          ["US", "Headquarters: Washington, DC"],
         ].map(([number, label]) => (
           <div key={label}>
             <strong>{number}</strong>
@@ -108,7 +108,7 @@ function ProjectProof() {
   return (
     <section className="dm-section dm-proof-strip">
       <div className="dm-container">
-        <p className="dm-eyebrow">Built by Eire Tech</p>
+        <p className="dm-eyebrow">Built by EireTech360</p>
         <div className="dm-proof-grid">
           {projects.slice(0, 3).map((project) => (
             <Link
@@ -408,7 +408,7 @@ function Home() {
                 <article key={platform.title}>
                   <h3>{platform.title}</h3>
                   <p>{platform.desc}</p>
-                  <span>{platform.tools.slice(0, 3).join(" ? ")}</span>
+                  <span>{platform.tools.slice(0, 3).join(" / ")}</span>
                 </article>
               ))}
             </div>

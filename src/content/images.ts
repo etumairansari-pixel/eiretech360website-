@@ -45,7 +45,40 @@ import svcPpc from "@/assets/photo-ppc.webp";
 import svcSocial from "@/assets/photo-social.webp";
 import svcContent from "@/assets/photo-content.webp";
 
+import detail0 from "@/assets/detail-research.webp";
+import detail1 from "@/assets/detail-analytics.webp";
+import detail2 from "@/assets/detail-strategy.webp";
+import detail3 from "@/assets/detail-workshop.webp";
+import detail4 from "@/assets/detail-planning.webp";
+import detail5 from "@/assets/detail-campaign.webp";
+import detail6 from "@/assets/detail-creative.webp";
+import detail7 from "@/assets/detail-laptop.webp";
+import detail8 from "@/assets/detail-mobile.webp";
+import detail9 from "@/assets/detail-writing.webp";
+import detail10 from "@/assets/detail-content.webp";
+import detail11 from "@/assets/detail-camera.webp";
+import detail12 from "@/assets/detail-design.webp";
+import detail13 from "@/assets/detail-social.webp";
+import detail14 from "@/assets/detail-presentation.webp";
+import detail15 from "@/assets/detail-workspace.webp";
+
 export const images = {
+  "detail-research": detail0,
+  "detail-analytics": detail1,
+  "detail-strategy": detail2,
+  "detail-workshop": detail3,
+  "detail-planning": detail4,
+  "detail-campaign": detail5,
+  "detail-creative": detail6,
+  "detail-laptop": detail7,
+  "detail-mobile": detail8,
+  "detail-writing": detail9,
+  "detail-content": detail10,
+  "detail-camera": detail11,
+  "detail-design": detail12,
+  "detail-social": detail13,
+  "detail-presentation": detail14,
+  "detail-workspace": detail15,
   "svc-seo": svcSeo,
   "svc-ppc": svcPpc,
   "svc-social": svcSocial,

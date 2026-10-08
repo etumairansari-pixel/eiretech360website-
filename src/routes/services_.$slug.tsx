@@ -122,7 +122,12 @@ function ServiceDetailPage() {
 
   useOpenSection();
 
-  if (service.slug === "digital-marketing" || service.parent === "digital-marketing") {
+  if (
+    service.parent ||
+    ["digital-marketing", "brand-management", "marketing-business-automation"].includes(
+      service.slug,
+    )
+  ) {
     return (
       <Shell>
         <script

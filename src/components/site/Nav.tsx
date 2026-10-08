@@ -138,7 +138,7 @@ export function Nav() {
       inert={!visible}
     >
       <div className="dm-container dm-nav-inner">
-        <Link to="/" aria-label="Eire Tech home" className="dm-nav-logo">
+        <Link to="/" aria-label="EireTech360 home" className="dm-nav-logo">
           <Logo tone="light" className="h-10 md:h-12" />
         </Link>
         <nav aria-label="Main navigation" className="dm-nav-links">

@@ -2,7 +2,7 @@
   "$comment": "Site-wide settings and the page list. Every page bundle carries this file, so it holds only what the header, footer and URL helpers need — each page’s own copy lives in content/pages/<key>.json.",
   "site": {
     "url": "https://eiretech360.com",
-    "name": "Eire Tech",
+    "name": "EireTech360",
     "tagline": "Digital Growth & Automation Partner",
     "ogImage": "/og-image.png",
     "themeColor": "#1e9bf0"
@@ -30,7 +30,7 @@
     "ctaLabel": "Start a Project"
   },
   "footer": {
-    "blurb": "Eire Tech: Digital Growth & Automation Partner. Blending strategy, creativity and AI to transform how your brand shows up, scales and runs.",
+    "blurb": "EireTech360: Digital Growth & Automation Partner. Blending strategy, creativity and AI to transform how your brand shows up, scales and runs.",
     "capabilities": [
       "Digital Marketing | digital-marketing",
       "Marketing & Business Automation | marketing-business-automation",

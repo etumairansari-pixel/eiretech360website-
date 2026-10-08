@@ -1,8 +1,8 @@
 {
   "$comment": "Copy and metadata for the contact page. Its slug and navigation labels live in content/site.json.",
   "seo": {
-    "title": "Contact Eire Tech | Get a Free Consultation",
-    "description": "Ready to grow your business? Contact Eire Tech today to discuss your web, marketing, app or AI project and get started with a free consultation.",
+    "title": "Contact EireTech360 | Get a Free Consultation",
+    "description": "Ready to grow your business? Contact EireTech360 today to discuss your web, marketing, app or AI project and get started with a free consultation.",
     "robots": "index, follow"
   },
   "hero": {
@@ -51,6 +51,13 @@
       "$2,500?$5,000",
       "$5,000?$10,000",
       "$10,000+"
+    ],
+    "marketOptions": [
+      "Ireland",
+      "Europe",
+      "USA",
+      "Multiple markets",
+      "Other / discuss with us"
     ]
   },
   "aside": {
@@ -76,7 +83,7 @@
     "items": [
       "Is the first consultation really free? | Yes. The first consultation is free and comes with no obligation. It helps us understand your business, and helps you decide whether we are the right partner for the project.",
       "What should I include in my message? | A short description of your business, what you want to achieve, any deadlines, and links to your current website or social profiles. Rough ideas are welcome; we will help you shape them.",
-      "Do you work with businesses outside the US? | Yes. We work with clients around the world, remotely and across time zones, from our headquarters in Washington, DC.",
+      "Which markets do you work with? | We support businesses in Ireland, Europe and the USA, working remotely across time zones from our headquarters in Washington, DC.",
       "Which services can I ask about? | Anything we offer: digital marketing, marketing automation, brand management, ATL and TTL campaigns, website and app development, custom AI, graphic design, and video editing and animation. Not sure what you need? Choose \"Other\" and tell us your goals.",
       "How much does a project cost? | Every project is priced on its scope, so there is no one-size-fits-all fee. After the consultation we send a clear proposal with deliverables and costs set out up front."
     ]
