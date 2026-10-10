@@ -71,6 +71,7 @@ function ContactPage() {
             <form
               id="contact-form"
               className="dm-contact-form"
+              autoComplete="off"
               onSubmit={handleSubmit}
               aria-busy={sending}
             >
@@ -84,7 +85,7 @@ function ContactPage() {
                     minLength={2}
                     maxLength={100}
                     name="fullName"
-                    autoComplete="name"
+                    autoComplete="off"
                     placeholder="Your full name"
                   />
                 </label>
@@ -95,7 +96,7 @@ function ContactPage() {
                     maxLength={254}
                     type="email"
                     name="email"
-                    autoComplete="email"
+                    autoComplete="off"
                     placeholder="you@company.com"
                   />
                 </label>
@@ -105,7 +106,7 @@ function ContactPage() {
                     maxLength={40}
                     type="tel"
                     name="phone"
-                    autoComplete="tel"
+                    autoComplete="off"
                     placeholder="Your phone number"
                   />
                 </label>
@@ -114,7 +115,7 @@ function ContactPage() {
                   <input
                     maxLength={120}
                     name="company"
-                    autoComplete="organization"
+                    autoComplete="off"
                     placeholder="Your company"
                   />
                 </label>
@@ -152,7 +153,7 @@ function ContactPage() {
                     name="website"
                     maxLength={300}
                     placeholder="https://yourwebsite.com"
-                    autoComplete="url"
+                    autoComplete="off"
                   />
                 </label>
                 <label>
