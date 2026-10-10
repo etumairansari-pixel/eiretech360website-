@@ -106,7 +106,8 @@ a.marketing-card:hover {
   /* Layer used behind glass panels + on-brand button text */
   --on-brand: #ffffff;
   --grid-line: rgb(8 16 26 / 6%);
-  --glow-strength: 22%;
+  --brand-glow-color: rgba(30, 155, 240, 0.22);
+  --accent-glow-color: rgba(124, 179, 66, 0.22);
   --noise-opacity: 0.035;
   --noise-blend: multiply;
 }
@@ -131,7 +132,8 @@ a.marketing-card:hover {
 
   --on-brand: #04070b;
   --grid-line: rgb(255 255 255 / 6%);
-  --glow-strength: 55%;
+  --brand-glow-color: rgba(30, 155, 240, 0.55);
+  --accent-glow-color: rgba(124, 179, 66, 0.55);
   --noise-opacity: 0.06;
   --noise-blend: overlay;
 }
@@ -329,7 +331,7 @@ a.marketing-card:hover {
 }
 
 @utility text-glow {
-  text-shadow: 0 0 34px color-mix(in oklab, var(--brand-blue) var(--glow-strength), transparent);
+  text-shadow: 0 0 34px var(--brand-glow-color, rgba(30, 155, 240, 0.22));
 }
 
 /* Panel that reads correctly in both themes */
@@ -362,11 +364,10 @@ a.marketing-card:hover {
 
 /* Glow that adapts: strong in dark, restrained in light */
 @utility brand-glow {
-  box-shadow: 0 0 40px -8px color-mix(in oklab, var(--brand-blue) var(--glow-strength), transparent);
+  box-shadow: 0 0 40px -8px var(--brand-glow-color, rgba(30, 155, 240, 0.22));
 }
 @utility accent-glow {
-  box-shadow: 0 0 40px -8px
-    color-mix(in oklab, var(--brand-green) var(--glow-strength), transparent);
+  box-shadow: 0 0 40px -8px var(--accent-glow-color, rgba(124, 179, 66, 0.22));
 }
 
 /* Keep mobile scrolling GPU-light while preserving the desktop treatment. */
@@ -397,4 +398,15 @@ a.marketing-card:hover {
 :is(h1, h2, h3, h4, h5, h6),
 :is(h1, h2, h3, h4, h5, h6) :is(span, a, strong, em, b) {
   text-transform: capitalize !important;
+}
+
+/* Transition visible properties only; gradients do not need interpolation. */
+@utility transition-colors {
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+}
+@utility transition {
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke,
+    opacity, box-shadow, transform, translate, scale, rotate, filter, backdrop-filter;
 }

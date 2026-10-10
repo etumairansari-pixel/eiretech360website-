@@ -1,61 +1,47 @@
+/**
+ * Re-downloads the service detail page photographs from the sources recorded
+ * in content/photo-sources.json, all at the same crop and quality so no single
+ * picture arrives several times the weight of the one beside it. The hero of a
+ * service page is its largest-contentful paint, so the size matters.
+ *
+ *   node scripts/fetch-detail-photos.mjs          # every detail-*.webp
+ *   node scripts/fetch-detail-photos.mjs campaign # just the ones named
+ */
 import fs from "node:fs/promises";
 import sharp from "sharp";
-const photos = [
-  ["research", "photo-1516321318423-f06f85e504b3", "Digital research and planning"],
-  ["analytics", "photo-1599658880436-c61792e70672", "Marketing analytics"],
-  ["strategy", "photo-1454165804606-c3d57bc86b40", "Business strategy and documents"],
-  ["workshop", "photo-1531482615713-2afd69097998", "Collaborative workshop"],
-  ["planning", "photo-1552664730-d307ca884978", "Team planning meeting"],
-  ["campaign", "photo-1557804506-669a67965ba0", "Campaign planning"],
-  ["creative", "photo-1545239351-1141bd82e8a6", "Creative workspace"],
-  ["laptop", "photo-1519389950473-47ba0277781c", "Digital team working"],
-  ["mobile", "photo-1511707171634-5f897ff02aa9", "Mobile digital experience"],
-  ["writing", "photo-1434030216411-0b793f4b4173", "Writing and research"],
-  ["content", "photo-1499750310107-5fef28a66643", "Content workspace"],
-  ["camera", "photo-1516035069371-29a1b244cc32", "Content production camera"],
-  ["design", "photo-1523726491678-bf852e717f6a", "Design workspace"],
-  ["social", "photo-1611162616305-c69b3fa7fbe0", "Social media applications"],
-  ["presentation", "photo-1521737711867-e3b97375f902", "Business collaboration"],
-  ["workspace", "photo-1497366754035-f200968a6e72", "Professional workspace"],
-];
+
+const WIDTH = 1100;
+const HEIGHT = 740;
+const QUALITY = 72;
+
+const sources = JSON.parse(await fs.readFile("content/photo-sources.json", "utf8"));
+const only = process.argv.slice(2);
+const wanted = sources.photos.filter((photo) => {
+  const name = photo.file.match(/\/detail-(.+)\.webp$/)?.[1];
+  return name && (only.length === 0 || only.includes(name));
+});
+if (!wanted.length) throw new Error(`no detail photographs match ${only.join(", ")}`);
+
 const results = await Promise.allSettled(
-  photos.map(async ([name, id, subject]) => {
-    const source = `https://images.unsplash.com/${id}`;
-    const response = await fetch(`${source}?auto=format&fit=crop&w=1400&q=80`);
-    if (!response.ok) throw new Error(`${name}: ${response.status}`);
-    const file = `src/assets/detail-${name}.webp`;
-    await sharp(Buffer.from(await response.arrayBuffer()))
-      .rotate()
-      .resize({ width: 1400, withoutEnlargement: true })
-      .webp({ quality: 80 })
-      .toFile(file);
-    return { file, source, subject };
+  wanted.map(async (photo) => {
+    const url = `${photo.source}?auto=format&fit=crop&w=${WIDTH}&h=${HEIGHT}&q=${QUALITY}`;
+    const response = await fetch(url, { headers: { "user-agent": "Mozilla/5.0" } });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const buffer = Buffer.from(await response.arrayBuffer());
+    const info = await sharp(buffer).webp({ quality: QUALITY }).toFile(photo.file);
+    return { file: photo.file, bytes: info.size };
   }),
 );
-for (let i = 0; i < results.length; i++)
-  if (results[i].status === "rejected") console.log(photos[i][0], String(results[i].reason));
-const saved = results.filter((x) => x.status === "fulfilled").map((x) => x.value);
-const sources = JSON.parse(await fs.readFile("content/photo-sources.json", "utf8"));
-sources.photos = [...sources.photos.filter((x) => !x.file.includes("/detail-")), ...saved];
-await fs.writeFile("content/photo-sources.json", JSON.stringify(sources, null, 2) + "\n");
-const tiles = await Promise.all(
-  saved.map(async (x, i) => ({
-    input: await sharp(x.file).resize(260, 160, { fit: "cover" }).toBuffer(),
-    left: (i % 4) * 260,
-    top: Math.floor(i / 4) * 190,
-  })),
-);
-await sharp({
-  create: {
-    width: 1040,
-    height: Math.ceil(saved.length / 4) * 190,
-    channels: 3,
-    background: "#ffffff",
-  },
-})
-  .composite(tiles)
-  .jpeg()
-  .toFile("image-review.jpg");
+
+const saved = [];
+for (let i = 0; i < results.length; i++) {
+  if (results[i].status === "rejected") {
+    console.log("FAILED", wanted[i].file, String(results[i].reason.message ?? results[i].reason));
+  } else saved.push(results[i].value);
+}
+const total = saved.reduce((sum, x) => sum + x.bytes, 0);
+const largest = saved.sort((a, b) => b.bytes - a.bytes)[0];
 console.log(
-  `Downloaded ${saved.length} new distinct photographs. Order: ${saved.map((x) => x.file).join(", ")}`,
+  `${saved.length}/${wanted.length} at ${WIDTH}x${HEIGHT}, ${(total / 1024).toFixed(0)} kB total, ` +
+    `largest ${largest.file.split("/").pop()} at ${(largest.bytes / 1024).toFixed(0)} kB`,
 );

@@ -58,7 +58,9 @@ export function MarketingPage({ service }: { service: Service }) {
                   ? "Reach the right people. Build meaningful connections. Turn your digital presence into business opportunity."
                   : family === "brand-management"
                     ? "Build a consistent identity, communicate clearly and strengthen customer trust."
-                    : "Connect your business tools, simplify follow-up and reduce repetitive work."}
+                    : family === "atl-ttl-campaigns"
+                      ? "Connect traditional, outdoor and digital channels with a campaign built around your audience."
+                      : "Connect your business tools, simplify follow-up and reduce repetitive work."}
               </p>
               <div className="dm-actions">
                 <a href={pathFor("contact")} className="dm-button">
@@ -103,13 +105,21 @@ export function MarketingPage({ service }: { service: Service }) {
                   "Consistency",
                   "Customer trust",
                 ]
-              : [
-                  "CRM integration",
-                  "Workflow automation",
-                  "Lead nurturing",
-                  "Reporting",
-                  "Connected systems",
-                ]
+              : family === "atl-ttl-campaigns"
+                ? [
+                    "Traditional media",
+                    "Outdoor advertising",
+                    "Print campaigns",
+                    "Integrated marketing",
+                    "Campaign planning",
+                  ]
+                : [
+                    "CRM integration",
+                    "Workflow automation",
+                    "Lead nurturing",
+                    "Reporting",
+                    "Connected systems",
+                  ]
           ).map((c) => (
             <span key={c}>{c}</span>
           ))}
@@ -184,27 +194,34 @@ export function MarketingPage({ service }: { service: Service }) {
           </div>
         </section>
       )}
-      <section className="dm-section dm-soft">
-        <div className="dm-container">
-          <div className="dm-section-heading">
-            <p className="dm-eyebrow">What's included</p>
-            <h2>
-              A complete approach
-              <br />
-              <span>to {service.title.toLowerCase()}.</span>
-            </h2>
+      {/*
+        On an overview page the sub-service grid above is already this list, so
+        repeating it as anchor links would say the same thing twice. Sub-service
+        pages run long enough to need the jump links.
+      */}
+      {!overview && (
+        <section className="dm-section dm-soft">
+          <div className="dm-container">
+            <div className="dm-section-heading">
+              <p className="dm-eyebrow">What's included</p>
+              <h2>
+                A complete approach
+                <br />
+                <span>to {service.title.toLowerCase()}.</span>
+              </h2>
+            </div>
+            <div className="dm-section-links">
+              {service.sections.map((s, i) => (
+                <SectionLink key={s.anchor} to={s.anchor} className="dm-section-link">
+                  <span>{String(i + 1).padStart(2, "0")}</span>
+                  {s.title}
+                  <ArrowUpRight size={17} />
+                </SectionLink>
+              ))}
+            </div>
           </div>
-          <div className="dm-section-links">
-            {service.sections.map((s, i) => (
-              <SectionLink key={s.anchor} to={s.anchor} className="dm-section-link">
-                <span>{String(i + 1).padStart(2, "0")}</span>
-                {s.title}
-                <ArrowUpRight size={17} />
-              </SectionLink>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
       <div className="dm-service-sections">
         {service.sections.map((section, i) => (
           <section
@@ -236,16 +253,30 @@ export function MarketingPage({ service }: { service: Service }) {
                       <Highlight text={p} />
                     </p>
                   ))}
-                {!section.body && (
+                {section.page ? (
                   <div className="dm-actions">
-                    <SectionLink
-                      to={service.sections[i + 1]?.anchor || "marketing-services"}
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: section.page }}
                       className="dm-button"
                     >
-                      Explore our approach
+                      Explore{" "}
+                      {services.find((c) => c.slug === section.page)?.title ?? section.title}
                       <ArrowUpRight size={18} />
-                    </SectionLink>
+                    </Link>
                   </div>
+                ) : (
+                  !section.body && (
+                    <div className="dm-actions">
+                      <SectionLink
+                        to={service.sections[i + 1]?.anchor || "marketing-services"}
+                        className="dm-button"
+                      >
+                        Explore our approach
+                        <ArrowUpRight size={18} />
+                      </SectionLink>
+                    </div>
+                  )
                 )}
               </div>
             </div>

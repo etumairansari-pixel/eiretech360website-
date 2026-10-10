@@ -2158,3 +2158,188 @@
     height: 220px;
   }
 }
+/* Use the shared theme for editorial pages as well as the original layouts. */
+.dm-site {
+  --dm-ink: var(--text);
+  --dm-muted: var(--muted);
+  --dm-soft: var(--surface);
+  background: var(--bg);
+  color: var(--text);
+}
+.dark .dm-site {
+  --dm-primary: #62b5f5;
+}
+.dark .dm-site h2,
+.dark .dm-site h3 {
+  color: var(--text);
+}
+.dark .dm-site h2 span,
+.dark .dm-site .dm-eyebrow,
+.dark .dm-card-content h3,
+.dark .dm-marketing-card h3 {
+  color: var(--dm-primary);
+}
+.dark :is(.dm-showcase, .dm-channel-strip, .dm-proof-strip.dm-section) {
+  background: var(--surface);
+  box-shadow: none;
+  border-color: var(--border);
+}
+.dark
+  :is(
+    .dm-service-card,
+    .dm-marketing-card,
+    .dm-section-link,
+    .dm-case-card,
+    .dm-contact-form,
+    .dm-platform-summary article,
+    .dm-testimonials blockquote
+  ) {
+  background: var(--elevated);
+  border-color: var(--border);
+  color: var(--text);
+}
+.dark :is(.dm-service-card, .dm-marketing-card, .dm-section-link):hover {
+  background: #172332;
+}
+.dark
+  :is(
+    .dm-card-content > span,
+    .dm-faq details,
+    .dm-contact-aside > a,
+    .dm-contact-offices,
+    .dm-platform-summary article,
+    .dm-capability-heading
+  ) {
+  border-color: var(--border);
+}
+.dark
+  :is(
+    .dm-channel-strip span,
+    .dm-proof-grid > a > span,
+    .dm-contact-privacy,
+    .dm-contact-aside > a span,
+    .dm-contact-offices > span,
+    .dm-case-copy dd
+  ) {
+  color: var(--muted);
+}
+.dark
+  :is(.dm-section-link, .dm-case-copy dt, .dm-platform-summary span, .dm-contact-aside > a strong) {
+  color: #62b5f5;
+}
+.dark .dm-case-copy dd:last-child {
+  background: #173021;
+  color: #c2deb2;
+}
+.dark :is(.dm-feature-photo, .dm-overview-photo, .dm-editorial-section .dm-section-photo) {
+  box-shadow: 12px 12px 0 var(--surface);
+}
+.dark .dm-contact-fields label {
+  color: var(--text);
+}
+.dark :is(.dm-contact-fields input, .dm-contact-fields select, .dm-contact-fields textarea) {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+  color-scheme: dark;
+}
+.dark .dm-contact-fields :is(input, textarea)::placeholder {
+  color: var(--muted);
+}
+.dark .dm-contact-status.success {
+  background: #173021;
+  color: #c2deb2;
+}
+.dark .dm-contact-status.error {
+  background: #391c23;
+  color: #ffbac4;
+}
+/* Hero, CTA and brand panels intentionally retain their navy surfaces. */
+.dark .dm-site :is(.dm-service-hero, .dm-cinematic-hero, .dm-brand, .dm-cta) :is(h1, h2, h3) {
+  color: #fff;
+}
+.dark .dm-site :is(.dm-service-hero, .dm-cinematic-hero, .dm-brand, .dm-cta) p {
+  color: #c7d8e8;
+}
+.dark .dm-site :is(.dm-cinematic-hero, .dm-brand) h2 span {
+  color: #a6d675;
+}
+.dark .dm-site .dm-hero-aside h2 span {
+  color: #a6d675;
+}
+.dark .dm-site .dm-service-photo-caption {
+  background: #fff;
+  color: #082d50;
+}
+.dark .dm-site .dm-brand .dm-service-card :is(h3, p) {
+  color: var(--text);
+}
+.dark .dm-site .dm-brand .dm-service-card p {
+  color: var(--muted);
+}
+.dark :is(.dm-nav-dropdown, .dm-service-submenu) {
+  background: var(--elevated);
+  border-color: var(--border);
+  color: #62b5f5;
+}
+.dark :is(.dm-nav-dropdown, .dm-service-submenu) a {
+  color: #b9daf5;
+}
+.dark :is(.dm-nav-dropdown, .dm-service-submenu) a:hover,
+.dark .dm-service-menu-row:hover,
+.dark .dm-service-menu-row > button:hover {
+  background: #1b2c3d;
+  color: #fff;
+}
+.dark .dm-nav-dropdown .dm-all-services {
+  background: var(--surface);
+  color: #b9daf5;
+  border-color: var(--border);
+}
+.dark .dm-submenu-label {
+  color: var(--muted);
+  border-color: var(--border);
+}
+.dm-theme-toggle {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #ffffff30;
+  background: #ffffff08;
+  color: #eef3f8;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+.dm-theme-toggle:hover {
+  background: #ffffff15;
+  color: #b4d66f;
+}
+@media (min-width: 1251px) and (max-width: 1400px) {
+  .dm-nav-actions {
+    gap: 14px;
+  }
+  .dm-nav-links {
+    gap: 20px;
+  }
+  .dm-nav-phone {
+    padding-left: 14px;
+  }
+}
+@media (max-width: 1023px) {
+  .dm-nav-actions {
+    gap: 12px;
+  }
+  .dm-theme-toggle {
+    width: 40px;
+    height: 40px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dm-theme-toggle {
+    transition: none;
+  }
+}

@@ -196,6 +196,22 @@ function validate(next) {
   }
   for (const group of next.platforms ?? []) require(group.title, "A platform group title");
   const serviceAddresses = new Set((next.services ?? []).map((s) => String(s.slug ?? "").trim()));
+  // A bullet point page that names nothing would render as a link to nowhere.
+  for (const service of next.services ?? []) {
+    const pages = service.pointPages;
+    if (!Array.isArray(pages)) continue;
+    if (pages.length > (service.points?.length ?? 0)) {
+      errors.push(
+        `${service.title || "A service"}: there are more bullet point pages than bullet points`,
+      );
+    }
+    for (const page of pages) {
+      const target = String(page ?? "").trim();
+      if (target && !serviceAddresses.has(target)) {
+        errors.push(`${service.title || "A service"}: "${target}" is not a service page address`);
+      }
+    }
+  }
   for (const project of next.projects ?? []) {
     require(project.title, "A project name");
     const service = String(project.service ?? "").trim();

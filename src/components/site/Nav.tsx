@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ArrowUpRight, ChevronDown, ChevronRight, Menu, Phone, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ChevronRight, Menu, Phone, Sun, Moon, X } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { contact, nav as navContent, pathFor, route as routeFor } from "@/content";
 import { serviceNavigation } from "@/content/service-navigation";
+import { useTheme } from "@/lib/theme";
 import { headerVisibleAfterScroll } from "@/lib/header-scroll";
 const links = ["home", "services", "about", "platforms", "contact"].map((key) => ({
   to: pathFor(key),
@@ -79,6 +80,7 @@ function ServiceMenu({ mobile = false, onNavigate }: { mobile?: boolean; onNavig
   );
 }
 export function Nav() {
+  const { theme, toggle } = useTheme();
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -193,6 +195,19 @@ export function Nav() {
               <strong>{contact.phone}</strong>
             </span>
           </a>
+          <button
+            type="button"
+            className="dm-theme-toggle"
+            onClick={toggle}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? (
+              <Sun size={19} aria-hidden="true" />
+            ) : (
+              <Moon size={19} aria-hidden="true" />
+            )}
+          </button>
           <a href={pathFor("contact")} className="dm-button dm-nav-cta">
             {navContent.ctaLabel}
             <span className="dm-nav-cta-arrow" aria-hidden="true">

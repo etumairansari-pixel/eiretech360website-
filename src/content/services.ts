@@ -15,6 +15,12 @@ export type ServiceSection = {
   /** The element id on the detail page, so a bullet point can link to it. */
   anchor: string;
   body: string;
+  /**
+   * The sub-service page this point leads to, when it has one. A parent
+   * service's points name its sub-services, so listings link to the real page
+   * rather than repeating the point as both a page link and a bullet.
+   */
+  page: string;
 };
 
 export type GalleryItem = {
@@ -96,6 +102,7 @@ export function slugify(text: string): string {
 export const services: Service[] = (raw as ServiceContent[]).map((service) => {
   const slug = service.slug?.trim() || slugify(service.title);
   const details = service.details ?? [];
+  const pointPages = service.pointPages ?? [];
 
   return {
     parent: service.parent ?? "",
@@ -120,6 +127,7 @@ export const services: Service[] = (raw as ServiceContent[]).map((service) => {
       title: point,
       anchor: slugify(point),
       body: details[i] ?? "",
+      page: pointPages[i]?.trim() ?? "",
     })),
     benefits: service.benefits ?? [],
     faqs: (service.faqs ?? [])

@@ -177,6 +177,12 @@ export type Service = {
   image: string;
   desc: string;
   points: string[];
+  /**
+   * The service page each bullet point leads to, in the same order as `points`.
+   * A parent service's points name its sub-services, so a point links to that
+   * page instead of to a section of this one. Blank entries link to the section.
+   */
+  pointPages?: string[];
   /** The URL segment under /services/. Falls back to the slugified title. */
   slug?: string;
   seo?: { title: string; description: string };

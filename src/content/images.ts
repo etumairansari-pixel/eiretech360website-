@@ -44,6 +44,14 @@ import svcSeo from "@/assets/photo-seo.webp";
 import svcPpc from "@/assets/photo-ppc.webp";
 import svcSocial from "@/assets/photo-social.webp";
 import svcContent from "@/assets/photo-content.webp";
+import svcCrm from "@/assets/photo-crm.webp";
+import svcLeadNurturing from "@/assets/photo-lead-nurturing.webp";
+import svcWorkflow from "@/assets/photo-workflow.webp";
+import svcEmail from "@/assets/photo-email.webp";
+import svcBrandStrategy from "@/assets/photo-brand-strategy.webp";
+import svcBrandGuidelines from "@/assets/photo-brand-guidelines.webp";
+import svcBrandConsistency from "@/assets/photo-brand-consistency.webp";
+import svcReputation from "@/assets/photo-reputation.webp";
 
 import detail0 from "@/assets/detail-research.webp";
 import detail1 from "@/assets/detail-analytics.webp";
@@ -62,7 +70,15 @@ import detail13 from "@/assets/detail-social.webp";
 import detail14 from "@/assets/detail-presentation.webp";
 import detail15 from "@/assets/detail-workspace.webp";
 
+import campaignPhoto0 from "@/assets/photo-traditional-media.webp";
+import campaignPhoto1 from "@/assets/photo-outdoor-print.webp";
+import campaignPhoto2 from "@/assets/photo-integrated-campaigns.webp";
+import campaignPhoto3 from "@/assets/photo-campaign-planning.webp";
 export const images = {
+  "svc-traditional-media": campaignPhoto0,
+  "svc-outdoor-print": campaignPhoto1,
+  "svc-integrated-campaigns": campaignPhoto2,
+  "svc-campaign-planning": campaignPhoto3,
   "detail-research": detail0,
   "detail-analytics": detail1,
   "detail-strategy": detail2,
@@ -83,6 +99,14 @@ export const images = {
   "svc-ppc": svcPpc,
   "svc-social": svcSocial,
   "svc-content": svcContent,
+  "svc-crm": svcCrm,
+  "svc-lead-nurturing": svcLeadNurturing,
+  "svc-workflow": svcWorkflow,
+  "svc-email": svcEmail,
+  "svc-brand-strategy": svcBrandStrategy,
+  "svc-brand-guidelines": svcBrandGuidelines,
+  "svc-brand-consistency": svcBrandConsistency,
+  "svc-reputation": svcReputation,
   "design-cliffs-halloween-post": designCliffsHalloweenPost,
   "video-lost-mary": videoLostMary,
   "video-lost-mary-poster": videoLostMaryPoster,

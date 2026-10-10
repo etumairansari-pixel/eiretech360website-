@@ -12,6 +12,12 @@
       "Paid Advertising (Google, Meta, and more)",
       "Content Strategy and Creation"
     ],
+    "pointPages": [
+      "seo-services",
+      "social-media-marketing",
+      "ppc-management",
+      "content-marketing"
+    ],
     "seo": {
       "title": "Digital Marketing Services | SEO, PPC & Social – Eire Tech",
       "description": "Grow traffic, leads and sales with Eire Tech's digital marketing services: SEO, social media marketing, Google and Meta ads, and content that converts."
@@ -49,6 +55,12 @@
       "Automated Email and SMS Campaigns",
       "Workflow and Process Automation",
       "Lead Nurturing Systems"
+    ],
+    "pointPages": [
+      "crm-integration",
+      "email-marketing",
+      "workflow-automation",
+      "lead-nurturing"
     ],
     "seo": {
       "title": "Marketing & Business Automation Services | Eire Tech",
@@ -88,6 +100,12 @@
       "Cross-Platform Brand Consistency",
       "Reputation Management"
     ],
+    "pointPages": [
+      "brand-positioning",
+      "brand-guidelines-voice",
+      "brand-consistency",
+      "reputation-management"
+    ],
     "seo": {
       "title": "Brand Management Services | Strategy & Identity – Eire Tech",
       "description": "Build a brand people recognise and trust. Eire Tech delivers brand strategy, positioning, guidelines, tone of voice and online reputation management."
@@ -125,6 +143,12 @@
       "Outdoor and Print Advertising",
       "Integrated Multi-Channel Campaigns",
       "Campaign Planning and Execution"
+    ],
+    "pointPages": [
+      "traditional-media-advertising",
+      "outdoor-print-advertising",
+      "integrated-marketing-campaigns",
+      "campaign-planning-execution"
     ],
     "seo": {
       "title": "ATL & TTL Advertising Campaigns – Eire Tech",
@@ -547,7 +571,7 @@
     "headline": "CRM Integration Services & CRM Implementation Solutions",
     "icon": "workflow",
     "tag": "Connected customer systems",
-    "image": "detail-analytics",
+    "image": "svc-crm",
     "desc": "Managing customer relationships becomes difficult when sales, marketing and customer data are spread across different systems. A properly configured CRM brings that information together, giving your team a clearer view of leads, customers and sales opportunities.",
     "intro": "Managing customer relationships becomes difficult when sales, marketing and customer data are spread across different systems. A properly configured CRM brings that information together, giving your team a clearer view of leads, customers and sales opportunities.\n\nOur CRM integration services help businesses connect customer data, automate routine processes and build more efficient sales and marketing workflows. From initial CRM setup and data migration to third-party integrations and automation, we create practical solutions for businesses across Ireland, Europe and the USA.",
     "points": [
@@ -586,7 +610,7 @@
     "headline": "Lead Nurturing & Marketing Automation Services",
     "icon": "target",
     "tag": "Consistent customer follow-up",
-    "image": "detail-campaign",
+    "image": "svc-lead-nurturing",
     "desc": "Generating leads is only the beginning. Many potential customers are interested in a product or service but aren't ready to buy immediately. Without consistent follow-up, those opportunities can quickly go cold.",
     "intro": "Generating leads is only the beginning. Many potential customers are interested in a product or service but aren't ready to buy immediately. Without consistent follow-up, those opportunities can quickly go cold.\n\nOur lead nurturing services help businesses stay connected with prospects throughout the buying journey. By combining marketing automation, personalised communication, lead scoring and CRM workflows, we create structured follow-up systems that move interested prospects closer to a sales conversation.\n\nWe support businesses across Ireland, Europe and the USA with lead nurturing strategies designed around their customers, sales cycles and marketing goals.",
     "points": [
@@ -627,7 +651,7 @@
     "headline": "Workflow Automation & Business Process Automation Services",
     "icon": "workflow",
     "tag": "Reduce repetitive work",
-    "image": "detail-laptop",
+    "image": "svc-workflow",
     "desc": "Repetitive tasks can quietly consume hours every week. Copying information between systems, updating spreadsheets, sending routine follow-ups, preparing reports and chasing approvals all take time that could be spent on higher-value work.",
     "intro": "Repetitive tasks can quietly consume hours every week. Copying information between systems, updating spreadsheets, sending routine follow-ups, preparing reports and chasing approvals all take time that could be spent on higher-value work.\n\nOur workflow automation services help businesses replace repetitive manual processes with reliable, connected workflows. From sales and marketing to finance, customer service and internal operations, we identify where automation can save time, reduce errors and keep work moving.\n\nWe provide business process automation solutions for companies across Ireland, Europe and the USA, designed around the tools and processes they already use.",
     "points": [
@@ -668,7 +692,7 @@
     "headline": "Brand Strategy & Brand Positioning Services",
     "icon": "compass",
     "tag": "A clear market position",
-    "image": "detail-strategy",
+    "image": "svc-brand-strategy",
     "desc": "A strong brand is more than a memorable logo or attractive website. It is how customers recognise your business, understand its value and decide why they should choose you over competitors.",
     "intro": "A strong brand is more than a memorable logo or attractive website. It is how customers recognise your business, understand its value and decide why they should choose you over competitors.\n\nOur brand strategy services help businesses develop a clear identity, communicate their strengths and establish a distinctive market position. From audience research and competitive analysis to brand messaging and identity development, we create strategies that support consistent communication and long-term growth.\n\nWe work with startups, growing companies and established businesses across Ireland, Europe and the USA.",
     "points": [
@@ -707,7 +731,7 @@
     "headline": "Brand Identity Guidelines & Voice Development",
     "icon": "palette",
     "tag": "A recognisable brand identity",
-    "image": "detail-design",
+    "image": "svc-brand-guidelines",
     "desc": "Your brand should look familiar and sound consistent wherever customers find it. Whether someone visits your website, reads an email or sees a social media post, the experience should feel connected.",
     "intro": "Your brand should look familiar and sound consistent wherever customers find it. Whether someone visits your website, reads an email or sees a social media post, the experience should feel connected.\n\nOur brand guidelines services help businesses establish clear visual and communication standards. From logo usage and typography to brand voice development and messaging, we create practical guidelines that make consistent branding easier for everyone involved.\n\nWe support startups, growing companies and established organisations across Ireland, Europe and the USA.",
     "points": [
@@ -748,7 +772,7 @@
     "headline": "Brand Consistency Across Digital Platforms",
     "icon": "layers-3",
     "tag": "One connected brand experience",
-    "image": "detail-creative",
+    "image": "svc-brand-consistency",
     "desc": "A business might spend months getting its website exactly right, only to have its social media pages tell a completely different story. The website uses carefully chosen colours and professional photography, but the Instagram account has three different logo versions and promotional graphics that don't match anything else.",
     "intro": "A business might spend months getting its website exactly right, only to have its social media pages tell a completely different story. The website uses carefully chosen colours and professional photography, but the Instagram account has three different logo versions and promotional graphics that don't match anything else.\n\nIt happens quite often, especially when different people are responsible for different parts of the marketing.\n\nThe issue isn't necessarily poor design. More often, nobody has established how the brand should be presented outside its original website or logo files.\n\nThat's where brand consistency becomes important. We help businesses bring their digital channels into line, keeping their identity recognisable without making every piece of content look the same.",
     "points": [
@@ -785,7 +809,7 @@
     "headline": "Online Reputation Management for Businesses",
     "icon": "users",
     "tag": "Build customer trust",
-    "image": "detail-research",
+    "image": "svc-reputation",
     "desc": "A business can spend years building a good name, yet a customer who's never dealt with it may form an opinion in less than five minutes. All they need is a Google search, a few reviews and perhaps a quick look through its social media pages.",
     "intro": "A business can spend years building a good name, yet a customer who's never dealt with it may form an opinion in less than five minutes. All they need is a Google search, a few reviews and perhaps a quick look through its social media pages.\n\nWhat they find isn't always the full story.\n\nA complaint might have been resolved weeks ago, but the review still sits there unanswered. An old business listing may show incorrect opening hours. Meanwhile, positive feedback from satisfied customers goes unnoticed.\n\nThese are the everyday issues that make online reputation management worth taking seriously.\n\nAt EireTech360, we work with businesses across Ireland, Europe and the USA to keep customer feedback organised, improve review responses and make their online presence more reliable.",
     "points": [
@@ -820,7 +844,7 @@
     "headline": "Email Marketing & Automated Campaign Services",
     "icon": "megaphone",
     "tag": "Relevant messages. Consistent follow-up.",
-    "image": "detail-writing",
+    "image": "svc-email",
     "desc": "Reach the right subscribers with useful campaigns, clear messaging and automated customer journeys.",
     "intro": "Email marketing helps you stay connected with people who have shown an interest in your business. EireTech360 plans, designs and builds campaigns that give subscribers useful information and a clear next step, from their first enquiry to their next purchase.\n\nWe support businesses in Ireland, Europe and the USA with campaign strategy, email copy, reusable templates, segmentation, automation and reporting. The approach is built around your audience and goals, with practical handover for your team.",
     "points": [
@@ -857,5 +881,153 @@
       "What results will you report? | We agree the measures before launch, such as clicks, qualified enquiries, purchases or repeat orders. Performance depends on your audience, offer and customer journey.",
       "Can our team manage campaigns after setup? | Yes. Reusable templates, documentation and a handover can help your team maintain the programme. Ongoing campaign support can also be discussed."
     ]
+  },
+  {
+    "title": "Traditional Media Advertising",
+    "slug": "traditional-media-advertising",
+    "parent": "atl-ttl-campaigns",
+    "headline": "Traditional Media Advertising & Campaigns",
+    "icon": "radio",
+    "tag": "Reach audiences beyond digital",
+    "image": "svc-traditional-media",
+    "desc": "There's a reason businesses still advertise on billboards, radio stations and in local newspapers. People notice things outside their phones, too.",
+    "intro": "There's a reason businesses still advertise on billboards, radio stations and in local newspapers. People notice things outside their phones, too.\n\nTake a new café opening in a busy neighbourhood. The owner could run social media ads for weeks, but a well-placed sign near the shopping area might reach hundreds of local people who haven't heard of the business yet. A short mention on a popular local radio station could do something similar.\n\nOf course, neither option is automatically worth the money. A billboard in the wrong location is just an expensive piece of artwork.\n\nThat's why traditional media advertising needs proper planning. It's about finding the right audience, choosing places they're likely to notice and giving them a reason to remember your business.\n\nWe work with companies across Ireland, Europe and the USA that want traditional advertising to play a useful role in their marketing.",
+    "points": [
+      "Traditional Advertising Isn't Just for Big Brands",
+      "Print Advertising: Getting the Basics Right",
+      "Radio Advertising Has to Work Without Pictures",
+      "Billboards: Less Really Is More",
+      "What About Television Advertising?",
+      "Choosing Media Placements Without Guesswork",
+      "Don't Forget What Happens After the Advertisement",
+      "How Will You Know If It Worked?",
+      "Make Traditional Advertising Worth the Investment"
+    ],
+    "details": [
+      "When people hear “traditional media campaigns”, they sometimes picture expensive television commercials or enormous billboards.\n\nBut traditional advertising can be much more local than that.\n\nA plumbing company might advertise in a community newspaper. A furniture retailer could use radio to announce a seasonal sale. A business opening another branch may want outdoor advertising near its new premises.\n\nThe important thing is understanding who needs to see the message.\n\nThere's little point paying for a large audience if most of those people will never need your service.\n\nWe look at where your customers are, how they spend their time and which advertising options suit your budget before considering placements.",
+      "Print advertising doesn't give you much room to explain everything.\n\nSomeone reading a newspaper might glance at an advertisement for a few seconds before turning the page. If the headline is unclear or the design is crowded, the opportunity is gone.\n\nA good print advertisement usually needs one clear message.\n\nPerhaps you're announcing a new location, introducing a service or promoting an upcoming event.\n\nWhatever the purpose, the reader should understand it quickly.\n\nWe help businesses develop newspaper and magazine advertising with straightforward copy, appropriate imagery and a clear next step.\n\nChoosing the publication matters as well. An advertisement in a specialist trade magazine can be more relevant than one in a general publication with a much larger readership.",
+      "Radio presents an interesting challenge: people often listen while doing something else.\n\nThey might be driving to work, preparing dinner or working in a shop.\n\nYou have their ears, but not necessarily their full attention.\n\nThat's why radio advertising copy needs to sound like something a person would actually say.\n\nLong sentences, complicated offers and difficult website addresses can be hard to follow.\n\nWe help plan radio campaigns with clear messaging, suitable scripts and consideration of when the intended audience is likely to be listening.\n\nA local business targeting morning commuters, for example, may need a different schedule from one promoting an evening event.",
+      "A billboard isn't a brochure.\n\nDrivers and pedestrians usually have only a moment to look at it. They aren't going to read six selling points and a paragraph about your company.\n\nThe strongest outdoor advertisements tend to keep things simple.\n\nA short headline, recognisable branding and a visual that makes sense at a glance can be enough.\n\nWe help businesses consider billboard advertising and other outdoor placements, paying attention to where advertisements will appear and who is likely to see them.\n\nA busy location isn't necessarily the best one.\n\nFor a local service provider, a smaller advertisement near the right neighbourhood may be more useful than a prominent placement miles away.",
+      "Television advertising can be useful when a business needs to show something rather than simply describe it.\n\nA product demonstration, a short customer story or a look inside a business can be easier to communicate through video.\n\nBut television campaigns also involve production costs, scheduling and decisions about which audiences to target.\n\nIt's worth considering those details before committing to a budget.\n\nWe support businesses in evaluating television advertising opportunities and planning how a broadcast campaign might fit alongside other marketing activity.\n\nFor some companies, it will make sense. For others, the money may be better spent elsewhere.",
+      "One of the biggest mistakes in traditional advertising is buying space before deciding what the campaign should achieve.\n\nA salesperson offers a newspaper placement or radio package, the price sounds reasonable and the business agrees.\n\nOnly afterwards does someone ask whether the audience is actually relevant.\n\nMedia planning should work the other way around.\n\nStart with the customers you want to reach. Consider the locations, publications or stations they use. Then compare the available options.\n\nWe help businesses think through those decisions, including campaign timing, placement costs and how different channels might work together.",
+      "Imagine someone hears your company mentioned on the radio and decides to look you up later.\n\nThey remember the business name, search online and arrive at your website.\n\nIf the service mentioned in the advertisement is difficult to find, you've made their next step unnecessarily complicated.\n\nTraditional media and digital marketing should support each other.\n\nThat might mean creating a dedicated landing page, using the same offer across channels or making sure your contact information is easy to find.\n\nThese are small details, but they matter when someone is deciding whether to get in touch.",
+      "Traditional advertising doesn't always provide neat dashboards showing every customer interaction.\n\nThat doesn't mean you have to rely entirely on guesswork.\n\nA dedicated phone number, campaign-specific web address or simple question during an enquiry can provide useful information.\n\nIt's also worth looking at changes in enquiries during the campaign and comparing the results with what you spent.\n\nNot every customer will remember exactly where they saw an advertisement. Still, gathering whatever evidence is available helps make the next campaign more informed.",
+      "There's no need for every business to advertise on radio, television and billboards at once.\n\nSometimes one carefully chosen placement is enough to test an idea.\n\nWhat matters is knowing who you're trying to reach, what you want them to remember and what you're prepared to spend.\n\nEireTech360 helps businesses approach traditional media campaigns with clearer planning, practical advertising concepts and a connection to their wider marketing strategy.\n\nGet in touch to discuss traditional advertising options that suit your business, audience and budget."
+    ],
+    "seo": {
+      "title": "Traditional Media Advertising | EireTech360",
+      "description": "There's a reason businesses still advertise on billboards, radio stations and in local newspapers. People notice things outside their phones, too."
+    }
+  },
+  {
+    "title": "Outdoor & Print Advertising",
+    "slug": "outdoor-print-advertising",
+    "parent": "atl-ttl-campaigns",
+    "headline": "Outdoor and Print Advertising",
+    "icon": "palette",
+    "tag": "Visible in the real world",
+    "image": "svc-outdoor-print",
+    "desc": "A billboard on a busy road can cost a fair amount of money. So can a full-page advertisement in a newspaper. Yet businesses sometimes book these spaces before asking a fairly basic question: will the people seeing this advertisement actually be interested?",
+    "intro": "A billboard on a busy road can cost a fair amount of money. So can a full-page advertisement in a newspaper. Yet businesses sometimes book these spaces before asking a fairly basic question: will the people seeing this advertisement actually be interested?\n\nIt's an easy mistake to make. A prominent location looks impressive, and a large readership sounds promising. Neither tells you much about whether the campaign is right for your business.\n\nGood outdoor and print advertising begins with the audience. Where do potential customers travel? Which publications do they read? What would make them notice your business rather than the dozens of other messages competing for their attention?\n\nWe work with businesses across Ireland, Europe and the USA to plan advertising that answers those questions before money is committed.",
+    "points": [
+      "Choosing the Right Outdoor Advertising Locations",
+      "A Billboard Isn't the Place for Your Entire Sales Pitch",
+      "Posters and Transport Advertising Have Different Jobs",
+      "Print Advertising Is About the Reader, Not Just the Publication",
+      "Making Newspaper and Magazine Ads Easier to Read",
+      "Planning Around Real Advertising Budgets",
+      "What Happens When Someone Notices Your Advertisement?",
+      "Finding Out Whether the Campaign Was Worth It",
+      "Advertising That Makes Sense for Your Business"
+    ],
+    "details": [
+      "Picture a furniture retailer opening a new showroom.\n\nA billboard near the showroom could help people discover it. The same advertisement placed on a motorway far outside the business's delivery area might attract attention without bringing in useful enquiries.\n\nLocation matters, but not simply because a road is busy.\n\nWe consider the type of people passing through an area, how close the placement is to the business and what the campaign is trying to achieve.\n\nFor some companies, a large roadside billboard makes sense. Others may benefit more from bus shelters, shopping centre displays or posters near a particular neighbourhood.\n\nThere's no reason to pay for the biggest advertising space if a smaller one reaches the right customers.",
+      "You've probably seen billboards packed with phone numbers, service lists, website addresses and several different offers.\n\nFrom a moving car, most of that information is impossible to read.\n\nBillboard advertising works differently from a brochure. People may have only a few seconds to understand it.\n\nA short headline and a clear visual usually have a better chance of being noticed than a crowded layout.\n\nWe help develop advertising concepts around one main idea, whether that's a new store opening, a particular service or an upcoming promotion.\n\nThe design should make sense quickly, without asking the viewer to work out what the business is trying to say.",
+      "Not every outdoor advertisement is seen in passing.\n\nSomeone waiting at a bus stop may have time to read more than a driver travelling past a billboard.\n\nA poster inside a shopping centre might reach people who are already in the mood to browse or buy.\n\nThese differences affect how an advertisement should be designed.\n\nRather than stretching the same artwork across every format, we consider where each advertisement will appear and how people are likely to encounter it.\n\nThat may mean changing the headline, adjusting the amount of information or choosing different imagery.\n\nThe brand should remain recognisable, but the creative work needs to suit the setting.",
+      "Newspaper and magazine advertising can still be useful, particularly when a publication reaches a clearly defined audience.\n\nA local tradesperson might find customers through a community newspaper. A specialist supplier may be better suited to an industry magazine.\n\nThe publication with the largest circulation isn't automatically the best choice.\n\nWe look at who reads it, where it's distributed and whether the content is relevant to the business being advertised.\n\nPrint campaigns also need careful timing. An advertisement for a seasonal service, for example, should appear when customers are likely to be considering it.\n\nThose practical decisions matter just as much as the finished design.",
+      "A newspaper advertisement has to compete with articles, photographs and other promotions.\n\nReaders aren't obliged to stop and examine it.\n\nIf the headline is vague or the layout feels cluttered, they may simply turn the page.\n\nWe focus on getting the main point across without unnecessary wording.\n\nThat might involve a clear offer, a useful benefit or a simple announcement.\n\nThe supporting text should answer the obvious questions, while the contact details need to be easy to find.\n\nSometimes the most useful design decision is removing a paragraph that doesn't need to be there.",
+      "Advertising space can be expensive, especially in prominent locations or widely read publications.\n\nThat's why campaign planning should happen before artwork is finalised.\n\nA business launching a new branch may want several placements concentrated around its opening date.\n\nA company trying to stay familiar to local customers might prefer a smaller campaign spread over a longer period.\n\nWe help compare suitable advertising formats, placement options and campaign schedules against the available budget.\n\nIt's better to run a focused campaign with a clear purpose than to spread spending across channels simply because they're available.",
+      "Suppose a person sees your billboard on the way to work.\n\nThey can't stop to call, so they search for your company later that evening.\n\nIf the business name is difficult to remember or the website doesn't mention the advertised service, that opportunity becomes harder to convert into an enquiry.\n\nOutdoor and print campaigns should make the next step obvious.\n\nDepending on the format, that might mean a memorable website address, a dedicated landing page, a telephone number or a QR code where people have time to scan it.\n\nWe help connect offline advertising with the information customers find online.",
+      "Traditional advertising doesn't provide the same tracking data as a digital advertisement.\n\nYou won't know exactly how many drivers looked at a billboard and later made a purchase.\n\nBut you can still gather useful evidence.\n\nEnquiry volumes, dedicated contact numbers, campaign landing pages and customer feedback can help show whether advertising is generating interest.\n\nThese measurements have limitations, so results need to be interpreted sensibly.\n\nWe help businesses review what can be measured and use those findings when planning future campaigns.",
+      "A billboard, newspaper advertisement or shopping centre poster can be useful when it reaches the right people with a message they understand.\n\nIt can also become an unnecessary expense when the audience, location or purpose hasn't been properly considered.\n\nEireTech360 helps businesses approach outdoor and print advertising with practical planning, clear creative direction and attention to where their customers are most likely to notice them.\n\nGet in touch to discuss an outdoor or print advertising campaign built around your business, rather than a standard advertising package."
+    ],
+    "seo": {
+      "title": "Outdoor & Print Advertising | EireTech360",
+      "description": "A billboard on a busy road can cost a fair amount of money. So can a full-page advertisement in a newspaper. Yet businesses sometimes book these spaces befor"
+    }
+  },
+  {
+    "title": "Integrated Multi-Channel Marketing Campaigns",
+    "slug": "integrated-marketing-campaigns",
+    "parent": "atl-ttl-campaigns",
+    "headline": "Integrated Multi-Channel Marketing Campaigns",
+    "icon": "layers-3",
+    "tag": "One message across every channel",
+    "image": "svc-integrated-campaigns",
+    "desc": "A business runs Google Ads, posts regularly on Instagram and sends the occasional email newsletter. On paper, it looks like a fairly active marketing operation.",
+    "intro": "A business runs Google Ads, posts regularly on Instagram and sends the occasional email newsletter. On paper, it looks like a fairly active marketing operation.\n\nBut take a closer look.\n\nThe Google advertisement promotes one service, the Instagram page is talking about something else, and the newsletter links to an offer that expired last month.\n\nEach channel is doing something. They're just not working together.\n\nThat's a common problem, particularly as businesses grow and different people take responsibility for different parts of the marketing.\n\nIntegrated multi-channel campaigns bring those activities into one plan. The idea isn't to advertise everywhere. It's to make sure the channels you use support the same business objective.\n\nWe work with companies across Ireland, Europe and the USA to plan campaigns that connect advertising, content and customer communication.",
+    "points": [
+      "One Campaign, Several Ways to Reach People",
+      "Don't Choose Platforms Just Because They're Popular",
+      "Connecting Google Ads and Social Media",
+      "Make Sure Landing Pages Match the Advertisement",
+      "Email Has a Place, but Timing Matters",
+      "Bringing Offline Advertising Into the Mix",
+      "Different Channels, One Clear Message",
+      "Looking Beyond Individual Campaign Results",
+      "Build a Campaign Around Your Customers"
+    ],
+    "details": [
+      "Customers don't all discover businesses in the same way.\n\nSomeone might search Google because they need a service immediately. Another person may come across the same business through a Facebook advertisement and remember it for later.\n\nA third might hear about the company from a friend, visit its website and sign up for updates.\n\nThose journeys are different, which is why using several marketing channels can make sense.\n\nThe challenge is deciding what each channel should contribute.\n\nA paid search campaign may be responsible for reaching people who are ready to enquire. Social media might introduce the business to a new audience, while email helps maintain contact with interested prospects.\n\nGiving each channel a clear purpose makes the overall campaign easier to manage.",
+      "It's tempting to assume that a business needs to be active on every major platform.\n\nBut a company selling specialist equipment to other businesses may gain little from a channel that works well for a fashion retailer.\n\nBefore recommending a marketing mix, we consider who the customers are, how they research services and what usually influences their decisions.\n\nBudget matters too.\n\nRunning small campaigns across six platforms isn't necessarily better than concentrating on two or three relevant ones.\n\nAn effective multi-channel marketing strategy should reflect the business, not a standard checklist of advertising platforms.",
+      "Google Ads and social media advertising often reach customers at different moments.\n\nA person searching for an accountant may already be comparing providers. Someone scrolling through LinkedIn might not need an accountant today but could remember a useful post when the need arises.\n\nBoth interactions can have value.\n\nThe important part is keeping the message recognisable.\n\nIf a customer encounters your company on social media and later finds your search advertisement, the services, claims and branding should make sense together.\n\nThat doesn't require identical content. It requires a shared direction.",
+      "Imagine clicking an advertisement for a free consultation and arriving on a homepage with no mention of it.\n\nYou'd probably wonder whether you'd clicked the wrong link.\n\nThis happens when advertising and website content are planned separately.\n\nA campaign landing page should pick up where the advertisement leaves off.\n\nThe visitor needs to find the relevant service, understand the offer and see what to do next without searching through unrelated pages.\n\nWe consider those details when coordinating campaigns because generating a click is only part of the job.\n\nWhat happens afterwards matters just as much.",
+      "Not every potential customer makes a decision straight away.\n\nSomeone might request a brochure, compare prices or ask for more information before committing.\n\nEmail marketing can be useful during that period, provided the messages are relevant.\n\nA person who has already spoken with your sales team probably doesn't need the same introductory email as someone who has only visited your website.\n\nWe look at how email communication fits into the customer journey and where follow-up messages may be helpful.\n\nThe aim isn't to send more emails. It's to send information that makes sense at that stage.",
+      "Multi-channel campaigns aren't limited to screens.\n\nA business opening a new location might use outdoor advertising to reach people travelling nearby, while social media and search advertisements provide additional information.\n\nA radio promotion could also encourage listeners to visit a campaign page later.\n\nThe key is making that next step easy.\n\nIf the offline advertisement mentions an offer, customers should be able to find the same information online.\n\nOtherwise, the channels may attract attention without supporting one another.",
+      "An Instagram post shouldn't read like a Google search advertisement.\n\nAnd an email shouldn't necessarily use the same wording as a billboard.\n\nEach format has its own limitations and strengths.\n\nIntegrated marketing is about maintaining the central idea while adapting how it's communicated.\n\nThe brand should feel familiar, the offer should remain accurate and the customer shouldn't encounter conflicting information.\n\nThis approach gives creative teams flexibility without losing consistency.",
+      "A customer might see several advertisements before finally contacting a business.\n\nIf you only measure the last interaction, you may miss the earlier activity that introduced the company.\n\nMulti-channel campaign management looks at performance across the available channels.\n\nThat can include enquiries, advertising costs, landing page activity and conversion rates.\n\nNot every interaction can be tracked accurately, particularly when offline advertising is involved.\n\nStill, reviewing results together helps businesses understand where their marketing budget is going and what may need adjusting.",
+      "There's no universal formula for choosing the right marketing channels.\n\nA local service provider, an online retailer and an international company will have different audiences and priorities.\n\nThe starting point should always be what the business wants to achieve and how its customers make decisions.\n\nEireTech360 supports integrated campaign planning, coordinated messaging and multi-channel advertising strategies that bring separate marketing activities into a more connected approach.\n\nGet in touch to discuss a campaign that makes better use of the marketing channels your business needs."
+    ],
+    "seo": {
+      "title": "Integrated Multi-Channel Marketing Campaigns | EireTech360",
+      "description": "A business runs Google Ads, posts regularly on Instagram and sends the occasional email newsletter. On paper, it looks like a fairly active marketing operati"
+    }
+  },
+  {
+    "title": "Campaign Planning & Execution",
+    "slug": "campaign-planning-execution",
+    "parent": "atl-ttl-campaigns",
+    "headline": "Campaign Planning and Execution",
+    "icon": "compass",
+    "tag": "From objectives to delivery",
+    "image": "svc-campaign-planning",
+    "desc": "It's Monday morning, and a business has decided to launch a promotion before the end of the month. The offer is agreed, somebody has suggested running Google Ads, and the designer has been asked to prepare a few graphics.",
+    "intro": "It's Monday morning, and a business has decided to launch a promotion before the end of the month. The offer is agreed, somebody has suggested running Google Ads, and the designer has been asked to prepare a few graphics.\n\nSo far, so good.\n\nBy Thursday, however, three different versions of the offer are circulating. Nobody has confirmed the advertising budget. The website still shows last month's prices, and the person who needs to approve everything is away until Tuesday.\n\nThis is the less glamorous side of marketing. The ideas come easily enough. Getting everything ready, in the right order, is another matter.\n\nCampaign planning and execution is about making that process less chaotic. There needs to be a clear purpose, a workable schedule and somebody paying attention to what happens after the advertisements go live.",
+    "points": [
+      "Start With the Problem, Not the Advertisement",
+      "Customers Don't All Arrive Ready to Buy",
+      "Choosing Where the Money Goes",
+      "Then Comes the Work Behind the Scenes",
+      "Make the Advertisement Easy to Understand",
+      "A Launch Date Isn't Proof That Everything Works",
+      "The First Results Might Surprise You",
+      "Don't Finish Without Looking Back",
+      "Make the Next Campaign Easier"
+    ],
+    "details": [
+      "A business owner might say they want more traffic. Fair enough. But traffic to what, and for what reason?\n\nIf the real problem is a shortage of sales enquiries, attracting thousands of casual visitors won't necessarily help.\n\nTake a company introducing a new maintenance service. It may need to reach property managers in a particular area, explain what's included and encourage them to request a quotation.\n\nThat's a much more useful starting point than deciding to “do some social media”.\n\nThe first stage of marketing campaign planning is getting specific about the outcome. We discuss what needs to change, who the campaign should reach and how much time the business can reasonably allow.\n\nSometimes that conversation reveals that the original idea needs adjusting before any money is spent.",
+      "Think about the last time you made a fairly expensive purchase.\n\nChances are, you didn't see one advertisement and immediately hand over your money. You probably looked at alternatives, checked a few details and came back to the decision later.\n\nBusiness customers often behave the same way.\n\nSomeone looking for a new IT provider might spend weeks comparing options. Someone searching for an emergency locksmith has a very different sense of urgency.\n\nA campaign needs to account for that difference.\n\nThe message, the timing and the place where it appears should reflect what customers are likely to be thinking at that moment.\n\nIt's one reason we don't automatically recommend the same advertising channels for every business.",
+      "There isn't a shortage of places to advertise. There's usually a shortage of budget to use them all properly.\n\nGoogle Ads can reach people actively searching for a service. LinkedIn may be useful for certain business audiences. Email can keep existing contacts informed, while social media might introduce a product to people who haven't heard of it.\n\nEach has its place.\n\nBut spreading a modest budget across every available platform can leave a campaign with too little activity anywhere to learn much.\n\nA sensible campaign strategy involves choosing the channels that fit the audience and giving them a clear job.\n\nIf a platform doesn't have a convincing reason to be in the plan, it probably doesn't need to be there.",
+      "This is where a campaign can become surprisingly messy.\n\nThe copywriter needs the final offer. The designer needs the copy. The person building the landing page needs both, and the advertising account can't be set up properly until the destination page is confirmed.\n\nOne delay affects the next task.\n\nGood campaign management doesn't mean creating paperwork for its own sake. It means keeping track of those dependencies so the launch doesn't depend on last-minute guesses.\n\nWe help organise schedules, responsibilities, creative materials and approvals. Just as importantly, we make room for checking the finished work.\n\nA deadline is only useful if the campaign is actually ready when it arrives.",
+      "There's a difference between an advertisement that looks impressive and one that makes its point.\n\nA headline can be clever without telling customers anything useful. A beautifully designed graphic can still leave people wondering what they're supposed to do next.\n\nBefore worrying about small design details, it's worth asking a simpler question: what should somebody understand after seeing this?\n\nPerhaps there's a new service available. Maybe the business has opened another location. Or a limited offer needs explaining.\n\nThe answer should guide the creative work.\n\nDifferent platforms call for different formats, of course. A short search advertisement won't carry the same detail as a landing page. They should still tell a consistent story.",
+      "Here's a quick test worth doing before any campaign goes live.\n\nOpen the advertisement on your phone. Follow the link. Read the page as though you've never heard of the company. Try to make an enquiry.\n\nIs the offer easy to find? Does the form work? Are the contact details correct?\n\nThese are small checks, but they can prevent expensive mistakes.\n\nThere's little benefit in paying for visitors if they arrive at a broken page or can't find the service they've been promised.\n\nCampaign execution includes making sure the customer-facing details are ready, not just the advertisements themselves.",
+      "Once the campaign starts, assumptions meet reality.\n\nAn advertisement expected to perform well may attract the wrong people. A simpler message might bring fewer clicks but more serious enquiries.\n\nThat doesn't mean every disappointing day calls for a complete change of direction.\n\nMarketing performance needs to be reviewed with some patience.\n\nWe consider advertising spend, enquiry quality, conversion activity and any obvious problems in the customer journey.\n\nIf something isn't working, the aim is to understand why before changing it.\n\nSometimes the issue is the targeting. Sometimes it's the offer. Occasionally, the campaign simply hasn't gathered enough information yet.",
+      "When a promotion ends, everyone is usually ready to move on.\n\nBut skipping the review means losing much of what the campaign has taught you.\n\nDid the business receive the kind of enquiries it wanted? Were the deadlines realistic? Which advertisements were worth the money? Did customers ask questions the campaign should have answered earlier?\n\nThose details can shape the next campaign.\n\nA good result is worth understanding. A disappointing one is worth investigating.\n\nNeither should be reduced to a colourful chart and a quick email.",
+      "There's no way to remove every uncertainty from marketing. Customers don't always behave as expected, and even carefully prepared advertisements can fall flat.\n\nWhat a business can control is the preparation, the communication and the way decisions are made along the way.\n\nEireTech360 supports businesses across Ireland, Europe and the USA with campaign planning and execution, from shaping the initial brief to coordinating launch activity and reviewing performance.\n\nIf you've got a campaign in mind, let's work out what needs to happen to get it off the ground."
+    ],
+    "seo": {
+      "title": "Campaign Planning & Execution | EireTech360",
+      "description": "It's Monday morning, and a business has decided to launch a promotion before the end of the month. The offer is agreed, somebody has suggested running Google"
+    }
   }
 ]

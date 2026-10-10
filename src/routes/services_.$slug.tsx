@@ -44,9 +44,14 @@ function structuredData(service: Service) {
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: service.title,
+        // A point with its own page is offered at that page, not at this one.
         itemListElement: service.sections.map((section) => ({
           "@type": "Offer",
-          itemOffered: { "@type": "Service", name: section.title, url },
+          itemOffered: {
+            "@type": "Service",
+            name: section.title,
+            url: section.page ? `${SITE_URL}/services/${section.page}` : url,
+          },
         })),
       },
     },
@@ -124,9 +129,12 @@ function ServiceDetailPage() {
 
   if (
     service.parent ||
-    ["digital-marketing", "brand-management", "marketing-business-automation"].includes(
-      service.slug,
-    )
+    [
+      "digital-marketing",
+      "brand-management",
+      "marketing-business-automation",
+      "atl-ttl-campaigns",
+    ].includes(service.slug)
   ) {
     return (
       <Shell>
@@ -232,20 +240,39 @@ function ServiceDetailPage() {
               What's included in {service.title}
             </h2>
             <ol className="mt-6 grid gap-3 sm:grid-cols-2">
-              {service.sections.map((section, i) => (
-                <li key={section.anchor}>
-                  <SectionLink
-                    to={section.anchor}
-                    className="group flex w-full items-center gap-3 rounded-2xl border border-brand-line bg-brand-bg px-4 py-3.5 text-left text-sm font-semibold transition-colors hover:border-brand-primary/50 hover:text-brand-primary-text"
-                  >
+              {service.sections.map((section, i) => {
+                const rowClass =
+                  "group flex w-full items-center gap-3 rounded-2xl border border-brand-line bg-brand-bg px-4 py-3.5 text-left text-sm font-semibold transition-colors hover:border-brand-primary/50 hover:text-brand-primary-text";
+                const label = (
+                  <>
                     <span className="font-mono text-xs text-brand-primary-text">
                       [{String(i + 1).padStart(2, "0")}]
                     </span>
                     <Highlight text={section.title} />
-                    <ArrowUpRight className="ml-auto size-4 shrink-0 rotate-90 opacity-50 transition-opacity group-hover:opacity-100" />
-                  </SectionLink>
-                </li>
-              ))}
+                    <ArrowUpRight
+                      className={`ml-auto size-4 shrink-0 opacity-50 transition-opacity group-hover:opacity-100${section.page ? "" : " rotate-90"}`}
+                    />
+                  </>
+                );
+                return (
+                  <li key={section.anchor}>
+                    {/* A point that stands for a sub-service leads to that page. */}
+                    {section.page ? (
+                      <Link
+                        to="/services/$slug"
+                        params={{ slug: section.page }}
+                        className={rowClass}
+                      >
+                        {label}
+                      </Link>
+                    ) : (
+                      <SectionLink to={section.anchor} className={rowClass}>
+                        {label}
+                      </SectionLink>
+                    )}
+                  </li>
+                );
+              })}
             </ol>
             {work.length || service.gallery.length || service.videos.length ? (
               <p className="mt-6 flex flex-wrap items-center gap-2 text-sm">

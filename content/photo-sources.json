@@ -146,6 +146,571 @@
       "file": "src/assets/detail-workspace.webp",
       "source": "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
       "subject": "Professional workspace"
+    },
+    {
+      "file": "src/assets/detail-team-01.webp",
+      "source": "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
+      "subject": "A team reviewing notes around a meeting table"
+    },
+    {
+      "file": "src/assets/detail-team-02.webp",
+      "source": "https://images.unsplash.com/photo-1568992687947-868a62a9f521",
+      "subject": "Colleagues seated in a workshop session"
+    },
+    {
+      "file": "src/assets/detail-team-04.webp",
+      "source": "https://images.unsplash.com/photo-1622675363311-3e1904dc1885",
+      "subject": "Four colleagues with laptops listening in a board meeting"
+    },
+    {
+      "file": "src/assets/detail-team-05.webp",
+      "source": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
+      "subject": "A project team seated around a table"
+    },
+    {
+      "file": "src/assets/detail-team-06.webp",
+      "source": "https://images.unsplash.com/photo-1688380692117-63178554d76d",
+      "subject": "Colleagues gathered around a laptop"
+    },
+    {
+      "file": "src/assets/detail-team-07.webp",
+      "source": "https://images.unsplash.com/photo-1624555130581-1d9cca783bc0",
+      "subject": "A planning session around a shared table"
+    },
+    {
+      "file": "src/assets/detail-team-09.webp",
+      "source": "https://images.unsplash.com/photo-1714974528737-3e6c7e4d11af",
+      "subject": "A team discussion around a table"
+    },
+    {
+      "file": "src/assets/detail-team-10.webp",
+      "source": "https://images.unsplash.com/photo-1603201667141-5a2d4c673378",
+      "subject": "Colleagues working at laptops together"
+    },
+    {
+      "file": "src/assets/detail-team-11.webp",
+      "source": "https://images.unsplash.com/photo-1573164574511-73c773193279",
+      "subject": "A bright meeting room during a session"
+    },
+    {
+      "file": "src/assets/detail-team-13.webp",
+      "source": "https://images.unsplash.com/photo-1630487656049-6db93a53a7e9",
+      "subject": "Four people reviewing documents in a workspace"
+    },
+    {
+      "file": "src/assets/detail-team-15.webp",
+      "source": "https://images.unsplash.com/photo-1551434678-e076c223a692",
+      "subject": "A specialist working at a desk"
+    },
+    {
+      "file": "src/assets/detail-team-16.webp",
+      "source": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf",
+      "subject": "Two colleagues working side by side"
+    },
+    {
+      "file": "src/assets/detail-team-17.webp",
+      "source": "https://images.unsplash.com/photo-1556761175-4b46a572b786",
+      "subject": "An analyst working across several screens"
+    },
+    {
+      "file": "src/assets/detail-team-18.webp",
+      "source": "https://images.unsplash.com/photo-1568992688065-536aad8a12f6",
+      "subject": "Colleagues talking beside a work table"
+    },
+    {
+      "file": "src/assets/detail-team-20.webp",
+      "source": "https://images.unsplash.com/photo-1560264418-c4445382edbc",
+      "subject": "A consultant working at a table"
+    },
+    {
+      "file": "src/assets/detail-team-21.webp",
+      "source": "https://images.unsplash.com/photo-1681949103006-70066fb25dfe",
+      "subject": "A group working around a white table"
+    },
+    {
+      "file": "src/assets/detail-plan-02.webp",
+      "source": "https://images.unsplash.com/photo-1532622785990-d2c36a76f5a6",
+      "subject": "Two people mapping ideas on a whiteboard"
+    },
+    {
+      "file": "src/assets/detail-plan-03.webp",
+      "source": "https://images.unsplash.com/photo-1598520106830-8c45c2035460",
+      "subject": "Diagrams being drawn on a glass whiteboard"
+    },
+    {
+      "file": "src/assets/detail-plan-05.webp",
+      "source": "https://images.unsplash.com/photo-1603975711481-18b7aaca4caa",
+      "subject": "Website wireframes and sticky notes on a glass wall"
+    },
+    {
+      "file": "src/assets/detail-plan-06.webp",
+      "source": "https://images.unsplash.com/photo-1676276375742-9e3d10e39d45",
+      "subject": "A planning board covered in sticky notes"
+    },
+    {
+      "file": "src/assets/detail-plan-07.webp",
+      "source": "https://images.unsplash.com/photo-1590103514966-5e2a11c13e21",
+      "subject": "Working through a plan on a whiteboard"
+    },
+    {
+      "file": "src/assets/detail-plan-08.webp",
+      "source": "https://images.unsplash.com/photo-1677506048148-0c914dd8197b",
+      "subject": "A board of grouped sticky notes"
+    },
+    {
+      "file": "src/assets/detail-plan-09.webp",
+      "source": "https://images.unsplash.com/photo-1532619187608-e5375cab36aa",
+      "subject": "Sketching a process on a dry-erase board"
+    },
+    {
+      "file": "src/assets/detail-plan-10.webp",
+      "source": "https://images.unsplash.com/photo-1533749871411-5e21e14bcc7d",
+      "subject": "Writing a plan on a whiteboard"
+    },
+    {
+      "file": "src/assets/detail-plan-11.webp",
+      "source": "https://images.unsplash.com/photo-1607703703520-bb638e84caf2",
+      "subject": "Making notes on paper during planning"
+    },
+    {
+      "file": "src/assets/detail-plan-12.webp",
+      "source": "https://images.unsplash.com/photo-1676276374803-36e48196d5ac",
+      "subject": "An ideas board in a workspace"
+    },
+    {
+      "file": "src/assets/detail-data-01.webp",
+      "source": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43",
+      "subject": "Performance figures on a monitor"
+    },
+    {
+      "file": "src/assets/detail-data-02.webp",
+      "source": "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74",
+      "subject": "A reporting screen in a workspace"
+    },
+    {
+      "file": "src/assets/detail-data-03.webp",
+      "source": "https://images.unsplash.com/photo-1593437955835-fc8c51725430",
+      "subject": "Working through reports on a laptop"
+    },
+    {
+      "file": "src/assets/detail-data-04.webp",
+      "source": "https://images.unsplash.com/photo-1591696205602-2f950c417cb9",
+      "subject": "Performance trends on a laptop screen"
+    },
+    {
+      "file": "src/assets/detail-data-05.webp",
+      "source": "https://images.unsplash.com/photo-1633307057722-a4740ba0c5d0",
+      "subject": "A results graph on screen"
+    },
+    {
+      "file": "src/assets/detail-data-06.webp",
+      "source": "https://images.unsplash.com/photo-1686061594183-8c864f508b00",
+      "subject": "A close view of a reporting dashboard"
+    },
+    {
+      "file": "src/assets/detail-data-07.webp",
+      "source": "https://images.unsplash.com/photo-1625296276703-3fbc924f07b5",
+      "subject": "Campaign figures on a screen"
+    },
+    {
+      "file": "src/assets/detail-data-10.webp",
+      "source": "https://images.unsplash.com/photo-1616499452581-cc7f8e3dd3c9",
+      "subject": "Reviewing campaign results on a laptop"
+    },
+    {
+      "file": "src/assets/detail-mob-01.webp",
+      "source": "https://images.unsplash.com/photo-1724862936518-ae7fcfc052c1",
+      "subject": "Browsing social media on a phone"
+    },
+    {
+      "file": "src/assets/detail-mob-02.webp",
+      "source": "https://images.unsplash.com/photo-1603145733146-ae562a55031e",
+      "subject": "Social apps on a phone beside a coffee"
+    },
+    {
+      "file": "src/assets/detail-mob-03.webp",
+      "source": "https://images.unsplash.com/photo-1726066012749-f81bf4422d4e",
+      "subject": "Working across a phone and a laptop"
+    },
+    {
+      "file": "src/assets/detail-mob-04.webp",
+      "source": "https://images.unsplash.com/photo-1611926653458-09294b3142bf",
+      "subject": "Social app icons on a phone screen"
+    },
+    {
+      "file": "src/assets/detail-mob-05.webp",
+      "source": "https://images.unsplash.com/photo-1622532832487-b18b9c7f23d3",
+      "subject": "Using a phone to check a feed"
+    },
+    {
+      "file": "src/assets/detail-mob-06.webp",
+      "source": "https://images.unsplash.com/photo-1615494487949-f5f68968330e",
+      "subject": "A phone resting on a desk"
+    },
+    {
+      "file": "src/assets/detail-mob-07.webp",
+      "source": "https://images.unsplash.com/photo-1730818876911-4ba731e893a9",
+      "subject": "A phone on a table during a work break"
+    },
+    {
+      "file": "src/assets/detail-mob-08.webp",
+      "source": "https://images.unsplash.com/photo-1628320281190-89b24da58b0f",
+      "subject": "Using a smartphone"
+    },
+    {
+      "file": "src/assets/detail-desk-01.webp",
+      "source": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5",
+      "subject": "A design workstation"
+    },
+    {
+      "file": "src/assets/detail-desk-02.webp",
+      "source": "https://images.unsplash.com/photo-1493934558415-9d19f0b2b4d2",
+      "subject": "A studio desk and screen"
+    },
+    {
+      "file": "src/assets/detail-desk-03.webp",
+      "source": "https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4",
+      "subject": "A laptop, lamp and notebooks on a desk"
+    },
+    {
+      "file": "src/assets/detail-desk-04.webp",
+      "source": "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd",
+      "subject": "A quiet office desk"
+    },
+    {
+      "file": "src/assets/detail-desk-05.webp",
+      "source": "https://images.unsplash.com/photo-1575318634028-6a0cfcb60c59",
+      "subject": "A home office workspace"
+    },
+    {
+      "file": "src/assets/detail-desk-07.webp",
+      "source": "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7",
+      "subject": "A meeting table and chairs"
+    },
+    {
+      "file": "src/assets/detail-desk-08.webp",
+      "source": "https://images.unsplash.com/photo-1561070791-2526d30994b5",
+      "subject": "A printed colour reference book"
+    },
+    {
+      "file": "src/assets/detail-desk-09.webp",
+      "source": "https://images.unsplash.com/photo-1687575635557-a3f3ed535b56",
+      "subject": "A designer working across two screens"
+    },
+    {
+      "file": "src/assets/detail-desk-10.webp",
+      "source": "https://images.unsplash.com/photo-1523837157348-ffbdaccfc7de",
+      "subject": "A creative studio corner"
+    },
+    {
+      "file": "src/assets/detail-desk-11.webp",
+      "source": "https://images.unsplash.com/photo-1682056598904-9aa7ea5e8991",
+      "subject": "A laptop set up on a desk"
+    },
+    {
+      "file": "src/assets/detail-vid-01.webp",
+      "source": "https://images.unsplash.com/photo-1612544409025-e1f6a56c1152",
+      "subject": "A film crew working on a lit soundstage"
+    },
+    {
+      "file": "src/assets/detail-vid-02.webp",
+      "source": "https://images.unsplash.com/photo-1632187981988-40f3cbaeef5e",
+      "subject": "A crew setting up a camera"
+    },
+    {
+      "file": "src/assets/detail-vid-03.webp",
+      "source": "https://images.unsplash.com/photo-1611784728558-6c7d9b409cdf",
+      "subject": "A videographer with a camera on set"
+    },
+    {
+      "file": "src/assets/detail-vid-04.webp",
+      "source": "https://images.unsplash.com/photo-1594394489098-74ac04c0fc2e",
+      "subject": "A production camera recording in a studio"
+    },
+    {
+      "file": "src/assets/detail-vid-05.webp",
+      "source": "https://images.unsplash.com/photo-1515634928627-2a4e0dae3ddf",
+      "subject": "A clapperboard on a shoot"
+    },
+    {
+      "file": "src/assets/detail-vid-06.webp",
+      "source": "https://images.unsplash.com/photo-1496559249665-c7e2874707ea",
+      "subject": "Photographing a subject on location"
+    },
+    {
+      "file": "src/assets/detail-vid-07.webp",
+      "source": "https://images.unsplash.com/photo-1619099619226-f96e319e3732",
+      "subject": "A production video camera"
+    },
+    {
+      "file": "src/assets/detail-vid-09.webp",
+      "source": "https://images.unsplash.com/photo-1589337068036-86d6826cd3a9",
+      "subject": "Filming with a handheld camera"
+    },
+    {
+      "file": "src/assets/detail-mark-01.webp",
+      "source": "https://images.unsplash.com/photo-1633613286991-611fe299c4be",
+      "subject": "A row of review stars"
+    },
+    {
+      "file": "src/assets/detail-mark-03.webp",
+      "source": "https://images.unsplash.com/photo-1766853297154-3dcb4d3b38f8",
+      "subject": "Typing at a laptop"
+    },
+    {
+      "file": "src/assets/detail-mark-05.webp",
+      "source": "https://images.unsplash.com/photo-1590102426275-8d1c367070d3",
+      "subject": "Reading glasses resting on printed notes"
+    },
+    {
+      "file": "src/assets/detail-mark-08.webp",
+      "source": "https://images.unsplash.com/photo-1773844914284-498c0e049b36",
+      "subject": "A logo sign on a building"
+    },
+    {
+      "file": "src/assets/detail-mark-09.webp",
+      "source": "https://images.unsplash.com/photo-1763705857736-2b4f16a33758",
+      "subject": "Printed cards laid out together"
+    },
+    {
+      "file": "src/assets/detail-mark-10.webp",
+      "source": "https://images.unsplash.com/photo-1614036634955-ae5e90f9b9eb",
+      "subject": "A labelled product can"
+    },
+    {
+      "file": "src/assets/photo-crm.webp",
+      "source": "https://images.unsplash.com/photo-1626863905121-3b0c0ed7b94c",
+      "subject": "A customer team working with headsets in a bright office"
+    },
+    {
+      "file": "src/assets/photo-lead-nurturing.webp",
+      "source": "https://images.unsplash.com/photo-1713946598501-d6b32e7c2464",
+      "subject": "Following up with a client by phone and laptop"
+    },
+    {
+      "file": "src/assets/photo-workflow.webp",
+      "source": "https://images.unsplash.com/photo-1614598390314-802838c3ad73",
+      "subject": "Working through a business process at a computer"
+    },
+    {
+      "file": "src/assets/photo-email.webp",
+      "source": "https://images.unsplash.com/photo-1537511446984-935f663eb1f4",
+      "subject": "Reading a message on a phone"
+    },
+    {
+      "file": "src/assets/photo-brand-strategy.webp",
+      "source": "https://images.unsplash.com/photo-1560439514-0fc9d2cd5e1b",
+      "subject": "A strategy session presented to a room"
+    },
+    {
+      "file": "src/assets/photo-brand-guidelines.webp",
+      "source": "https://images.unsplash.com/photo-1645658043538-fc2bb1702cfe",
+      "subject": "A book on designing brand identity"
+    },
+    {
+      "file": "src/assets/photo-brand-consistency.webp",
+      "source": "https://images.unsplash.com/photo-1695634365014-7debec896789",
+      "subject": "A run of brochures sharing one identity"
+    },
+    {
+      "file": "src/assets/photo-reputation.webp",
+      "source": "https://images.unsplash.com/photo-1766066014237-00645c74e9c6",
+      "subject": "A customer service specialist at a headset"
+    },
+    {
+      "file": "src/assets/photo-traditional-media.webp",
+      "source": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1",
+      "subject": "Television in a living room"
+    },
+    {
+      "file": "src/assets/photo-outdoor-print.webp",
+      "source": "https://images.unsplash.com/photo-1504711434969-e33886168f5c",
+      "subject": "Printed newspapers"
+    },
+    {
+      "file": "src/assets/photo-integrated-campaigns.webp",
+      "source": "https://images.unsplash.com/photo-1531058020387-3be344556be6",
+      "subject": "Live event and presentation"
+    },
+    {
+      "file": "src/assets/photo-campaign-planning.webp",
+      "source": "https://images.unsplash.com/photo-1523958203904-cdcb402031fd",
+      "subject": "Planning a campaign at a desk"
+    },
+    {
+      "file": "src/assets/detail-code-01.webp",
+      "source": "https://images.unsplash.com/photo-1542831371-29b0f74f9713",
+      "subject": "Lines of markup on screen"
+    },
+    {
+      "file": "src/assets/detail-code-02.webp",
+      "source": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+      "subject": "Application code on a monitor"
+    },
+    {
+      "file": "src/assets/detail-code-03.webp",
+      "source": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4",
+      "subject": "Source code on a screen"
+    },
+    {
+      "file": "src/assets/detail-code-04.webp",
+      "source": "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa",
+      "subject": "A monitor and laptop open on a build"
+    },
+    {
+      "file": "src/assets/detail-code-05.webp",
+      "source": "https://images.unsplash.com/photo-1607706189992-eae578626c86",
+      "subject": "Markup for a web project"
+    },
+    {
+      "file": "src/assets/detail-code-06.webp",
+      "source": "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2",
+      "subject": "A two-screen development setup"
+    },
+    {
+      "file": "src/assets/detail-code-07.webp",
+      "source": "https://images.unsplash.com/photo-1593720213428-28a5b9e94613",
+      "subject": "A code editor in a dark theme"
+    },
+    {
+      "file": "src/assets/detail-code-08.webp",
+      "source": "https://images.unsplash.com/photo-1484417894907-623942c8ee29",
+      "subject": "A laptop open on a codebase"
+    },
+    {
+      "file": "src/assets/detail-code-10.webp",
+      "source": "https://images.unsplash.com/photo-1619410283995-43d9134e7656",
+      "subject": "Component code in an editor"
+    },
+    {
+      "file": "src/assets/detail-code-11.webp",
+      "source": "https://images.unsplash.com/photo-1587620962725-abab7fe55159",
+      "subject": "A laptop set up for development"
+    },
+    {
+      "file": "src/assets/detail-code-12.webp",
+      "source": "https://images.unsplash.com/photo-1542744094-3a31f272c490",
+      "subject": "A developer at work"
+    },
+    {
+      "file": "src/assets/detail-code-13.webp",
+      "source": "https://images.unsplash.com/photo-1624996752380-8ec242e0f85d",
+      "subject": "Back-end code in a dark workspace"
+    },
+    {
+      "file": "src/assets/detail-app-01.webp",
+      "source": "https://images.unsplash.com/photo-1476357471311-43c0db9fb2b4",
+      "subject": "A phone held in the hand"
+    },
+    {
+      "file": "src/assets/detail-app-02.webp",
+      "source": "https://images.unsplash.com/photo-1551721434-8b94ddff0e6d",
+      "subject": "Using an app on a phone"
+    },
+    {
+      "file": "src/assets/detail-app-03.webp",
+      "source": "https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec",
+      "subject": "A phone on a plain surface"
+    },
+    {
+      "file": "src/assets/detail-app-04.webp",
+      "source": "https://images.unsplash.com/photo-1526498460520-4c246339dccb",
+      "subject": "An app open on a phone"
+    },
+    {
+      "file": "src/assets/detail-app-05.webp",
+      "source": "https://images.unsplash.com/photo-1586296221759-909c8bb73c5b",
+      "subject": "Checking an app on a phone"
+    },
+    {
+      "file": "src/assets/detail-app-06.webp",
+      "source": "https://images.unsplash.com/photo-1578401057158-0e58789f5947",
+      "subject": "Working on a tablet at a table"
+    },
+    {
+      "file": "src/assets/detail-app-07.webp",
+      "source": "https://images.unsplash.com/photo-1576153192396-180ecef2a715",
+      "subject": "Sketching an interface on paper"
+    },
+    {
+      "file": "src/assets/detail-app-08.webp",
+      "source": "https://images.unsplash.com/photo-1576153192621-7a3be10b356e",
+      "subject": "A phone and its case"
+    },
+    {
+      "file": "src/assets/detail-app-09.webp",
+      "source": "https://images.unsplash.com/photo-1627757757997-369fb38812e1",
+      "subject": "Wireframes drawn on paper"
+    },
+    {
+      "file": "src/assets/detail-app-10.webp",
+      "source": "https://images.unsplash.com/photo-1576153192286-defd01e1e4b4",
+      "subject": "Testing an app on a phone"
+    },
+    {
+      "file": "src/assets/detail-ooh-01.webp",
+      "source": "https://images.unsplash.com/photo-1616101811331-e081942f2c7e",
+      "subject": "A street scene in the city"
+    },
+    {
+      "file": "src/assets/detail-ooh-02.webp",
+      "source": "https://images.unsplash.com/photo-1637461281423-c707dfd12178",
+      "subject": "A roadside advertising sign"
+    },
+    {
+      "file": "src/assets/detail-ooh-03.webp",
+      "source": "https://images.unsplash.com/photo-1741710466773-412b9f6482f6",
+      "subject": "A billboard above the street"
+    },
+    {
+      "file": "src/assets/detail-ooh-09.webp",
+      "source": "https://images.unsplash.com/photo-1781624415293-38653d7d988c",
+      "subject": "A billboard lit against the night sky"
+    },
+    {
+      "file": "src/assets/detail-ooh-10.webp",
+      "source": "https://images.unsplash.com/photo-1759683935078-385fad4fcd95",
+      "subject": "A billboard carrying a short message"
+    },
+    {
+      "file": "src/assets/detail-ooh-11.webp",
+      "source": "https://images.unsplash.com/photo-1777785113428-26f8a2e9c38a",
+      "subject": "A bus stop advertising panel"
+    },
+    {
+      "file": "src/assets/detail-ooh-12.webp",
+      "source": "https://images.unsplash.com/photo-1785522564396-4c4d97bf689d",
+      "subject": "City billboards at dusk"
+    },
+    {
+      "file": "src/assets/detail-ai-02.webp",
+      "source": "https://images.unsplash.com/photo-1606857521015-7f9fcf423740",
+      "subject": "A team working at their computers"
+    },
+    {
+      "file": "src/assets/detail-ai-03.webp",
+      "source": "https://images.unsplash.com/photo-1531973576160-7125cd663d86",
+      "subject": "Three colleagues in an open office"
+    },
+    {
+      "file": "src/assets/detail-ai-04.webp",
+      "source": "https://images.unsplash.com/photo-1748345952129-3bdd7d39f155",
+      "subject": "A working floor of computers"
+    },
+    {
+      "file": "src/assets/detail-ai-05.webp",
+      "source": "https://images.unsplash.com/photo-1680187288404-8e303fe314f3",
+      "subject": "Working at a laptop in the office"
+    },
+    {
+      "file": "src/assets/detail-ai-06.webp",
+      "source": "https://images.unsplash.com/photo-1758626104169-6835c0bd03e3",
+      "subject": "A laptop running an automation tool"
+    },
+    {
+      "file": "src/assets/detail-ai-07.webp",
+      "source": "https://images.unsplash.com/photo-1646153114001-495dfb56506d",
+      "subject": "A relaxed studio office"
     }
   ]
 }

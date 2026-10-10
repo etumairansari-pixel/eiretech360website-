@@ -360,6 +360,22 @@ function validate(array $next): array
     foreach ($next['services'] ?? [] as $service) {
         $serviceSlugs[] = trim((string) ($service['slug'] ?? ''));
     }
+    // A bullet point page that names nothing would render as a link to nowhere.
+    foreach ($next['services'] ?? [] as $service) {
+        if (!isset($service['pointPages']) || !is_array($service['pointPages'])) {
+            continue;
+        }
+        $pointCount = is_array($service['points'] ?? null) ? count($service['points']) : 0;
+        if (count($service['pointPages']) > $pointCount) {
+            $errors[] = (($service['title'] ?? '') ?: 'A service') . ': there are more bullet point pages than bullet points';
+        }
+        foreach ($service['pointPages'] as $page) {
+            $target = trim((string) $page);
+            if ($target !== '' && !in_array($target, $serviceSlugs, true)) {
+                $errors[] = (($service['title'] ?? '') ?: 'A service') . ': "' . $target . '" is not a service page address';
+            }
+        }
+    }
     foreach ($next['projects'] ?? [] as $project) {
         $need($project['title'] ?? null, 'A project name');
         $projectService = trim((string) ($project['service'] ?? ''));

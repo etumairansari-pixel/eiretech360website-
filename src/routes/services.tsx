@@ -4,7 +4,7 @@ import { Shell, PageHero } from "@/components/site/Shell";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { Highlight } from "@/components/site/Highlight";
 import { Reveal } from "@/components/site/primitives";
-import { services, slugify } from "@/content/services";
+import { services } from "@/content/services";
 import { projectsFor } from "@/content/projects";
 import { projectAnchor } from "@/components/site/ProjectShowcase";
 import "@/components/site/SectionLink";
@@ -65,38 +65,39 @@ function ServicesPage() {
                     <p className="mt-3 text-brand-muted">
                       <Highlight text={s.desc} />
                     </p>
-                    {services.some((child) => child.parent === s.slug) && (
+                    {/*
+                      A service whose points name its sub-services links each
+                      point straight to that page; one list, not a page link and
+                      a matching bullet saying the same thing twice.
+                    */}
+                    {s.sections.some((section) => section.page) ? (
                       <div className="mt-6 grid gap-2 sm:grid-cols-2">
-                        {services
-                          .filter((child) => child.parent === s.slug)
-                          .map((child) => (
-                            <Link
-                              key={child.slug}
-                              to="/services/$slug"
-                              params={{ slug: child.slug }}
-                              className="flex items-center justify-between gap-3 rounded-xl border border-brand-primary/20 bg-brand-bg p-4 text-sm font-bold transition-colors hover:border-brand-primary hover:text-brand-primary-text"
-                            >
-                              {child.title}
-                              <ArrowUpRight className="size-4 shrink-0" />
-                            </Link>
-                          ))}
-                      </div>
-                    )}
-                    <ul className="mt-7 grid gap-3 sm:grid-cols-2">
-                      {s.points.map((p) => (
-                        <li key={p}>
+                        {s.sections.map((section) => (
                           <Link
+                            key={section.anchor}
                             to="/services/$slug"
-                            params={{ slug: s.slug }}
-                            state={{ section: slugify(p) }}
-                            className="flex gap-2 text-sm underline-offset-4 transition-colors hover:text-brand-primary-text hover:underline"
+                            params={{ slug: section.page || s.slug }}
+                            state={section.page ? {} : { section: section.anchor }}
+                            className="flex items-center justify-between gap-3 rounded-xl border border-brand-primary/20 bg-brand-bg p-4 text-sm font-bold transition-colors hover:border-brand-primary hover:text-brand-primary-text"
                           >
+                            <Highlight text={section.title} />
+                            <ArrowUpRight className="size-4 shrink-0" />
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      // Everything below leads to the same page as the heading
+                      // and the button already do, so the points read as what
+                      // the service covers rather than as more links to it.
+                      <ul className="mt-7 grid gap-3 sm:grid-cols-2">
+                        {s.points.map((p) => (
+                          <li key={p} className="flex gap-2 text-sm">
                             <Check className="mt-0.5 size-4 shrink-0 text-brand-accent-text" />
                             <Highlight text={p} />
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                     {projectsFor(s.slug).length || s.gallery.length || s.videos.length ? (
                       <p className="mt-6 flex flex-wrap items-center gap-2 text-sm">
                         <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-muted">

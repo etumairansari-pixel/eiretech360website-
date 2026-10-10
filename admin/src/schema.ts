@@ -522,12 +522,23 @@ export const collectionSchema: Record<string, Repeater> = {
         help: "One per line. Each links to its own section on the service's page.",
       },
       {
+        path: ["pointPages"],
+        label: "Bullet point pages",
+        kind: "lines",
+        help: "Optional. One page address per line, in the same order as the bullet points above. Use it when a bullet point has its own service page: the bullet then links there instead of to a section. Leave a line blank for points that have no page.",
+      },
+      {
         path: ["slug"],
         label: "Page address",
         kind: "text",
         help: "The part after /services/, e.g. website-development. Lower-case letters, numbers and hyphens. Changing it breaks existing links.",
       },
-      { path: ["seo", "title"], label: "Page meta title", kind: "text", help: "Aim for 50-60 characters." },
+      {
+        path: ["seo", "title"],
+        label: "Page meta title",
+        kind: "text",
+        help: "Aim for 50-60 characters.",
+      },
       {
         path: ["seo", "description"],
         label: "Page meta description",
@@ -587,6 +598,7 @@ export const collectionSchema: Record<string, Repeater> = {
       image: "svc-web",
       desc: "",
       points: [],
+      pointPages: [],
       slug: "",
       seo: { title: "", description: "" },
       intro: "",
@@ -651,7 +663,12 @@ export const collectionSchema: Record<string, Repeater> = {
     help: "Case studies, shown on the page of the service they belong to.",
     fields: [
       { path: ["title"], label: "Project name", kind: "text" },
-      { path: ["category"], label: "Category", kind: "text", help: "e.g. SaaS · Workforce management" },
+      {
+        path: ["category"],
+        label: "Category",
+        kind: "text",
+        help: "e.g. SaaS · Workforce management",
+      },
       {
         path: ["service"],
         label: "Service page",
@@ -702,7 +719,12 @@ export const collectionSchema: Record<string, Repeater> = {
         help: "The client's real words, with their permission. Leave empty to hide the block.",
       },
       { path: ["quoteName"], label: "Client name", kind: "text" },
-      { path: ["quoteRole"], label: "Client role", kind: "text", help: "e.g. Owner · Cliffs of Puff" },
+      {
+        path: ["quoteRole"],
+        label: "Client role",
+        kind: "text",
+        help: "e.g. Owner · Cliffs of Puff",
+      },
     ],
     blank: {
       title: "",
