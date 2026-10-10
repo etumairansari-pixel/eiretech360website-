@@ -348,6 +348,20 @@ function prerenderRoutes(): Plugin {
         }
 
         const body = stripHoistedTags(await render(route.url));
+        if (route.url.replace(/\/$/, "") === "/contact") {
+          // Forms must keep the same DOM through startup: an overlay plus a
+          // second client form can discard focus and text during handoff.
+          fs.writeFileSync(
+            file,
+            html
+              .replace(STATIC_SHELL, "")
+              .replace(
+                /<div id="root"[^>]*>\s*<\/div>/,
+                `<div id="root" data-prerendered="contact">${body}</div>`,
+              ),
+          );
+          continue;
+        }
         fs.writeFileSync(
           file,
           html.replace(

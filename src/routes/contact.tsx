@@ -223,11 +223,6 @@ function ContactPage() {
                     <div key={line}>{line}</div>
                   ))}
                 </address>
-                <address className="not-italic">
-                  {footer.address.map((line) => (
-                    <div key={line}>{line}</div>
-                  ))}
-                </address>
                 {offices.map((office) => (
                   <p key={office.label}>
                     <strong>{office.label}</strong>
