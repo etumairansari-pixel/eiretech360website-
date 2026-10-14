@@ -244,5 +244,52 @@
     "quoteName": "",
     "quoteRole": "",
     "outcome": "A custom WooCommerce storefront with clear category navigation, scheduled offers and buying guides."
+  },
+  {
+    "title": "LeatherCulture",
+    "category": "E-commerce · Fashion retail",
+    "service": "website-development",
+    "point": "E-commerce Websites",
+    "url": "https://www.leatherculture.shop/",
+    "linkLabel": "Visit LeatherCulture",
+    "image": "project-leather-culture",
+    "summary": "A premium online store for a Pakistani leather fashion brand, selling handcrafted jackets, coats and modern wear for men and women with nationwide cash on delivery.",
+    "challenge": "LeatherCulture makes genuine leather pieces by hand and needed a storefront that felt as premium as the product, while making it simple for customers across Pakistan to browse, choose the right size and order without paying in advance.",
+    "solution": "We designed and built a custom e-commerce website around the LeatherCulture identity, with a bold editorial hero, men’s, women’s and winter collections, product badges, customer accounts and a cash-on-delivery checkout. A style journal, size guidance and clear delivery terms build trust before the first order.",
+    "facts": [
+      "COD | Cash on delivery across Pakistan",
+      "3–5 days | Nationwide delivery",
+      "Rs 10,000 | Free delivery threshold"
+    ],
+    "business": [
+      "Premium, editorial design that matches a handcrafted leather brand",
+      "Men’s leather, women’s leather and winter jacket collections",
+      "New arrival, best seller and limited badges that guide shoppers to key pieces",
+      "Cash on delivery checkout, so customers pay nothing in advance",
+      "Free delivery on orders over Rs 10,000, highlighted in an announcement bar",
+      "Customer accounts with a dedicated My account area",
+      "Size help from chest, shoulder and sleeve measurements, answered within one working day",
+      "Journal with leather care and style guides that builds trust and search traffic",
+      "Newsletter sign-up for new drops and care tips",
+      "Fully responsive shopping on phone, tablet and desktop"
+    ],
+    "technical": [
+      "Custom storefront with a responsive, mobile-first design system",
+      "Collection and tag architecture for categories, new arrivals and limited pieces",
+      "Cart and cash-on-delivery checkout with delivery fee and free-delivery threshold rules",
+      "Customer account area for orders and details",
+      "SEO foundations: crawlable collection pages, blog, privacy and terms pages",
+      "Optimised product imagery for fast browsing on mobile connections"
+    ],
+    "stack": [
+      "E-commerce",
+      "Custom storefront",
+      "Responsive design",
+      "SEO"
+    ],
+    "quote": "",
+    "quoteName": "",
+    "quoteRole": "",
+    "outcome": "A premium leather storefront with men’s, women’s and winter collections, customer accounts and cash on delivery across Pakistan."
   }
 ]

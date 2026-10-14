@@ -31,6 +31,7 @@ import projectCliffsOfPuff from "@/assets/project-cliffs-of-puff.jpg";
 import projectE360 from "@/assets/project-e360.jpg";
 import projectCandyCiao from "@/assets/project-candy-ciao.jpg";
 import projectLoomCandy from "@/assets/project-loom-candy.jpg";
+import projectLeatherCulture from "@/assets/project-leather-culture.jpg";
 import svcAi from "@/assets/photo-ai.webp";
 import svcApp from "@/assets/photo-app.webp";
 import svcAtl from "@/assets/photo-atl.webp";
@@ -133,6 +134,7 @@ export const images = {
   "project-e360": projectE360,
   "project-candy-ciao": projectCandyCiao,
   "project-loom-candy": projectLoomCandy,
+  "project-leather-culture": projectLeatherCulture,
   "svc-ai": svcAi,
   "svc-app": svcApp,
   "svc-atl": svcAtl,
