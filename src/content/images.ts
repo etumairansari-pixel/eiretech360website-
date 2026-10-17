@@ -1,3 +1,7 @@
+import websitePhoto0 from "@/assets/photo-custom-website-design-development.webp";
+import websitePhoto1 from "@/assets/photo-e-commerce-websites.webp";
+import websitePhoto2 from "@/assets/photo-website-maintenance-support.webp";
+import websitePhoto3 from "@/assets/photo-speed-seo-optimization.webp";
 /**
  * The images (and portfolio videos) content/site.json may name.
  *
@@ -144,6 +148,10 @@ export const images = {
   "svc-marketing": svcMarketing,
   "svc-video": svcVideo,
   "svc-web": svcWeb,
+  "svc-custom-website-design-development": websitePhoto0,
+  "svc-e-commerce-websites": websitePhoto1,
+  "svc-website-maintenance-support": websitePhoto2,
+  "svc-speed-seo-optimization": websitePhoto3,
 } satisfies Record<string, string>;
 
 export type ImageName = keyof typeof images;

@@ -2343,3 +2343,39 @@
     transition: none;
   }
 }
+
+/* Long-form website services keep headings beside the original document copy. */
+.dm-website-service .dm-website-editorial .dm-split {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: start;
+}
+.dm-website-section-heading h2 {
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.dm-website-service .dm-prose {
+  min-width: 0;
+}
+.dm-website-service .dm-prose p {
+  font-size: 16px;
+  line-height: 1.85;
+}
+.dm-website-service .dm-section-links {
+  align-items: stretch;
+}
+.dm-website-service .dm-section-link {
+  min-width: 0;
+}
+.dm-website-service section[id] {
+  scroll-margin-top: 110px;
+}
+@media (max-width: 767px) {
+  .dm-website-service .dm-website-editorial .dm-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .dm-website-service .dm-section-links {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

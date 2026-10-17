@@ -711,6 +711,46 @@
       "file": "src/assets/detail-ai-07.webp",
       "source": "https://images.unsplash.com/photo-1646153114001-495dfb56506d",
       "subject": "A relaxed studio office"
+    },
+    {
+      "file": "src/assets/photo-custom-website-design-development.webp",
+      "source": "https://images.unsplash.com/photo-1547658719-da2b51169166",
+      "subject": "Website design workspace"
+    },
+    {
+      "file": "src/assets/photo-e-commerce-websites.webp",
+      "source": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d",
+      "subject": "Retail payment and checkout"
+    },
+    {
+      "file": "src/assets/photo-website-maintenance-support.webp",
+      "source": "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
+      "subject": "Software code on a screen"
+    },
+    {
+      "file": "src/assets/photo-speed-seo-optimization.webp",
+      "source": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d",
+      "subject": "Website displayed on a desktop screen"
+    },
+    {
+      "file": "src/assets/photo-custom-website-design-development-overview.webp",
+      "source": "https://images.unsplash.com/photo-1497366811353-6870744d04b2",
+      "subject": "Workspace for planning and designing websites"
+    },
+    {
+      "file": "src/assets/photo-e-commerce-websites-overview.webp",
+      "source": "https://images.unsplash.com/photo-1472851294608-062f824d29cc",
+      "subject": "An open shop sign on a retail storefront"
+    },
+    {
+      "file": "src/assets/photo-website-maintenance-support-overview.webp",
+      "source": "https://images.unsplash.com/photo-1504639725590-34d0984388bd",
+      "subject": "Code editor for software troubleshooting and maintenance"
+    },
+    {
+      "file": "src/assets/photo-speed-seo-optimization-overview.webp",
+      "source": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31",
+      "subject": "Server infrastructure supporting website delivery and performance"
     }
   ]
 }

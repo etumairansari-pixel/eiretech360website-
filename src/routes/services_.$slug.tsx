@@ -15,6 +15,7 @@ import { projectsFor } from "@/content/projects";
 import { headFor, pathFor, route, site } from "@/content";
 import servicesPage from "../../content/pages/services.json";
 import { MarketingPage } from "@/components/site/MarketingPage";
+import { WebsiteServicePage } from "@/components/site/WebsiteServicePage";
 
 const SITE_URL = site.url.replace(/\/$/, "");
 
@@ -127,6 +128,18 @@ function ServiceDetailPage() {
 
   useOpenSection();
 
+  if (service.parent === "website-development") {
+    return (
+      <Shell>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: structuredData(service) }}
+        />
+        <WebsiteServicePage service={service} />
+      </Shell>
+    );
+  }
+
   if (
     service.parent ||
     [
@@ -178,6 +191,20 @@ function ServiceDetailPage() {
                 </Link>
               </li>
               <ChevronRight className="size-3.5" aria-hidden />
+              {service.parent && (
+                <>
+                  <li>
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: service.parent }}
+                      className="hover:text-brand-primary-text"
+                    >
+                      {services.find((entry) => entry.slug === service.parent)?.title}
+                    </Link>
+                  </li>
+                  <ChevronRight className="size-3.5" aria-hidden />
+                </>
+              )}
               <li aria-current="page" className="font-semibold text-brand-text">
                 {service.title}
               </li>
@@ -193,6 +220,11 @@ function ServiceDetailPage() {
               <h1 className="text-4xl font-extrabold leading-[1.04] tracking-tighter md:text-6xl">
                 <Highlight text={service.title} />
               </h1>
+              {service.parent === "website-development" && service.headline !== service.title && (
+                <p className="mt-4 text-xl font-semibold text-brand-text">
+                  <Highlight text={service.headline} />
+                </p>
+              )}
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-brand-muted">
                 <Highlight text={service.desc} />
               </p>
@@ -349,9 +381,13 @@ function ServiceDetailPage() {
                     <Highlight text={section.title} />
                   </h2>
                   {section.body ? (
-                    <p className="mt-4 max-w-3xl leading-relaxed text-brand-muted">
-                      <Highlight text={section.body} />
-                    </p>
+                    <div className="mt-4 max-w-3xl space-y-4 leading-relaxed text-brand-muted">
+                      {section.body.split(/\n\s*\n/).map((paragraph, index) => (
+                        <p key={index}>
+                          <Highlight text={paragraph} />
+                        </p>
+                      ))}
+                    </div>
                   ) : null}
                   {work
                     .filter((project) => project.point === section.title)
