@@ -2379,3 +2379,32 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.dm-website-section-photo {
+  margin: 28px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--dm-border, #dce6ef);
+}
+.dm-website-section-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 10 / 7;
+  object-fit: cover;
+}
+.dm-website-context-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid currentColor;
+  color: var(--dm-primary);
+  font-weight: 600;
+}
+.dm-website-context-link:hover {
+  color: var(--dm-accent);
+}
+.dark .dm-website-context-link {
+  color: #9ccc4b;
+}

@@ -751,6 +751,46 @@
       "file": "src/assets/photo-speed-seo-optimization-overview.webp",
       "source": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31",
       "subject": "Server infrastructure supporting website delivery and performance"
+    },
+    {
+      "file": "src/assets/photo-custom-website-design-development-planning.webp",
+      "source": "https://images.unsplash.com/photo-1531403009284-440f080d1e12",
+      "subject": "Website project planning"
+    },
+    {
+      "file": "src/assets/photo-custom-website-design-development-design.webp",
+      "source": "https://images.unsplash.com/photo-1559028012-481c04fa702d",
+      "subject": "Website design work"
+    },
+    {
+      "file": "src/assets/photo-e-commerce-websites-payments.webp",
+      "source": "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1",
+      "subject": "Retail payment experience"
+    },
+    {
+      "file": "src/assets/photo-e-commerce-websites-checkout.webp",
+      "source": "https://images.unsplash.com/photo-1563013544-824ae1b704d3",
+      "subject": "Online payment and checkout"
+    },
+    {
+      "file": "src/assets/photo-website-maintenance-support-security.webp",
+      "source": "https://images.unsplash.com/photo-1563986768609-322da13575f3",
+      "subject": "Digital security and website support"
+    },
+    {
+      "file": "src/assets/photo-website-maintenance-support-hardware.webp",
+      "source": "https://images.unsplash.com/photo-1518770660439-4636190af475",
+      "subject": "Computer circuitry and technical infrastructure"
+    },
+    {
+      "file": "src/assets/photo-speed-seo-optimization-code.webp",
+      "source": "https://images.unsplash.com/photo-1555949963-aa79dcee981c",
+      "subject": "Code used for website performance improvements"
+    },
+    {
+      "file": "src/assets/photo-speed-seo-optimization-network.webp",
+      "source": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8",
+      "subject": "Network infrastructure supporting fast website delivery"
     }
   ]
 }

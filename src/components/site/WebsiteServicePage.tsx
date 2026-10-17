@@ -1,3 +1,11 @@
+import designPlanning from "@/assets/photo-custom-website-design-development-planning.webp";
+import designLayout from "@/assets/photo-custom-website-design-development-design.webp";
+import shopPayments from "@/assets/photo-e-commerce-websites-payments.webp";
+import shopCheckout from "@/assets/photo-e-commerce-websites-checkout.webp";
+import supportSecurity from "@/assets/photo-website-maintenance-support-security.webp";
+import supportHardware from "@/assets/photo-website-maintenance-support-hardware.webp";
+import speedCode from "@/assets/photo-speed-seo-optimization-code.webp";
+import speedNetwork from "@/assets/photo-speed-seo-optimization-network.webp";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, ChevronDown, ChevronRight, Check } from "lucide-react";
 import { pathFor } from "@/content";
@@ -29,6 +37,65 @@ const photography: Record<string, { src: string; alt: string; heroAlt: string }>
     src: speedOverview,
     alt: "Server infrastructure supporting reliable website delivery",
     heroAlt: "Website development and a live page displayed on desktop monitors",
+  },
+};
+
+const sectionMedia: Record<string, { section: number; src: string; alt: string }[]> = {
+  "custom-website-design-development": [
+    {
+      section: 0,
+      src: designPlanning,
+      alt: "Planning a website layout with wireframes on a whiteboard",
+    },
+    {
+      section: 1,
+      src: designLayout,
+      alt: "Website layouts and design assets open on a desktop monitor",
+    },
+  ],
+  "e-commerce-websites": [
+    {
+      section: 2,
+      src: shopPayments,
+      alt: "A card payment being processed through a payment terminal",
+    },
+    {
+      section: 3,
+      src: shopCheckout,
+      alt: "A customer shopping online with a bank card and laptop",
+    },
+  ],
+  "website-maintenance-support": [
+    {
+      section: 3,
+      src: supportSecurity,
+      alt: "A developer reviewing software on a laptop and phone",
+    },
+    {
+      section: 7,
+      src: supportHardware,
+      alt: "Close-up of computer circuitry used in technical infrastructure",
+    },
+  ],
+  "speed-seo-optimization": [
+    { section: 1, src: speedCode, alt: "Website source code displayed on a screen" },
+    { section: 5, src: speedNetwork, alt: "Network cables connected to server infrastructure" },
+  ],
+};
+
+const contextualLinks: Record<string, Record<number, string>> = {
+  "custom-website-design-development": {
+    4: "speed-seo-optimization",
+    5: "website-maintenance-support",
+  },
+  "e-commerce-websites": { 6: "speed-seo-optimization", 7: "website-maintenance-support" },
+  "website-maintenance-support": {
+    4: "speed-seo-optimization",
+    6: "custom-website-design-development",
+  },
+  "speed-seo-optimization": {
+    1: "website-maintenance-support",
+    4: "custom-website-design-development",
   },
 };
 
@@ -145,32 +212,60 @@ export function WebsiteServicePage({ service }: { service: Service }) {
         </div>
       </section>
       <div className="dm-service-sections">
-        {service.sections.map((section, index) => (
-          <section
-            id={section.anchor}
-            key={section.anchor}
-            className={`dm-section dm-website-editorial ${index % 2 ? "dm-soft" : ""}`}
-          >
-            <div className="dm-container dm-split">
-              <div className="dm-website-section-heading">
-                <p className="dm-eyebrow">
-                  {String(index + 1).padStart(2, "0")} / {service.tag}
-                </p>
-                <h2>{section.title}</h2>
+        {service.sections.map((section, index) => {
+          const image = sectionMedia[service.slug]?.find((entry) => entry.section === index);
+          const related = services.find(
+            (entry) => entry.slug === contextualLinks[service.slug]?.[index],
+          );
+          return (
+            <section
+              id={section.anchor}
+              key={section.anchor}
+              className={`dm-section dm-website-editorial ${index % 2 ? "dm-soft" : ""}`}
+            >
+              <div className="dm-container dm-split">
+                <div className="dm-website-section-heading">
+                  <p className="dm-eyebrow">
+                    {String(index + 1).padStart(2, "0")} / {service.tag}
+                  </p>
+                  <h2>{section.title}</h2>
+                  {image && (
+                    <figure className="dm-website-section-photo">
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        width={1000}
+                        height={700}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                  )}
+                </div>
+                <div className="dm-prose">
+                  {section.body
+                    .split(/\n\s*\n/)
+                    .filter(Boolean)
+                    .map((paragraph, paragraphIndex) => (
+                      <p key={paragraphIndex}>
+                        <Highlight text={paragraph} />
+                      </p>
+                    ))}
+                  {related && (
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: related.slug }}
+                      className="dm-website-context-link"
+                    >
+                      Explore {related.title}
+                      <ArrowUpRight size={17} />
+                    </Link>
+                  )}
+                </div>
               </div>
-              <div className="dm-prose">
-                {section.body
-                  .split(/\n\s*\n/)
-                  .filter(Boolean)
-                  .map((paragraph, paragraphIndex) => (
-                    <p key={paragraphIndex}>
-                      <Highlight text={paragraph} />
-                    </p>
-                  ))}
-              </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          );
+        })}
       </div>
       {service.faqs.length > 0 && (
         <section className="dm-section">

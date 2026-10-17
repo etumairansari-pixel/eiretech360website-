@@ -389,6 +389,18 @@ function ServiceDetailPage() {
                       ))}
                     </div>
                   ) : null}
+                  {section.page && (
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: section.page }}
+                      className="mt-5 inline-flex items-center gap-2 rounded-full border border-brand-primary/30 bg-brand-primary/5 px-5 py-2.5 text-sm font-bold text-brand-primary-text transition-colors hover:border-brand-primary hover:bg-brand-primary/10"
+                    >
+                      Explore{" "}
+                      {services.find((entry) => entry.slug === section.page)?.title ??
+                        section.title}
+                      <ArrowUpRight className="size-4" />
+                    </Link>
+                  )}
                   {work
                     .filter((project) => project.point === section.title)
                     .map((project) => (
