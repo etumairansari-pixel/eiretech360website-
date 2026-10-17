@@ -2408,3 +2408,47 @@
 .dark .dm-website-context-link {
   color: #9ccc4b;
 }
+
+/* Keep page and portfolio links together, with the same reference button treatment. */
+.service-section-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 24px;
+}
+.service-section-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 100%;
+  min-width: 0;
+  padding: 12px 18px;
+  border: 1px solid var(--color-brand-line);
+  border-radius: 0;
+  background: var(--color-brand-surface);
+  color: var(--color-brand-primary-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  transition:
+    border-color 150ms,
+    background-color 150ms;
+}
+.service-section-action svg {
+  flex-shrink: 0;
+}
+.service-section-action:hover {
+  border-color: currentColor;
+  background: var(--color-brand-bg);
+}
+.service-section-action:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+@media (max-width: 639px) {
+  .service-section-action {
+    width: 100%;
+  }
+}

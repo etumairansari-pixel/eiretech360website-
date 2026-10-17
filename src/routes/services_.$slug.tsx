@@ -389,48 +389,49 @@ function ServiceDetailPage() {
                       ))}
                     </div>
                   ) : null}
-                  {section.page && (
-                    <Link
-                      to="/services/$slug"
-                      params={{ slug: section.page }}
-                      className="mt-5 inline-flex items-center gap-2 rounded-full border border-brand-primary/30 bg-brand-primary/5 px-5 py-2.5 text-sm font-bold text-brand-primary-text transition-colors hover:border-brand-primary hover:bg-brand-primary/10"
-                    >
-                      Explore{" "}
-                      {services.find((entry) => entry.slug === section.page)?.title ??
-                        section.title}
-                      <ArrowUpRight className="size-4" />
-                    </Link>
+                  {(section.page ||
+                    work.some((project) => project.point === section.title) ||
+                    (service.videos.length > 0 && section.title === service.videoPoint) ||
+                    (service.gallery.length > 0 && section.title === service.galleryPoint)) && (
+                    <div className="service-section-actions">
+                      {section.page && (
+                        <Link
+                          to="/services/$slug"
+                          params={{ slug: section.page }}
+                          className="service-section-action"
+                        >
+                          Explore{" "}
+                          {services.find((entry) => entry.slug === section.page)?.title ??
+                            section.title}
+                          <ArrowUpRight className="size-4" />
+                        </Link>
+                      )}
+                      {work
+                        .filter((project) => project.point === section.title)
+                        .map((project) => (
+                          <SectionLink
+                            key={project.title}
+                            to={projectAnchor(project)}
+                            className="service-section-action"
+                          >
+                            See it in action: {project.title}
+                            <ArrowUpRight className="size-4 rotate-90" />
+                          </SectionLink>
+                        ))}
+                      {service.videos.length && section.title === service.videoPoint ? (
+                        <SectionLink to="reels" className="service-section-action">
+                          Watch our reels
+                          <ArrowUpRight className="size-4 rotate-90" />
+                        </SectionLink>
+                      ) : null}
+                      {service.gallery.length && section.title === service.galleryPoint ? (
+                        <SectionLink to="portfolio" className="service-section-action">
+                          See our design portfolio
+                          <ArrowUpRight className="size-4 rotate-90" />
+                        </SectionLink>
+                      ) : null}
+                    </div>
                   )}
-                  {work
-                    .filter((project) => project.point === section.title)
-                    .map((project) => (
-                      <SectionLink
-                        key={project.title}
-                        to={projectAnchor(project)}
-                        className="mr-2 mt-5 inline-flex items-center gap-2 rounded-full border border-brand-primary/25 bg-brand-primary/5 px-4 py-2 text-sm font-bold text-brand-primary-text transition-colors hover:border-brand-primary/60"
-                      >
-                        See it in action: {project.title}
-                        <ArrowUpRight className="size-4 rotate-90" />
-                      </SectionLink>
-                    ))}
-                  {service.videos.length && section.title === service.videoPoint ? (
-                    <SectionLink
-                      to="reels"
-                      className="mr-2 mt-5 inline-flex items-center gap-2 rounded-full border border-brand-primary/25 bg-brand-primary/5 px-4 py-2 text-sm font-bold text-brand-primary-text transition-colors hover:border-brand-primary/60"
-                    >
-                      Watch our reels
-                      <ArrowUpRight className="size-4 rotate-90" />
-                    </SectionLink>
-                  ) : null}
-                  {service.gallery.length && section.title === service.galleryPoint ? (
-                    <SectionLink
-                      to="portfolio"
-                      className="mr-2 mt-5 inline-flex items-center gap-2 rounded-full border border-brand-primary/25 bg-brand-primary/5 px-4 py-2 text-sm font-bold text-brand-primary-text transition-colors hover:border-brand-primary/60"
-                    >
-                      See our design portfolio
-                      <ArrowUpRight className="size-4 rotate-90" />
-                    </SectionLink>
-                  ) : null}
                 </div>
               </div>
             </article>
