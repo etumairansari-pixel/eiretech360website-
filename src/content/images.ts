@@ -1,3 +1,7 @@
+import appServiceHero0 from "@/assets/photo-ios-android-app-development-hero.webp";
+import appServiceHero1 from "@/assets/photo-web-application-development-hero.webp";
+import appServiceHero2 from "@/assets/photo-ui-ux-design-apps-hero.webp";
+import appServiceHero3 from "@/assets/photo-app-maintenance-updates-hero.webp";
 import websitePhoto0 from "@/assets/photo-custom-website-design-development.webp";
 import websitePhoto1 from "@/assets/photo-e-commerce-websites.webp";
 import websitePhoto2 from "@/assets/photo-website-maintenance-support.webp";
@@ -152,6 +156,10 @@ export const images = {
   "svc-e-commerce-websites": websitePhoto1,
   "svc-website-maintenance-support": websitePhoto2,
   "svc-speed-seo-optimization": websitePhoto3,
+  "svc-ios-android-app-development": appServiceHero0,
+  "svc-web-application-development": appServiceHero1,
+  "svc-ui-ux-design-apps": appServiceHero2,
+  "svc-app-maintenance-updates": appServiceHero3,
 } satisfies Record<string, string>;
 
 export type ImageName = keyof typeof images;

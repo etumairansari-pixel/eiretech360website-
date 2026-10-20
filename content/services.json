@@ -255,6 +255,12 @@
       "How long does it take to develop an app? | A focused minimum viable product (MVP) often takes eight to twelve weeks. More complex apps with integrations and advanced features take longer and are delivered in phases.",
       "Do you publish the app to the App Store and Google Play? | Yes. We prepare store listings, handle the submission and review process, and make sure your app meets Apple and Google guidelines.",
       "Who owns the app source code? | You do. Once the project is complete, you own the source code and intellectual property for your application."
+    ],
+    "pointPages": [
+      "ios-android-app-development",
+      "web-application-development",
+      "ui-ux-design-apps",
+      "app-maintenance-updates"
     ]
   },
   {
@@ -1192,6 +1198,160 @@
       "Do you guarantee a particular Google ranking? | No. Rankings depend on competition, content and other factors as well as technical website improvements.",
       "Is a speed score the only measure of success? | No. We also consider loading behaviour, usability, relevant organic traffic and whether customers can complete important tasks.",
       "What does a technical SEO review cover? | Depending on the website, the review can cover indexing, redirects, internal links, sitemaps, canonical tags and the accessibility of important pages."
+    ]
+  },
+  {
+    "title": "iOS and Android App Development",
+    "slug": "ios-android-app-development",
+    "parent": "app-development",
+    "headline": "IOS and Android App Development Services",
+    "icon": "smartphone",
+    "tag": "Mobile apps with a purpose",
+    "image": "svc-ios-android-app-development",
+    "desc": "iOS and Android app development for businesses in Ireland, Europe and the USA. Practical mobile apps, integrations, testing and ongoing support.",
+    "intro": "A business can run perfectly well for years without a mobile app. Then something changes. Customer enquiries become harder to manage, staff spend too much time on routine tasks, or the website can no longer provide the kind of experience people expect.\n\nThat's often when the idea of building an app comes up.\n\nThe first conversation usually involves features. Booking systems, notifications, online payments and customer accounts all sound worthwhile. Yet there's a more important matter to settle: what would the application make easier than it is today?\n\nA mobile app should earn its place in a business. It needs to be useful enough for customers to open again and practical enough for staff to manage without creating extra work.\n\nThat's the thinking behind our approach to iOS and Android app development.",
+    "points": [
+      "Getting the Idea Into Shape",
+      "Good App Design Is Mostly About Removing Friction",
+      "Choosing How the App Will Be Built",
+      "The App Has to Work With the Rest of the Business",
+      "When Real People Start Using It",
+      "Releasing an App Is Not the End of the Job",
+      "An App Worth Keeping"
+    ],
+    "details": [
+      "Early app discussions can get surprisingly complicated. Everyone has a suggestion, and quite a few of them sound reasonable.\n\nThe difficulty is knowing where to draw the line.\n\nSuppose a repair company wants engineers to update jobs while visiting customers. Its immediate requirement is fairly modest: show the day's appointments, record completed work and attach photographs to each job.\n\nA messaging system might be useful eventually. So might detailed reporting. Neither necessarily belongs in the first release.\n\nWe prefer to work through the actual requirements before deciding how much software needs building. That includes understanding who will use the application, what information they'll need and which existing processes cannot be interrupted.\n\nA shorter, well-considered feature list often makes a stronger starting point than an ambitious specification nobody has properly examined.",
+      "People seldom think about interface design when an application is working well. They find the information they need, complete a task and put their phone away.\n\nProblems become noticeable when something interrupts that routine.\n\nPerhaps a booking screen asks for details already stored in the user's account. A delivery app hides the customer's address behind several menus. Or a payment appears to have failed, although the money has actually been taken.\n\nThese are the details worth discussing during mobile app design.\n\nA useful interface tells people where they are, what they can do next and whether an action has been completed. It should also be forgiving when someone makes a mistake.\n\nThe right layout depends on the circumstances. An office employee using an internal reporting app has different priorities from a customer ordering groceries on the train.\n\nUnderstanding those differences is more valuable than choosing fashionable animations.",
+      "There are technical decisions that business owners shouldn't have to make without a clear explanation.\n\nOne concerns native and cross-platform development.\n\nNative iOS app development uses Apple's development environment. Android has its own tools and platform requirements. A cross-platform approach allows developers to share much of the application code between the two.\n\nSharing code can make sense, particularly when an application needs similar features on both platforms. It isn't automatically the best choice for every project, though.\n\nAn app relying on specialised device functions may have requirements that influence the development approach. Maintenance, future updates and the availability of suitable integrations also deserve consideration.\n\nThe important thing is choosing technology for the application being built, rather than building an application around somebody's preferred technology.",
+      "One issue regularly gets underestimated the software a business already relies on.\n\nA retailer may use an inventory platform that tracks products across several locations. A service company could have years of customer information stored in its CRM. An appointment-based business might depend on a particular calendar system.\n\nA new app shouldn't casually ignore those arrangements.\n\nWhere suitable connections are available, information may be shared through APIs or other integrations. But older systems can present limitations, and third-party services sometimes come with additional costs or restrictions.\n\nThese matters are worth investigating before development is well underway.\n\nOtherwise, a company can end up with an attractive application that still requires staff to copy information manually between systems.\n\nThat is hardly the improvement anyone had in mind.",
+      "Development demonstrations tend to go smoothly. The test account has the correct information, the internet connection is reliable and every action happens in the expected order.\n\nEveryday use is less orderly.\n\nA customer loses signal while submitting a request. Somebody presses the payment button twice. An employee opens the application on a device that hasn't been updated recently.\n\nAn app needs sensible behaviour in situations like these.\n\nTesting should therefore cover the important tasks, supported devices and likely points of failure. If something cannot be completed, the user should receive an explanation rather than be left staring at a frozen screen.\n\nApplications that handle private information, accounts or payments also require appropriate security and data protection measures.\n\nFinding these issues before launch is much preferable to hearing about them through customer complaints.",
+      "Once development is finished, there's still the process of getting the application into people's hands.\n\nPublic applications generally need to meet Apple App Store or Google Play requirements. Store descriptions, screenshots, privacy disclosures and review feedback can all affect the release process.\n\nAfter launch, the picture changes again.\n\nActual users may find an existing feature awkward or ask for something nobody considered at the beginning. Operating system updates can introduce compatibility issues, and connections to external services may need attention.\n\nThat's why app maintenance should be part of the discussion from the outset.\n\nSome improvements will be small. Others may require another development phase. Feedback and business priorities should help determine what happens next.",
+      "The best business application isn't necessarily the one with the longest feature list. It's the one people find useful when they need it.\n\nEireTech360 provides iOS and Android app development services for businesses across Ireland, Europe and the USA. The work can involve customer applications, internal tools, integrations and improvements to existing mobile software.\n\nThe starting point remains the same: understand the problem, agree on the essential requirements and build something suited to the people using it.\n\nConsidering a mobile application for your business? Get in touch to discuss the idea, your existing systems and what the first version really needs to include."
+    ],
+    "seo": {
+      "title": "iOS and Android App Development | EireTech360",
+      "description": "iOS and Android app development for businesses in Ireland, Europe and the USA. Practical mobile apps, integrations, testing and ongoing support."
+    },
+    "faqs": [
+      "How do you choose between native and cross-platform development? | The choice depends on device features, integrations, maintenance requirements and the application being built. We discuss those requirements before recommending an approach.",
+      "Can an app work with my existing business systems? | Where suitable connections are available, an app can share information through APIs or other integrations. Existing systems and third-party limitations need to be investigated first.",
+      "What happens after the app is released? | User feedback, operating system changes and integration requirements can lead to fixes and improvements. Maintenance should be discussed from the outset."
+    ]
+  },
+  {
+    "title": "Web Application Development",
+    "slug": "web-application-development",
+    "parent": "app-development",
+    "headline": "Web Application Development Services",
+    "icon": "code-2",
+    "tag": "Tools built around your workflow",
+    "image": "svc-web-application-development",
+    "desc": "Custom web application development for businesses in Ireland, Europe and the USA. Business tools, customer portals, dashboards and connected workflows.",
+    "intro": "A spreadsheet can keep a small operation running for years. Then the business grows. Orders arrive from several places, staff start keeping separate copies of the same file, and somebody spends Friday afternoon trying to work out which figures are correct.\n\nA web application can be a sensible way out of that situation. Not because spreadsheets are bad, but because the work has changed.\n\nUnlike an ordinary website, which mainly presents information, a web application lets people do things: manage orders, update records, book appointments, review reports or work together from different locations. It runs through a browser, so users generally don't need to install separate desktop software.\n\nThe challenge is building something that suits the business as it actually operates, rather than asking everyone to adapt to a complicated new system.",
+    "points": [
+      "Start With the Work, Not the Screens",
+      "Make Daily Tasks Less Complicated",
+      "The Systems Behind the Dashboard",
+      "Security Has to Be Part of the Plan",
+      "Test What People Will Actually Do",
+      "Leave Room for Changes Without Overbuilding",
+      "Let's Talk About the Problem You're Trying to Solve"
+    ],
+    "details": [
+      "A new project often arrives with a proposed list of features. There's a dashboard, a customer login and perhaps a reporting area. All perfectly reasonable ideas. But a list of screens doesn't tell the whole story.\n\nTake a wholesale supplier receiving orders by email. Staff check prices, confirm stock and manually enter each order into an internal system. The obvious request might be an online ordering portal. Before building it, though, someone needs to establish how prices are assigned, who can approve discounts and what should happen when an item is unavailable.\n\nThose details determine how the application should behave.\n\nGood custom web application development begins by mapping the existing process, including the awkward exceptions that rarely make it into an initial brief. It's much easier to discuss them before development than to rebuild an important feature later.",
+      "The people using a business application may open it dozens of times each day. A few unnecessary clicks on one screen can quickly become frustrating.\n\nAn accounts team might need to review unpaid invoices without digging through several menus. A manager may want to approve a request from a phone while away from the office. A customer logging into a portal should be able to find their documents without calling support.\n\nThese needs affect the layout, navigation and permissions.\n\nWe think of web application design as a practical exercise. What information belongs on the first screen? Which actions need confirmation? What happens when someone enters the wrong details?\n\nA straightforward interface isn't necessarily plain or basic. It simply lets the work take centre stage.",
+      "A polished dashboard is only the visible part of a web application. Behind it may sit databases, business rules, integrations and processes that keep information moving.\n\nSuppose a service company wants customers to see the status of their jobs online. The new portal will only be useful if those updates reflect what staff are recording elsewhere. If employees have to enter the same information twice, the supposed improvement creates another task.\n\nWhere suitable connections exist, a web application can exchange data with a CRM, stock system, payment service or other business software. Sometimes an API makes that possible. Older systems may need a different approach, and some simply aren't designed to share information easily.\n\nThose limitations should be discussed openly, not discovered after the interface has been approved.",
+      "Business applications can hold information that needs careful handling: customer details, employee records, invoices or commercially sensitive documents.\n\nThat makes access control important. The person approving expenses shouldn't automatically have permission to edit every staff record. A customer should see their own account, not somebody else's.\n\nSecure authentication, appropriate user permissions, sensible data handling and ongoing software maintenance all belong in the development conversation. The exact measures depend on the application and the risks involved.\n\nNo system is immune to every security threat. Planning carefully and testing thoroughly, however, can help avoid weaknesses that should never have reached production.",
+      "A demonstration usually follows the happy path: correct password, complete information, reliable internet connection. Real working days aren't quite so tidy.\n\nSomeone submits a form twice. An employee leaves a page open during lunch and returns after their session expires. Two colleagues try to update the same record at once.\n\nThese situations are worth testing before launch.\n\nFunctional testing checks whether important tasks work as intended. There may also be a need to examine performance under heavier usage, mobile layouts and behaviour when connected services fail.\n\nA web application isn't ready because its homepage looks finished. It's ready when the essential workflows have been checked and the people responsible understand how to use them.",
+      "Requirements change once a system becomes part of everyday work. Teams spot shortcuts, managers ask for different reports and customers discover features they wish were easier to use.\n\nThat doesn't mean the first version needs to anticipate every possible request.\n\nIn many cases, it makes sense to launch a well-defined set of core features and improve the application based on real feedback. The underlying structure should allow for reasonable growth, but building elaborate tools nobody currently needs can consume time and budget.\n\nAfter release, support may involve resolving bugs, updating dependencies, reviewing performance or extending existing features. Ownership, documentation and access to the necessary systems should be clear from the outset.",
+      "EireTech360 provides web application development services for businesses in Ireland, Europe and the USA, including custom business tools, customer portals, dashboards and connected workflows.\n\nA useful application should reduce confusion, not introduce a new kind of it. That starts with understanding the work people already do, deciding what genuinely needs improving and developing a system that fits.\n\nIf your team is relying on manual workarounds or disconnected tools, get in touch and tell us where the process is getting stuck."
+    ],
+    "seo": {
+      "title": "Web Application Development | EireTech360",
+      "description": "Custom web application development for businesses in Ireland, Europe and the USA. Business tools, customer portals, dashboards and connected workflows."
+    },
+    "faqs": [
+      "What can a web application help with? | A web application can support tasks such as managing orders, booking appointments, updating records, reviewing reports and sharing information through customer portals.",
+      "Can it connect to our other software? | Where suitable connections exist, a web application can exchange data with business systems such as a CRM, stock platform or payment service. Older systems may have limitations.",
+      "Does every feature need to be built for the first release? | Often it is more practical to launch a clear set of core workflows, then improve the application using real feedback."
+    ]
+  },
+  {
+    "title": "UI/UX Design for Apps",
+    "slug": "ui-ux-design-apps",
+    "parent": "app-development",
+    "headline": "UI/UX Design for Apps",
+    "icon": "palette",
+    "tag": "Clear screens, easier journeys",
+    "image": "svc-ui-ux-design-apps",
+    "desc": "UI/UX design for apps in Ireland, Europe and the USA. User journeys, wireframes, interactive prototypes, accessible interfaces and usability testing.",
+    "intro": "The booking is almost finished. A customer has chosen a service, picked a date and entered their details. Then the app asks them to register before showing the final price. They close it and call the business instead.\n\nNothing has technically crashed. Every button may work exactly as the developer intended. Still, the experience has failed at the moment it mattered.\n\nThis is the sort of problem UI/UX design is meant to catch. User interface (UI) design deals with what people see and interact with: screens, menus, buttons, typography and visual details. User experience (UX) design looks at the wider journey, including how easily someone can finish a task. Both matter.",
+    "points": [
+      "Look at the Real Task First",
+      "A Wireframe Can Save a Lot of Rework",
+      "Make the Interface Easy to Read, Not Just Nice to Look At",
+      "The Awkward Moments Deserve Design Time",
+      "Design for Different People and Different Phones",
+      "Test the Journey With People Who Haven't Designed It",
+      "Handing the Design Over Is Part of the Work",
+      "UI/UX Design With a Purpose"
+    ],
+    "details": [
+      "It's tempting to start with colours and screenshots of popular apps. Neither explains why customers abandon bookings or why staff struggle to find records.\n\nAn early design discussion should start with the people who will use the app and the jobs they're trying to do. A courier checking delivery instructions needs something quite different from a parent booking an after-school activity.\n\nWe examine the steps, required information and likely sticking points. Staff often know exactly where the existing process causes trouble.",
+      "Before a screen is polished, it helps to work out what belongs on it.\n\nWireframes show where information and actions might sit, without distracting everyone with fonts or photography.\n\nImagine a delivery app that shows a map, parcel photographs, a long customer note and four buttons on the same screen. A wireframe makes it easier to ask which detail the driver actually needs first.\n\nAn interactive prototype then shows how people move between screens. Changing a few steps here is easier than rebuilding a finished feature.",
+      "An attractive screen can still be tiring to use. Pale text against a busy photograph might look stylish in a mock-up but become difficult to read on a phone outdoors. A tiny icon may seem tidy until someone tries to tap it with one hand.\n\nGood mobile app UI design pays attention to contrast, spacing, typography and controls that behave consistently. Clear labels often work better than clever ones. If a button submits a payment, it should say so.\n\nVisual details should suit the business without hiding the information people came to find.\n\nA confident design is often one that knows when to stay quiet.",
+      "Most app demonstrations show everything going smoothly. Real life provides less convenient situations.\n\nA person loses their connection just before submitting a form. A booking slot disappears while they're entering their details. Somebody enters an invalid phone number and isn't told which field needs fixing.\n\nThese moments are part of the experience.\n\nWe consider what the app should say when something goes wrong, whether entered information can be preserved and how a user gets back on track. Helpful error messages and a clear confirmation can do more for confidence than another animation.\n\nWith payments or personal information, people need to understand what they've agreed to and what happened next.",
+      "An app might be used by someone with excellent eyesight on the latest iPhone, or by somebody using an older Android device in bright sunlight. Neither should be treated as an afterthought.\n\nAccessible app design considers readable text, sensible contrast, touch-target sizes and support for assistive technologies where appropriate. It also means not relying on colour alone to explain an error or status.\n\nThere are platform differences to respect as well. iOS and Android users have familiar navigation patterns and expectations. Following those conventions where they help can make an app feel easier to learn.\n\nConsistency matters, but the screens needn't be identical.",
+      "After weeks spent working on an interface, a team can become so familiar with it that confusing steps stop looking confusing.\n\nWatching someone else use a prototype can be revealing. Perhaps they miss a button that everybody on the project assumed was obvious. Maybe the wording on a confirmation screen makes them think their booking hasn't gone through.\n\nUsability testing doesn't have to be a theatrical exercise. Give people a realistic task, see where they hesitate and ask what they expected to happen. Then use what you've learned to improve the design.\n\nRepeated difficulties deserve attention before development moves further.",
+      "Even a carefully considered interface can lose important details when it moves into development. Button states, spacing rules, error messages and transitions need to be understood by the people building the app.\n\nA useful design handover includes organised screen designs, reusable components and notes explaining important interactions. Designers and developers may also need to review the finished screens together, particularly when technical constraints require adjustments.\n\nNew features will arrive. A consistent design system makes later changes easier.",
+      "EireTech360 provides UI/UX design for apps for businesses in Ireland, Europe and the USA, covering user journeys, wireframes, interactive prototypes, interface design and usability improvements.\n\nWhether you're planning a new application or trying to improve one customers already use, it helps to begin with a specific frustration or task. From there, the design decisions become much easier to explain and evaluate.\n\nHave an app that feels harder to use than it should? Get in touch and tell us where people are getting stuck."
+    ],
+    "seo": {
+      "title": "UI/UX Design for Apps | EireTech360",
+      "description": "UI/UX design for apps in Ireland, Europe and the USA. User journeys, wireframes, interactive prototypes, accessible interfaces and usability testing."
+    },
+    "faqs": [
+      "What is the difference between UI and UX design? | UI design covers screens, controls, typography and visual details. UX design considers the wider journey and how easily someone can complete a task.",
+      "Why use wireframes and prototypes? | They help teams explore journeys and test interactions before more development work is committed, making awkward steps easier to identify and revise.",
+      "How do you check whether a design is easy to use? | Usability testing gives people realistic tasks and observes where they hesitate. The results inform changes to the interface and journey."
+    ]
+  },
+  {
+    "title": "App Maintenance and Updates",
+    "slug": "app-maintenance-updates",
+    "parent": "app-development",
+    "headline": "App Maintenance and Updates",
+    "icon": "shield-check",
+    "tag": "Reliable care after release",
+    "image": "svc-app-maintenance-updates",
+    "desc": "App maintenance and updates for businesses in Ireland, Europe and the USA. Troubleshooting, compatibility reviews, performance checks and planned releases.",
+    "intro": "An app can keep working for months without anyone giving it much thought. Then, one Tuesday morning, support starts receiving messages: the latest version won't let some Android users sign in.\n\nThe app hasn't stopped working for everyone. That's what makes the problem difficult. Meanwhile, new orders are waiting.\n\nMaintaining an app means dealing with situations like this, as well as the quieter work that prevents them. It involves checking what has changed, deciding what needs attention and releasing fixes without upsetting features that already work.",
+    "points": [
+      "The Work After Launch Is Different",
+      "Find Out What's Broken Before Changing Anything",
+      "Updates Need a Little Preparation",
+      "Nobody Notices Maintenance Until It Matters",
+      "When an App Starts Feeling Slow",
+      "Deciding What Deserves the Next Release",
+      "Keep the Business in the Loop"
+    ],
+    "details": [
+      "Building the first version is a project with a finish line. Looking after a live application isn't quite like that.\n\nPeople begin using it in ways nobody anticipated. A company introduces weekend deliveries. Staff ask for another field on a job report. Apple releases a new version of iOS, and an older piece of software in the app needs reviewing.\n\nNot every request deserves an immediate update. Some are urgent faults. Others are improvements that should be discussed, priced and scheduled alongside existing commitments.\n\nA useful maintenance arrangement makes that distinction clear. It gives the business a way to report problems, understand their impact and decide what should happen next.",
+      "Consider a booking app where customers say they're being charged but aren't receiving a confirmation. The immediate temptation is to change the payment screen.\n\nYet the fault could sit elsewhere. Perhaps the payment succeeded but the booking service timed out. Maybe confirmation emails are delayed. Changing the screen won't fix either problem.\n\nApp bug fixing starts with gathering details: which version is affected, what the customer was trying to do and whether the issue can be repeated. Logs and information from connected services may help narrow down the cause.\n\nOnce a fix has been made, the original problem needs testing again. So do the related actions. A change to booking confirmations shouldn't accidentally interfere with cancellations or refunds.",
+      "Both iOS and Android change over time. Some operating system updates are barely noticeable to customers; others affect permissions, notifications or the software components an app relies on.\n\nIt's sensible to review compatibility rather than wait for a complaint. The same applies to updates from payment providers, mapping services and other third parties.\n\nA small change can have consequences. Updating a library may resolve a security issue but expose an older piece of code that needs attention. Rushing the release because a dashboard shows an available update isn't always wise.\n\nBefore publishing a new version, important journeys signing in, booking, paying or submitting a report should be checked on relevant devices. The exact testing depends on what the app does.",
+      "Good maintenance isn't always visible on the home screen.\n\nIt may mean reviewing who still has administrative access, removing an outdated software dependency or checking whether backups and recovery procedures are suitable for the systems behind the app.\n\nAn application may store personal details, communicate with a business database or rely on accounts managed by a third party. Each connection brings responsibilities. Security work needs to follow the information being handled, not a generic checklist copied from another project.\n\nNo team can promise that an app will never have a security incident. But leaving known weaknesses untouched is a risk a business doesn't need to take.",
+      "Performance problems don't always appear as an error message.\n\nA product list that opened quickly last year might now take several seconds. A driver uploading photographs may have to retry twice. Staff might blame their phones when the real delay sits in a database or external service.\n\nBefore making changes, it helps to identify where the time is being spent. Sometimes images are too heavy. Sometimes a growing amount of stored data has made an existing process inefficient.\n\nApp performance monitoring should focus on what users need to complete. A fast opening animation is little consolation if the checkout keeps hanging.",
+      "After launch, ideas arrive from everywhere. The sales team wants a new customer feature. Support wants an error message rewritten. A manager wants more detailed reports.\n\nIt's worth collecting those requests, but they're not all equally valuable.\n\nA change that removes a daily frustration may deserve attention before a feature used once a quarter. Customer feedback is especially useful when it describes a specific task: \"I have to enter the address again every time,\" for example, tells a developer more than \"the app feels awkward.\"\n\nPlanned releases also make it easier to explain what's changing, prepare staff and check the results. Publishing fixes in a hurry, one after another, can make it harder to understand which change caused a new problem.",
+      "Technical updates shouldn't leave the people running the app guessing.\n\nIf a fault affects customers, they need to know what's being investigated and which functions may be affected. If a change requires a fresh store submission, that should be part of the conversation. And if a requested feature involves extra development, it deserves a clear explanation before work begins.\n\nEireTech360 provides app maintenance and updates support for businesses in Ireland, Europe and the USA, including troubleshooting, compatibility reviews, performance checks and planned improvements. The work needed will depend on the application, its existing code and the services it connects to.\n\nWhether your app has developed a persistent fault or simply hasn't been reviewed in a while, the best place to begin is with what's happening now not a long list of changes nobody has asked for.\n\nTell us what your app is doing, what it should be doing and where the trouble started."
+    ],
+    "seo": {
+      "title": "App Maintenance and Updates | EireTech360",
+      "description": "App maintenance and updates for businesses in Ireland, Europe and the USA. Troubleshooting, compatibility reviews, performance checks and planned releases."
+    },
+    "faqs": [
+      "What can app maintenance include? | Depending on the application, maintenance can include troubleshooting, compatibility reviews, performance checks, security-related updates and planned improvements.",
+      "How do you investigate a reported bug? | We gather information about the affected version, task and conditions, then try to reproduce the issue. Logs and connected services may help identify the cause.",
+      "How should updates be released? | Important journeys should be checked on relevant devices before publishing a release. Business priorities and customer feedback should guide the schedule."
     ]
   }
 ]

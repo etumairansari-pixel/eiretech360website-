@@ -791,6 +791,86 @@
       "file": "src/assets/photo-speed-seo-optimization-network.webp",
       "source": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8",
       "subject": "Network infrastructure supporting fast website delivery"
+    },
+    {
+      "file": "src/assets/photo-ios-android-app-development-hero.webp",
+      "source": "https://images.unsplash.com/photo-1551650975-87deedd944c3",
+      "subject": "Mobile app dashboard displayed on a phone beside desktop screens"
+    },
+    {
+      "file": "src/assets/photo-ios-android-app-development-detail-1.webp",
+      "source": "https://images.unsplash.com/photo-1516116216624-53e697fedbea",
+      "subject": "Application source code open in a code editor"
+    },
+    {
+      "file": "src/assets/photo-web-application-development-hero.webp",
+      "source": "https://images.unsplash.com/photo-1555066931-4365d14bab8c",
+      "subject": "Application code displayed across a laptop screen"
+    },
+    {
+      "file": "src/assets/photo-web-application-development-detail-1.webp",
+      "source": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
+      "subject": "A laptop on a clean desk ready for browser-based work"
+    },
+    {
+      "file": "src/assets/photo-ui-ux-design-apps-hero.webp",
+      "source": "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e",
+      "subject": "Sketching interface wireframes on paper"
+    },
+    {
+      "file": "src/assets/photo-ui-ux-design-apps-overview.webp",
+      "source": "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c",
+      "subject": "Planning an interface with wireframes on a tablet"
+    },
+    {
+      "file": "src/assets/photo-ui-ux-design-apps-detail-2.webp",
+      "source": "https://images.unsplash.com/photo-1602576666092-bf6447a729fc",
+      "subject": "Interface layouts and reusable components on a design screen"
+    },
+    {
+      "file": "src/assets/photo-app-maintenance-updates-detail-1.webp",
+      "source": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5",
+      "subject": "Code on a screen representing software security checks"
+    },
+    {
+      "file": "src/assets/photo-app-maintenance-updates-detail-2.webp",
+      "source": "https://images.unsplash.com/photo-1527689368864-3a821dbccc34",
+      "subject": "Colleagues reviewing work together on a laptop"
+    },
+    {
+      "file": "src/assets/photo-ios-android-app-development-overview.webp",
+      "source": "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6",
+      "subject": "An Android phone displaying installed applications"
+    },
+    {
+      "file": "src/assets/photo-ios-android-app-development-detail-2.webp",
+      "source": "https://images.unsplash.com/photo-1512428559087-560fa5ceab42",
+      "subject": "A person interacting with a mobile application"
+    },
+    {
+      "file": "src/assets/photo-web-application-development-overview.webp",
+      "source": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
+      "subject": "Web development code open on a laptop at a desk"
+    },
+    {
+      "file": "src/assets/photo-web-application-development-detail-2.webp",
+      "source": "https://images.unsplash.com/photo-1555421689-491a97ff2040",
+      "subject": "A person using a desktop computer for daily tasks"
+    },
+    {
+      "file": "src/assets/photo-ui-ux-design-apps-detail-1.webp",
+      "source": "https://images.unsplash.com/photo-1613909207039-6b173b755cc1",
+      "subject": "A designer working on visual assets at a desktop computer"
+    },
+    {
+      "file": "src/assets/photo-app-maintenance-updates-hero.webp",
+      "source": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b",
+      "subject": "Computer circuitry representing application infrastructure"
+    },
+    {
+      "file": "src/assets/photo-app-maintenance-updates-overview.webp",
+      "source": "https://images.unsplash.com/photo-1510511459019-5dda7724fd87",
+      "subject": "A laptop displaying software diagnostics"
     }
   ]
 }

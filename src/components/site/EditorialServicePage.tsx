@@ -1,3 +1,8 @@
+import {
+  appServicePhotography,
+  appServiceSectionMedia,
+  appServiceContextualLinks,
+} from "@/content/app-service-media";
 import designPlanning from "@/assets/photo-custom-website-design-development-planning.webp";
 import designLayout from "@/assets/photo-custom-website-design-development-design.webp";
 import shopPayments from "@/assets/photo-e-commerce-websites-payments.webp";
@@ -18,6 +23,7 @@ import { Highlight } from "./Highlight";
 import { SectionLink } from "./SectionLink";
 
 const photography: Record<string, { src: string; alt: string; heroAlt: string }> = {
+  ...appServicePhotography,
   "custom-website-design-development": {
     src: designOverview,
     alt: "A bright workspace for planning a website project",
@@ -41,6 +47,7 @@ const photography: Record<string, { src: string; alt: string; heroAlt: string }>
 };
 
 const sectionMedia: Record<string, { section: number; src: string; alt: string }[]> = {
+  ...appServiceSectionMedia,
   "custom-website-design-development": [
     {
       section: 0,
@@ -84,6 +91,7 @@ const sectionMedia: Record<string, { section: number; src: string; alt: string }
 };
 
 const contextualLinks: Record<string, Record<number, string>> = {
+  ...appServiceContextualLinks,
   "custom-website-design-development": {
     4: "speed-seo-optimization",
     5: "website-maintenance-support",
@@ -99,9 +107,12 @@ const contextualLinks: Record<string, Record<number, string>> = {
   },
 };
 
-/** Website services share the current service design and preserve document paragraphs. */
-export function WebsiteServicePage({ service }: { service: Service }) {
+/** Long-form service pages share the current design and preserve document paragraphs. */
+export function EditorialServicePage({ service }: { service: Service }) {
   const photo = photography[service.slug];
+  const parent = services.find((entry) => entry.slug === service.parent)!;
+  const isApp = service.parent === "app-development";
+  const product = isApp ? "app" : "website";
   const siblings = services.filter(
     (entry) => entry.parent === service.parent && entry.slug !== service.slug,
   );
@@ -115,8 +126,8 @@ export function WebsiteServicePage({ service }: { service: Service }) {
             <ChevronRight size={13} aria-hidden />
             <Link to="/services">Services</Link>
             <ChevronRight size={13} aria-hidden />
-            <Link to="/services/$slug" params={{ slug: "website-development" }}>
-              Website Development
+            <Link to="/services/$slug" params={{ slug: parent.slug }}>
+              {parent.title}
             </Link>
             <ChevronRight size={13} aria-hidden />
             <span aria-current="page">{service.title}</span>
@@ -131,7 +142,7 @@ export function WebsiteServicePage({ service }: { service: Service }) {
               <p>{service.desc}</p>
               <div className="dm-actions">
                 <a href={pathFor("contact")} className="dm-button">
-                  Discuss your website
+                  Discuss your {product}
                   <ArrowUpRight size={18} />
                 </a>
                 <SectionLink to="website-overview" className="dm-button dm-button-outline">
@@ -154,7 +165,11 @@ export function WebsiteServicePage({ service }: { service: Service }) {
                 <Check size={22} />
                 <div>
                   <strong>Built around your business.</strong>
-                  <span>Design. Functionality. Reliability.</span>
+                  <span>
+                    {isApp
+                      ? "Usability. Functionality. Reliability."
+                      : "Design. Functionality. Reliability."}
+                  </span>
                 </div>
               </div>
             </div>
@@ -164,7 +179,7 @@ export function WebsiteServicePage({ service }: { service: Service }) {
       <section id="website-overview" className="dm-section">
         <div className="dm-container dm-split dm-overview">
           <div>
-            <p className="dm-eyebrow">Your website, your business</p>
+            <p className="dm-eyebrow">Your {product}, your business</p>
             <h2>
               A practical approach.
               <br />
@@ -295,11 +310,11 @@ export function WebsiteServicePage({ service }: { service: Service }) {
       <section className="dm-section dm-soft">
         <div className="dm-container">
           <div className="dm-section-heading">
-            <p className="dm-eyebrow">Related website services</p>
+            <p className="dm-eyebrow">Related {product} services</p>
             <h2>
               Support for every stage
               <br />
-              <span>of your website.</span>
+              <span>of your {product}.</span>
             </h2>
           </div>
           <div className="dm-marketing-grid dm-three-columns">
@@ -320,13 +335,16 @@ export function WebsiteServicePage({ service }: { service: Service }) {
       </section>
       <section className="dm-cta">
         <div className="dm-container">
-          <span className="dm-cta-label">Tell us what your website needs</span>
+          <span className="dm-cta-label">Tell us what your {product} needs</span>
           <h2>
             Let's plan your
             <br />
             next step.
           </h2>
-          <p>Share your current website, the challenges you face and what you want to achieve.</p>
+          <p>
+            Share your {isApp ? "app idea or existing application" : "current website"}, the
+            challenges you face and what you want to achieve.
+          </p>
           <a href={pathFor("contact")} className="dm-button">
             Start a conversation
             <ArrowUpRight size={18} />

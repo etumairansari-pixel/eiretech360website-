@@ -15,7 +15,7 @@ import { projectsFor } from "@/content/projects";
 import { headFor, pathFor, route, site } from "@/content";
 import servicesPage from "../../content/pages/services.json";
 import { MarketingPage } from "@/components/site/MarketingPage";
-import { WebsiteServicePage } from "@/components/site/WebsiteServicePage";
+import { EditorialServicePage } from "@/components/site/EditorialServicePage";
 
 const SITE_URL = site.url.replace(/\/$/, "");
 
@@ -128,14 +128,14 @@ function ServiceDetailPage() {
 
   useOpenSection();
 
-  if (service.parent === "website-development") {
+  if (["website-development", "app-development"].includes(service.parent)) {
     return (
       <Shell>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: structuredData(service) }}
         />
-        <WebsiteServicePage service={service} />
+        <EditorialServicePage service={service} />
       </Shell>
     );
   }
