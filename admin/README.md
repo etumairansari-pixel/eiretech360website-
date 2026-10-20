@@ -3,10 +3,10 @@
 The editor the site's content is changed through. It runs in two places from
 one codebase:
 
-| | Where it runs | What it edits | Who it is for |
-| --- | --- | --- | --- |
-| **Local** | `npm run admin` on your machine | the files in `content/` directly | you, while developing |
-| **Live** | `https://eiretech360.com/<secret-path>/` | the same files, on GitHub | the SEO specialist, from anywhere |
+|           | Where it runs                            | What it edits                    | Who it is for                     |
+| --------- | ---------------------------------------- | -------------------------------- | --------------------------------- |
+| **Local** | `npm run admin` on your machine          | the files in `content/` directly | you, while developing             |
+| **Live**  | `https://eiretech360.com/<secret-path>/` | the same files, on GitHub        | the SEO specialist, from anywhere |
 
 Both show the same screens. The difference is only where the content is read
 from and written to.
@@ -75,17 +75,17 @@ never stored anywhere — not in the repo, not on the server.
 GitHub → the repository → Settings → Secrets and variables → **Actions** →
 New repository secret:
 
-| Secret | Value |
-| --- | --- |
-| `ADMIN_PATH` | the folder name from step 1, e.g. `studio-7fa2c19e` |
-| `ADMIN_PASSWORD_HASH` | the hash printed in step 3 |
-| `ADMIN_GITHUB_TOKEN` | the token from step 2 |
-| `FTP_HOST` | your Hostinger FTP host |
-| `FTP_USER` | FTP username |
-| `FTP_PASSWORD` | FTP password |
-| `FTP_REMOTE_DIR` | where the site lives, usually `/public_html/` |
-| `VITE_SUPABASE_URL` | the same value as in `.env.local` |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | the same value as in `.env.local` |
+| Secret                          | Value                                               |
+| ------------------------------- | --------------------------------------------------- |
+| `ADMIN_PATH`                    | the folder name from step 1, e.g. `studio-7fa2c19e` |
+| `ADMIN_PASSWORD_HASH`           | the hash printed in step 3                          |
+| `ADMIN_GITHUB_TOKEN`            | the token from step 2                               |
+| `FTP_HOST`                      | your Hostinger FTP host                             |
+| `FTP_USER`                      | FTP username                                        |
+| `FTP_PASSWORD`                  | FTP password                                        |
+| `FTP_REMOTE_DIR`                | where the site lives, usually `/public_html/`       |
+| `VITE_SUPABASE_URL`             | the same value as in `.env.local`                   |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | the same value as in `.env.local`                   |
 
 Optional: `FTP_PROTOCOL` — `ftps` by default; set to `ftp` only if your host
 does not offer FTPS.
@@ -111,6 +111,39 @@ https://eiretech360.com/<ADMIN_PATH>/
 
 Save and Publish are separate on purpose: several edits can be saved and
 reviewed, then published together. Drafts survive refreshes and sign-outs.
+
+### Writing a blog article
+
+Open **Blog > Articles > New article** in the sidebar. The writing area is a
+Gutenberg-style block editor. Post settings, the featured image and search
+engine fields live beside the article.
+
+- **Add blocks:** press **+ Add block**, or type `/` in a fresh paragraph.
+  Search by name and use the arrow keys and Enter to choose. Escape dismisses it.
+- **Layouts:** paragraphs, headings, images, lists, quotes, separators, code,
+  buttons, two-column layouts and image galleries. Feature and call-to-action
+  patterns provide editable starting layouts.
+- **Reorder:** use the selected block's up/down buttons, or drag a block in
+  **List view**. Duplicate and Delete act on the whole selected block.
+- **Settings:** choose a block, then **Settings** to change heading level,
+  alignment, button text/link, image alt text/caption or gallery columns.
+  Use **Add gallery image** to upload or choose each image.
+- **Preview** shows the current article, including unsaved block layouts.
+  **HTML** still allows direct markup editing. Columns and galleries stack on
+  small screens in the editor and on published articles.
+
+- **Links:** select the words, press 🔗 Link, then pick a page, service or
+  article under "Page on this site", or type an address under "Web address".
+- **Images:** 🖼 Image uploads a JPG, PNG, WebP or GIF (up to 8 MB) and asks for
+  alt text and an optional caption. Click an image and press Image again to
+  change it.
+- New articles are **Drafts**. Switch to **Published**, then Save and Commit.
+  The yellow box at the top lists anything that would stop it publishing.
+
+Uploaded images are saved on the host straight away (in `uploads/blog/` at the
+site root) so they show in the editor at once. **Commit** copies the ones an
+article uses into the repository's `public/uploads/blog/`, so every later build
+ships them too.
 
 ---
 
@@ -165,12 +198,12 @@ Nothing else needs touching.
 
 ## Files
 
-| Path | What it is |
-| --- | --- |
-| `admin/src/` | the editor, shared by both modes |
-| `admin/server/api.php` | the live backend: sign-in, GitHub read/write, publish |
-| `admin/server/.htaccess` | blocks `config.php`, marks the folder `noindex` |
-| `scripts/admin-server.mjs` | the local backend |
-| `scripts/admin-auth.mjs` | password hashing and sessions, shared by the local server |
-| `scripts/build-admin.mjs` | builds the live editor into `dist-static/<ADMIN_PATH>/` |
-| `.github/workflows/deploy.yml` | build, verify, upload |
+| Path                           | What it is                                                |
+| ------------------------------ | --------------------------------------------------------- |
+| `admin/src/`                   | the editor, shared by both modes                          |
+| `admin/server/api.php`         | the live backend: sign-in, GitHub read/write, publish     |
+| `admin/server/.htaccess`       | blocks `config.php`, marks the folder `noindex`           |
+| `scripts/admin-server.mjs`     | the local backend                                         |
+| `scripts/admin-auth.mjs`       | password hashing and sessions, shared by the local server |
+| `scripts/build-admin.mjs`      | builds the live editor into `dist-static/<ADMIN_PATH>/`   |
+| `.github/workflows/deploy.yml` | build, verify, upload                                     |

@@ -1,0 +1,29 @@
+{
+  "$comment": "Copy and metadata for the blog listing page. The articles themselves live in content/blog.json; the slug and navigation labels live in content/site.json.",
+  "seo": {
+    "title": "Blog | Digital Growth, Web & Automation Insights – EireTech360",
+    "description": "Practical guides on websites, e-commerce, digital marketing, automation and AI from the EireTech360 team, written to help your business grow.",
+    "robots": "index, follow"
+  },
+  "hero": {
+    "eyebrow": "Insights & Guides",
+    "title": "Ideas that help your business [g]grow.[/g]",
+    "subtitle": "Practical advice on websites, e-commerce, marketing, automation and AI, from the team that builds them every day."
+  },
+  "listing": {
+    "allLabel": "All articles",
+    "readMoreLabel": "Read article",
+    "emptyMessage": "New articles are on their way. Check back soon."
+  },
+  "post": {
+    "relatedTitle": "Keep reading",
+    "backLabel": "All articles"
+  },
+  "cta": {
+    "label": "Let's build",
+    "title": "Ready to put these ideas [gg]to work?[/gg]",
+    "subtitle": "Tell us what you want to achieve and we’ll show you how we would build it.",
+    "buttonLabel": "Start a Project",
+    "buttonTo": "contact"
+  }
+}

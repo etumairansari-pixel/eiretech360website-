@@ -17,7 +17,9 @@
     "admin": "node scripts/admin-server.mjs",
     "build:icons": "node scripts/generate-icon-registry.mjs",
     "admin:password": "node scripts/admin-password.mjs",
-    "build:admin": "node scripts/build-admin.mjs"
+    "build:admin": "node scripts/build-admin.mjs",
+    "verify:blog-blocks": "node scripts/verify-blog-blocks.mjs",
+    "check:admin": "tsc --project admin/tsconfig.json"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -77,6 +79,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
+    "@tiptap/core": "3.31.4",
+    "@tiptap/extension-image": "3.31.4",
+    "@tiptap/extensions": "3.31.4",
+    "@tiptap/pm": "3.31.4",
+    "@tiptap/react": "3.31.4",
+    "@tiptap/starter-kit": "3.31.4",
     "@types/node": "^22.16.5",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",

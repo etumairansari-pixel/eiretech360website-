@@ -1,3 +1,4 @@
+@import "./blog-blocks.css";
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -386,6 +387,121 @@ a.marketing-card:hover {
   .animate-orbit {
     animation: none !important;
   }
+}
+
+/* Blog article body: HTML from the content admin's editor, already sanitized. */
+.blog-prose {
+  color: var(--text);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  overflow-wrap: break-word;
+}
+.blog-prose > * + * {
+  margin-top: 1.25em;
+}
+.blog-prose :is(h2, h3, h4) {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  scroll-margin-top: 7rem;
+}
+.blog-prose h2 {
+  margin-top: 2.2em;
+  font-size: 1.75rem;
+}
+.blog-prose h3 {
+  margin-top: 1.8em;
+  font-size: 1.35rem;
+}
+.blog-prose h4 {
+  margin-top: 1.6em;
+  font-size: 1.125rem;
+}
+.blog-prose :is(h2, h3, h4) + * {
+  margin-top: 0.7em;
+}
+.blog-prose p,
+.blog-prose li {
+  color: var(--muted);
+}
+.blog-prose :is(strong, b) {
+  color: var(--text);
+  font-weight: 700;
+}
+.blog-prose a {
+  color: var(--brand-blue-text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.blog-prose a:hover {
+  text-decoration-thickness: 2px;
+}
+.blog-prose ul,
+.blog-prose ol {
+  padding-left: 1.4em;
+}
+.blog-prose ul {
+  list-style: disc;
+}
+.blog-prose ol {
+  list-style: decimal;
+}
+.blog-prose li + li {
+  margin-top: 0.5em;
+}
+.blog-prose li::marker {
+  color: var(--brand-blue);
+}
+.blog-prose blockquote {
+  border-left: 3px solid var(--brand-green);
+  background: var(--surface);
+  padding: 1.1em 1.4em;
+  font-size: 1.15rem;
+  font-style: italic;
+}
+.blog-prose blockquote p {
+  color: var(--text);
+}
+.blog-prose img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+}
+.blog-prose figure {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+.blog-prose figcaption {
+  margin-top: 0.75em;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.blog-prose code {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.1em 0.35em;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.875em;
+}
+.blog-prose pre {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.1em 1.3em;
+  line-height: 1.6;
+}
+.blog-prose pre code {
+  border: 0;
+  padding: 0;
+  background: none;
+}
+.blog-prose hr {
+  margin: 2.5em 0;
+  border: 0;
+  border-top: 1px solid var(--border);
 }
 
 /* Site-wide square corners, including component and responsive styles. */

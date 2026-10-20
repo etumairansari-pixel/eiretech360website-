@@ -324,6 +324,33 @@ export const pageSchema: Record<string, Section[]> = {
     ctaSection(),
   ],
 
+  blog: [
+    pageHeroSection(),
+    {
+      id: "listing",
+      title: "Blog page labels",
+      help: "The articles themselves are edited under Blog, Articles in the sidebar.",
+      fields: [
+        { path: ["listing", "allLabel"], label: "“All” filter button", kind: "text" },
+        { path: ["listing", "readMoreLabel"], label: "Read more link", kind: "text" },
+        {
+          path: ["listing", "emptyMessage"],
+          label: "Message when there are no articles",
+          kind: "text",
+        },
+      ],
+    },
+    {
+      id: "post",
+      title: "Article page labels",
+      fields: [
+        { path: ["post", "relatedTitle"], label: "Related articles heading", kind: "text" },
+        { path: ["post", "backLabel"], label: "Back to blog link", kind: "text" },
+      ],
+    },
+    ctaSection(),
+  ],
+
   contact: [
     pageHeroSection(),
     {

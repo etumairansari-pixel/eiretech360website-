@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import { applyContent, contentPath } from "./scripts/content-html.mjs";
+import { applyContent, blogDraftsPlugin, contentPath } from "./scripts/content-html.mjs";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
@@ -39,6 +39,7 @@ function fillDocuments(): Plugin {
 export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
   const plugins: PluginOption[] = [
     fillDocuments(),
+    blogDraftsPlugin(),
     tailwindcss(),
     tsConfigPaths({ projects: ["./tsconfig.json"] }),
     tanstackStart({

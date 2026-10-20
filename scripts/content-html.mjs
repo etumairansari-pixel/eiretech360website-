@@ -40,6 +40,34 @@ export function readContent() {
     services: readJson(path.join(contentDir, "services.json")),
     platforms: readJson(path.join(contentDir, "platforms.json")),
     testimonials: readJson(path.join(contentDir, "testimonials.json")),
+    blog: readBlog(),
+  };
+}
+
+/** content/blog.json, or no articles when the file has not been created yet. */
+function readBlog() {
+  const file = path.join(contentDir, "blog.json");
+  return fs.existsSync(file) ? readJson(file) : [];
+}
+
+/** The articles that go live: drafts are left out of everything the build emits. */
+export function publishedPosts(posts = []) {
+  return posts.filter((post) => !post.draft && post.slug);
+}
+
+/**
+ * Strips drafts from content/blog.json as the site imports it, so an
+ * unpublished article is never in the JavaScript a visitor downloads. Every
+ * build that bundles the site has to include this plugin.
+ */
+export function blogDraftsPlugin() {
+  return {
+    name: "blog-drafts",
+    enforce: "pre",
+    transform(code, id) {
+      if (!id.split("?")[0].replace(/\\/g, "/").endsWith("/content/blog.json")) return null;
+      return { code: JSON.stringify(publishedPosts(JSON.parse(code))), map: null };
+    },
   };
 }
 
@@ -333,7 +361,7 @@ export function staticRoutes(content) {
       h1: plain(page.hero.title),
     }));
 
-  return [...pages, ...serviceRoutes(content)];
+  return [...pages, ...serviceRoutes(content), ...blogRoutes(content)];
 }
 
 /** Matches slugify() in src/content/services.ts, which names the same pages. */
@@ -368,6 +396,30 @@ export function serviceRoutes(content) {
       url: `${base}/${slug}`,
       ogImage,
       h1: plain(service.title),
+    };
+  });
+}
+
+/**
+ * One page per published article, at /blog/<slug>. Like the service pages, the
+ * path is fixed by the route file src/routes/blog_.$slug.tsx.
+ */
+export function blogRoutes(content) {
+  const base = content.site.url.replace(/\/$/, "");
+  const absolute = (image) => (/^https?:/.test(image) ? image : `${base}${image}`);
+
+  return publishedPosts(content.blog).map((post) => {
+    const slug = `blog/${post.slug}`;
+    return {
+      key: `blog:${slug}`,
+      slug,
+      path: `/${slug}`,
+      title: post.seo?.title || `${post.title} | ${content.site.name}`,
+      description: post.seo?.description || post.excerpt,
+      robots: "index, follow",
+      url: `${base}/${slug}`,
+      ogImage: absolute(post.cover || content.site.ogImage),
+      h1: post.title,
     };
   });
 }

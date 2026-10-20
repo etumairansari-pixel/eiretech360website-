@@ -17,7 +17,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { serviceRoutes, slugify } from "./content-html.mjs";
+import { blogRoutes, publishedPosts, serviceRoutes, slugify } from "./content-html.mjs";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = (file) => JSON.parse(fs.readFileSync(path.join(rootDir, file), "utf8"));
@@ -300,9 +300,69 @@ for (const project of readJson("content/projects.json")) {
   console.log(`Verified ${project.title}: case study on /${page.slug}`);
 }
 
+// Every published article has its own page with its own metadata and heading,
+// and every image it shows has to have shipped with the build.
+const blogFile = path.join(rootDir, "content/blog.json");
+const blogPosts = fs.existsSync(blogFile) ? JSON.parse(fs.readFileSync(blogFile, "utf8")) : [];
+const blogPages = blogRoutes({ site: content.site, blog: blogPosts });
+assert.equal(
+  new Set(blogPages.map((page) => page.slug)).size,
+  blogPages.length,
+  "Each article needs its own page address",
+);
+
+for (const page of blogPages) {
+  const file = path.join(outDir, page.slug, "index.html");
+  const label = `/${page.slug}`;
+  assert.ok(fs.existsSync(file), `${file} was not emitted`);
+
+  const html = fs.readFileSync(file, "utf8");
+  const head = html.match(/<head>([\s\S]*?)<\/head>/)?.[1] ?? "";
+
+  const titles = [...head.matchAll(/<title>(.*?)<\/title>/g)].map((m) => decode(m[1]));
+  assert.deepEqual(titles, [page.title], `${label}: exact title`);
+  const descriptions = [...head.matchAll(/<meta\s+name="description"\s+content="([^"]*)"/g)];
+  assert.deepEqual(
+    descriptions.map((m) => decode(m[1])),
+    [page.description],
+    `${label}: description`,
+  );
+  assert.ok(head.includes(`rel="canonical" href="${page.url}"`), `${label}: canonical`);
+
+  const headings = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)].map((m) => plain(m[1]));
+  assert.deepEqual(headings, [page.h1], `${label}: exactly one H1, the article title`);
+  assert.ok(
+    html.includes('class="blog-prose"'),
+    `${label}: the article body renders without JavaScript`,
+  );
+  // The body is sanitized before render; this catches that step being skipped.
+  const body = html.split('class="blog-prose"')[1]?.split("</article>")[0] ?? "";
+  assert.ok(
+    !/<script|<iframe|\son[a-z]+\s*=|javascript:/i.test(body),
+    `${label}: the article body contains markup the sanitizer should have removed`,
+  );
+
+  console.log(`Verified ${label}: metadata, heading and article body`);
+}
+
+for (const post of publishedPosts(blogPosts)) {
+  const images = [
+    post.cover,
+    ...[...String(post.body).matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)].map((m) => m[1]),
+  ];
+  for (const src of images) {
+    if (!src || !src.startsWith("/")) continue;
+    assert.ok(
+      fs.existsSync(path.join(outDir, src.split(/[?#]/)[0])),
+      `${post.title}: the image "${src}" is not in the build — upload it again in the admin`,
+    );
+  }
+}
+
 const slugs = [
   ...content.pages.filter((page) => page.key !== homeKey).map((page) => page.slug),
   ...servicePages.map((page) => page.slug),
+  ...blogPages.map((page) => page.slug),
 ];
 
 const rewrites = fs.readFileSync(path.join(outDir, ".htaccess"), "utf8");
@@ -322,7 +382,7 @@ for (const page of content.pages) {
         : `${base}/${page.slug}`;
   assert.ok(sitemap.includes(`<loc>${loc}</loc>`), `sitemap.xml lists ${loc}`);
 }
-for (const page of servicePages) {
+for (const page of [...servicePages, ...blogPages]) {
   assert.ok(sitemap.includes(`<loc>${page.url}</loc>`), `sitemap.xml lists ${page.url}`);
 }
 

@@ -28,7 +28,7 @@ function FacebookIcon({ className = "" }: { className?: string }) {
 }
 
 /** The order the footer lists the pages, by page key. */
-const footerOrder = ["home", "about", "services", "platforms", "contact"] as const;
+const footerOrder = ["home", "about", "services", "platforms", "blog", "contact"] as const;
 
 const pages = footerOrder.map((key) => ({ to: pathFor(key), label: routeFor(key).footerLabel }));
 

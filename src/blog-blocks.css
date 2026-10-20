@@ -1,0 +1,57 @@
+/* Shared by the writing canvas and published articles. No arbitrary inline styles. */
+:is(.blog-prose, .rich-content) [data-blog-block="columns"],
+:is(.blog-prose, .rich-content) [data-blog-block="gallery"] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 28px 0;
+}
+:is(.blog-prose, .rich-content) [data-columns="3"] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+:is(.blog-prose, .rich-content) [data-blog-block="column"] {
+  min-width: 0;
+}
+:is(.blog-prose, .rich-content) [data-blog-block="gallery"] > :is(img, figure) {
+  margin: 0;
+  min-width: 0;
+}
+:is(.blog-prose, .rich-content) [data-blog-block="gallery"] img {
+  width: 100%;
+  height: auto;
+}
+:is(.blog-prose, .rich-content) [data-align="left"] {
+  text-align: left;
+}
+:is(.blog-prose, .rich-content) [data-align="center"] {
+  text-align: center;
+}
+:is(.blog-prose, .rich-content) [data-align="right"] {
+  text-align: right;
+}
+:is(.blog-prose, .rich-content) img[data-align="center"] {
+  margin-inline: auto;
+}
+:is(.blog-prose, .rich-content) img[data-align="right"] {
+  margin-left: auto;
+}
+:is(.blog-prose, .rich-content) [data-blog-block="button"] {
+  margin: 24px 0;
+}
+:is(.blog-prose, .rich-content) [data-blog-block="button"] a {
+  display: inline-block;
+  max-width: 100%;
+  padding: 12px 22px;
+  border-radius: 6px;
+  background: #086fc4;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 640px) {
+  :is(.blog-prose, .rich-content) [data-blog-block="columns"],
+  :is(.blog-prose, .rich-content) [data-blog-block="gallery"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

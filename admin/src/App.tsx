@@ -18,9 +18,19 @@ import { Login } from "./Login";
 import { collectionSchema, globalSchema, pageSchema, type Section } from "./schema";
 import { FieldInput, RepeaterList, type Ctx } from "./components/Fields";
 import { SearchListing } from "./components/SearchListing";
+import { BlogForm } from "./components/BlogForm";
+import { normalizePost } from "./blog-post";
 
 type View =
-  { kind: "page"; key: string } | { kind: "collection"; key: string } | { kind: "global" };
+  | { kind: "page"; key: string }
+  | { kind: "collection"; key: string }
+  | { kind: "global" }
+  | { kind: "blog"; index: number | null };
+
+/** Older drafts and hand-edited files may lack the blog or some of its fields. */
+function withBlog(loaded: Loaded): Loaded {
+  return { ...loaded, blog: (loaded.blog ?? []).map(normalizePost) };
+}
 
 export default function App() {
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
@@ -50,7 +60,9 @@ export default function App() {
           const cached = localStorage.getItem("eiretech-admin-content-draft");
           if (cached) {
             const draft = JSON.parse(cached) as Partial<Loaded>;
-            setData({ ...loaded, ...draft, catalog: loaded.catalog, siteUrl: loaded.siteUrl });
+            setData(
+              withBlog({ ...loaded, ...draft, catalog: loaded.catalog, siteUrl: loaded.siteUrl }),
+            );
             setHasDraft(true);
             setStatus("Local draft loaded");
             return;
@@ -58,7 +70,7 @@ export default function App() {
         } catch {
           localStorage.removeItem("eiretech-admin-content-draft");
         }
-        setData(loaded);
+        setData(withBlog(loaded));
       })
       .catch((error) => {
         if (error instanceof NotSignedIn) {
@@ -204,6 +216,10 @@ export default function App() {
 
   const routeFor = (key: string) => data.site.routes.find((r) => r.key === key) as Route;
   const previewPath = (() => {
+    if (view.kind === "blog") {
+      const post = view.index === null ? null : data.blog[view.index];
+      return post?.slug && !post.draft ? `/blog/${post.slug}` : "/blog";
+    }
     if (view.kind !== "page") return "/";
     const route = routeFor(view.key);
     if (!route || route.slug === "") return "/";
@@ -222,6 +238,7 @@ export default function App() {
         hasDraft={hasDraft}
         onSignOut={leave}
         previewOpen={previewOpen}
+        previewAvailable={view.kind !== "blog"}
         onTogglePreview={() => setPreviewOpen((v) => !v)}
       />
 
@@ -246,9 +263,18 @@ export default function App() {
         <Sidebar data={data} view={view} onSelect={setView} />
 
         <main className="min-w-0 flex-1 overflow-y-auto">
-          <div className="mx-auto max-w-3xl space-y-5 p-6">
+          <div
+            className={`mx-auto space-y-5 p-6 ${view.kind === "blog" ? "max-w-none" : "max-w-3xl"}`}
+          >
             {view.kind === "page" ? (
               <PageForm data={data} pageKey={view.key} ctx={ctx} onChange={update} />
+            ) : view.kind === "blog" ? (
+              <BlogForm
+                data={data}
+                selected={view.index}
+                onSelect={(index) => setView({ kind: "blog", index })}
+                onChange={update}
+              />
             ) : view.kind === "collection" ? (
               <CollectionForm data={data} collection={view.key} ctx={ctx} />
             ) : (
@@ -257,7 +283,7 @@ export default function App() {
           </div>
         </main>
 
-        {previewOpen ? (
+        {previewOpen && view.kind !== "blog" ? (
           <Preview
             ref={previewRef}
             siteUrl={data.siteUrl}
@@ -353,6 +379,7 @@ function Header({
   hasDraft,
   onSignOut,
   previewOpen,
+  previewAvailable,
   onTogglePreview,
 }: {
   dirty: boolean;
@@ -364,6 +391,7 @@ function Header({
   hasDraft: boolean;
   onSignOut: () => void;
   previewOpen: boolean;
+  previewAvailable: boolean;
   onTogglePreview: () => void;
 }) {
   return (
@@ -379,11 +407,18 @@ function Header({
         {status ? <span className="text-xs text-good">{status}</span> : null}
         {dirty ? <span className="text-xs font-semibold text-warn">Unsaved changes</span> : null}
 
-        <button type="button" className="btn hidden xl:inline-flex" onClick={onTogglePreview}>
-          {previewOpen ? "Hide preview" : "Show preview"}
-        </button>
+        {previewAvailable && (
+          <button type="button" className="btn hidden xl:inline-flex" onClick={onTogglePreview}>
+            {previewOpen ? "Hide preview" : "Show preview"}
+          </button>
+        )}
 
-        <button type="button" className="btn" onClick={onCommit} disabled={building || dirty || !hasDraft}>
+        <button
+          type="button"
+          className="btn"
+          onClick={onCommit}
+          disabled={building || dirty || !hasDraft}
+        >
           {building ? "Committing…" : "Commit"}
         </button>
 
@@ -489,6 +524,18 @@ function Sidebar({
             `${(data[key as "services" | "platforms" | "testimonials" | "projects"] ?? []).length} ${schema.itemLabel}s`,
             () => onSelect({ kind: "collection", key }),
           ),
+        )}
+      </div>
+
+      <p className="px-3 pb-2 pt-5 text-[10px] font-bold uppercase tracking-[0.12em] text-ink-soft">
+        Blog
+      </p>
+      <div className="space-y-0.5">
+        {item(
+          view.kind === "blog",
+          "Articles",
+          `${data.blog.filter((p) => !p.draft).length} published · ${data.blog.filter((p) => p.draft).length} draft`,
+          () => onSelect({ kind: "blog", index: null }),
         )}
       </div>
 
@@ -617,10 +664,8 @@ function PageForm({
 
 function CollectionForm({ data, collection, ctx }: { data: Loaded; collection: string; ctx: Ctx }) {
   const repeater = collectionSchema[collection];
-  const rows = (data[collection as "services" | "platforms" | "testimonials" | "projects"] ?? []) as Record<
-    string,
-    unknown
-  >[];
+  const rows = (data[collection as "services" | "platforms" | "testimonials" | "projects"] ??
+    []) as Record<string, unknown>[];
 
   return (
     <>

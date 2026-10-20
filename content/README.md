@@ -32,17 +32,35 @@ read exactly the same JSON.
 
 ## The files
 
-| File                     | What it holds                                                          |
-| ------------------------ | ---------------------------------------------------------------------- |
-| `site.json`              | Site name and URL, contact details, social links, footer, the page list |
-| `pages/<key>.json`       | One page's meta tags and all of its copy                               |
-| `services.json`          | The nine services, used by the homepage and the services page          |
-| `platforms.json`         | The platform groups on the platforms page                              |
-| `testimonials.json`      | The homepage quotes                                                    |
-| `seo-baseline.json`      | The titles and descriptions as supplied in the SEO sheet — a frozen reference, never used by the site |
+| File                | What it holds                                                                                         |
+| ------------------- | ----------------------------------------------------------------------------------------------------- |
+| `site.json`         | Site name and URL, contact details, social links, footer, the page list                               |
+| `pages/<key>.json`  | One page's meta tags and all of its copy                                                              |
+| `services.json`     | The nine services, used by the homepage and the services page                                         |
+| `platforms.json`    | The platform groups on the platforms page                                                             |
+| `testimonials.json` | The homepage quotes                                                                                   |
+| `blog.json`         | The blog articles, written in the admin's Blog view                                                   |
+| `seo-baseline.json` | The titles and descriptions as supplied in the SEO sheet — a frozen reference, never used by the site |
 
 The pages are split into their own files on purpose: each page bundles only its
 own copy, so the homepage does not download the About page's text.
+
+### `blog.json`
+
+Each article gets its own page at `/blog/<slug>`, an entry in the sitemap and
+`BlogPosting` structured data. The listing page itself is `pages/blog.json`.
+
+- `body` is HTML from the admin's rich text editor. The site passes it through
+  an allowlist sanitizer (`src/lib/blog-html.ts`) before rendering: headings,
+  paragraphs, lists, quotes, code, links, images and captions survive; scripts,
+  styles, event handlers and `javascript:` links do not.
+- Links starting with `/` are internal and open in the same tab; `http(s)` links
+  open in a new tab with `rel="noopener noreferrer"`.
+- `draft: true` keeps an article out of the build entirely — no page, no
+  sitemap entry, and not in the JavaScript bundle either.
+- Images uploaded in the editor are stored in `public/uploads/blog/`, resized to
+  at most 1920px and saved as WebP. The build fails if an article points at an
+  uploaded image that is missing.
 
 ### `site.json` → `routes`
 
@@ -65,11 +83,11 @@ the header and footer menus:
 
 Headings are plain text with markers around the words that need treatment:
 
-| Marker        | What it does                          |
-| ------------- | ------------------------------------- |
-| `[g]…[/g]`    | the brand gradient                    |
-| `[gg]…[/gg]`  | the gradient plus the hero's glow     |
-| `[b]…[/b]`    | emphasised body copy                  |
+| Marker       | What it does                      |
+| ------------ | --------------------------------- |
+| `[g]…[/g]`   | the brand gradient                |
+| `[gg]…[/gg]` | the gradient plus the hero's glow |
+| `[b]…[/b]`   | emphasised body copy              |
 
 ```json
 "title": "We build digital [g]ecosystems[/g], not just projects."

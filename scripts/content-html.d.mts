@@ -26,6 +26,7 @@ export type SiteContentFile = {
   services: Record<string, unknown>[];
   platforms: Record<string, unknown>[];
   testimonials: Record<string, unknown>[];
+  blog: BlogPostFile[];
 };
 
 export type StaticRoute = {
@@ -56,3 +57,23 @@ export declare function applyContent(
   content?: SiteContentFile,
 ): string;
 export declare function staticRoutes(content: SiteContentFile): StaticRoute[];
+
+/** One entry in content/blog.json, as far as the build reads it. */
+export type BlogPostFile = {
+  slug: string;
+  title: string;
+  excerpt?: string;
+  cover?: string;
+  body?: string;
+  draft?: boolean;
+  seo?: { title?: string; description?: string };
+  [key: string]: unknown;
+};
+
+export declare function publishedPosts(posts?: BlogPostFile[]): BlogPostFile[];
+export declare function blogRoutes(content: {
+  site: SiteContentFile["site"];
+  blog: BlogPostFile[];
+}): StaticRoute[];
+/** A Vite plugin that strips draft articles from content/blog.json as the site imports it. */
+export declare function blogDraftsPlugin(): import("vite").Plugin;

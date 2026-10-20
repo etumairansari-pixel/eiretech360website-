@@ -80,6 +80,12 @@
       "footerLabel": "About Us"
     },
     {
+      "key": "blog",
+      "slug": "blog",
+      "navLabel": "Blog",
+      "footerLabel": "Blog"
+    },
+    {
       "key": "contact",
       "slug": "contact",
       "navLabel": "Contact",

@@ -249,3 +249,25 @@ export type Testimonial = {
   role: string;
   quote: string;
 };
+
+/** One entry in content/blog.json: an article, edited in the admin's Blog view. */
+export type BlogPost = {
+  /** The URL path after /blog/. Lower-case letters, numbers and hyphens. */
+  slug: string;
+  title: string;
+  /** One or two sentences for the listing card, and the fallback description. */
+  excerpt: string;
+  /** Site-relative path ("/uploads/blog/…") or a full URL. Empty for none. */
+  cover: string;
+  coverAlt: string;
+  author: string;
+  /** Publication date, YYYY-MM-DD. */
+  date: string;
+  category: string;
+  tags: string[];
+  /** HTML from the editor. Always passed through sanitizeBlogHtml() before rendering. */
+  body: string;
+  seo: { title: string; description: string };
+  /** Drafts are left out of the build entirely, not just hidden. */
+  draft?: boolean;
+};

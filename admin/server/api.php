@@ -410,7 +410,169 @@ function validate(array $next): array
         $checkLink($page['hero']['secondaryTo'] ?? null, ($route['key'] ?? '') . ': secondary button link');
     }
 
+    return array_merge($errors, validate_blog($next['blog'] ?? null));
+}
+
+/**
+ * The blog articles. Mirrors validateBlog() in scripts/admin-server.mjs.
+ * Drafts only need a title and an address, since they are never built.
+ *
+ * @param mixed $blog The decoded content/blog.json, or null when absent.
+ */
+function validate_blog($blog): array
+{
+    if ($blog === null) {
+        return [];
+    }
+    if (!is_array($blog)) {
+        return ['blog must be a list'];
+    }
+
+    $errors = [];
+    $seen   = [];
+
+    foreach ($blog as $post) {
+        $title = trim((string) ($post['title'] ?? ''));
+        $name  = $title !== '' ? $title : 'An article';
+        if ($title === '') {
+            $errors[] = 'An article has no title';
+        }
+
+        $slug = (string) ($post['slug'] ?? '');
+        if (!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $slug)) {
+            $errors[] = $name . ': the page address "' . $slug . '" must be lower-case letters, numbers and single hyphens';
+        } elseif (isset($seen[$slug])) {
+            $errors[] = 'The page address "' . $slug . '" is used by more than one article';
+        }
+        $seen[$slug] = true;
+
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) ($post['date'] ?? ''))) {
+            $errors[] = $name . ': the publication date must be set';
+        }
+        if (!isset($post['body']) || !is_string($post['body'])) {
+            $errors[] = $name . ': the article text is missing';
+        }
+
+        if (empty($post['draft'])) {
+            if (trim(strip_tags((string) ($post['body'] ?? ''))) === '') {
+                $errors[] = $name . ': a published article needs some text';
+            }
+            if (!empty($post['cover']) && trim((string) ($post['coverAlt'] ?? '')) === '') {
+                $errors[] = $name . ': the cover image needs alt text';
+            }
+        }
+    }
+
     return $errors;
+}
+
+/* ------------------------------------------------------------------
+   Blog images
+
+   Uploads are written straight into the site's own uploads/blog/ folder on
+   the host, so they show in the editor and on the live site at once. Commit
+   then copies the ones an article uses into the repository (public/uploads/
+   blog/), so the next build ships them too and they are never lost.
+------------------------------------------------------------------ */
+
+/** The site root on the host: the admin lives one folder below it. */
+function uploads_dir(): string
+{
+    return dirname(__DIR__) . '/uploads/blog';
+}
+
+/**
+ * Stores one uploaded image and returns its site path.
+ *
+ * The type is read from the bytes, never trusted from the request, and the
+ * file name is generated, so nothing but an image can land in the folder and
+ * nothing can land outside it.
+ */
+function store_upload(array $body): string
+{
+    $data = isset($body['data']) && is_string($body['data']) ? base64_decode($body['data'], true) : false;
+    if ($data === false || $data === '') {
+        throw new RuntimeException('The upload was empty.');
+    }
+    if (strlen($data) > 8 * 1024 * 1024) {
+        throw new RuntimeException('That image is larger than 8 MB.');
+    }
+
+    $info = @getimagesizefromstring($data);
+    $types = [IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_WEBP => 'webp', IMAGETYPE_GIF => 'gif'];
+    if ($info === false || !isset($types[$info[2]])) {
+        throw new RuntimeException('Use a JPG, PNG, WebP or GIF image.');
+    }
+    $ext = $types[$info[2]];
+
+    $stem = strtolower((string) preg_replace('/\.[^.]+$/', '', (string) ($body['name'] ?? 'image')));
+    $stem = trim((string) preg_replace('/[^a-z0-9]+/', '-', $stem), '-');
+    $stem = substr($stem !== '' ? $stem : 'image', 0, 60);
+    $file = $stem . '-' . bin2hex(random_bytes(3));
+
+    $dir = uploads_dir();
+    if (!is_dir($dir) && !mkdir($dir, 0755, true) && !is_dir($dir)) {
+        throw new RuntimeException('Could not create the uploads folder on the server.');
+    }
+    // Belt and braces: even a file that slipped through could never run here.
+    $guard = dirname($dir) . '/.htaccess';
+    if (!is_file($guard)) {
+        file_put_contents($guard, "Options -Indexes\n<FilesMatch \"\\.(?i:php\\d?|phtml|phar)$\">\n  Require all denied\n</FilesMatch>\n");
+    }
+
+    // Large photos are resized and re-encoded as WebP when the host's GD can;
+    // GIFs are kept as they are so animation survives.
+    if ($ext !== 'gif' && function_exists('imagecreatefromstring') && function_exists('imagewebp')) {
+        $image = @imagecreatefromstring($data);
+        if ($image !== false) {
+            $width  = imagesx($image);
+            $height = imagesy($image);
+            if ($width > 1920) {
+                $scaled = imagescale($image, 1920, (int) round($height * 1920 / $width), IMG_BICUBIC);
+                if ($scaled !== false) {
+                    imagedestroy($image);
+                    $image = $scaled;
+                }
+            }
+            imagepalettetotruecolor($image);
+            imagealphablending($image, true);
+            imagesavealpha($image, true);
+            $path = $dir . '/' . $file . '.webp';
+            $ok   = imagewebp($image, $path, 80);
+            imagedestroy($image);
+            if ($ok) {
+                return '/uploads/blog/' . $file . '.webp';
+            }
+        }
+    }
+
+    if (file_put_contents($dir . '/' . $file . '.' . $ext, $data, LOCK_EX) === false) {
+        throw new RuntimeException('Could not save the image on the server.');
+    }
+
+    return '/uploads/blog/' . $file . '.' . $ext;
+}
+
+/**
+ * The uploaded images the articles use, as repository path => host file.
+ *
+ * @param array $blog The decoded content/blog.json.
+ */
+function referenced_uploads(array $blog): array
+{
+    $found = [];
+    foreach ($blog as $post) {
+        $text = (string) ($post['cover'] ?? '') . ' ' . (string) ($post['body'] ?? '');
+        if (preg_match_all('#/uploads/blog/([a-z0-9-]+\.(?:webp|jpg|png|gif))#', $text, $matches)) {
+            foreach ($matches[1] as $name) {
+                $file = uploads_dir() . '/' . $name;
+                if (is_file($file)) {
+                    $found['public/uploads/blog/' . $name] = $file;
+                }
+            }
+        }
+    }
+    return $found;
 }
 
 /* ------------------------------------------------------------------
@@ -492,6 +654,8 @@ if ($action === 'content' && $method === 'GET') {
         'platforms'    => $load('content/platforms.json'),
         'testimonials' => $load('content/testimonials.json'),
         'projects'     => $load('content/projects.json'),
+        // Absent until the first article is committed, which is not an error.
+        'blog'         => read_repo_file('content/blog.json', $result) ?? [],
         'catalog'      => is_array($catalog) ? $catalog : ['icons' => [], 'images' => []],
         // The preview pane points at the live site.
         'siteUrl'      => rtrim($site['site']['url'], '/'),
@@ -532,6 +696,9 @@ if (($action === 'publish' || $action === 'commit') && $method === 'POST') {
         'content/testimonials.json' => $next['testimonials'],
         'content/projects.json'     => $next['projects'],
     ];
+    if (isset($next['blog']) && is_array($next['blog'])) {
+        $files['content/blog.json'] = array_values($next['blog']);
+    }
     foreach ($next['site']['routes'] as $route) {
         $files['content/pages/' . $route['key'] . '.json'] = $next['pages'][$route['key']];
     }
@@ -573,6 +740,32 @@ if (($action === 'publish' || $action === 'commit') && $method === 'POST') {
         $tree[] = ['path' => $path, 'mode' => '100644', 'type' => 'blob', 'sha' => $blob['body']['sha']];
     }
 
+    // The images the articles use, uploaded to the host since the last commit.
+    // One listing tells us which are already in the repository.
+    $images = referenced_uploads($next['blog'] ?? []);
+    if ($images) {
+        $listing = github('GET', $repo . '/contents/public/uploads/blog?ref=' . ADMIN_GITHUB_BRANCH);
+        $known   = [];
+        if ($listing['status'] === 200 && is_array($listing['body'])) {
+            foreach ($listing['body'] as $entry) {
+                $known['public/uploads/blog/' . ($entry['name'] ?? '')] = true;
+            }
+        }
+        foreach ($images as $path => $file) {
+            if (isset($known[$path])) {
+                continue;
+            }
+            $blob = github('POST', $repo . '/git/blobs', [
+                'content'  => base64_encode((string) file_get_contents($file)),
+                'encoding' => 'base64',
+            ]);
+            if ($blob['status'] !== 201) {
+                reply(502, ['ok' => false, 'errors' => [github_error($blob, 'store ' . $path)]]);
+            }
+            $tree[] = ['path' => $path, 'mode' => '100644', 'type' => 'blob', 'sha' => $blob['body']['sha']];
+        }
+    }
+
     $newTree = github('POST', $repo . '/git/trees', ['base_tree' => $baseTree, 'tree' => $tree]);
     if ($newTree['status'] !== 201) {
         reply(502, ['ok' => false, 'errors' => [github_error($newTree, 'build the commit')]]);
@@ -601,6 +794,14 @@ if (($action === 'publish' || $action === 'commit') && $method === 'POST') {
         'output' => "Committed to GitHub. The deployment will start automatically from the push.\n\n"
             . 'Progress: https://github.com/' . ADMIN_GITHUB_REPO . '/actions',
     ]);
+}
+
+if ($action === 'upload' && $method === 'POST') {
+    try {
+        reply(200, ['ok' => true, 'url' => store_upload(request_body())]);
+    } catch (RuntimeException $error) {
+        reply(422, ['ok' => false, 'error' => $error->getMessage()]);
+    }
 }
 
 if ($action === 'build' && $method === 'POST') {

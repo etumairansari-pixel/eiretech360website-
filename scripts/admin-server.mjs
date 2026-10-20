@@ -34,6 +34,9 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const contentDir = path.join(rootDir, "content");
 const pagesDir = path.join(contentDir, "pages");
 const draftFile = path.join(rootDir, ".admin-draft.json");
+const blogFile = path.join(contentDir, "blog.json");
+// Served by the site's dev server from public/, and copied into every build.
+const uploadsDir = path.join(rootDir, "public/uploads");
 
 const PORT = Number(process.env.ADMIN_PORT ?? 5174);
 const SITE_URL = process.env.SITE_DEV_URL ?? "http://localhost:8080";
@@ -74,6 +77,7 @@ function loadContent() {
     platforms: readJson(path.join(contentDir, "platforms.json")),
     testimonials: readJson(path.join(contentDir, "testimonials.json")),
     projects: readJson(path.join(contentDir, "projects.json")),
+    blog: fs.existsSync(blogFile) ? readJson(blogFile) : [],
   };
 
   return base;
@@ -224,6 +228,8 @@ function validate(next) {
     require(quote.quote, `${quote.name || "A testimonial"}: the quote`);
   }
 
+  errors.push(...validateBlog(next.blog));
+
   // Unresolvable link targets would render as a link to nowhere.
   const keys = new Set(next.site.routes.map((r) => r.key));
   const checkLink = (value, where) => {
@@ -241,6 +247,135 @@ function validate(next) {
   }
 
   return errors;
+}
+
+/**
+ * The blog articles. Mirrored in admin/server/api.php; both ends have to agree.
+ * Drafts only need a title and an address, since they are never built.
+ */
+function validateBlog(blog) {
+  if (blog === undefined) return [];
+  if (!Array.isArray(blog)) return ["blog must be a list"];
+
+  const errors = [];
+  const seen = new Set();
+
+  for (const post of blog) {
+    const name = String(post?.title ?? "").trim() || "An article";
+    if (!String(post?.title ?? "").trim()) errors.push("An article has no title");
+
+    const slug = String(post?.slug ?? "");
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+      errors.push(
+        `${name}: the page address "${slug}" must be lower-case letters, numbers and single hyphens`,
+      );
+    } else if (seen.has(slug)) {
+      errors.push(`The page address "${slug}" is used by more than one article`);
+    }
+    seen.add(slug);
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(post?.date ?? ""))) {
+      errors.push(`${name}: the publication date must be set`);
+    }
+    if (typeof post?.body !== "string") errors.push(`${name}: the article text is missing`);
+
+    if (!post?.draft) {
+      if (
+        !String(post?.body ?? "")
+          .replace(/<[^>]*>/g, "")
+          .trim()
+      ) {
+        errors.push(`${name}: a published article needs some text`);
+      }
+      if (post?.cover && !String(post?.coverAlt ?? "").trim()) {
+        errors.push(`${name}: the cover image needs alt text`);
+      }
+    }
+  }
+
+  return errors;
+}
+
+/* ------------------------------------------------------------------
+   Image uploads
+------------------------------------------------------------------ */
+
+const UPLOAD_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
+
+/**
+ * Stores an uploaded blog image in public/uploads/blog/ and returns its URL.
+ *
+ * Photos are resized to at most 1920px wide and re-encoded as WebP, which
+ * keeps an article fast however large the original was. GIFs are kept as they
+ * are so animation survives. The name is derived, never taken as given, so an
+ * upload cannot write anywhere but that folder.
+ */
+async function storeUpload({ name, type, data }) {
+  if (!UPLOAD_TYPES.has(type)) throw new Error("Use a JPG, PNG, WebP or GIF image.");
+  if (typeof data !== "string" || !data) throw new Error("The upload was empty.");
+
+  const input = Buffer.from(data, "base64");
+  if (input.length > 8 * 1024 * 1024) throw new Error("That image is larger than 8 MB.");
+
+  const { default: sharp } = await import("sharp");
+  const image = sharp(input, { animated: type === "image/gif" });
+  // Fails on anything that is not really an image, whatever its type claimed.
+  const meta = await image.metadata().catch(() => ({}));
+  if (!meta.width || !meta.height) throw new Error("That file is not a readable image.");
+
+  const stem =
+    String(name ?? "image")
+      .replace(/\.[^.]+$/, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 60) || "image";
+  const suffix = (await import("node:crypto")).randomBytes(3).toString("hex");
+
+  const dir = path.join(uploadsDir, "blog");
+  fs.mkdirSync(dir, { recursive: true });
+
+  let file;
+  if (type === "image/gif") {
+    file = `${stem}-${suffix}.gif`;
+    fs.writeFileSync(path.join(dir, file), input);
+  } else {
+    file = `${stem}-${suffix}.webp`;
+    await image
+      .rotate()
+      .resize({ width: 1920, withoutEnlargement: true })
+      .webp({ quality: 80 })
+      .toFile(path.join(dir, file));
+  }
+
+  return `/uploads/blog/${file}`;
+}
+
+/** Serves public/uploads/ so images show in the editor, which runs on its own port. */
+function serveUpload(pathname, res) {
+  const relative = decodeURIComponent(pathname.slice("/uploads/".length));
+  const file = path.resolve(uploadsDir, relative);
+  if (
+    !file.startsWith(uploadsDir + path.sep) ||
+    !fs.existsSync(file) ||
+    !fs.statSync(file).isFile()
+  ) {
+    res.writeHead(404);
+    res.end();
+    return;
+  }
+  const types = {
+    ".webp": "image/webp",
+    ".gif": "image/gif",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+  };
+  res.writeHead(200, {
+    "Content-Type": types[path.extname(file).toLowerCase()] ?? "application/octet-stream",
+    "X-Content-Type-Options": "nosniff",
+  });
+  fs.createReadStream(file).pipe(res);
 }
 
 /* ------------------------------------------------------------------
@@ -278,6 +413,7 @@ function publishContent(next) {
   atomic(path.join(contentDir, "platforms.json"), next.platforms);
   atomic(path.join(contentDir, "testimonials.json"), next.testimonials);
   atomic(path.join(contentDir, "projects.json"), next.projects);
+  if (Array.isArray(next.blog)) atomic(blogFile, next.blog);
 
   // Any page file left behind by a removed page would still be imported by a
   // route that no longer exists, so clear it out.
@@ -311,14 +447,17 @@ function json(res, status, body) {
   res.end(payload);
 }
 
-function readBody(req) {
+/**
+ * @param {number} limit Content is text, so anything over 5 MB is a mistake or
+ *   an attack; image uploads raise it to fit an 8 MB file as base64.
+ */
+function readBody(req, limit = 5_000_000) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     let size = 0;
     req.on("data", (chunk) => {
       size += chunk.length;
-      // Content is text; anything this large is a mistake or an attack.
-      if (size > 5_000_000) {
+      if (size > limit) {
         reject(new Error("request body too large"));
         req.destroy();
         return;
@@ -457,8 +596,25 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    if (url.pathname === "/api/upload" && req.method === "POST") {
+      try {
+        const upload = await readBody(req, 12_000_000);
+        const imageUrl = await storeUpload(upload);
+        console.log(`  image uploaded  ${imageUrl}`);
+        json(res, 200, { ok: true, url: imageUrl });
+      } catch (error) {
+        json(res, 422, { ok: false, error: String(error.message ?? error) });
+      }
+      return;
+    }
+
     if (url.pathname.startsWith("/api/")) {
       json(res, 404, { error: "unknown endpoint" });
+      return;
+    }
+
+    if (url.pathname.startsWith("/uploads/") && req.method === "GET") {
+      serveUpload(url.pathname, res);
       return;
     }
   } catch (error) {

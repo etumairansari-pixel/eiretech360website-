@@ -5,7 +5,12 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { defineConfig, type Plugin } from "vite";
-import { applyContent, readContent, staticRoutes } from "./scripts/content-html.mjs";
+import {
+  applyContent,
+  blogDraftsPlugin,
+  readContent,
+  staticRoutes,
+} from "./scripts/content-html.mjs";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
@@ -209,15 +214,18 @@ function generateRoutingFiles(): Plugin {
           ].join("\n");
         });
 
-      // Each service page sits just below the services page itself.
-      for (const route of staticRouteMeta.filter((r) => r.key.startsWith("service:"))) {
+      // Each service page sits just below the services page itself, and each
+      // article just below the blog.
+      for (const route of staticRouteMeta.filter(
+        (r) => r.key.startsWith("service:") || r.key.startsWith("blog:"),
+      )) {
         urls.push(
           [
             "  <url>",
             `    <loc>${route.url}</loc>`,
             `    <lastmod>${today}</lastmod>`,
             "    <changefreq>monthly</changefreq>",
-            "    <priority>0.8</priority>",
+            `    <priority>${route.key.startsWith("blog:") ? "0.7" : "0.8"}</priority>`,
             "  </url>",
           ].join("\n"),
         );
@@ -320,7 +328,7 @@ function prerenderRoutes(): Plugin {
         logLevel: "warn",
         // __root.tsx imports styles.css?url, so the SSR pass has to resolve
         // the stylesheet even though the prerender never uses it.
-        plugins: [react(), tailwindcss()],
+        plugins: [blogDraftsPlugin(), react(), tailwindcss()],
         resolve: { alias: { "@": path.resolve(rootDir, "src") } },
         build: {
           ssr: true,
@@ -414,6 +422,7 @@ export default defineConfig({
   define: { "import.meta.env.VITE_INLINE_CSS": "true" },
   plugins: [
     fillDocuments(),
+    blogDraftsPlugin(),
     tanstackRouter({ target: "react", autoCodeSplitting: true }),
     react(),
     tailwindcss(),
