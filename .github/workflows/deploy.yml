@@ -198,17 +198,18 @@ jobs:
               exit 1
             fi
 
-            echo "Uploading over SFTP to the verified website folder."
-            lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
-          set cmd:fail-exit true
-          set sftp:auto-confirm yes
-          set net:max-retries 3
-          set net:reconnect-interval-base 5
-          set net:timeout 60
-          cd "$remote_dir"
-          mirror --reverse --verbose --no-perms --no-umask --exclude-glob .htaccess ./dist-static/ .
-          bye
-          EOF
+            # Stream the build through SSH instead of mapping an SSH filesystem
+            # path back through SFTP. This preserves server-only .htaccess files
+            # and avoids the slow per-file FTP/SFTP round trips.
+            remote_dir_escaped="$(printf '%s' "$remote_dir" | sed "s/'/'\\\\''/g")"
+            echo "Uploading the build over SSH to the verified website folder."
+            tar -C dist-static --exclude='.htaccess' -cf - . |
+              SSHPASS="$SFTP_PASSWORD" sshpass -e ssh \
+                -o StrictHostKeyChecking=accept-new \
+                -o UserKnownHostsFile=/dev/null \
+                -o ConnectTimeout=30 \
+                -p "$SFTP_PORT" "$SFTP_USER@$SFTP_HOST" \
+                "tar -xf - -C '$remote_dir_escaped'"
             exit 0
           fi
 
