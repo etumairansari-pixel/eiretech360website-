@@ -186,7 +186,7 @@ jobs:
                   -o UserKnownHostsFile=/dev/null \
                   -o ConnectTimeout=30 \
                   -p "$SFTP_PORT" "$SFTP_USER@$SFTP_HOST" \
-                  'for candidate in "$HOME/domains/eiretech360.com/public_html" "$HOME/public_html"; do
+                  'for candidate in "$HOME/public_html" "$HOME/domains/eiretech360.com/public_html"; do
                      if [ -d "$candidate" ]; then cd "$candidate" && pwd; exit 0; fi
                    done
                    find "$HOME" -maxdepth 6 -type d -path "*/eiretech360.com/public_html" -print -quit'
