@@ -81,8 +81,26 @@ jobs:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT }}
+          SFTP_USER: ${{ secrets.SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
           ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
         run: |
+          # Prefer encrypted SFTP whenever its complete credential set exists.
+          if [ -n "$SFTP_HOST$SFTP_PORT$SFTP_USER$SFTP_PASSWORD" ]; then
+            missing_sftp=""
+            [ -z "$SFTP_HOST" ] && missing_sftp="$missing_sftp SFTP_HOST"
+            [ -z "$SFTP_PORT" ] && missing_sftp="$missing_sftp SFTP_PORT"
+            [ -z "$SFTP_USER" ] && missing_sftp="$missing_sftp SFTP_USER"
+            [ -z "$SFTP_PASSWORD" ] && missing_sftp="$missing_sftp SFTP_PASSWORD"
+            if [ -n "$missing_sftp" ]; then
+              echo "::error title=Incomplete SFTP setup::Add all four SFTP repository secrets:$missing_sftp"
+              exit 1
+            fi
+            echo "upload=true" >> "$GITHUB_OUTPUT"
+            echo "transport=sftp" >> "$GITHUB_OUTPUT"
+          else
           missing=""
           [ -z "$FTP_HOST" ] && missing="$missing FTP_HOST"
           [ -z "$FTP_USER" ] && missing="$missing FTP_USER"
@@ -94,6 +112,8 @@ jobs:
             echo "::warning::Not uploading — these repository secrets are not set:$missing"
           else
             echo "upload=true" >> "$GITHUB_OUTPUT"
+          fi
+
           fi
 
           # A secret cannot be read from a step's `if`, so carry it as an output.
@@ -144,9 +164,53 @@ jobs:
           FTP_PROTOCOL: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
           FTP_PORT: ${{ secrets.FTP_PORT || '21' }}
           FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR || '/public_html/' }}
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT }}
+          SFTP_USER: ${{ secrets.SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_REMOTE_DIR: ${{ secrets.SFTP_REMOTE_DIR }}
+          DEPLOY_TRANSPORT: ${{ steps.check.outputs.transport }}
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq lftp
+          sudo apt-get install -y -qq lftp sshpass
+
+          if [ "$DEPLOY_TRANSPORT" = "sftp" ]; then
+            # Hostinger SSH accounts do not always start inside the website
+            # directory. Resolve the current domain's public_html folder over
+            # SSH instead of guessing a path or silently creating one.
+            remote_dir="$SFTP_REMOTE_DIR"
+            if [ -z "$remote_dir" ]; then
+              remote_dir="$(
+                SSHPASS="$SFTP_PASSWORD" sshpass -e ssh \
+                  -o StrictHostKeyChecking=accept-new \
+                  -o UserKnownHostsFile=/dev/null \
+                  -o ConnectTimeout=30 \
+                  -p "$SFTP_PORT" "$SFTP_USER@$SFTP_HOST" \
+                  'for candidate in "$HOME/domains/eiretech360.com/public_html" "$HOME/public_html"; do
+                     if [ -d "$candidate" ]; then cd "$candidate" && pwd; exit 0; fi
+                   done
+                   find "$HOME" -maxdepth 6 -type d -path "*/eiretech360.com/public_html" -print -quit'
+              )"
+            fi
+
+            if [ -z "$remote_dir" ]; then
+              echo "::error title=Website folder not found::Could not locate eiretech360.com/public_html over SSH. Add SFTP_REMOTE_DIR with the absolute website path from SSH."
+              exit 1
+            fi
+
+            echo "Uploading over SFTP to the verified website folder."
+            lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
+          set cmd:fail-exit true
+          set sftp:auto-confirm yes
+          set net:max-retries 3
+          set net:reconnect-interval-base 5
+          set net:timeout 60
+          cd "$remote_dir"
+          mirror --reverse --verbose --no-perms --no-umask --exclude-glob .htaccess ./dist-static/ .
+          bye
+          EOF
+            exit 0
+          fi
 
           scheme="${FTP_PROTOCOL:-ftps}"
           if [ "$scheme" = "ftps" ]; then
