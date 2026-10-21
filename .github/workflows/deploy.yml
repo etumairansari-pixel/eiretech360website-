@@ -175,22 +175,40 @@ jobs:
           sudo apt-get install -y -qq lftp sshpass
 
           if [ "$DEPLOY_TRANSPORT" = "sftp" ]; then
+            # Hostinger occasionally drops the first connection from a fresh
+            # GitHub runner. Retry a connection before declaring a deployment
+            # failure; credentials and the existing site remain untouched.
+            ssh_command() {
+              SSHPASS="$SFTP_PASSWORD" sshpass -e ssh \
+                -o StrictHostKeyChecking=accept-new \
+                -o UserKnownHostsFile=/dev/null \
+                -o ConnectTimeout=20 \
+                -o ConnectionAttempts=2 \
+                -p "$SFTP_PORT" "$SFTP_USER@$SFTP_HOST" "$@"
+            }
+
+            resolve_remote_dir() {
+              local attempt remote
+              for attempt in 1 2 3; do
+                remote="$(ssh_command 'for candidate in "$HOME/public_html" "$HOME/domains/eiretech360.com/public_html"; do
+                  if [ -d "$candidate" ]; then cd "$candidate" && pwd; exit 0; fi
+                done
+                find "$HOME" -maxdepth 6 -type d -path "*/eiretech360.com/public_html" -print -quit')" && [ -n "$remote" ] && {
+                  printf '%s' "$remote"
+                  return 0
+                }
+                echo "SSH folder check attempt $attempt/3 failed; retrying..." >&2
+                sleep 10
+              done
+              return 1
+            }
+
             # Hostinger SSH accounts do not always start inside the website
             # directory. Resolve the current domain's public_html folder over
             # SSH instead of guessing a path or silently creating one.
             remote_dir="$SFTP_REMOTE_DIR"
             if [ -z "$remote_dir" ]; then
-              remote_dir="$(
-                SSHPASS="$SFTP_PASSWORD" sshpass -e ssh \
-                  -o StrictHostKeyChecking=accept-new \
-                  -o UserKnownHostsFile=/dev/null \
-                  -o ConnectTimeout=30 \
-                  -p "$SFTP_PORT" "$SFTP_USER@$SFTP_HOST" \
-                  'for candidate in "$HOME/public_html" "$HOME/domains/eiretech360.com/public_html"; do
-                     if [ -d "$candidate" ]; then cd "$candidate" && pwd; exit 0; fi
-                   done
-                   find "$HOME" -maxdepth 6 -type d -path "*/eiretech360.com/public_html" -print -quit'
-              )"
+              remote_dir="$(resolve_remote_dir)"
             fi
 
             if [ -z "$remote_dir" ]; then
@@ -203,13 +221,19 @@ jobs:
             # and avoids the slow per-file FTP/SFTP round trips.
             remote_dir_escaped="$(printf '%s' "$remote_dir" | sed "s/'/'\\\\''/g")"
             echo "Uploading the build over SSH to the verified website folder."
-            tar -C dist-static --exclude='.htaccess' -cf - . |
-              SSHPASS="$SFTP_PASSWORD" sshpass -e ssh \
-                -o StrictHostKeyChecking=accept-new \
-                -o UserKnownHostsFile=/dev/null \
-                -o ConnectTimeout=30 \
-                -p "$SFTP_PORT" "$SFTP_USER@$SFTP_HOST" \
-                "tar -xf - -C '$remote_dir_escaped'"
+            uploaded=false
+            for attempt in 1 2 3; do
+              if tar -C dist-static --exclude='.htaccess' -cf - . | ssh_command "tar -xf - -C '$remote_dir_escaped'"; then
+                uploaded=true
+                break
+              fi
+              echo "SSH upload attempt $attempt/3 failed; retrying..." >&2
+              sleep 10
+            done
+            if [ "$uploaded" != "true" ]; then
+              echo "::error title=Hostinger SSH unreachable::The SSH server did not accept the deployment after three attempts. Re-run the workflow; the live site was left unchanged."
+              exit 1
+            fi
             exit 0
           fi
 
