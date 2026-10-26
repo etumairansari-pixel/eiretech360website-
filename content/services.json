@@ -272,9 +272,15 @@
     "desc": "Intelligent, tailor-made AI solutions to automate and optimize business operations.",
     "points": [
       "AI Chatbots and Virtual Assistants",
-      "Workflow Automation Powered by AI",
-      "Custom AI Tools and Integrations",
-      "Data Analysis and Insights"
+      "Workflow Automation Using AI",
+      "Custom AI Tools & Integrations",
+      "Data Analysis & Insights"
+    ],
+    "pointPages": [
+      "ai-chatbots-virtual-assistants",
+      "workflow-automation-using-ai",
+      "custom-ai-tools-integrations",
+      "data-analysis-insights"
     ],
     "seo": {
       "title": "Custom AI Development & AI Chatbots – Eire Tech",
@@ -1352,6 +1358,204 @@
       "What can app maintenance include? | Depending on the application, maintenance can include troubleshooting, compatibility reviews, performance checks, security-related updates and planned improvements.",
       "How do you investigate a reported bug? | We gather information about the affected version, task and conditions, then try to reproduce the issue. Logs and connected services may help identify the cause.",
       "How should updates be released? | Important journeys should be checked on relevant devices before publishing a release. Business priorities and customer feedback should guide the schedule."
+    ]
+  },
+  {
+    "title": "AI Chatbots and Virtual Assistants",
+    "slug": "ai-chatbots-virtual-assistants",
+    "parent": "custom-ai-development",
+    "headline": "Helpful answers, available when your customers need them.",
+    "icon": "bot",
+    "tag": "Conversational AI",
+    "image": "svc-ai-chatbots",
+    "desc": "Custom AI chatbots and virtual assistants that answer questions, guide customers, qualify leads and hand complex conversations to your team.",
+    "seo": {
+      "title": "AI Chatbots & Virtual Assistants | EireTech360",
+      "description": "Custom AI chatbots and virtual assistants for websites and business systems. Give customers faster answers, qualify leads and connect conversations to your workflow."
+    },
+    "intro": "Customers do not only look for help during standard office hours. They may be comparing services after work, trying to book at lunchtime or looking for a quick answer before they decide to contact you. If nobody can help at that point, interest can fade.\n\nEireTech360 creates practical AI chatbots and virtual assistants that answer common questions, provide useful guidance, collect the right information and pass complex or sensitive conversations to a person. The goal is not to replace good human interaction; it is to make simple support faster and more consistent.",
+    "points": [
+      "What Are AI Chatbots?",
+      "Custom Virtual Assistants for Your Business",
+      "Faster Answers for Customers",
+      "Qualify Leads More Naturally",
+      "Reduce Repetitive Customer Tasks",
+      "Integrate Conversations with Your Systems",
+      "A Better Customer Journey",
+      "Brand Tone, Accuracy and Human Handover"
+    ],
+    "details": [
+      "AI chatbots are digital tools that interact with website visitors or customers through text. A simple chatbot follows a fixed set of questions. A more capable assistant can understand different ways of asking the same question, keep track of the conversation and offer more relevant guidance.\n\nFor example, when someone asks which service would suit their online shop, an assistant can ask a few useful questions, point them in the right direction and make the next step clearer.",
+      "Every business has different services, customer questions and processes. We do not treat a virtual assistant as a generic chat box. We look at what customers usually ask, where they are coming from and what can realistically be automated.\n\nYour assistant can explain services, answer FAQs, provide basic product information, collect lead details and direct people to the right person. Its knowledge and wording can be shaped around your own approved information and brand voice.",
+      "Waiting for a simple answer is frustrating. Customers often want to know your availability, service options, booking process or what happens next. A well-designed AI chatbot can provide useful guidance immediately, without making your team type the same response repeatedly.\n\nThat gives visitors a clearer experience while leaving your people more time for conversations where expertise and personal attention matter most.",
+      "Not every visitor is ready to speak with sales, and a standard form rarely gives them much help. A conversational assistant can ask relevant questions about their goals, business type, budget range or service interest before it requests contact details.\n\nThe result is a more useful enquiry for both sides: the customer gets guidance, and your team receives valuable context before the first conversation.",
+      "Many customer interactions are repetitive: sharing the same links, explaining familiar processes and answering straightforward questions. Chatbots can handle these routine requests, provided the scope is clear.\n\nComplex questions, sensitive topics and high-value opportunities should still reach a person. We build sensible boundaries so automation saves time without creating frustrating loops or pretending it can solve every problem.",
+      "A chatbot becomes much more useful when it connects to the process behind the conversation. Depending on your needs, it can work with contact forms, CRM platforms, lead-management systems, bookings, email and other business tools.\n\nInstead of leaving important details inside a chat transcript, the assistant can pass them into the right workflow and notify the right team member to take action.",
+      "An assistant should fit where a customer is in their journey. New visitors may need help understanding what you offer; people comparing options may need guidance; existing customers may need a quick route to the correct team.\n\nWe design the conversation around those moments so it is useful, direct and easy to leave for human help when required.",
+      "Your chatbot should sound like your business, use approved terms and avoid claims you would not make yourself. We define its knowledge sources, its tone, the information it can collect and the moments when it must hand over.\n\nA realistic assistant is more valuable than an impressive-looking one that gives inaccurate answers. We focus on clear information, controlled scope and an experience customers can trust."
+    ],
+    "benefits": [
+      "Faster, helpful answers for website visitors at any time",
+      "More useful enquiries with the right context for your team",
+      "A consistent experience shaped around your services and brand voice",
+      "Clear handover rules for sensitive or complex conversations",
+      "Connected chat, CRM and booking workflows where they add value"
+    ],
+    "faqs": [
+      "Can an AI chatbot answer questions using our own information? | Yes. We build the assistant around your approved website content, FAQs, documents and service information so its answers stay relevant to your business.",
+      "Will a chatbot replace our customer support team? | No. It is best used for common questions, initial guidance and information collection. Important, sensitive or complex conversations should be handed to a person.",
+      "Can a chatbot collect leads for our sales team? | Yes. It can ask qualifying questions, collect contact details with the right consent, and pass the conversation summary into your CRM or lead workflow.",
+      "Can the chatbot match our brand voice? | Yes. We set its tone, approved wording, source material and boundaries so the conversation reflects how your business communicates."
+    ]
+  },
+  {
+    "title": "Workflow Automation Using AI",
+    "slug": "workflow-automation-using-ai",
+    "parent": "custom-ai-development",
+    "headline": "Reduce repetitive work with smarter, connected processes.",
+    "icon": "workflow",
+    "tag": "AI Automation",
+    "image": "svc-ai-workflow-automation",
+    "desc": "AI-driven workflow automation that connects your systems, reduces manual admin and keeps leads, customers and teams moving forward.",
+    "seo": {
+      "title": "Workflow Automation Using AI | EireTech360",
+      "description": "Use AI workflow automation to reduce manual admin, improve lead follow-up and connect your CRM, forms, email and business systems with EireTech360."
+    },
+    "intro": "Small repetitive tasks can take up a surprising amount of time when they happen across a full week: copying information into a CRM, sending confirmations, updating another system, creating reports or remembering a follow-up.\n\nEireTech360 builds AI-driven workflows that reduce unnecessary manual work and let your team focus on decisions, relationships and work that needs human judgement. Each workflow starts with your real process, not a generic automation template.",
+    "points": [
+      "What Is AI-Driven Workflow Automation?",
+      "Automation for Your Actual Process",
+      "Reduce Repetitive Tasks",
+      "Better Lead Management and Follow-Ups",
+      "Connect the Systems You Already Use",
+      "Add Intelligent Decision Support",
+      "Speed Up Customer Service",
+      "Create More Reliable Internal Processes",
+      "Keep People in Control",
+      "Build a Scalable Foundation"
+    ],
+    "details": [
+      "Workflow automation is a practical way to automate repetitive work. Traditionally, it follows simple rules, such as sending an email when a contact form is completed. AI makes the workflow more flexible.\n\nIt can help understand information, sort enquiries, classify leads, summarise messages, create notes and direct requests to the right team or next action. That means tasks that used to require someone to read, interpret and decide can move forward more efficiently.",
+      "There is little value in automation that does not make the business easier to run. We first look at the tasks your team completes regularly: enquiries, approvals, reporting, onboarding, appointments, project updates, data entry and system communication.\n\nThen we map how information moves, identify where time is being lost and design a workflow that fits your tools, responsibilities and customer experience.",
+      "A team member may spend part of each day updating several tools, sending regular messages or checking whether something has been completed. The work may not be difficult, but it distracts from more valuable tasks.\n\nAI workflows can collect an enquiry, sort it into a category, add it to a CRM, assign it to the correct person and prepare an appropriate response. Your team remains in control, but the process becomes faster and easier to manage.",
+      "Valuable leads are often lost because follow-up is inconsistent. An enquiry sits in an inbox while other work takes priority, and by the time someone responds the opportunity has gone.\n\nAutomation can collect new leads, place them in the appropriate CRM or sales workflow and help summarise what the customer appears to need. Your team starts the conversation with useful context and fewer opportunities are lost to avoidable admin.",
+      "Most businesses rely on several systems: a CRM, forms, email, spreadsheets, project-management tools and databases. When they do not work together, your team becomes the integration.\n\nWe create workflows that pass information between the right systems, trigger actions based on clear criteria and notify people when their input is needed. That reduces the need to constantly check multiple places for an update.",
+      "Not every automation needs AI, but it can add value when information arrives in different formats. It can summarise enquiries, classify requests, extract key details from messages or documents, prioritise leads, organise incoming data and create draft responses.\n\nWe choose the right approach for the job. In some cases, a simple rule is more reliable; in others, AI makes the workflow much more useful.",
+      "Customers may never see the work happening behind the scenes, but they notice quick responses and a smooth process. Automation can send the correct confirmation, record the details correctly, notify the right person and arrange the next step as soon as information is received.\n\nThat reduces delays while giving your team more time to provide valuable, personal support.",
+      "As businesses grow, approvals, reports, task allocation, handovers and internal notifications can start to rely on people remembering the next action. A connected workflow can start the next step automatically, assign tasks, pass information to the correct department and send timely reminders.\n\nThe result is a clearer process with fewer important tasks missed between teams.",
+      "Automation should support people, not remove their judgement where it matters. Complaints, complex sales opportunities, financial approvals and sensitive decisions may need a person to review them.\n\nWe build clear handover points so the automation handles repeatable work and prepares the right information, while your team keeps control of decisions that need experience, context and personal interaction.",
+      "Manual processes may cope when a business is small, but more enquiries, customers and team members quickly add complexity. Automation creates a foundation that can grow with you.\n\nIt is particularly valuable for start-ups, ecommerce, service businesses and growing organisations that want to manage more work without adding unnecessary admin."
+    ],
+    "benefits": [
+      "Less manual admin and fewer repeated data-entry tasks",
+      "More consistent lead capture, routing and follow-up",
+      "Connected systems instead of disconnected inboxes and spreadsheets",
+      "Clear human review points for important decisions",
+      "Workflows designed to scale as demand and your team grow"
+    ],
+    "faqs": [
+      "What can AI workflow automation handle? | It can help with lead routing, enquiry summaries, data extraction, follow-ups, reporting, onboarding, task allocation and many other repeatable processes. The best starting point is a real business bottleneck.",
+      "Do we need to replace our existing systems? | Usually not. We look for practical ways to connect your current CRM, forms, email, spreadsheets and other tools before suggesting anything new.",
+      "Will people still be able to review important actions? | Yes. We design workflows with approval and handover points so your team remains responsible for sensitive, complex or high-impact decisions.",
+      "Is every process suitable for AI? | No. Some tasks are better handled with simple rules, and some should stay human-led. We recommend AI only where it creates a useful, manageable improvement."
+    ]
+  },
+  {
+    "title": "Custom AI Tools & Integrations",
+    "slug": "custom-ai-tools-integrations",
+    "parent": "custom-ai-development",
+    "headline": "Bespoke AI capabilities designed around the way your business works.",
+    "icon": "brain-circuit",
+    "tag": "Bespoke AI",
+    "image": "svc-custom-ai-integrations",
+    "desc": "Custom AI tools and integrations that solve specific business problems, work with your existing systems and make information easier to use.",
+    "seo": {
+      "title": "Custom AI Tools & Integrations | EireTech360",
+      "description": "Bespoke AI tools and practical integrations for your website, CRM, internal systems and workflows. Solve real business problems with EireTech360."
+    },
+    "intro": "Most businesses do not need a new piece of software simply because it says AI. They need a useful tool that solves a specific problem: organising information, improving a customer interaction, processing data faster or helping a team work more efficiently.\n\nEireTech360 designs and integrates bespoke AI solutions around your actual workflow. That can mean an internal assistant, an intelligent website feature, AI within an existing process or a secure connection between several systems.",
+    "points": [
+      "Start with the Business Problem",
+      "AI Solutions That Fit Your Workflow",
+      "Bespoke AI Tools",
+      "Integrate with Existing Systems",
+      "Internal AI Assistants",
+      "Customer-Facing AI Integrations",
+      "Make Business Information More Useful",
+      "Keep the Solution Simple and Adaptable"
+    ],
+    "details": [
+      "A useful AI project begins with a clear purpose. We look at the issue you want to solve, the information involved, what happens before and after the AI is used, and who needs to use the result.\n\nThat prevents investment in impressive technology that does not make day-to-day work easier. The outcome might be a small integration or a more substantial custom tool, but it will have a defined business role.",
+      "Two similar businesses can run very differently. One may rely heavily on a CRM while another works through spreadsheets and email. An ecommerce business may need help with product information; a service business may need to qualify enquiries.\n\nWe explore what takes too much time, what is repeated, where information is lost, what requires reading through large volumes of data and what your team would genuinely use. Then we design a solution around the answer.",
+      "A bespoke AI tool can summarise long information, sort customer enquiries, extract details from documents, generate draft responses, search approved business knowledge, support service teams, qualify leads and create reports from structured data.\n\nThe best option is not always the most complex one. It is the one that removes a real point of friction in your business and is straightforward for people to adopt.",
+      "Replacing everything a business already uses usually creates more disruption, not less. Integration is therefore a central part of our approach. We can connect AI with websites, forms, CRM systems, email, databases, ecommerce platforms, project tools and internal software.\n\nFor example, an AI integration can read a website enquiry, create a helpful summary and send the appropriate context into the lead-management process.",
+      "Some of the most valuable AI projects are internal. Teams can spend hours searching for information, preparing repeated summaries, reviewing documents or answering the same questions for colleagues.\n\nAn internal assistant can help people find approved information from company documentation, processes and service material more easily. It becomes especially useful as knowledge spreads across systems and departments.",
+      "AI can also make a customer experience more helpful when it is based on your services, customer journey and brand messaging. That may be an assistant, a recommendation flow, lead qualification or AI-supported help feature.\n\nWe design it so it feels relevant to the person using it and passes the right information to your team instead of acting like an isolated novelty.",
+      "Customer enquiries, notes, support records, reports and internal documentation can become difficult to manage as they grow. AI can turn this information into a more useful format by summarising, categorising and highlighting areas that need attention.\n\nFor sensitive information or high-impact decisions, we build in appropriate human review. The purpose is to save time while keeping the right people informed and responsible.",
+      "AI projects can become overcomplicated when features are added without a clear outcome. We keep the scope grounded in the problem you want to solve, using a simple integration where that is enough and adding components only when they have a defined purpose.\n\nThe solution can also be designed to grow: supporting another department, connecting another system or working with more information as your business changes."
+    ],
+    "benefits": [
+      "AI designed around a real business problem rather than a generic demo",
+      "Practical connections with your existing digital systems",
+      "Internal and customer-facing tools with a clear purpose",
+      "Human review built in for sensitive information and key decisions",
+      "A foundation that can expand as your processes evolve"
+    ],
+    "faqs": [
+      "What is a bespoke AI tool? | It is a tailored AI capability designed around a specific use case, such as searching internal knowledge, sorting enquiries, processing documents or generating approved draft content.",
+      "Can AI be added to our existing website or CRM? | Yes. We can assess practical integrations with your website, forms, CRM, email, database and other tools rather than asking you to replace them.",
+      "How do you make sure an AI tool is useful? | We begin with the workflow and business outcome, define the information it needs and set clear actions, boundaries and handover points before building.",
+      "Can a custom AI solution grow over time? | Yes. We can plan it so new sources, departments, workflows or capabilities can be added when they serve a clear need."
+    ]
+  },
+  {
+    "title": "Data Analysis & Insights",
+    "slug": "data-analysis-insights",
+    "parent": "custom-ai-development",
+    "headline": "Turn business data into clearer decisions and practical next steps.",
+    "icon": "bar-chart-3",
+    "tag": "Data Intelligence",
+    "image": "svc-ai-data-insights",
+    "desc": "Data analysis and AI-supported insights that organise your information, reveal what is working and turn reports into practical action.",
+    "seo": {
+      "title": "Data Analysis & Insights | EireTech360",
+      "description": "Make better decisions with data analysis, clear dashboards and AI-supported insights. EireTech360 connects marketing, website, CRM and business data."
+    },
+    "intro": "Most businesses have more useful data than they realise. Website activity, customer enquiries, sales, marketing, social media and internal reports can all reveal important patterns, but a spreadsheet full of numbers does not automatically explain what is going well.\n\nOur Data Analysis & Insights service helps you organise information, find the signals that matter and turn complex data into practical next steps. We are not interested in creating more reports for their own sake; we help you understand what the numbers are actually telling you.",
+    "points": [
+      "Get More from Existing Data",
+      "Understand What Is Actually Working",
+      "Website and Customer Insights",
+      "Marketing Insights That Match Your Goals",
+      "Identify Meaningful Trends",
+      "Clean Dashboards and Reporting",
+      "Combine Data from Multiple Sources",
+      "Use AI to Support Human Analysis",
+      "Turn Insights into Action"
+    ],
+    "details": [
+      "Useful information often sits in several places: your website, CRM, advertising platforms, social accounts, sales records and internal reports. That makes it difficult to see the whole picture.\n\nWe bring the relevant information into a coherent analysis so you can understand which channels are producing leads, which services attract attention, where people drop off and which activities consume time without creating enough value.",
+      "It is easy to get caught up in surface-level numbers: more website visitors, impressions or campaign clicks. The important question is what happened next. Did traffic lead to enquiries? Did engagement produce visits or sales?\n\nWe look at the context around your metrics and how different parts of your digital activity connect, so you can judge whether the work is having a meaningful impact on the business.",
+      "Your website can show how potential customers behave: which pages they focus on, where they leave, what prompts action and whether they find what they need.\n\nIf a service page has strong traffic but few enquiries, for example, the data may point to a message, call to action or next step that needs improving. The value comes from using that insight to make a practical change.",
+      "Digital marketing creates a vast amount of information, including impressions, clicks, engagement, conversions, cost per click and leads. Looking at every metric at once can make it hard to know what deserves attention.\n\nWe focus on the measures that match your goal. Lead generation, brand awareness and sales each need different context, helping you decide where budget, content or strategy should change.",
+      "Some patterns are difficult to spot in everyday work. A service may receive more enquiries at a particular time of year; a content format may consistently attract the right traffic; a particular audience may be more likely to convert.\n\nWe organise and review data over time, rather than reacting to a single unusual result. That gives your team enough context to decide what to test next and where to focus effort.",
+      "A good dashboard makes information easier to understand. If it takes a long time to work out what a report means, it probably includes too much.\n\nWe create clean reporting around the metrics that matter to you, such as website activity, leads, sales, campaign performance, social media, customer activity, referral traffic, products, operations and core KPIs.",
+      "Marketing may use advertising and analytics tools while sales works in a CRM, with other information held in spreadsheets or internal databases. Reviewing those separately takes time and creates inconsistent reporting.\n\nWhere practical, we help combine those sources into a clearer process, giving you a more complete overview and reducing the manual effort of moving information between reports.",
+      "AI can speed up parts of analysis by organising data, summarising large reports, highlighting trends and identifying areas worth investigating. It should not be the final decision-maker.\n\nA sudden change in a metric may have a perfectly valid business reason that the AI cannot understand. We use AI to surface useful signals, with the important interpretation and decisions remaining in human hands.",
+      "Insights matter only when they lead to action. It is not enough to know that engagement dropped; the useful question is why it may have happened and what should be reviewed.\n\nWe help turn reliable data into focused next steps: improving a page, expanding a campaign, reviewing an audience or removing a process delay. Sometimes a small, evidence-based change can create significant value."
+    ],
+    "benefits": [
+      "A clearer view across website, CRM, marketing and operational data",
+      "Reports and dashboards built around the metrics that matter",
+      "Reliable trends rather than decisions based on isolated numbers",
+      "AI support for processing information with human context retained",
+      "Actionable recommendations for content, campaigns, pages and processes"
+    ],
+    "faqs": [
+      "What data can you analyse? | We can work with relevant website, CRM, sales, marketing, social media, customer and internal reporting data, depending on the access and questions you need to answer.",
+      "Can you build a dashboard for our team? | Yes. We can create clearer dashboards and reporting focused on your key performance indicators, rather than filling a screen with every available metric.",
+      "Can AI make decisions from our data? | AI can help organise, summarise and highlight patterns, but important decisions need business context. We use it as support for human analysis, not a replacement for it.",
+      "What makes an insight actionable? | It should point to a practical next step, such as improving a page, adjusting a campaign, testing an audience or addressing a process delay."
     ]
   }
 ]

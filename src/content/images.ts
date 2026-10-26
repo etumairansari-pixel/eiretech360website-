@@ -61,6 +61,10 @@ import svcBrandStrategy from "@/assets/photo-brand-strategy.webp";
 import svcBrandGuidelines from "@/assets/photo-brand-guidelines.webp";
 import svcBrandConsistency from "@/assets/photo-brand-consistency.webp";
 import svcReputation from "@/assets/photo-reputation.webp";
+import aiChatbots from "@/assets/photo-ai-chatbots.webp";
+import aiWorkflowAutomation from "@/assets/photo-ai-workflow-automation.webp";
+import customAiIntegrations from "@/assets/photo-custom-ai-integrations.webp";
+import aiDataInsights from "@/assets/photo-ai-data-insights.webp";
 
 import detail0 from "@/assets/detail-research.webp";
 import detail1 from "@/assets/detail-analytics.webp";
@@ -116,6 +120,10 @@ export const images = {
   "svc-brand-guidelines": svcBrandGuidelines,
   "svc-brand-consistency": svcBrandConsistency,
   "svc-reputation": svcReputation,
+  "svc-ai-chatbots": aiChatbots,
+  "svc-ai-workflow-automation": aiWorkflowAutomation,
+  "svc-custom-ai-integrations": customAiIntegrations,
+  "svc-ai-data-insights": aiDataInsights,
   "design-cliffs-halloween-post": designCliffsHalloweenPost,
   "video-lost-mary": videoLostMary,
   "video-lost-mary-poster": videoLostMaryPoster,

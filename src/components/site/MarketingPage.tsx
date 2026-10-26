@@ -223,65 +223,71 @@ export function MarketingPage({ service }: { service: Service }) {
         </section>
       )}
       <div className="dm-service-sections">
-        {service.sections.map((section, i) => (
-          <section
-            id={section.anchor}
-            key={section.anchor}
-            className={`dm-section dm-editorial-section ${i % 2 === 1 ? "dm-soft" : ""}`}
-          >
-            <div className={`dm-container dm-split ${i % 2 === 1 ? "dm-split-reverse" : ""}`}>
-              <div className="dm-section-photo">
-                <img
-                  src={servicePhoto(service.slug, i + 2).src}
-                  alt={servicePhoto(service.slug, i + 2).alt}
-                  width={1000}
-                  height={800}
-                  loading="lazy"
-                />
-                <span>
-                  {String(i + 1).padStart(2, "0")} / {service.tag}
-                </span>
-              </div>
-              <div className="dm-prose">
-                <p className="dm-eyebrow">Our expertise</p>
-                <h2>{section.title}</h2>
-                {section.body
-                  .split(/\n\s*\n/)
-                  .filter(Boolean)
-                  .map((p, j) => (
-                    <p key={j}>
-                      <Highlight text={p} />
-                    </p>
-                  ))}
-                {section.page ? (
-                  <div className="dm-actions">
-                    <Link
-                      to="/services/$slug"
-                      params={{ slug: section.page }}
-                      className="dm-button"
-                    >
-                      Explore{" "}
-                      {services.find((c) => c.slug === section.page)?.title ?? section.title}
-                      <ArrowUpRight size={18} />
-                    </Link>
+        {service.sections.map((section, i) => {
+          const sectionPhoto =
+            service.parent === "custom-ai-development" ? null : servicePhoto(service.slug, i + 2);
+          return (
+            <section
+              id={section.anchor}
+              key={section.anchor}
+              className={`dm-section dm-editorial-section ${service.parent === "custom-ai-development" ? "dm-ai-editorial-section" : ""} ${i % 2 === 1 ? "dm-soft" : ""}`}
+            >
+              <div className={`dm-container dm-split ${i % 2 === 1 ? "dm-split-reverse" : ""}`}>
+                {sectionPhoto && (
+                  <div className="dm-section-photo">
+                    <img
+                      src={sectionPhoto.src}
+                      alt={sectionPhoto.alt}
+                      width={1000}
+                      height={800}
+                      loading="lazy"
+                    />
+                    <span>
+                      {String(i + 1).padStart(2, "0")} / {service.tag}
+                    </span>
                   </div>
-                ) : (
-                  !section.body && (
+                )}
+                <div className="dm-prose">
+                  <p className="dm-eyebrow">Our expertise</p>
+                  <h2>{section.title}</h2>
+                  {section.body
+                    .split(/\n\s*\n/)
+                    .filter(Boolean)
+                    .map((p, j) => (
+                      <p key={j}>
+                        <Highlight text={p} />
+                      </p>
+                    ))}
+                  {section.page ? (
                     <div className="dm-actions">
-                      <SectionLink
-                        to={service.sections[i + 1]?.anchor || "marketing-services"}
+                      <Link
+                        to="/services/$slug"
+                        params={{ slug: section.page }}
                         className="dm-button"
                       >
-                        Explore our approach
+                        Explore{" "}
+                        {services.find((c) => c.slug === section.page)?.title ?? section.title}
                         <ArrowUpRight size={18} />
-                      </SectionLink>
+                      </Link>
                     </div>
-                  )
-                )}
+                  ) : (
+                    !section.body && (
+                      <div className="dm-actions">
+                        <SectionLink
+                          to={service.sections[i + 1]?.anchor || "marketing-services"}
+                          className="dm-button"
+                        >
+                          Explore our approach
+                          <ArrowUpRight size={18} />
+                        </SectionLink>
+                      </div>
+                    )
+                  )}
+                </div>
               </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          );
+        })}
       </div>
       <section className="dm-section">
         <div className="dm-container dm-split">

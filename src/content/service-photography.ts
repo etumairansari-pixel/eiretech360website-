@@ -127,6 +127,14 @@ import pvid_09 from "@/assets/detail-vid-09.webp";
 import pworkshop from "@/assets/detail-workshop.webp";
 import pworkspace from "@/assets/detail-workspace.webp";
 import pwriting from "@/assets/detail-writing.webp";
+import aiChatbotsHero from "@/assets/photo-ai-chatbots.webp";
+import aiChatbotsOverview from "@/assets/photo-ai-chatbot-planning.webp";
+import aiWorkflowHero from "@/assets/photo-ai-workflow-automation.webp";
+import aiWorkflowOverview from "@/assets/photo-ai-workflow-planning.webp";
+import customAiHero from "@/assets/photo-custom-ai-integrations.webp";
+import customAiOverview from "@/assets/photo-custom-ai-workshop.webp";
+import aiDataHero from "@/assets/photo-ai-data-insights.webp";
+import aiDataOverview from "@/assets/photo-ai-data-reporting.webp";
 
 const photos: Record<string, { src: string; alt: string }> = {
   "ai-02": { src: pai_02, alt: "A team working at their computers" },
@@ -250,6 +258,38 @@ const photos: Record<string, { src: string; alt: string }> = {
   "workshop": { src: pworkshop, alt: "A collaborative workshop" },
   "workspace": { src: pworkspace, alt: "A professional workspace" },
   "writing": { src: pwriting, alt: "Writing and research" },
+  "ai-chatbots-hero": {
+    src: aiChatbotsHero,
+    alt: "A customer receiving quick help with a human support specialist nearby",
+  },
+  "ai-chatbots-overview": {
+    src: aiChatbotsOverview,
+    alt: "A customer service team planning helpful answers together",
+  },
+  "ai-workflow-hero": {
+    src: aiWorkflowHero,
+    alt: "A professional reviewing a connected automated business workflow",
+  },
+  "ai-workflow-overview": {
+    src: aiWorkflowOverview,
+    alt: "A team mapping a business process before automating it",
+  },
+  "custom-ai-hero": {
+    src: customAiHero,
+    alt: "A bespoke digital tool connecting business systems on a tablet",
+  },
+  "custom-ai-overview": {
+    src: customAiOverview,
+    alt: "A workshop planning a custom digital solution around a business process",
+  },
+  "ai-data-hero": {
+    src: aiDataHero,
+    alt: "An analyst studying a business performance dashboard",
+  },
+  "ai-data-overview": {
+    src: aiDataOverview,
+    alt: "Colleagues turning business data into practical next actions",
+  },
 };
 
 const orders: Record<string, string[]> = {
@@ -260,6 +300,10 @@ const orders: Record<string, string[]> = {
   "website-development": ["code-01", "code-02", "code-03", "code-04", "code-06", "code-07"],
   "app-development": ["app-01", "app-02", "app-03", "app-04", "app-05", "app-06"],
   "custom-ai-development": ["ai-02", "ai-03", "ai-04", "ai-07", "ai-05", "ai-06"],
+  "ai-chatbots-virtual-assistants": ["ai-chatbots-hero", "ai-chatbots-overview"],
+  "workflow-automation-using-ai": ["ai-workflow-hero", "ai-workflow-overview"],
+  "custom-ai-tools-integrations": ["custom-ai-hero", "custom-ai-overview"],
+  "data-analysis-insights": ["ai-data-hero", "ai-data-overview"],
   "graphic-design": ["content", "desk-01", "desk-07", "writing", "creative", "design"],
   "video-editing-animation": ["camera", "vid-01", "vid-03", "vid-05", "vid-09", "vid-02"],
   "seo-services": ["data-01", "data-05", "plan-08", "research", "analytics", "data-04", "data-10", "strategy"],
