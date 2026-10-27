@@ -81,26 +81,8 @@ jobs:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          SFTP_HOST: ${{ secrets.SFTP_HOST }}
-          SFTP_PORT: ${{ secrets.SFTP_PORT }}
-          SFTP_USER: ${{ secrets.SFTP_USER }}
-          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
           ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
         run: |
-          # Prefer encrypted SFTP whenever its complete credential set exists.
-          if [ -n "$SFTP_HOST$SFTP_PORT$SFTP_USER$SFTP_PASSWORD" ]; then
-            missing_sftp=""
-            [ -z "$SFTP_HOST" ] && missing_sftp="$missing_sftp SFTP_HOST"
-            [ -z "$SFTP_PORT" ] && missing_sftp="$missing_sftp SFTP_PORT"
-            [ -z "$SFTP_USER" ] && missing_sftp="$missing_sftp SFTP_USER"
-            [ -z "$SFTP_PASSWORD" ] && missing_sftp="$missing_sftp SFTP_PASSWORD"
-            if [ -n "$missing_sftp" ]; then
-              echo "::error title=Incomplete SFTP setup::Add all four SFTP repository secrets:$missing_sftp"
-              exit 1
-            fi
-            echo "upload=true" >> "$GITHUB_OUTPUT"
-            echo "transport=sftp" >> "$GITHUB_OUTPUT"
-          else
           missing=""
           [ -z "$FTP_HOST" ] && missing="$missing FTP_HOST"
           [ -z "$FTP_USER" ] && missing="$missing FTP_USER"
@@ -112,8 +94,6 @@ jobs:
             echo "::warning::Not uploading — these repository secrets are not set:$missing"
           else
             echo "upload=true" >> "$GITHUB_OUTPUT"
-          fi
-
           fi
 
           # A secret cannot be read from a step's `if`, so carry it as an output.
@@ -156,12 +136,7 @@ jobs:
             **/.htaccess
 
       - name: Direct upload to Hostinger
-        # Hosting is published by Hostinger's native Git integration, which
-        # pulls main directly. Its SFTP account deliberately has no shell
-        # access (it returns /sbin/nologin), so the old SSH/tar upload always
-        # made this otherwise-successful workflow red. Keep the build artifact
-        # below for recovery, but leave publishing to the connected Git deploy.
-        if: false
+        if: steps.check.outputs.upload == 'true'
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
@@ -169,78 +144,10 @@ jobs:
           FTP_PROTOCOL: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
           FTP_PORT: ${{ secrets.FTP_PORT || '21' }}
           FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR || '/public_html/' }}
-          SFTP_HOST: ${{ secrets.SFTP_HOST }}
-          SFTP_PORT: ${{ secrets.SFTP_PORT }}
-          SFTP_USER: ${{ secrets.SFTP_USER }}
-          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-          SFTP_REMOTE_DIR: ${{ secrets.SFTP_REMOTE_DIR }}
-          DEPLOY_TRANSPORT: ${{ steps.check.outputs.transport }}
+          ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq lftp sshpass
-
-          if [ "$DEPLOY_TRANSPORT" = "sftp" ]; then
-            # Hostinger occasionally drops the first connection from a fresh
-            # GitHub runner. Retry a connection before declaring a deployment
-            # failure; credentials and the existing site remain untouched.
-            ssh_command() {
-              SSHPASS="$SFTP_PASSWORD" sshpass -e ssh \
-                -o StrictHostKeyChecking=accept-new \
-                -o UserKnownHostsFile=/dev/null \
-                -o ConnectTimeout=20 \
-                -o ConnectionAttempts=2 \
-                -p "$SFTP_PORT" "$SFTP_USER@$SFTP_HOST" "$@"
-            }
-
-            resolve_remote_dir() {
-              local attempt remote
-              for attempt in 1 2 3; do
-                remote="$(ssh_command 'for candidate in "$HOME/public_html" "$HOME/domains/eiretech360.com/public_html"; do
-                  if [ -d "$candidate" ]; then cd "$candidate" && pwd; exit 0; fi
-                done
-                find "$HOME" -maxdepth 6 -type d -path "*/eiretech360.com/public_html" -print -quit')" && [ -n "$remote" ] && {
-                  printf '%s' "$remote"
-                  return 0
-                }
-                echo "SSH folder check attempt $attempt/3 failed; retrying..." >&2
-                sleep 10
-              done
-              return 1
-            }
-
-            # Hostinger SSH accounts do not always start inside the website
-            # directory. Resolve the current domain's public_html folder over
-            # SSH instead of guessing a path or silently creating one.
-            remote_dir="$SFTP_REMOTE_DIR"
-            if [ -z "$remote_dir" ]; then
-              remote_dir="$(resolve_remote_dir)"
-            fi
-
-            if [ -z "$remote_dir" ]; then
-              echo "::error title=Website folder not found::Could not locate eiretech360.com/public_html over SSH. Add SFTP_REMOTE_DIR with the absolute website path from SSH."
-              exit 1
-            fi
-
-            # Stream the build through SSH instead of mapping an SSH filesystem
-            # path back through SFTP. This preserves server-only .htaccess files
-            # and avoids the slow per-file FTP/SFTP round trips.
-            remote_dir_escaped="$(printf '%s' "$remote_dir" | sed "s/'/'\\\\''/g")"
-            echo "Uploading the build over SSH to the verified website folder."
-            uploaded=false
-            for attempt in 1 2 3; do
-              if tar -C dist-static --exclude='.htaccess' -cf - . | ssh_command "tar -xf - -C '$remote_dir_escaped'"; then
-                uploaded=true
-                break
-              fi
-              echo "SSH upload attempt $attempt/3 failed; retrying..." >&2
-              sleep 10
-            done
-            if [ "$uploaded" != "true" ]; then
-              echo "::error title=Hostinger SSH unreachable::The SSH server did not accept the deployment after three attempts. Re-run the workflow; the live site was left unchanged."
-              exit 1
-            fi
-            exit 0
-          fi
+          sudo apt-get install -y -qq lftp
 
           scheme="${FTP_PROTOCOL:-ftps}"
           if [ "$scheme" = "ftps" ]; then
@@ -250,7 +157,8 @@ jobs:
           fi
 
           # Upload directly. Hostinger rejects the hidden .in.* temporary-file
-          # rename used by FTP-Deploy-Action.
+          # rename used by FTP-Deploy-Action. Keep the existing root .htaccess
+          # intact, then explicitly publish the admin folder's protective one.
           upload() {
             local transport="$1"
             local settings="$2"
@@ -260,6 +168,8 @@ jobs:
           set net:reconnect-interval-base 5
           set net:timeout 60
           mirror --reverse --verbose --no-perms --no-umask --exclude-glob .htaccess ./dist-static/ "$FTP_REMOTE_DIR"
+          mkdir -p "$FTP_REMOTE_DIR/$ADMIN_PATH"
+          put -O "$FTP_REMOTE_DIR/$ADMIN_PATH" "dist-static/$ADMIN_PATH/.htaccess"
           bye
           EOF
           }
@@ -273,8 +183,7 @@ jobs:
       # only shows up as a 404 someone has to work backwards from. Ask the live
       # site whether the editor is actually being served.
       - name: Check the editor is live
-        # The native Hostinger Git deployment owns the publish lifecycle.
-        if: false
+        if: steps.check.outputs.upload == 'true' && steps.check.outputs.admin == 'true'
         env:
           ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
           SITE_URL: ${{ secrets.SITE_URL }}
