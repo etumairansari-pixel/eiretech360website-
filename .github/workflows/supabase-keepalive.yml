@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - name: Query keepalive row
+      - name: Check the Supabase contact endpoint
         env:
           # These are the existing repository secrets used by the site build.
           # The old SUPABASE_* names were never configured, so scheduled runs
@@ -21,7 +21,20 @@ jobs:
           test -n "$SUPABASE_URL"
           test -n "$SUPABASE_ANON_KEY"
 
-          curl --fail --silent --show-error \
-            "$SUPABASE_URL/rest/v1/keep_alive?id=eq.1&select=id,touched_at" \
+          # The legacy keep_alive table is not present in the production
+          # project (PostgREST returns 404). Exercise the deployed Edge
+          # Function instead. An empty payload must be rejected with 400,
+          # proving the project and function are awake without adding a fake
+          # contact submission or sending an email.
+          status="$(curl --silent --show-error --output response.json --write-out '%{http_code}' \
+            --request POST "$SUPABASE_URL/functions/v1/submit-contact" \
             -H "apikey: $SUPABASE_ANON_KEY" \
-            -H "Authorization: Bearer $SUPABASE_ANON_KEY"
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            -H "Content-Type: application/json" \
+            --data '{}')"
+
+          if [ "$status" != "400" ]; then
+            echo "Unexpected Supabase contact-endpoint status: $status"
+            cat response.json
+            exit 1
+          fi
