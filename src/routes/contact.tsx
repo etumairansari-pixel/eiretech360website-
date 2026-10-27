@@ -72,13 +72,6 @@ function ContactPage() {
               id="contact-form"
               className="dm-contact-form"
               onSubmit={handleSubmit}
-              // Keep the native editing actions inside the form. This protects
-              // text entry from any page-level shortcuts or injected scripts
-              // while deliberately leaving the browser's default action intact.
-              onKeyDownCapture={(event) => event.stopPropagation()}
-              onKeyUpCapture={(event) => event.stopPropagation()}
-              onBeforeInputCapture={(event) => event.stopPropagation()}
-              onPasteCapture={(event) => event.stopPropagation()}
               aria-busy={sending}
             >
               <h2>{contactPage.form.title}</h2>
