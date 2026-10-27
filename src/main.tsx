@@ -1,10 +1,9 @@
 import { StrictMode } from "react";
-import { createRoot, hydrateRoot } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
 
 import "./styles.css";
 import { getRouter } from "./router";
-import { disableDocumentShell } from "./spa-route-tree";
 
 const rootElement = document.getElementById("root");
 
@@ -35,8 +34,6 @@ function removeDuplicateStaticTags() {
     if (duplicates.length) tag.remove();
   }
 }
-const hydrateContact = rootElement.dataset.prerendered === "contact";
-if (hydrateContact) disableDocumentShell();
 const router = getRouter();
 // Initial metadata is already in the static HTML. Keep the original startup
 // path and only update the head after navigation to another URL.
@@ -54,16 +51,7 @@ const app = (
     <RouterProvider router={router} />
   </StrictMode>
 );
-if (hydrateContact) {
-  // Load route matches before hydration so the existing editable form stays
-  // in place instead of being replaced by an initial pending route.
-  void router.load().then(() => {
-    hydrateRoot(rootElement, app);
-    removeDuplicateStaticTags();
-  });
-} else {
-  createRoot(rootElement).render(app);
-}
+createRoot(rootElement).render(app);
 
 /**
  * createRoot() empties its container, so while React worked through its first
