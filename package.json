@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "npm run build:icons && vite build --config vite.static.config.ts && node scripts/verify-static.mjs",
+    "build:hosting": "npm run build && npm run build:admin",
     "build:static": "npm run build:icons && vite build --config vite.static.config.ts && node scripts/verify-static.mjs",
     "verify:static": "node scripts/verify-static.mjs",
     "build:ssr": "vite build",

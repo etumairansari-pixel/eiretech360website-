@@ -144,7 +144,9 @@ jobs:
             **/.htaccess
 
       - name: Direct upload to Hostinger
-        if: steps.check.outputs.upload == 'true'
+        # Hostinger's Git build is the publisher. It has the admin secrets and
+        # runs build:hosting, while this workflow retains a verified artifact.
+        if: false
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
@@ -181,7 +183,7 @@ jobs:
       # only shows up as a 404 someone has to work backwards from. Ask the live
       # site whether the editor is actually being served.
       - name: Check the editor is live
-        if: steps.check.outputs.upload == 'true' && steps.check.outputs.admin == 'true'
+        if: false
         env:
           ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
           SITE_URL: ${{ secrets.SITE_URL }}
