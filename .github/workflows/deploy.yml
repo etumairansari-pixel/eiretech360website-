@@ -81,12 +81,19 @@ jobs:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT }}
+          SFTP_USER: ${{ secrets.SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
           ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
         run: |
+          # This account permits SFTP file transfer but intentionally denies
+          # interactive SSH shells. Use SFTP directly rather than SSH/tar.
           missing=""
-          [ -z "$FTP_HOST" ] && missing="$missing FTP_HOST"
-          [ -z "$FTP_USER" ] && missing="$missing FTP_USER"
-          [ -z "$FTP_PASSWORD" ] && missing="$missing FTP_PASSWORD"
+          [ -z "$SFTP_HOST" ] && missing="$missing SFTP_HOST"
+          [ -z "$SFTP_PORT" ] && missing="$missing SFTP_PORT"
+          [ -z "$SFTP_USER" ] && missing="$missing SFTP_USER"
+          [ -z "$SFTP_PASSWORD" ] && missing="$missing SFTP_PASSWORD"
 
           if [ -n "$missing" ]; then
             echo "upload=false" >> "$GITHUB_OUTPUT"
@@ -94,6 +101,7 @@ jobs:
             echo "::warning::Not uploading — these repository secrets are not set:$missing"
           else
             echo "upload=true" >> "$GITHUB_OUTPUT"
+            echo "transport=sftp" >> "$GITHUB_OUTPUT"
           fi
 
           # A secret cannot be read from a step's `if`, so carry it as an output.
@@ -144,40 +152,30 @@ jobs:
           FTP_PROTOCOL: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
           FTP_PORT: ${{ secrets.FTP_PORT || '21' }}
           FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR || '/public_html/' }}
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT }}
+          SFTP_USER: ${{ secrets.SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_REMOTE_DIR: ${{ secrets.SFTP_REMOTE_DIR || '/home/u720913031/domains/eiretech360.com/public_html/' }}
+          DEPLOY_TRANSPORT: ${{ steps.check.outputs.transport }}
           ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq lftp
 
-          scheme="${FTP_PROTOCOL:-ftps}"
-          if [ "$scheme" = "ftps" ]; then
-            ssl_settings="set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate no; set ssl:check-hostname no;"
-          else
-            ssl_settings="set ftp:ssl-force false; set ftp:ssl-protect-data false; set ssl:verify-certificate no; set ssl:check-hostname no;"
-          fi
-
           # Upload directly. Hostinger rejects the hidden .in.* temporary-file
           # rename used by FTP-Deploy-Action. Keep the existing root .htaccess
           # intact, then explicitly publish the admin folder's protective one.
-          upload() {
-            local transport="$1"
-            local settings="$2"
-            lftp -u "$FTP_USER","$FTP_PASSWORD" "$transport://$FTP_HOST:$FTP_PORT" <<EOF
-          $settings
+          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
+          set sftp:auto-confirm yes
           set net:max-retries 3
           set net:reconnect-interval-base 5
           set net:timeout 60
-          mirror --reverse --verbose --no-perms --no-umask --exclude-glob .htaccess ./dist-static/ "$FTP_REMOTE_DIR"
-          mkdir -p "$FTP_REMOTE_DIR/$ADMIN_PATH"
-          put -O "$FTP_REMOTE_DIR/$ADMIN_PATH" "dist-static/$ADMIN_PATH/.htaccess"
+          mirror --reverse --verbose --no-perms --no-umask --exclude-glob .htaccess ./dist-static/ "$SFTP_REMOTE_DIR"
+          mkdir -p "$SFTP_REMOTE_DIR/$ADMIN_PATH"
+          put -O "$SFTP_REMOTE_DIR/$ADMIN_PATH" "dist-static/$ADMIN_PATH/.htaccess"
           bye
           EOF
-          }
-
-          # Some Hostinger FTP endpoints advertise FTP while the account is
-          # configured as FTPS. Try the configured protocol first, then use
-          # plain FTP when the server returns a TLS handshake error.
-          upload "$scheme" "$ssl_settings" || upload "ftp" "set ftp:ssl-force false; set ftp:ssl-protect-data false; set ssl:verify-certificate no; set ssl:check-hostname no;"
 
       # The upload can report success while a folder never arrived, which then
       # only shows up as a 404 someone has to work backwards from. Ask the live
