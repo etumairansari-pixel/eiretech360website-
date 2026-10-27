@@ -19,6 +19,80 @@ const STATIC_SHELL =
   /<div id="shell" class="shell-fallback"[^>]*>[\s\S]*?(?=\s*(?:<script type="module"|<\/body>))/;
 
 /**
+ * The contact page must stay responsive even if the application bundle is
+ * delayed or a browser extension interferes with a large React startup. Its
+ * rendered HTML is complete on its own, so ship it without the application
+ * runtime and keep only this small submit handler.
+ */
+const CONTACT_FORM_SCRIPT = `<script>
+(() => {
+  const form = document.getElementById("contact-form");
+  if (!form) return;
+
+  const status = form.querySelector('[role="status"]');
+  const button = form.querySelector('button[type="submit"]');
+  const endpoint = "https://ovmwpsuwauoowalfwzlf.supabase.co/functions/v1/submit-contact";
+  const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92bXdwc3V3YXVvb3dhbGZ3emxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2OTUwMjcsImV4cCI6MjA5OTI3MTAyN30.BE7xGHSoUTG7oN5Ceb4yYwRNcSr5sh31Gpys7wDcG8A";
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity() || button?.disabled) return;
+
+    const fields = new FormData(form);
+    const details = [
+      ["Business goal", "goal"],
+      ["Target market", "market"],
+      ["Current website", "website"],
+      ["Timeline", "timeline"],
+      ["Budget", "budget"],
+    ].map(([label, name]) => {
+      const value = String(fields.get(name) || "").trim();
+      return value ? label + ": " + value : "";
+    }).filter(Boolean);
+    const payload = {
+      fullName: String(fields.get("fullName") || ""),
+      email: String(fields.get("email") || ""),
+      phone: String(fields.get("phone") || ""),
+      company: String(fields.get("company") || ""),
+      service: String(fields.get("service") || ""),
+      message: details.concat(["", "Project details:", String(fields.get("message") || "").trim()]).join("\\n").slice(0, 5000),
+    };
+
+    if (button) button.disabled = true;
+    if (status) status.className = "";
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { apikey: key, Authorization: "Bearer " + key, "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!response.ok) throw new Error("Contact submission failed");
+      form.reset();
+      if (status) {
+        status.className = "dm-contact-status success";
+        status.textContent = "Thanks — your message has been received. We will be in touch shortly.";
+      }
+    } catch {
+      if (status) {
+        status.className = "dm-contact-status error";
+        status.textContent = "We could not send your message. Please try again or email us directly.";
+      }
+    } finally {
+      if (button) button.disabled = false;
+    }
+  });
+})();
+</script>`;
+
+function makeContactStandalone(html: string) {
+  return html
+    .replace(/\s*<link\s+rel="modulepreload"[^>]*>/g, "")
+    .replace(/\s*<script\s+type="module"[^>]*><\/script>/g, "")
+    .replace(/\s*<div id="root"><\/div>/, "")
+    .replace("</body>", `${CONTACT_FORM_SCRIPT}</body>`);
+}
+
+/**
  * Tailwind emits a single ~100 KB stylesheet, and as a plain <link> it is a
  * render-blocking request sitting one round trip behind the document — worth
  * ~300 ms of first paint on a throttled mobile connection. The whole sheet is
@@ -356,12 +430,13 @@ function prerenderRoutes(): Plugin {
         }
 
         const body = stripHoistedTags(await render(route.url));
+        const rendered = html.replace(
+          STATIC_SHELL,
+          `<div id="shell" style="overflow-y:auto;background:var(--bg,#fff)"><style>#shell [style*="opacity:0"]{opacity:1!important;transform:none!important}</style>${body}</div>`,
+        );
         fs.writeFileSync(
           file,
-          html.replace(
-            STATIC_SHELL,
-            `<div id="shell" style="overflow-y:auto;background:var(--bg,#fff)"><style>#shell [style*="opacity:0"]{opacity:1!important;transform:none!important}</style>${body}</div>`,
-          ),
+          route.url.replace(/\/$/, "") === "/contact" ? makeContactStandalone(rendered) : rendered,
         );
       }
 

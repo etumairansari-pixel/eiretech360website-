@@ -127,8 +127,10 @@ for (const page of content.pages) {
   if (page.key === contactKey) {
     assert.ok(html.includes("<form"), "Contact must render its form");
     assert.ok(
-      html.includes('id="root"') && html.includes('class="dm-nav') && html.includes("dm-footer"),
-      "Contact must use the shared React layout",
+      html.includes('class="dm-nav') &&
+        html.includes("dm-footer") &&
+        !html.includes('<script type="module"'),
+      "Contact must keep the shared layout without loading the application runtime",
     );
   }
 
