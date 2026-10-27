@@ -156,7 +156,12 @@ jobs:
             **/.htaccess
 
       - name: Direct upload to Hostinger
-        if: steps.check.outputs.upload == 'true'
+        # Hosting is published by Hostinger's native Git integration, which
+        # pulls main directly. Its SFTP account deliberately has no shell
+        # access (it returns /sbin/nologin), so the old SSH/tar upload always
+        # made this otherwise-successful workflow red. Keep the build artifact
+        # below for recovery, but leave publishing to the connected Git deploy.
+        if: false
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
@@ -268,7 +273,8 @@ jobs:
       # only shows up as a 404 someone has to work backwards from. Ask the live
       # site whether the editor is actually being served.
       - name: Check the editor is live
-        if: steps.check.outputs.upload == 'true' && steps.check.outputs.admin == 'true'
+        # The native Hostinger Git deployment owns the publish lifecycle.
+        if: false
         env:
           ADMIN_PATH: ${{ secrets.ADMIN_PATH }}
           SITE_URL: ${{ secrets.SITE_URL }}

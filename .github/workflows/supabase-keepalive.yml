@@ -12,8 +12,11 @@ jobs:
     steps:
       - name: Query keepalive row
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          # These are the existing repository secrets used by the site build.
+          # The old SUPABASE_* names were never configured, so scheduled runs
+          # received empty values and failed before making the health query.
+          SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
         run: |
           test -n "$SUPABASE_URL"
           test -n "$SUPABASE_ANON_KEY"
