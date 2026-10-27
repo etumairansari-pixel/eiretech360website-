@@ -85,9 +85,11 @@ Contact details, social links, the footer and every page's copy live in
 
 ## SEO on the f53e14d performance baseline
 
-All pages, including Contact, render through React and are prerendered at build
-time. Contact shares the site header and footer and retains its existing
-Supabase form submission endpoint and `/contact/` URL.
+All pages are prerendered at build time. Contact shares the site header and
+footer but is published as a standalone native form (without the React runtime)
+to keep typing responsive. It retains its existing Supabase submission endpoint
+and `/contact/` URL. See [the contact-form safeguard](docs/contact-form-safeguard.md)
+before changing it.
 
 `StaticRouteHead` updates the existing title, description, canonical and social
 tags during client navigation. Every one of those values comes from `content/`:

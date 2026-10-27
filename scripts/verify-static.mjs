@@ -125,12 +125,18 @@ for (const page of content.pages) {
   }
 
   if (page.key === contactKey) {
-    assert.ok(html.includes("<form"), "Contact must render its form");
+    assert.ok(html.includes('id="contact-form"'), "Contact must render its named form");
+    assert.ok(
+      html.includes('form.addEventListener("submit"'),
+      "Contact must include the standalone submit handler",
+    );
     assert.ok(
       html.includes('class="dm-nav') &&
         html.includes("dm-footer") &&
-        !html.includes('<script type="module"'),
-      "Contact must keep the shared layout without loading the application runtime",
+        !html.includes('<script type="module"') &&
+        !html.includes("modulepreload") &&
+        !html.includes('id="root"'),
+      "Contact must keep the shared layout without loading the application runtime or React root",
     );
   }
 
@@ -388,7 +394,7 @@ for (const page of [...servicePages, ...blogPages]) {
   assert.ok(sitemap.includes(`<loc>${page.url}</loc>`), `sitemap.xml lists ${page.url}`);
 }
 
-console.log("Static SEO checks passed; contact uses the shared React layout.");
+console.log("Static SEO checks passed; contact uses the shared standalone layout.");
 
 // --- Drift against the supplied SEO sheet, reported but never fatal. --------
 const drift = [];
