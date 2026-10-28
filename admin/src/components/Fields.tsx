@@ -1,5 +1,5 @@
 import { useId, type ReactNode } from "react";
-import type { Catalog, Path } from "../api";
+import { getAt, type Catalog, type Path } from "../api";
 import type { Field, Repeater } from "../schema";
 
 /**
@@ -149,7 +149,11 @@ export function MarkerPreview({ text }: { text: string }) {
         </span>,
       );
     } else {
-      parts.push(<span key={`a${i++}`} className="underline text-brand-primary-text">{match[3]}</span>);
+      parts.push(
+        <span key={`a${i++}`} className="underline text-brand-primary-text">
+          {match[3]}
+        </span>,
+      );
     }
     last = match.index + match[0].length;
     if (re.lastIndex === match.index) re.lastIndex += 1;
@@ -159,17 +163,27 @@ export function MarkerPreview({ text }: { text: string }) {
   return <>{parts}</>;
 }
 
-export function FieldInput({
-  field,
-  value,
-  basePath,
-  ctx,
-}: {
+type FieldInputProps = {
   field: Field;
   value: unknown;
   basePath: Path;
   ctx: Ctx;
-}) {
+};
+
+/**
+ * Stable path markers let the content finder take an editor straight to the
+ * matching control, including a field inside a repeating list.
+ */
+export function FieldInput(props: FieldInputProps) {
+  const path = [...props.basePath, ...props.field.path].map(String).join(".");
+  return (
+    <div data-content-path={path}>
+      <FieldInputControl {...props} />
+    </div>
+  );
+}
+
+function FieldInputControl({ field, value, basePath, ctx }: FieldInputProps) {
   const id = useId();
   const path = [...basePath, ...field.path];
   const set = (next: unknown) => ctx.onChange(path, next);
@@ -474,7 +488,7 @@ export function RepeaterList({
                 >
                   <FieldInput
                     field={field}
-                    value={row[field.path[0] as string]}
+                    value={getAt(row, field.path)}
                     basePath={[...path, index]}
                     ctx={ctx}
                   />

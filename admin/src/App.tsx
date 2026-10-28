@@ -27,6 +27,140 @@ type View =
   | { kind: "global" }
   | { kind: "blog"; index: number | null };
 
+type EditTarget = {
+  label: string;
+  value: string;
+  path: Path;
+  view: View;
+};
+
+const textOf = (value: unknown) =>
+  Array.isArray(value) ? value.map((item) => String(item ?? "")).join("\n") : String(value ?? "");
+
+const normalText = (value: string) =>
+  value
+    .replace(/\[\/?(?:gg|g|b)\]/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLocaleLowerCase();
+
+/**
+ * Builds a searchable map from every schema-backed piece of copy to its
+ * editor control. The same map powers Find text and click-to-edit preview.
+ */
+function editTargets(data: Loaded): EditTarget[] {
+  const targets: EditTarget[] = [];
+  const addFields = (
+    fields: Section["fields"],
+    source: unknown,
+    basePath: Path,
+    view: View,
+    prefix: string,
+  ) => {
+    for (const field of fields ?? []) {
+      const value = textOf(getAt(source, field.path));
+      if (value.trim())
+        targets.push({
+          label: `${prefix} → ${field.label}`,
+          value,
+          path: [...basePath, ...field.path],
+          view,
+        });
+    }
+  };
+  const addSections = (sections: Section[], source: unknown, basePath: Path, view: View) => {
+    for (const section of sections) {
+      addFields(section.fields, source, basePath, view, section.title);
+      for (const repeater of section.repeaters ?? []) {
+        const rows = (getAt(source, repeater.path) as Record<string, unknown>[] | undefined) ?? [];
+        rows.forEach((row, index) =>
+          addFields(
+            repeater.fields,
+            row,
+            [...basePath, ...repeater.path, index],
+            view,
+            `${section.title} → ${repeater.label} ${index + 1}`,
+          ),
+        );
+      }
+    }
+  };
+
+  data.site.routes.forEach((route, routeIndex) => {
+    const view: View = { kind: "page", key: route.key };
+    targets.push(
+      {
+        label: `${route.navLabel} → Header label`,
+        value: route.navLabel,
+        path: ["site", "routes", routeIndex, "navLabel"],
+        view,
+      },
+      {
+        label: `${route.navLabel} → Footer label`,
+        value: route.footerLabel,
+        path: ["site", "routes", routeIndex, "footerLabel"],
+        view,
+      },
+    );
+    const page = data.pages[route.key];
+    if (page) addSections(pageSchema[route.key] ?? [], page, ["pages", route.key], view);
+  });
+
+  addSections(globalSchema, data.site, ["site"], { kind: "global" });
+  Object.entries(collectionSchema).forEach(([key, repeater]) => {
+    const rows = (data[key as "services" | "platforms" | "testimonials" | "projects"] ??
+      []) as Record<string, unknown>[];
+    rows.forEach((row, index) =>
+      addFields(
+        repeater.fields,
+        row,
+        [...repeater.path, index],
+        { kind: "collection", key },
+        `${repeater.label} ${index + 1}`,
+      ),
+    );
+  });
+  data.blog.forEach((post, index) => {
+    targets.push(
+      {
+        label: `Article ${index + 1} → Title`,
+        value: post.title,
+        path: ["blog", index, "title"],
+        view: { kind: "blog", index },
+      },
+      {
+        label: `Article ${index + 1} → Excerpt`,
+        value: post.excerpt,
+        path: ["blog", index, "excerpt"],
+        view: { kind: "blog", index },
+      },
+      {
+        label: `Article ${index + 1} → Body`,
+        value: post.body.replace(/<[^>]*>/g, " "),
+        path: ["blog", index, "body"],
+        view: { kind: "blog", index },
+      },
+    );
+  });
+  return targets;
+}
+
+function matchTextTarget(targets: EditTarget[], text: string) {
+  const needle = normalText(text);
+  if (needle.length < 3) return null;
+  return (
+    targets
+      .filter((target) => normalText(target.value).includes(needle))
+      .sort((a, b) => {
+        const aValue = normalText(a.value);
+        const bValue = normalText(b.value);
+        return (
+          Number(aValue !== needle) - Number(bValue !== needle) || aValue.length - bValue.length
+        );
+      })[0] ?? null
+  );
+}
+
 /** Older drafts and hand-edited files may lack the blog or some of its fields. */
 function withBlog(loaded: Loaded): Loaded {
   return { ...loaded, blog: (loaded.blog ?? []).map(normalizePost) };
@@ -45,6 +179,7 @@ export default function App() {
   const [building, setBuilding] = useState(false);
   const [buildResult, setBuildResult] = useState<BuildResult | null>(null);
   const [previewOpen, setPreviewOpen] = useState(true);
+  const [focusPath, setFocusPath] = useState<Path | null>(null);
 
   const previewRef = useRef<HTMLIFrameElement>(null);
 
@@ -169,6 +304,30 @@ export default function App() {
     };
   }, [data, update]);
 
+  const targets = useMemo(() => (data ? editTargets(data) : []), [data]);
+  const openTarget = useCallback((target: EditTarget) => {
+    setView(target.view);
+    setFocusPath(target.path);
+  }, []);
+
+  useEffect(() => {
+    if (!focusPath) return;
+    const path = focusPath.map(String).join(".");
+    const frame = window.requestAnimationFrame(() => {
+      const field = document.querySelector<HTMLElement>(`[data-content-path="${path}"]`);
+      if (field) {
+        field.scrollIntoView({ behavior: "smooth", block: "center" });
+        field
+          .querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
+            "input, textarea, select",
+          )
+          ?.focus();
+      }
+      setFocusPath(null);
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [focusPath, view]);
+
   if (signedIn === null) {
     return <div className="grid h-full place-items-center text-sm text-ink-soft">Loading…</div>;
   }
@@ -233,6 +392,8 @@ export default function App() {
         saving={saving}
         status={status}
         building={building}
+        targets={targets}
+        onOpenTarget={openTarget}
         onSave={save}
         onCommit={commit}
         hasDraft={hasDraft}
@@ -289,6 +450,11 @@ export default function App() {
             siteUrl={data.siteUrl}
             path={previewPath}
             onReload={() => previewRef.current?.contentWindow?.location.reload()}
+            onPickText={(text) => {
+              const target = matchTextTarget(targets, text);
+              if (target) openTarget(target);
+              else setStatus("That preview text is not editable content.");
+            }}
           />
         ) : null}
       </div>
@@ -308,13 +474,16 @@ function Preview({
   siteUrl,
   path,
   onReload,
+  onPickText,
 }: {
   ref: React.RefObject<HTMLIFrameElement | null>;
   siteUrl: string;
   path: string;
   onReload: () => void;
+  onPickText: (text: string) => void;
 }) {
   const [reachable, setReachable] = useState<boolean | null>(null);
+  const detachPreviewClick = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -335,6 +504,30 @@ function Preview({
     };
   }, [siteUrl]);
 
+  useEffect(() => () => detachPreviewClick.current?.(), []);
+
+  const makePreviewEditable = () => {
+    detachPreviewClick.current?.();
+    try {
+      const doc = ref.current?.contentDocument;
+      if (!doc) return;
+      const onClick = (event: MouseEvent) => {
+        const target = event.target instanceof Element ? event.target : null;
+        const textElement = target?.closest("h1,h2,h3,h4,p,a,button,li,summary,span,strong,small");
+        const text = textElement?.textContent?.replace(/\s+/g, " ").trim() ?? "";
+        if (text.length < 3) return;
+        event.preventDefault();
+        event.stopPropagation();
+        onPickText(text);
+      };
+      doc.addEventListener("click", onClick, true);
+      detachPreviewClick.current = () => doc.removeEventListener("click", onClick, true);
+    } catch {
+      // Local development can use a different port, which makes the iframe
+      // cross-origin. Find text remains available there.
+    }
+  };
+
   return (
     <aside className="hidden w-[460px] shrink-0 border-l border-line bg-white xl:block">
       <div className="flex items-center justify-between gap-2 border-b border-line px-4 py-2.5">
@@ -342,6 +535,7 @@ function Preview({
           {siteUrl}
           {path}
         </span>
+        <span className="hidden text-[11px] text-ink-soft 2xl:inline">Click text to edit</span>
         <button type="button" className="btn px-2 py-1" onClick={onReload} disabled={!reachable}>
           Reload
         </button>
@@ -363,6 +557,7 @@ function Preview({
           title="Site preview"
           src={siteUrl + path}
           className="h-[calc(100%-42px)] w-full"
+          onLoad={makePreviewEditable}
         />
       )}
     </aside>
@@ -374,6 +569,8 @@ function Header({
   saving,
   status,
   building,
+  targets,
+  onOpenTarget,
   onSave,
   onCommit,
   hasDraft,
@@ -386,6 +583,8 @@ function Header({
   saving: boolean;
   status: string | null;
   building: boolean;
+  targets: EditTarget[];
+  onOpenTarget: (target: EditTarget) => void;
   onSave: () => void;
   onCommit: () => void;
   hasDraft: boolean;
@@ -404,6 +603,7 @@ function Header({
       </div>
 
       <div className="ml-auto flex items-center gap-3">
+        <ContentFinder targets={targets} onOpenTarget={onOpenTarget} />
         {status ? <span className="text-xs text-good">{status}</span> : null}
         {dirty ? <span className="text-xs font-semibold text-warn">Unsaved changes</span> : null}
 
@@ -444,6 +644,56 @@ function Header({
         </button>
       </div>
     </header>
+  );
+}
+
+function ContentFinder({
+  targets,
+  onOpenTarget,
+}: {
+  targets: EditTarget[];
+  onOpenTarget: (target: EditTarget) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const matches = useMemo(() => {
+    const needle = normalText(query);
+    if (needle.length < 2) return [];
+    return targets
+      .filter((target) => normalText(`${target.label} ${target.value}`).includes(needle))
+      .slice(0, 8);
+  }, [query, targets]);
+
+  return (
+    <div className="relative hidden lg:block">
+      <input
+        className="field w-64 py-1.5 text-xs"
+        type="search"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder="Find text or section…"
+        aria-label="Find editable content"
+      />
+      {matches.length > 0 ? (
+        <div className="absolute right-0 z-20 mt-1 w-[28rem] overflow-hidden rounded-lg border border-line bg-white shadow-xl">
+          {matches.map((target) => (
+            <button
+              key={`${target.path.join(".")}-${target.label}`}
+              type="button"
+              className="block w-full border-b border-line px-3 py-2 text-left last:border-0 hover:bg-surface"
+              onClick={() => {
+                onOpenTarget(target);
+                setQuery("");
+              }}
+            >
+              <span className="block text-xs font-semibold">{target.label}</span>
+              <span className="block truncate text-[11px] text-ink-soft">
+                {target.value.replace(/\s+/g, " ")}
+              </span>
+            </button>
+          ))}
+        </div>
+      ) : null}
+    </div>
   );
 }
 
