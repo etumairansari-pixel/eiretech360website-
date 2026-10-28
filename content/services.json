@@ -320,6 +320,12 @@
       "Social Media Creatives",
       "Packaging and Product Design"
     ],
+    "pointPages": [
+      "logo-identity-design",
+      "marketing-collateral-print-design",
+      "social-media-creatives",
+      "packaging-product-design"
+    ],
     "seo": {
       "title": "Graphic Design Services | Logo, Print & Social – Eire Tech",
       "description": "Professional graphic design services by Eire Tech: logo and brand identity design, marketing collateral, print design, social media creatives and packaging."
@@ -373,6 +379,12 @@
       "Social Media Reels and Shorts",
       "Motion Graphics and Animation",
       "Explainer Videos"
+    ],
+    "pointPages": [
+      "promotional-videos",
+      "social-media-reels-shorts",
+      "motion-graphics-animation",
+      "explainer-videos"
     ],
     "seo": {
       "title": "Video Editing & Animation Services – Eire Tech",
@@ -1556,6 +1568,326 @@
       "Can you build a dashboard for our team? | Yes. We can create clearer dashboards and reporting focused on your key performance indicators, rather than filling a screen with every available metric.",
       "Can AI make decisions from our data? | AI can help organise, summarise and highlight patterns, but important decisions need business context. We use it as support for human analysis, not a replacement for it.",
       "What makes an insight actionable? | It should point to a practical next step, such as improving a page, adjusting a campaign, testing an audience or addressing a process delay."
+    ]
+  },
+  {
+    "title": "Explainer Videos",
+    "slug": "explainer-videos",
+    "parent": "video-editing-animation",
+    "headline": "Explainer Videos That Make Your Service Easier to Understand",
+    "icon": "film",
+    "tag": "Clear visual stories",
+    "image": "svc-explainer-videos",
+    "desc": "Focused explainer videos that answer real customer questions and show what happens next.",
+    "seo": {
+      "title": "Explainer Video Production | EireTech360",
+      "description": "Clear, focused explainer videos for services, products and digital processes. Help customers understand what you do and what happens next."
+    },
+    "intro": "Some services are easy for an experienced team to explain but difficult for a new customer to picture. An explainer video gives people a simple, visual way to understand the idea, the process and the next step.\n\nAt EireTech360, we create explainer videos around one useful message at a time. The point is not to add animation for its own sake; it is to make the important information easier to follow.",
+    "points": [
+      "One Video, One Main Idea",
+      "Make Hard-to-Show Services Visual",
+      "Answer the Questions Customers Already Ask",
+      "Show What Happens Next",
+      "Product and Software Explainers"
+    ],
+    "details": [
+      "Trying to explain a company, every service and every benefit in one short video usually leaves people with very little to remember. We help choose the question, feature or process that matters most, then build the script and visual sequence around that one idea.",
+      "Automation, software, digital marketing and other professional services may not have a physical product to film. Screen recordings, simple graphics, icons, captions and animation can show how information moves or how a customer journey works without turning the explanation into a long paragraph.",
+      "The best subjects are often already visible in your inbox and sales calls: how something works, what is included, which option is suitable, or how long a process takes. We turn those real questions into a useful visual answer that is grounded in your customers' needs.",
+      "A short explainer can remove uncertainty by showing what happens after an enquiry, what information is needed, the key project stages and what the customer can expect at the end. For a wider campaign message, see our [Promotional Videos](/services/promotional-videos).",
+      "Where a product, software feature or digital journey needs demonstrating, we can combine close detail, simple sequences and clear annotations so viewers can understand how it opens, connects, fits together or solves a specific problem."
+    ],
+    "benefits": [
+      "A focused message that is easier for new customers to retain",
+      "Clear visuals for services, software and processes that are difficult to show",
+      "Content shaped around real questions from your audience",
+      "Suitable for service pages, proposals, onboarding and campaigns"
+    ],
+    "faqs": [
+      "What makes a good explainer video? | A clear audience question, one main idea and visuals that simplify the answer. We keep the story focused instead of trying to cover every aspect of the business.",
+      "Can an explainer be made without filming? | Yes. Screen recordings, icons, text, animation and simple graphics can explain a digital or professional service clearly.",
+      "Where can we use the finished video? | It can be prepared for your website, landing pages, sales material, onboarding, presentations and social channels."
+    ]
+  },
+  {
+    "title": "Social Media Reels & Shorts",
+    "slug": "social-media-reels-shorts",
+    "parent": "video-editing-animation",
+    "headline": "Social Media Reels & Shorts With a Clear Reason to Stop Scrolling",
+    "icon": "smartphone",
+    "tag": "Short-form video",
+    "image": "svc-social-media-reels-shorts",
+    "desc": "Short, on-brand videos for products, services, offers, tips and social campaigns.",
+    "seo": {
+      "title": "Social Media Reels & Shorts | EireTech360",
+      "description": "Professional short-form social video production for product promotions, service content, educational tips, offers and campaigns."
+    },
+    "intro": "Short video gives a business a chance to explain one useful thing, show a product or create interest before a viewer scrolls on. It does not need unnecessary effects; it needs a clear message from the first few seconds.\n\nEireTech360 creates Reels and Shorts that match your brand and the platform where people will see them.",
+    "points": [
+      "Keep the Message Simple",
+      "Create a Strong Opening",
+      "Keep Short Videos On Brand",
+      "Product and Service Reels",
+      "Educational Shorts and Social Content"
+    ],
+    "details": [
+      "A single Reel works best when it highlights one service, product, question, offer, tip or announcement. Once the purpose is agreed, we shape the pacing, visuals and ending around one message people can understand quickly.",
+      "People move through social feeds quickly. A useful question, strong image, clear first line or timely piece of information can be enough to give viewers a reason to keep watching; the opening does not need to be loud to be effective.",
+      "Reels should still look like they belong to your business. We use your colour direction, type, logo treatment and visual style while keeping enough variation to prevent the feed from feeling repetitive. Related static assets can be planned through [Social Media Creatives](/services/social-media-creatives).",
+      "Products can be shown in use, with key features, variations and details. Services can use screen recordings, examples, icons and concise captions to focus on a particular issue and a practical next step.",
+      "Quick tips, common mistakes, FAQs and short guides can help your audience while showing the knowledge behind your business. We can adapt the edit, dimensions and delivery for the channels you actually use."
+    ],
+    "benefits": [
+      "Short-form content with one clear message per video",
+      "Edits prepared for the platform and placement",
+      "Consistent brand styling across an ongoing content series",
+      "A mix of promotional, product, educational and announcement formats"
+    ],
+    "faqs": [
+      "What can a Reel or Short be about? | It can showcase a product, explain one service point, answer a question, share a useful tip, introduce an offer or announce news.",
+      "Do short videos have to be fast and effect-heavy? | No. The pace should fit the message and product. A clear opening and useful visual sequence are more important than adding effects.",
+      "Can you make a set of videos in the same style? | Yes. We can create a recognisable treatment using your colours, fonts, logo style and visual direction."
+    ]
+  },
+  {
+    "title": "Promotional Videos",
+    "slug": "promotional-videos",
+    "parent": "video-editing-animation",
+    "headline": "Promotional Videos With a Clear Purpose",
+    "icon": "film",
+    "tag": "Brand and campaign video",
+    "image": "svc-promotional-videos",
+    "desc": "Purpose-led promotional videos for products, services, launches, campaigns and events.",
+    "seo": {
+      "title": "Promotional Video Production | EireTech360",
+      "description": "Promotional videos that showcase products, services, offers and campaigns with clear visual storytelling and on-brand production."
+    },
+    "intro": "Sometimes a still image or small amount of text is not enough to show what a business offers. Promotional video creates room to demonstrate a product, introduce a service, build interest around an offer or give people a more useful view of your brand.\n\nWe start with the purpose of the video, then choose the right story, format and visual treatment for where it will be used.",
+    "points": [
+      "Start With the Purpose",
+      "Promotional Videos That Match Your Brand",
+      "Product Promotions",
+      "Service Promotions",
+      "Social, Website and Campaign Formats"
+    ],
+    "details": [
+      "A new service, product launch, event, seasonal campaign and website introduction all need different types of video. Defining the desired action and placement early helps us make decisions about length, pacing, message and creative direction.",
+      "A promotional video should feel connected to the rest of your business. We can work with your existing colours, fonts, logo, imagery and tone so the finished video is fresh while still recognisably yours. For a stronger visual foundation, explore [Logo & Identity Design](/services/logo-identity-design).",
+      "Video can show products from useful angles, demonstrate features, explain use, introduce variations and focus attention on the details that help someone decide. The final pace is selected around the product rather than a generic trend.",
+      "For services that are difficult to photograph, text, screen recordings, graphics, icons and examples can make the offer clearer. A focused promotional film can introduce one problem, explain your solution and make the next action obvious.",
+      "We can shape versions for website pages, campaigns, social posts, ads, event promotions and launches. When the whole story needs a step-by-step explanation, an [Explainer Video](/services/explainer-videos) may be the better format."
+    ],
+    "benefits": [
+      "A video concept grounded in a specific campaign or business goal",
+      "Product, service, event and offer formats",
+      "On-brand production rather than disconnected creative",
+      "Versions planned for the channels where the campaign will run"
+    ],
+    "faqs": [
+      "What is the first step in a promotional video project? | We clarify the purpose, audience, main message and where the video needs to appear before developing the visual approach.",
+      "Can promotional video work for a service business? | Yes. We can use examples, graphics, screen recordings, text and imagery to make a less tangible service easier to understand.",
+      "Can one video be adapted for several channels? | Yes. We can plan suitable edits and formats for website, social, paid campaign, event and launch use."
+    ]
+  },
+  {
+    "title": "Motion Graphics & Animation",
+    "slug": "motion-graphics-animation",
+    "parent": "video-editing-animation",
+    "headline": "Motion Graphics & Animation That Guide Attention",
+    "icon": "sparkles",
+    "tag": "Purposeful movement",
+    "image": "svc-motion-graphics-animation",
+    "desc": "Motion graphics and animation that simplify ideas, guide attention and bring business content to life.",
+    "seo": {
+      "title": "Motion Graphics & Animation | EireTech360",
+      "description": "Purpose-led motion graphics, animated explainers, logo animation and social content that make information clearer and more engaging."
+    },
+    "intro": "Some information is difficult to communicate with a still image. A process may have several stages, a product feature may need demonstrating, or a service may not have anything physical to film. Motion graphics can make those ideas easier to follow.\n\nWe use movement to explain, guide attention and give content a more engaging visual sequence—not simply because animation is available.",
+    "points": [
+      "Animation With a Purpose",
+      "Motion Graphics for Business Content",
+      "Animated Explainer Videos",
+      "Animated Social Media Content",
+      "Logo Animation and Kinetic Typography"
+    ],
+    "details": [
+      "Before animating anything, we establish what the movement needs to achieve: explain a service, demonstrate a process, promote an offer, introduce a business or support a social campaign. That purpose guides the level of animation and the visual style.",
+      "Text, icons, shapes, illustrations and data points can be introduced in a manageable order. This is particularly useful when a software process, service journey or technical idea needs to feel less overwhelming.",
+      "An animated explainer can move from the customer's problem to the service and the next step using a clear visual story. It works especially well for technology, software and professional services that are hard to film directly. See [Explainer Videos](/services/explainer-videos) for the full service.",
+      "A static graphic can become more noticeable with a subtle headline reveal, product transition or staged information. We create animated social assets for promotions, announcements, educational posts, campaigns and offers without making the post feel overloaded.",
+      "A short logo reveal, animated text sequence or typographic treatment can support intros, outros, presentations and campaign content. The movement should fit the existing identity; it should not make a familiar brand feel like something else."
+    ],
+    "benefits": [
+      "Visual explanations for ideas and processes that cannot be filmed easily",
+      "Animation tailored to the message rather than effect-heavy templates",
+      "Useful formats for explainers, social content, campaigns and presentations",
+      "A motion style that remains aligned with your brand"
+    ],
+    "faqs": [
+      "When are motion graphics useful? | They are useful when a process, feature, data point or service needs a clear visual sequence but does not have obvious footage to film.",
+      "Can existing graphics or a logo be animated? | Yes. We can create movement around approved visual assets while keeping the familiar identity intact.",
+      "Can motion graphics be used in social content? | Yes. Small, intentional movement can help social announcements, promotions, educational posts and offers stand out."
+    ]
+  },
+  {
+    "title": "Logo & Identity Design",
+    "slug": "logo-identity-design",
+    "parent": "graphic-design",
+    "headline": "Logo & Identity Design That Works Beyond the Logo",
+    "icon": "palette",
+    "tag": "Practical visual identity",
+    "image": "svc-logo-identity-design",
+    "desc": "A practical brand identity built from logo variations, colour, typography and clear visual direction.",
+    "seo": {
+      "title": "Logo & Identity Design | EireTech360",
+      "description": "Practical logo and identity design, including logo variations, colour direction, typography and usable brand guidance."
+    },
+    "intro": "A logo is important, but people remember a brand through the whole visual experience: colour, type, imagery and a consistent design direction. When these parts do not work together, even a good business can look less established.\n\nEireTech360 creates logos and identities that are distinctive, practical and ready to use across the places your business actually appears.",
+    "points": [
+      "Build the Identity Around Your Business",
+      "Create a Consistent Visual Direction",
+      "Start New Brands With Useful Foundations",
+      "Refresh a Brand Without Losing Recognition",
+      "Give Your Team Easy-to-Use Brand Guidance"
+    ],
+    "details": [
+      "Your audience, communication style and the image you want to create all influence the identity. We consider the real contexts in which it will be used, including logo variations for a website, social profile, presentation and small-format applications.",
+      "A clear colour palette, type choices, logo rules and supporting design elements help a website, social post and brochure feel connected. That consistency creates familiarity without forcing every piece of content to look identical.",
+      "A better identity early on gives your website, social content and marketing material a shared direction. It can be structured for where the business is today without making future growth feel restricted.",
+      "A full rebrand is not always necessary. We can assess what existing customers recognise, then improve typography, spacing, colour, logo variations or social applications so the brand feels evolved rather than replaced.",
+      "The final identity should be easy for the people who use it. We can provide simple rules around logos, primary colours and fonts, giving your team practical guidance for everyday work and for services such as [Marketing Collateral & Print Design](/services/marketing-collateral-print-design)."
+    ],
+    "benefits": [
+      "A visual identity based on your customers and business direction",
+      "Practical logo variations for digital and print use",
+      "Clear colour, typography and supporting design direction",
+      "An option to refresh what is working instead of starting from zero"
+    ],
+    "faqs": [
+      "Do we need a completely new logo? | Not always. We can assess the existing identity and recommend whether a focused refresh or a full new direction is more appropriate.",
+      "What is included in an identity? | It can include logo variations, colour direction, typography, supporting design elements and simple guidelines for using them consistently.",
+      "Will the identity work across digital and print? | Yes. We consider your website, social content, advertising, presentations and printed material during the design process."
+    ]
+  },
+  {
+    "title": "Social Media Creatives",
+    "slug": "social-media-creatives",
+    "parent": "graphic-design",
+    "headline": "Social Media Creatives Designed for the Message and the Platform",
+    "icon": "sparkles",
+    "tag": "On-brand social design",
+    "image": "svc-social-media-creatives",
+    "desc": "Social media designs that make the message clear, keep your brand consistent and fit the platform.",
+    "seo": {
+      "title": "Social Media Creative Design | EireTech360",
+      "description": "On-brand social media creative design for promotions, educational posts, campaigns, ads, carousels, stories and announcements."
+    },
+    "intro": "People move quickly through social feeds, so a useful social creative needs to be visually clear, relevant to the post and recognisable as part of your brand.\n\nWe design social media content around the action you want people to take, instead of producing attractive posts with no clear message.",
+    "points": [
+      "Design Around the Post's Purpose",
+      "Keep Social Content Aligned to Your Brand",
+      "Plan for Different Post Types",
+      "Design for the Platform and Format",
+      "Make the Message Easy to Understand"
+    ],
+    "details": [
+      "A product launch, educational post, service promotion, offer and announcement each need a different visual emphasis. We establish the message first, then make choices about imagery, hierarchy and the call to action around that purpose.",
+      "Your colours, fonts, logo usage, imagery and tone give posts a shared visual language. We apply those cues consistently while keeping the creative flexible enough to make a feed feel fresh.",
+      "We can create designs for service promotions, product posts, tips, guides, campaigns, events, industry news, quote graphics, carousels and advertising. If the campaign needs movement too, pair the creative with [Social Media Reels & Shorts](/services/social-media-reels-shorts).",
+      "A visual that works for one platform may not work for another. We plan the right layouts for square, portrait, story, cover, carousel and advertising placements so essential information is not reduced or cut off.",
+      "Strong visual hierarchy helps a person understand the main point quickly. We use contrast, spacing, imagery and concise content so viewers do not need to work through a crowded post to find the message."
+    ],
+    "benefits": [
+      "Creative based on what the post needs to achieve",
+      "Brand consistency without repetitive-looking content",
+      "Layouts made for the platforms and placements you use",
+      "A range of promotional, educational and campaign formats"
+    ],
+    "faqs": [
+      "Can you design several types of social post? | Yes. We can create product, service, educational, offer, announcement, carousel, ad and seasonal campaign content.",
+      "Do designs need to be resized for every platform? | They should be designed for the intended placement rather than simply scaled down, so text, imagery and key messages remain clear.",
+      "Can the social designs match our existing branding? | Yes. We use your existing colours, fonts, visual style and logo treatment to create a cohesive presence."
+    ]
+  },
+  {
+    "title": "Packaging & Product Design",
+    "slug": "packaging-product-design",
+    "parent": "graphic-design",
+    "headline": "Packaging & Product Design That Works on Shelf and Screen",
+    "icon": "shopping-bag",
+    "tag": "Product presentation",
+    "image": "svc-packaging-product-design",
+    "desc": "Packaging and product design that feels connected to the brand and works when printed, handled and sold.",
+    "seo": {
+      "title": "Packaging & Product Design | EireTech360",
+      "description": "Packaging and product design for retail, e-commerce, labels and product ranges, created around your brand, product and customer."
+    },
+    "intro": "Packaging does more than hold a product. It can help someone notice it, understand it and decide whether it feels right for them. It also has to work beyond the screen: when it is printed, handled, displayed and sold.\n\nWe create packaging and product design around the product itself, the brand behind it and the customers it needs to reach.",
+    "points": [
+      "Packaging That Fits the Product",
+      "Design With a Clear Information Order",
+      "Labels, Retail and E-Commerce Packaging",
+      "Keep Packaging Connected to the Brand",
+      "Build a Recognisable Product Range"
+    ],
+    "details": [
+      "A beauty product, food item, technology accessory and gift set have different needs. We consider the product, audience, sales environment and packaging format before deciding on the right visual direction.",
+      "Packaging can need to communicate a name, features, instructions, ingredients, size and other important details in limited space. We establish what should be noticed first, then create a clearer visual order around it.",
+      "A label can make a simple bottle, jar, box or container feel considered. We also account for how the product will compete on a retail shelf and how it will read in product photography, online listings and social content.",
+      "Your packaging should feel connected to your website and wider business. We use the existing identity where appropriate, or establish a usable direction for a new range. Start with [Logo & Identity Design](/services/logo-identity-design) if the brand needs that foundation.",
+      "For businesses with several products, we create a system that makes each flavour, size or variation easy to identify while keeping the whole collection recognisably related."
+    ],
+    "benefits": [
+      "Packaging designed for the real product and sales setting",
+      "Clear hierarchy for essential product information",
+      "Consideration for retail shelves, e-commerce and social imagery",
+      "A consistent system for single products or wider ranges"
+    ],
+    "faqs": [
+      "Do you design product labels as well as boxes? | Yes. We can design labels, boxes, bags, inserts and other packaging elements around the product and brand.",
+      "Will the design work for e-commerce? | Yes. We consider how details, contrast and visual structure will appear in product photography, website listings and social content.",
+      "Can you help with multiple products in one range? | Yes. We can build a visual system that differentiates products while keeping the range connected."
+    ]
+  },
+  {
+    "title": "Marketing Collateral & Print Design",
+    "slug": "marketing-collateral-print-design",
+    "parent": "graphic-design",
+    "headline": "Marketing Collateral & Print Design That Represents Your Business Well",
+    "icon": "layers-3",
+    "tag": "Print-ready marketing",
+    "image": "svc-marketing-collateral-print-design",
+    "desc": "Brochures, flyers, business cards and sales material designed to communicate clearly and fit your brand.",
+    "seo": {
+      "title": "Marketing Collateral & Print Design | EireTech360",
+      "description": "Professional print design for brochures, flyers, company profiles, business cards, sales material and presentations."
+    },
+    "intro": "Not all marketing happens on a screen. Brochures, business cards, flyers and sales material represent your business when you are not there to explain it. Their job is to make the right information clear and leave a professional impression.\n\nWe create marketing collateral and print design that fits the purpose, the audience and your wider visual identity.",
+    "points": [
+      "Give Every Printed Piece a Purpose",
+      "Brochures and Company Profiles",
+      "Flyers and Business Cards",
+      "Sales and Presentation Materials",
+      "Print Materials That Stay Consistent and Readable"
+    ],
+    "details": [
+      "A brochure, flyer or company profile should not be a copy of every page on your website. We clarify what the reader needs to know and what action should follow, then organise the content around that purpose.",
+      "Longer materials need a logical flow. Headings, spacing, imagery and visual hierarchy help people find the important information without making every page compete for attention.",
+      "Flyers need a quick, clear message, while business cards need the correct information in a practical format. We create focused designs that fit the campaign, event or everyday business use.",
+      "Service sheets, proposal covers, presentation templates and sales brochures can make strong content easier to scan and use. We shape the layout around the conversation your team needs to have, not decoration for its own sake.",
+      "Older print items can drift away from the current brand over time. We keep colours, fonts, logos and spacing aligned with the rest of the business, including [Logo & Identity Design](/services/logo-identity-design), while considering print size, contrast and readability."
+    ],
+    "benefits": [
+      "Print pieces organised around a clear reader action",
+      "Brochures, company profiles, flyers, cards and sales materials",
+      "A consistent visual connection to your wider brand",
+      "Design that considers practical reading and print constraints"
+    ],
+    "faqs": [
+      "What kinds of print material can you design? | We can create brochures, company profiles, flyers, business cards, service sheets, proposal covers, sales brochures and presentation materials.",
+      "Can you work with our existing brand? | Yes. We use your current colours, fonts, logo and visual direction so new materials feel connected to the business.",
+      "How do you keep a brochure easy to read? | We use a clear content flow, hierarchy, spacing, appropriate image placement and concise information so readers can find what matters."
     ]
   }
 ]

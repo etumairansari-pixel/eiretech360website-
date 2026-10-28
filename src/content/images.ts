@@ -65,6 +65,14 @@ import aiChatbots from "@/assets/photo-ai-chatbots.webp";
 import aiWorkflowAutomation from "@/assets/photo-ai-workflow-automation.webp";
 import customAiIntegrations from "@/assets/photo-custom-ai-integrations.webp";
 import aiDataInsights from "@/assets/photo-ai-data-insights.webp";
+import explainerVideosHero from "@/assets/photo-explainer-videos-hero.webp";
+import socialMediaReelsShortsHero from "@/assets/photo-social-media-reels-shorts-hero.webp";
+import promotionalVideosHero from "@/assets/photo-promotional-videos-hero.webp";
+import motionGraphicsHero from "@/assets/photo-motion-graphics-hero.webp";
+import logoIdentityDesignHero from "@/assets/photo-logo-identity-design-hero.webp";
+import socialMediaCreativesHero from "@/assets/photo-social-media-creatives-hero.webp";
+import packagingProductDesignHero from "@/assets/photo-packaging-product-design-hero.webp";
+import marketingCollateralPrintDesignHero from "@/assets/photo-marketing-collateral-print-design-hero.webp";
 
 import detail0 from "@/assets/detail-research.webp";
 import detail1 from "@/assets/detail-analytics.webp";
@@ -124,6 +132,14 @@ export const images = {
   "svc-ai-workflow-automation": aiWorkflowAutomation,
   "svc-custom-ai-integrations": customAiIntegrations,
   "svc-ai-data-insights": aiDataInsights,
+  "svc-explainer-videos": explainerVideosHero,
+  "svc-social-media-reels-shorts": socialMediaReelsShortsHero,
+  "svc-promotional-videos": promotionalVideosHero,
+  "svc-motion-graphics-animation": motionGraphicsHero,
+  "svc-logo-identity-design": logoIdentityDesignHero,
+  "svc-social-media-creatives": socialMediaCreativesHero,
+  "svc-packaging-product-design": packagingProductDesignHero,
+  "svc-marketing-collateral-print-design": marketingCollateralPrintDesignHero,
   "design-cliffs-halloween-post": designCliffsHalloweenPost,
   "video-lost-mary": videoLostMary,
   "video-lost-mary-poster": videoLostMaryPoster,

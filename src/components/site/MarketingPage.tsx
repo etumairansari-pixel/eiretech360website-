@@ -11,6 +11,8 @@ export function MarketingPage({ service }: { service: Service }) {
   const family = service.parent || service.slug;
   const parent = services.find((s) => s.slug === family)!;
   const children = services.filter((s) => s.parent === family);
+  const heroPhoto = servicePhoto(service.slug, 0);
+  const overviewPhoto = servicePhoto(service.slug, 1);
   const isMarketing = family === "digital-marketing";
   const questions = [
     {
@@ -76,8 +78,8 @@ export function MarketingPage({ service }: { service: Service }) {
             <div className="dm-service-hero-photo">
               <span className="dm-banner-kicker">Ireland &middot; Europe &middot; USA</span>
               <img
-                src={servicePhoto(service.slug, 0).src}
-                alt={servicePhoto(service.slug, 0).alt}
+                src={heroPhoto.src || service.img}
+                alt={heroPhoto.alt || `${service.title} services by EireTech360`}
                 width={1100}
                 height={800}
                 fetchPriority="high"
@@ -138,16 +140,18 @@ export function MarketingPage({ service }: { service: Service }) {
               Talk to our team
               <ArrowUpRight size={17} />
             </a>
-            <div className="dm-overview-photo">
-              <img
-                src={servicePhoto(service.slug, 1).src}
-                alt={servicePhoto(service.slug, 1).alt}
-                width={1000}
-                height={650}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
+            {overviewPhoto.src ? (
+              <div className="dm-overview-photo">
+                <img
+                  src={overviewPhoto.src}
+                  alt={overviewPhoto.alt}
+                  width={1000}
+                  height={650}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ) : null}
           </div>
           <div className="dm-prose">
             {service.intro.map((p, i) => (
@@ -224,8 +228,9 @@ export function MarketingPage({ service }: { service: Service }) {
       )}
       <div className="dm-service-sections">
         {service.sections.map((section, i) => {
+          const candidatePhoto = servicePhoto(service.slug, i + 2);
           const sectionPhoto =
-            service.parent === "custom-ai-development" ? null : servicePhoto(service.slug, i + 2);
+            service.parent === "custom-ai-development" || !candidatePhoto.src ? null : candidatePhoto;
           return (
             <section
               id={section.anchor}
