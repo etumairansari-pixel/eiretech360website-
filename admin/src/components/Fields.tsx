@@ -395,13 +395,38 @@ function FieldInputControl({ field, value, basePath, ctx }: FieldInputProps) {
         </Wrap>
       );
 
-    default:
+    case "text":
+      return (
+        <Wrap
+          id={id}
+          label={field.label}
+          help={field.help}
+          right={<LinkButton targetId={id} onApply={(next) => set(next)} />}
+        >
+          <input
+            id={id}
+            className="field"
+            type="text"
+            value={String(value ?? "")}
+            onChange={(e) => set(e.target.value)}
+            placeholder={field.placeholder}
+          />
+          {/\[[^\]\n]+\]\([^\s)]+\)/.test(String(value ?? "")) ? (
+            <p className="mt-2 rounded-lg bg-surface px-3 py-2 text-[15px] leading-snug">
+              <MarkerPreview text={String(value ?? "")} />
+            </p>
+          ) : null}
+        </Wrap>
+      );
+
+    case "email":
+    case "url":
       return (
         <Wrap id={id} label={field.label} help={field.help}>
           <input
             id={id}
             className="field"
-            type={field.kind === "email" ? "email" : field.kind === "url" ? "url" : "text"}
+            type={field.kind}
             value={String(value ?? "")}
             onChange={(e) => set(e.target.value)}
             placeholder={field.placeholder}
