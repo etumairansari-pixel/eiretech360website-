@@ -54,17 +54,53 @@ function wrapSelection(el: HTMLTextAreaElement | HTMLInputElement, open: string,
   };
 }
 
-function linkSelection(el: HTMLTextAreaElement): { next: string; caret: number } | null {
+function linkSelection(
+  el: HTMLTextAreaElement | HTMLInputElement,
+): { next: string; caret: number } | null {
   const start = el.selectionStart ?? 0;
   const end = el.selectionEnd ?? 0;
   const selected = el.value.slice(start, end) || "link text";
-  const target = window.prompt("Page key or URL", "contact");
+  const target = window.prompt(
+    "Link destination: page key (contact), site path (/services/seo-services), or full URL",
+    "contact",
+  );
   if (!target) return null;
   const inserted = `[${selected}](${target.trim()})`;
   return {
     next: el.value.slice(0, start) + inserted + el.value.slice(end),
     caret: start + inserted.length,
   };
+}
+
+/** Visible on every editable copy field that can render inline links. */
+function LinkButton({
+  targetId,
+  onApply,
+}: {
+  targetId: string;
+  onApply: (value: string, caret: number) => void;
+}) {
+  return (
+    <button
+      type="button"
+      className="chip"
+      title="Select text, then add an internal or external hyperlink"
+      onClick={() => {
+        const el = document.getElementById(targetId) as
+          HTMLTextAreaElement | HTMLInputElement | null;
+        if (!el) return;
+        const result = linkSelection(el);
+        if (!result) return;
+        onApply(result.next, result.caret);
+        requestAnimationFrame(() => {
+          el.focus();
+          el.setSelectionRange(result.caret, result.caret);
+        });
+      }}
+    >
+      Link
+    </button>
+  );
 }
 
 function MarkerButtons({
@@ -106,24 +142,7 @@ function MarkerButtons({
       <button type="button" className="chip" onClick={() => apply("[b]", "[/b]")} title="Emphasis">
         [b]
       </button>
-      <button
-        type="button"
-        className="chip"
-        onClick={() => {
-          const el = document.getElementById(targetId) as HTMLTextAreaElement | null;
-          if (!el) return;
-          const result = linkSelection(el);
-          if (!result) return;
-          onApply(result.next, result.caret);
-          requestAnimationFrame(() => {
-            el.focus();
-            el.setSelectionRange(result.caret, result.caret);
-          });
-        }}
-        title="Add hyperlink"
-      >
-        Link
-      </button>
+      <LinkButton targetId={targetId} onApply={onApply} />
     </span>
   );
 }
@@ -219,7 +238,12 @@ function FieldInputControl({ field, value, basePath, ctx }: FieldInputProps) {
     case "lines": {
       const list = Array.isArray(value) ? (value as string[]) : [];
       return (
-        <Wrap id={id} label={field.label} help={field.help}>
+        <Wrap
+          id={id}
+          label={field.label}
+          help={field.help}
+          right={<LinkButton targetId={id} onApply={(next) => set(next.split("\n"))} />}
+        >
           <textarea
             id={id}
             className="field font-mono text-[13px]"
@@ -234,6 +258,11 @@ function FieldInputControl({ field, value, basePath, ctx }: FieldInputProps) {
               )
             }
           />
+          {/\[[^\]\n]+\]\([^\s)]+\)/.test(list.join("\n")) ? (
+            <p className="mt-2 rounded-lg bg-surface px-3 py-2 text-[15px] leading-snug">
+              <MarkerPreview text={list.join("\n")} />
+            </p>
+          ) : null}
         </Wrap>
       );
     }
@@ -348,26 +377,7 @@ function FieldInputControl({ field, value, basePath, ctx }: FieldInputProps) {
           id={id}
           label={field.label}
           help={field.help}
-          right={
-            <button
-              type="button"
-              className="chip"
-              title="Add hyperlink"
-              onClick={() => {
-                const el = document.getElementById(id) as HTMLTextAreaElement | null;
-                if (!el) return;
-                const result = linkSelection(el);
-                if (!result) return;
-                set(result.next);
-                requestAnimationFrame(() => {
-                  el.focus();
-                  el.setSelectionRange(result.caret, result.caret);
-                });
-              }}
-            >
-              Link
-            </button>
-          }
+          right={<LinkButton targetId={id} onApply={(next) => set(next)} />}
         >
           <textarea
             id={id}
