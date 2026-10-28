@@ -30,7 +30,11 @@ function FacebookIcon({ className = "" }: { className?: string }) {
 /** The order the footer lists the pages, by page key. */
 const footerOrder = ["home", "about", "services", "platforms", "blog", "contact"] as const;
 
-const pages = footerOrder.map((key) => ({ to: pathFor(key), label: routeFor(key).footerLabel }));
+const pages = footerOrder.map((key) => ({
+  key,
+  to: pathFor(key),
+  label: routeFor(key).footerLabel,
+}));
 
 // Capability columns, mirroring how enterprise sites let visitors scan what a
 // firm actually does straight from the footer. Each line is "Label | slug";
@@ -114,6 +118,9 @@ export function Footer() {
                 <li key={p.to}>
                   <Link
                     to={p.to}
+                    // The contact page is intentionally served as a static
+                    // document, so never enter it through the SPA router.
+                    reloadDocument={p.key === "contact"}
                     className="text-brand-muted transition-colors hover:text-brand-primary-text"
                     data-hover
                   >
@@ -183,6 +190,7 @@ export function Footer() {
 
             <Link
               to={pathFor("contact")}
+              reloadDocument
               className="mt-6 inline-flex items-center gap-2 rounded-full border border-brand-primary/30 bg-brand-primary/5 px-5 py-2.5 text-sm font-bold text-brand-primary-text transition-colors hover:bg-brand-primary/10"
               data-hover
             >

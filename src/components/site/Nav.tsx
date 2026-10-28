@@ -168,6 +168,10 @@ export function Nav() {
             >
               <Link
                 to={l.to}
+                // Contact is deliberately a static, no-React document. A
+                // client-side transition would keep this page's React runtime
+                // alive and bypass that safeguard.
+                reloadDocument={l.key === "contact"}
                 aria-current={
                   pathname.replace(/\/$/, "") === l.to.replace(/\/$/, "") ||
                   (l.key === "services" && pathname.startsWith("/services/"))
@@ -232,6 +236,9 @@ export function Nav() {
             <div key={l.to}>
               <Link
                 to={l.to}
+                // Keep the contact form outside the SPA after a mobile-menu
+                // navigation as well as the desktop navigation above.
+                reloadDocument={l.key === "contact"}
                 aria-current={
                   pathname.replace(/\/$/, "") === l.to.replace(/\/$/, "") ||
                   (l.key === "services" && pathname.startsWith("/services/"))

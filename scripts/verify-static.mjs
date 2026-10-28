@@ -59,6 +59,22 @@ const unmark = (value) =>
 const homeKey = "home";
 const contactKey = "contact";
 
+// `/contact/` is intentionally a static document with no React runtime. Any
+// React Router link that enters it must request a full document navigation;
+// otherwise the previous page's SPA runtime remains active and can remount the
+// interactive contact route instead of loading the protected static document.
+const navSource = fs.readFileSync(path.join(rootDir, "src/components/site/Nav.tsx"), "utf8");
+const footerSource = fs.readFileSync(path.join(rootDir, "src/components/site/Footer.tsx"), "utf8");
+assert.ok(
+  navSource.includes('reloadDocument={l.key === "contact"}'),
+  "Navbar contact links must force a full document navigation",
+);
+assert.ok(
+  footerSource.includes('reloadDocument={p.key === "contact"}') &&
+    /to=\{pathFor\("contact"\)\}[\s\S]*?reloadDocument/.test(footerSource),
+  "Footer contact links must force a full document navigation",
+);
+
 for (const page of content.pages) {
   const dir = page.slug === "" ? "" : page.slug;
   const file = path.join(outDir, dir, "index.html");
