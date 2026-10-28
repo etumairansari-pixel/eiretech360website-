@@ -147,6 +147,11 @@ for (const page of content.pages) {
       "Contact must include the standalone submit handler",
     );
     assert.ok(
+      html.includes('themeToggle.addEventListener("click"') &&
+        html.includes('localStorage.setItem(themeKey, next)'),
+      "Contact must keep the standalone light/dark theme toggle",
+    );
+    assert.ok(
       html.includes('class="dm-nav') &&
         html.includes("dm-footer") &&
         !html.includes('<script type="module"') &&

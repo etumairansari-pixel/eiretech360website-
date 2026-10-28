@@ -26,6 +26,29 @@ const STATIC_SHELL =
  */
 const CONTACT_FORM_SCRIPT = `<script>
 (() => {
+  // Contact is delivered without the React bundle, so preserve the shared
+  // light/dark preference with a tiny native handler.
+  const themeToggle = document.querySelector(".dm-theme-toggle");
+  const themeKey = "eiretech-theme";
+  const applyTheme = (theme) => {
+    const isDark = theme === "dark";
+    document.documentElement.classList.toggle("dark", isDark);
+    document.documentElement.style.colorScheme = theme;
+    if (themeToggle) {
+      const next = isDark ? "light" : "dark";
+      themeToggle.setAttribute("aria-label", "Switch to " + next + " mode");
+      themeToggle.setAttribute("title", "Switch to " + next + " mode");
+    }
+  };
+  if (themeToggle) {
+    applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+    themeToggle.addEventListener("click", () => {
+      const next = document.documentElement.classList.contains("dark") ? "light" : "dark";
+      applyTheme(next);
+      try { localStorage.setItem(themeKey, next); } catch (_) {}
+    });
+  }
+
   const form = document.getElementById("contact-form");
   if (!form) return;
 
