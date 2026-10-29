@@ -475,9 +475,21 @@ function validate_blog($blog): array
    blog/), so the next build ships them too and they are never lost.
 ------------------------------------------------------------------ */
 
-/** The site root on the host: the admin lives one folder below it. */
+/**
+ * The uploads folder at the website's public root.
+ *
+ * The Node deployment can serve the admin from a versioned release directory,
+ * so dirname(__DIR__) is not always the same place as the public document
+ * root. Uploaded article images are publicly served from /uploads/blog, hence
+ * DOCUMENT_ROOT is the authoritative location whenever PHP provides it.
+ */
 function uploads_dir(): string
 {
+    $documentRoot = rtrim((string) ($_SERVER['DOCUMENT_ROOT'] ?? ''), '/\\');
+    if ($documentRoot !== '') {
+        return $documentRoot . '/uploads/blog';
+    }
+
     return dirname(__DIR__) . '/uploads/blog';
 }
 
@@ -554,13 +566,17 @@ function store_upload(array $body): string
 }
 
 /**
- * The uploaded images the articles use, as repository path => host file.
+ * The uploaded images the articles use, plus any paths that are referenced in
+ * content but are unavailable on this host. A missing file must stop the
+ * publish before it creates a Git commit: otherwise the static build fails
+ * later with a much less useful error.
  *
  * @param array $blog The decoded content/blog.json.
  */
 function referenced_uploads(array $blog): array
 {
     $found = [];
+    $missing = [];
     foreach ($blog as $post) {
         $text = (string) ($post['cover'] ?? '') . ' ' . (string) ($post['body'] ?? '');
         if (preg_match_all('#/uploads/blog/([a-z0-9-]+\.(?:webp|jpg|png|gif))#', $text, $matches)) {
@@ -568,11 +584,13 @@ function referenced_uploads(array $blog): array
                 $file = uploads_dir() . '/' . $name;
                 if (is_file($file)) {
                     $found['public/uploads/blog/' . $name] = $file;
+                } else {
+                    $missing['/uploads/blog/' . $name] = true;
                 }
             }
         }
     }
-    return $found;
+    return ['files' => $found, 'missing' => array_keys($missing)];
 }
 
 /* ------------------------------------------------------------------
@@ -740,30 +758,34 @@ if (($action === 'publish' || $action === 'commit') && $method === 'POST') {
         $tree[] = ['path' => $path, 'mode' => '100644', 'type' => 'blob', 'sha' => $blob['body']['sha']];
     }
 
-    // The images the articles use, uploaded to the host since the last commit.
-    // One listing tells us which are already in the repository.
-    $images = referenced_uploads($next['blog'] ?? []);
-    if ($images) {
-        $listing = github('GET', $repo . '/contents/public/uploads/blog?ref=' . ADMIN_GITHUB_BRANCH);
-        $known   = [];
-        if ($listing['status'] === 200 && is_array($listing['body'])) {
-            foreach ($listing['body'] as $entry) {
-                $known['public/uploads/blog/' . ($entry['name'] ?? '')] = true;
-            }
+    // Every image a post references is written into this Git tree, including
+    // an image with the same name as a previous upload. This is deliberate:
+    // it guarantees the exact bytes the article currently uses are present in
+    // the source that Hostinger builds, rather than trusting a directory list
+    // from an earlier Git revision.
+    $uploads = referenced_uploads($next['blog'] ?? []);
+    if ($uploads['missing']) {
+        reply(422, [
+            'ok' => false,
+            'errors' => [
+                'These blog images are not available on the server. Upload them again before committing: '
+                . implode(', ', $uploads['missing']),
+            ],
+        ]);
+    }
+    foreach ($uploads['files'] as $path => $file) {
+        $bytes = file_get_contents($file);
+        if ($bytes === false) {
+            reply(500, ['ok' => false, 'errors' => ['Could not read uploaded blog image: ' . basename($file)]]);
         }
-        foreach ($images as $path => $file) {
-            if (isset($known[$path])) {
-                continue;
-            }
-            $blob = github('POST', $repo . '/git/blobs', [
-                'content'  => base64_encode((string) file_get_contents($file)),
-                'encoding' => 'base64',
-            ]);
-            if ($blob['status'] !== 201) {
-                reply(502, ['ok' => false, 'errors' => [github_error($blob, 'store ' . $path)]]);
-            }
-            $tree[] = ['path' => $path, 'mode' => '100644', 'type' => 'blob', 'sha' => $blob['body']['sha']];
+        $blob = github('POST', $repo . '/git/blobs', [
+            'content'  => base64_encode($bytes),
+            'encoding' => 'base64',
+        ]);
+        if ($blob['status'] !== 201) {
+            reply(502, ['ok' => false, 'errors' => [github_error($blob, 'store ' . $path)]]);
         }
+        $tree[] = ['path' => $path, 'mode' => '100644', 'type' => 'blob', 'sha' => $blob['body']['sha']];
     }
 
     $newTree = github('POST', $repo . '/git/trees', ['base_tree' => $baseTree, 'tree' => $tree]);
