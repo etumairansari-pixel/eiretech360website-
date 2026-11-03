@@ -6,7 +6,7 @@ import { contact, nav as navContent, pathFor, route as routeFor } from "@/conten
 import { serviceNavigation } from "@/content/service-navigation";
 import { useTheme } from "@/lib/theme";
 import { headerVisibleAfterScroll } from "@/lib/header-scroll";
-const links = ["home", "services", "about", "platforms", "contact"].map((key) => ({
+const links = ["home", "services", "about", "platforms", "blog", "contact"].map((key) => ({
   to: pathFor(key),
   label: routeFor(key).navLabel,
   key,

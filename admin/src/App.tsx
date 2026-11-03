@@ -180,6 +180,7 @@ export default function App() {
   const [buildResult, setBuildResult] = useState<BuildResult | null>(null);
   const [previewOpen, setPreviewOpen] = useState(true);
   const [focusPath, setFocusPath] = useState<Path | null>(null);
+  const [quickTarget, setQuickTarget] = useState<EditTarget | null>(null);
 
   const previewRef = useRef<HTMLIFrameElement>(null);
 
@@ -306,9 +307,25 @@ export default function App() {
 
   const targets = useMemo(() => (data ? editTargets(data) : []), [data]);
   const openTarget = useCallback((target: EditTarget) => {
+    setQuickTarget(target);
     setView(target.view);
     setFocusPath(target.path);
   }, []);
+
+  const quickValue = quickTarget ? getAt(data, quickTarget.path) : null;
+  const updateQuickTarget = useCallback(
+    (next: string) => {
+      if (!quickTarget) return;
+      const value = Array.isArray(quickValue)
+        ? next
+            .split("\n")
+            .map((line) => line.trimEnd())
+            .filter((line, index, all) => line !== "" || index < all.length - 1)
+        : next;
+      update(quickTarget.path, value);
+    },
+    [quickTarget, quickValue, update],
+  );
 
   useEffect(() => {
     if (!focusPath) return;
@@ -420,6 +437,17 @@ export default function App() {
         <BuildBanner result={buildResult} onDismiss={() => setBuildResult(null)} />
       ) : null}
 
+      {quickTarget ? (
+        <QuickEdit
+          target={quickTarget}
+          value={textOf(quickValue)}
+          isList={Array.isArray(quickValue)}
+          onChange={updateQuickTarget}
+          onOpenFullField={() => openTarget(quickTarget)}
+          onDismiss={() => setQuickTarget(null)}
+        />
+      ) : null}
+
       <div className="flex min-h-0 flex-1">
         <Sidebar data={data} view={view} onSelect={setView} />
 
@@ -450,9 +478,9 @@ export default function App() {
             siteUrl={data.siteUrl}
             path={previewPath}
             onReload={() => previewRef.current?.contentWindow?.location.reload()}
-            onPickText={(text) => {
+            onSearchText={(text) => {
               const target = matchTextTarget(targets, text);
-              if (target) openTarget(target);
+              if (target) setQuickTarget(target);
               else setStatus("That preview text is not editable content.");
             }}
           />
@@ -474,20 +502,21 @@ function Preview({
   siteUrl,
   path,
   onReload,
-  onPickText,
+  onSearchText,
 }: {
   ref: React.RefObject<HTMLIFrameElement | null>;
   siteUrl: string;
   path: string;
   onReload: () => void;
-  onPickText: (text: string) => void;
+  onSearchText: (text: string) => void;
 }) {
   const [reachable, setReachable] = useState<boolean | null>(null);
-  const detachPreviewClick = useRef<(() => void) | null>(null);
+  const [selectedText, setSelectedText] = useState("");
+  const detachPreviewSelection = useRef<(() => void) | null>(null);
 
-  // Locally the admin and site use different ports. The Vite dev server adds
-  // a tiny postMessage bridge so preview clicks still reach this panel. Live,
-  // both live under the same origin and makePreviewEditable handles the click.
+  // Locally the admin and site use different ports. The Vite preview tells us
+  // what the editor selected with postMessage; live can read its same-origin
+  // iframe selection directly (see makePreviewSelectable below).
   useEffect(() => {
     const onMessage = (event: MessageEvent<unknown>) => {
       if (event.source !== ref.current?.contentWindow) return;
@@ -496,16 +525,16 @@ function Preview({
         !message ||
         typeof message !== "object" ||
         (message as { source?: unknown }).source !== "eiretech-admin-preview" ||
-        (message as { type?: unknown }).type !== "pick-text" ||
+        !["select-text", "pick-text"].includes(String((message as { type?: unknown }).type)) ||
         typeof (message as { text?: unknown }).text !== "string"
       ) {
         return;
       }
-      onPickText((message as { text: string }).text);
+      setSelectedText((message as { text: string }).text);
     };
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, [onPickText, ref]);
+  }, [ref]);
 
   useEffect(() => {
     let cancelled = false;
@@ -526,27 +555,26 @@ function Preview({
     };
   }, [siteUrl]);
 
-  useEffect(() => () => detachPreviewClick.current?.(), []);
+  useEffect(() => () => detachPreviewSelection.current?.(), []);
 
-  const makePreviewEditable = () => {
-    detachPreviewClick.current?.();
+  const makePreviewSelectable = () => {
+    detachPreviewSelection.current?.();
+    setSelectedText("");
     try {
       const doc = ref.current?.contentDocument;
       if (!doc) return;
-      const onClick = (event: MouseEvent) => {
-        const target = event.target instanceof Element ? event.target : null;
-        const textElement = target?.closest("h1,h2,h3,h4,p,a,button,li,summary,span,strong,small");
-        const text = textElement?.textContent?.replace(/\s+/g, " ").trim() ?? "";
-        if (text.length < 3) return;
-        event.preventDefault();
-        event.stopPropagation();
-        onPickText(text);
+      const readSelection = () => {
+        const text = doc.getSelection()?.toString().replace(/\s+/g, " ").trim() ?? "";
+        if (text.length >= 3) setSelectedText(text);
       };
-      doc.addEventListener("click", onClick, true);
-      detachPreviewClick.current = () => doc.removeEventListener("click", onClick, true);
+      doc.addEventListener("mouseup", readSelection);
+      doc.addEventListener("keyup", readSelection);
+      detachPreviewSelection.current = () => {
+        doc.removeEventListener("mouseup", readSelection);
+        doc.removeEventListener("keyup", readSelection);
+      };
     } catch {
-      // Local development can use a different port, which makes the iframe
-      // cross-origin. Find text remains available there.
+      // Local development uses the postMessage bridge above instead.
     }
   };
 
@@ -557,8 +585,29 @@ function Preview({
           {siteUrl}
           {path}
         </span>
-        <span className="text-[11px] text-ink-soft">Click text to edit</span>
-        <button type="button" className="btn px-2 py-1" onClick={onReload} disabled={!reachable}>
+        {selectedText ? (
+          <button
+            type="button"
+            className="btn btn-primary whitespace-nowrap px-2 py-1"
+            onClick={() => {
+              onSearchText(selectedText);
+              setSelectedText("");
+            }}
+          >
+            Search selection
+          </button>
+        ) : (
+          <span className="text-[11px] text-ink-soft">Select text, then search</span>
+        )}
+        <button
+          type="button"
+          className="btn px-2 py-1"
+          onClick={() => {
+            setSelectedText("");
+            onReload();
+          }}
+          disabled={!reachable}
+        >
           Reload
         </button>
       </div>
@@ -579,10 +628,66 @@ function Preview({
           title="Site preview"
           src={siteUrl + path}
           className="h-[calc(100%-42px)] w-full"
-          onLoad={makePreviewEditable}
+          onLoad={makePreviewSelectable}
         />
       )}
     </aside>
+  );
+}
+
+/**
+ * A selected preview sentence should be editable immediately. Keeping this
+ * above the two scrollable panes avoids sending someone hunting through a
+ * long page or one of the larger collections to find the same text box.
+ */
+function QuickEdit({
+  target,
+  value,
+  isList,
+  onChange,
+  onOpenFullField,
+  onDismiss,
+}: {
+  target: EditTarget;
+  value: string;
+  isList: boolean;
+  onChange: (value: string) => void;
+  onOpenFullField: () => void;
+  onDismiss: () => void;
+}) {
+  return (
+    <section className="border-b border-[#bfe0fb] bg-[#eef7fe] px-5 py-3">
+      <div className="mx-auto flex max-w-5xl items-start gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+            <strong className="text-sm text-ink">Quick edit</strong>
+            <span className="text-xs text-ink-soft">{target.label}</span>
+          </div>
+          <textarea
+            className="field min-h-16 bg-white"
+            rows={isList ? Math.min(Math.max(value.split("\n").length + 1, 3), 7) : 3}
+            value={value}
+            autoFocus
+            onChange={(event) => onChange(event.target.value)}
+            aria-label={`Quick edit: ${target.label}`}
+          />
+          {isList ? <p className="hint">One item per line.</p> : null}
+        </div>
+        <div className="flex shrink-0 flex-wrap justify-end gap-2 pt-6">
+          <button type="button" className="btn" onClick={onOpenFullField}>
+            Open full field
+          </button>
+          <button
+            type="button"
+            className="btn px-2"
+            onClick={onDismiss}
+            aria-label="Close quick edit"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }
 

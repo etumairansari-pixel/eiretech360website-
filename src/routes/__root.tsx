@@ -65,6 +65,21 @@ const FONTS_HREF =
 // to media="all" once it lands, so it never blocks the first paint.
 const fontLoadScript = `(function(){var l=document.getElementById('gf');if(!l)return;l.addEventListener('load',function(){l.media='all';});})();`;
 
+// The local editor and preview use different ports, so their iframe is
+// cross-origin. This runs before React hydrates and reports selected preview
+// text to the admin with postMessage. It is emitted only by Vite's development
+// server.
+const adminPreviewBridgeScript = `(function(){
+  if(window.parent===window)return;
+  function reportSelection(){
+    var text=window.getSelection?window.getSelection().toString().replace(/\\s+/g,' ').trim():'';
+    if(text.length<3)return;
+    window.parent.postMessage({source:'eiretech-admin-preview',type:'select-text',text:text},'*');
+  }
+  document.addEventListener('mouseup',reportSelection);
+  document.addEventListener('keyup',reportSelection);
+})();`;
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -165,6 +180,9 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {import.meta.env.DEV ? (
+          <script dangerouslySetInnerHTML={{ __html: adminPreviewBridgeScript }} />
+        ) : null}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <HeadContent />
         <link id="gf" rel="stylesheet" href={FONTS_HREF} media="print" />
@@ -186,27 +204,6 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  useEffect(() => {
-    // The local editor (5174) and Vite preview (8080) have different origins.
-    // Send preview clicks to the editor, which then finds and focuses the
-    // matching content field. Deployed preview and editor share an origin, so
-    // its direct listener remains the only handler there.
-    if (!import.meta.env.DEV || window.parent === window) return;
-
-    const relayPreviewClick = (event: MouseEvent) => {
-      const element =
-        event.target instanceof Element
-          ? event.target.closest("h1,h2,h3,h4,p,a,button,li,summary,span,strong,small")
-          : null;
-      const text = element?.textContent?.replace(/\s+/g, " ").trim() ?? "";
-      if (text.length < 3) return;
-      window.parent.postMessage({ source: "eiretech-admin-preview", type: "pick-text", text }, "*");
-    };
-
-    document.addEventListener("click", relayPreviewClick, true);
-    return () => document.removeEventListener("click", relayPreviewClick, true);
-  }, []);
-
   return (
     <ThemeProvider>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
