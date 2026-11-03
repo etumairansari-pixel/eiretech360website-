@@ -186,6 +186,27 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
+  useEffect(() => {
+    // The local editor (5174) and Vite preview (8080) have different origins.
+    // Send preview clicks to the editor, which then finds and focuses the
+    // matching content field. Deployed preview and editor share an origin, so
+    // its direct listener remains the only handler there.
+    if (!import.meta.env.DEV || window.parent === window) return;
+
+    const relayPreviewClick = (event: MouseEvent) => {
+      const element =
+        event.target instanceof Element
+          ? event.target.closest("h1,h2,h3,h4,p,a,button,li,summary,span,strong,small")
+          : null;
+      const text = element?.textContent?.replace(/\s+/g, " ").trim() ?? "";
+      if (text.length < 3) return;
+      window.parent.postMessage({ source: "eiretech-admin-preview", type: "pick-text", text }, "*");
+    };
+
+    document.addEventListener("click", relayPreviewClick, true);
+    return () => document.removeEventListener("click", relayPreviewClick, true);
+  }, []);
+
   return (
     <ThemeProvider>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}

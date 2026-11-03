@@ -485,6 +485,28 @@ function Preview({
   const [reachable, setReachable] = useState<boolean | null>(null);
   const detachPreviewClick = useRef<(() => void) | null>(null);
 
+  // Locally the admin and site use different ports. The Vite dev server adds
+  // a tiny postMessage bridge so preview clicks still reach this panel. Live,
+  // both live under the same origin and makePreviewEditable handles the click.
+  useEffect(() => {
+    const onMessage = (event: MessageEvent<unknown>) => {
+      if (event.source !== ref.current?.contentWindow) return;
+      const message = event.data;
+      if (
+        !message ||
+        typeof message !== "object" ||
+        (message as { source?: unknown }).source !== "eiretech-admin-preview" ||
+        (message as { type?: unknown }).type !== "pick-text" ||
+        typeof (message as { text?: unknown }).text !== "string"
+      ) {
+        return;
+      }
+      onPickText((message as { text: string }).text);
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [onPickText, ref]);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -535,7 +557,7 @@ function Preview({
           {siteUrl}
           {path}
         </span>
-        <span className="hidden text-[11px] text-ink-soft 2xl:inline">Click text to edit</span>
+        <span className="text-[11px] text-ink-soft">Click text to edit</span>
         <button type="button" className="btn px-2 py-1" onClick={onReload} disabled={!reachable}>
           Reload
         </button>
