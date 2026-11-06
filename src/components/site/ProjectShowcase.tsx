@@ -33,22 +33,36 @@ function ProjectCase({ project }: { project: Project }) {
       id={projectAnchor(project)}
       className="scroll-mt-28 overflow-hidden rounded-3xl border border-brand-line bg-brand-surface"
     >
-      <a
-        href={project.url}
-        target="_blank"
-        rel="noopener"
-        className="group relative block aspect-[16/8] overflow-hidden border-b border-brand-line"
-      >
-        <img
-          src={project.img}
-          alt={`${project.title}: ${project.category} project by Eire Tech`}
-          width={1600}
-          height={800}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.02]"
-        />
-      </a>
+      {project.url ? (
+        <a
+          href={project.url}
+          target="_blank"
+          rel="noopener"
+          className="group relative block overflow-hidden border-b border-brand-line bg-brand-bg"
+        >
+          <img
+            src={project.img}
+            alt={`${project.title}: ${project.category} project by Eire Tech`}
+            width={1600}
+            height={1200}
+            loading="lazy"
+            decoding="async"
+            className="block max-h-[42rem] w-full object-contain transition duration-700 group-hover:scale-[1.01]"
+          />
+        </a>
+      ) : (
+        <div className="border-b border-brand-line bg-brand-bg">
+          <img
+            src={project.img}
+            alt={`${project.title}: ${project.category} project by Eire Tech`}
+            width={1600}
+            height={1200}
+            loading="lazy"
+            decoding="async"
+            className="block max-h-[42rem] w-full object-contain"
+          />
+        </div>
+      )}
 
       <div className="p-5 sm:p-7 md:p-12">
         <div className="flex flex-wrap items-start justify-between gap-6">
@@ -63,15 +77,21 @@ function ProjectCase({ project }: { project: Project }) {
               <Highlight text={project.summary} />
             </p>
           </div>
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener"
-            className="group inline-flex shrink-0 items-center gap-2 rounded-full brand-gradient-bg px-6 py-3 font-bold text-white transition-shadow hover:brand-glow"
-          >
-            {project.linkLabel}
-            <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
-          </a>
+          {project.url ? (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener"
+              className="group inline-flex shrink-0 items-center gap-2 rounded-full brand-gradient-bg px-6 py-3 font-bold text-white transition-shadow hover:brand-glow"
+            >
+              {project.linkLabel}
+              <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
+            </a>
+          ) : (
+            <span className="rounded-full border border-brand-accent/30 bg-brand-accent/10 px-5 py-3 text-sm font-bold text-brand-accent-text">
+              Portfolio case study
+            </span>
+          )}
         </div>
 
         {project.facts.length ? (
@@ -230,8 +250,7 @@ export function ProjectShowcase({
           {serviceTitle} projects we've delivered
         </h2>
         <p className="mt-4 max-w-2xl text-lg text-brand-muted">
-          Live products built by our team. Switch between the business and technical overview to see
-          each one from the angle that matters to you.
+          Selected project work, grouped by the service that brought each experience to life.
         </p>
         <div className="mt-10 space-y-8">
           {projects.map((project) => (

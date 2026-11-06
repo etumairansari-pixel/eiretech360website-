@@ -4,12 +4,10 @@ import { Shell } from "@/components/site/Shell";
 import { Highlight } from "@/components/site/Highlight";
 import { HeroVideo } from "@/components/site/HeroVideo";
 import { services } from "@/content/services";
-import { projects } from "@/content/projects";
 import { headFor, pathFor } from "@/content";
 import homePage from "../../content/pages/home.json";
 import testimonialContent from "../../content/testimonials.json";
 import platforms from "../../content/platforms.json";
-import { slugify } from "@/content/services";
 const testimonials = testimonialContent.filter(
   (item) => item.approved && item.company && item.project,
 );
@@ -104,27 +102,57 @@ function Hero() {
     </section>
   );
 }
-function ProjectProof() {
+function ImpactByDesign() {
   return (
-    <section className="dm-section dm-proof-strip">
+    <section className="dm-impact-section" aria-labelledby="impact-title">
       <div className="dm-container">
-        <p className="dm-eyebrow">Built by EireTech360</p>
-        <div className="dm-proof-grid">
-          {projects.slice(0, 3).map((project) => (
-            <Link
-              key={project.title}
-              to="/services/$slug"
-              params={{ slug: project.service }}
-              state={{ section: `work-${slugify(project.title)}` }}
-            >
-              <span>{project.category}</span>
-              <h3>
-                {project.title}
-                <ArrowUpRight size={17} />
-              </h3>
-              <p>{project.outcome}</p>
-            </Link>
-          ))}
+        <div className="dm-impact-loop">
+          <div className="dm-impact-loop-copy">
+            <p>Impact operating system / 2030</p>
+            <h2 id="impact-title">
+              Design that
+              <br />
+              <span>moves good forward.</span>
+            </h2>
+            <p className="dm-impact-loop-intro">
+              A flat, future-facing approach to digital: clearer systems for people, more mindful
+              choices for the planet, and better pathways for young talent.
+            </p>
+            <span className="dm-impact-loop-note">People × Planet × Potential</span>
+          </div>
+
+          <div className="dm-impact-route" aria-label="Impact loop priorities">
+            <svg viewBox="0 0 650 430" role="img" aria-label="A connected path between planet, people and youth opportunity">
+              <path d="M48 302 C154 385, 198 82, 322 148 S457 394, 600 123" fill="none" stroke="#e7eee0" strokeWidth="5" strokeLinecap="round" />
+              <path d="M48 302 C154 385, 198 82, 322 148" fill="none" stroke="#71b94c" strokeWidth="9" strokeLinecap="round" />
+              <path d="M322 148 C405 196, 457 394, 600 123" fill="none" stroke="#2b9dcc" strokeWidth="9" strokeLinecap="round" />
+              <circle cx="48" cy="302" r="17" fill="#71b94c" />
+              <circle cx="322" cy="148" r="17" fill="#f0b541" />
+              <circle cx="600" cy="123" r="17" fill="#2b9dcc" />
+              <circle cx="184" cy="285" r="7" fill="#e7eee0" />
+              <circle cx="470" cy="290" r="7" fill="#e7eee0" />
+            </svg>
+            <div className="dm-impact-route-title">The impact loop</div>
+            <div className="dm-impact-point dm-impact-point-planet">
+              <b>01 / PLANET</b>
+              <span>Make mindful<br />digital choices.</span>
+            </div>
+            <div className="dm-impact-point dm-impact-point-youth">
+              <b>02 / YOUTH</b>
+              <span>Create room for<br />new potential.</span>
+            </div>
+            <div className="dm-impact-point dm-impact-point-people">
+              <b>03 / PEOPLE</b>
+              <span>Make access feel<br />natural to everyone.</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="dm-impact-loop-footer">
+          <p>SDG-inspired thinking, translated into responsible digital practice.</p>
+          <span>Environmental awareness</span>
+          <span>Inclusive access</span>
+          <span>Youth opportunity</span>
         </div>
       </div>
     </section>
@@ -137,14 +165,14 @@ function Home() {
     <Shell>
       <div className="dm-site">
         <Hero />
-        <ProjectProof />
+        <ImpactByDesign />
         <div className="dm-channel-strip">
           <div className="dm-container">
             {[
-              "Search Engine Optimization",
-              "Google & Meta Ads",
-              "Social Media Marketing",
-              "Content Strategy",
+              "People-Centred Design",
+              "Sustainable Digital Thinking",
+              "Youth-Friendly Experiences",
+              "Inclusive Access",
               "Web & App Development",
             ].map((t) => (
               <span key={t}>{t}</span>
@@ -288,53 +316,6 @@ function Home() {
                   </Link>
                 );
               })}
-            </div>
-          </div>
-        </section>
-        <section className="dm-section dm-soft" id="featured-projects">
-          <div className="dm-container">
-            <div className="dm-section-heading">
-              <p className="dm-eyebrow">Featured case studies</p>
-              <h2>
-                Business challenges.
-                <br />
-                <span>Working solutions.</span>
-              </h2>
-              <p>Explore what we built and the capabilities each project delivers.</p>
-            </div>
-            <div className="dm-case-grid">
-              {projects.slice(0, 4).map((project) => (
-                <article className="dm-case-card" key={project.title}>
-                  <img
-                    src={project.img}
-                    alt={`${project.title} project`}
-                    width={900}
-                    height={550}
-                    loading="lazy"
-                  />
-                  <div className="dm-case-copy">
-                    <p className="dm-eyebrow">{project.category}</p>
-                    <h3>{project.title}</h3>
-                    <dl>
-                      <dt>Challenge</dt>
-                      <dd>{project.challenge}</dd>
-                      <dt>Solution</dt>
-                      <dd>{project.solution}</dd>
-                      <dt>Delivered outcome</dt>
-                      <dd>{project.outcome}</dd>
-                    </dl>
-                    <Link
-                      to="/services/$slug"
-                      params={{ slug: project.service }}
-                      state={{ section: `work-${slugify(project.title)}` }}
-                      className="dm-text-link"
-                    >
-                      Explore case study
-                      <ArrowUpRight size={17} />
-                    </Link>
-                  </div>
-                </article>
-              ))}
             </div>
           </div>
         </section>

@@ -35,11 +35,18 @@ import videoElfliqPoster from "@/assets/video-elfliq-poster.webp";
 import videoLostMaryBm6000 from "@/assets/video-lost-mary-bm6000.mp4";
 import videoLostMaryBm6000Poster from "@/assets/video-lost-mary-bm6000-poster.webp";
 import projectAttend from "@/assets/project-attend.jpg";
-import projectCliffsOfPuff from "@/assets/project-cliffs-of-puff.jpg";
+import projectCliffsOfPuff from "@/assets/portfolio-cliffs-of-puff.png";
 import projectE360 from "@/assets/project-e360.jpg";
-import projectCandyCiao from "@/assets/project-candy-ciao.jpg";
-import projectLoomCandy from "@/assets/project-loom-candy.jpg";
-import projectLeatherCulture from "@/assets/project-leather-culture.jpg";
+import projectCandyCiao from "@/assets/portfolio-candy-ciao.png";
+import projectLoomCandy from "@/assets/portfolio-loom-candy.png";
+import projectLeatherCulture from "@/assets/portfolio-leather-culture.png";
+import projectReNuu from "@/assets/portfolio-renuu.png";
+import projectCommons from "@/assets/portfolio-commons.png";
+import projectServora from "@/assets/portfolio-servora.png";
+import projectProcureX from "@/assets/portfolio-procurex.png";
+import projectPakistanDevelopmentForum from "@/assets/portfolio-pdf.png";
+import projectNewsPeek from "@/assets/portfolio-news-peek.png";
+import projectIPear from "@/assets/portfolio-ipear.png";
 import svcAi from "@/assets/photo-ai.webp";
 import svcApp from "@/assets/photo-app.webp";
 import svcAtl from "@/assets/photo-atl.webp";
@@ -167,6 +174,13 @@ export const images = {
   "project-candy-ciao": projectCandyCiao,
   "project-loom-candy": projectLoomCandy,
   "project-leather-culture": projectLeatherCulture,
+  "project-renuu": projectReNuu,
+  "project-commons": projectCommons,
+  "project-servora": projectServora,
+  "project-procurex": projectProcureX,
+  "project-pakistan-development-forum": projectPakistanDevelopmentForum,
+  "project-news-peek": projectNewsPeek,
+  "project-ipear": projectIPear,
   "svc-ai": svcAi,
   "svc-app": svcApp,
   "svc-atl": svcAtl,

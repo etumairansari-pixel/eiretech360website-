@@ -35,7 +35,9 @@ export const projects: Project[] = (raw as ProjectContent[]).map((project) => ({
   url: project.url,
   linkLabel:
     project.linkLabel?.trim() ||
-    `Visit ${project.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}`,
+    (project.url
+      ? `Visit ${project.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}`
+      : "Portfolio case study"),
   img: imageFor(project.image),
   summary: project.summary,
   challenge: project.challenge,
