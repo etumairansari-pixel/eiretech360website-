@@ -146,9 +146,9 @@ jobs:
             **/.htaccess
 
       - name: Direct upload to Hostinger
-        # Hostinger's Git build is the publisher. It has the admin secrets and
-        # runs build:hosting, while this workflow retains a verified artifact.
-        if: false
+        # Publish the verified static build when the SFTP deployment secrets
+        # are configured for this repository.
+        if: steps.check.outputs.upload == 'true'
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
