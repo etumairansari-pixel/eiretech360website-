@@ -250,8 +250,7 @@
   padding-block: 104px;
   background:
     radial-gradient(circle at 85% 20%, rgb(191 221 123 / 42%), transparent 23%),
-    radial-gradient(circle at 14% 90%, rgb(33 139 110 / 15%), transparent 29%),
-    #eef5eb;
+    radial-gradient(circle at 14% 90%, rgb(33 139 110 / 15%), transparent 29%), #eef5eb;
 }
 .dm-impact-section::before {
   position: absolute;
@@ -306,7 +305,9 @@
   height: 340px;
   border: 1px solid rgb(218 237 187 / 34%);
   border-radius: 50% !important;
-  box-shadow: 0 0 0 48px rgb(218 237 187 / 8%), 0 0 0 96px rgb(218 237 187 / 6%);
+  box-shadow:
+    0 0 0 48px rgb(218 237 187 / 8%),
+    0 0 0 96px rgb(218 237 187 / 6%);
   content: "";
 }
 .dm-impact-kicker {
@@ -447,8 +448,7 @@
 .dark .dm-impact-section {
   background:
     radial-gradient(circle at 86% 20%, rgb(112 162 63 / 25%), transparent 25%),
-    radial-gradient(circle at 14% 90%, rgb(27 151 112 / 15%), transparent 30%),
-    #071712;
+    radial-gradient(circle at 14% 90%, rgb(27 151 112 / 15%), transparent 30%), #071712;
 }
 .dark .dm-impact-section::before {
   background-image: radial-gradient(rgb(196 232 204 / 16%) 1px, transparent 1px);
@@ -517,9 +517,7 @@
   min-height: 520px;
   overflow: hidden;
   border: 1px solid rgb(220 243 211 / 14%);
-  background:
-    linear-gradient(135deg, rgb(53 118 86 / 18%), transparent 37%),
-    #0d2922;
+  background: linear-gradient(135deg, rgb(53 118 86 / 18%), transparent 37%), #0d2922;
 }
 .dm-impact-copy {
   position: relative;
@@ -625,7 +623,9 @@
   border: 1px solid rgb(231 245 222 / 45%);
   border-radius: 50% !important;
   background: #d8efbd;
-  box-shadow: 0 0 0 18px rgb(216 239 189 / 6%), 0 22px 70px rgb(0 0 0 / 22%);
+  box-shadow:
+    0 0 0 18px rgb(216 239 189 / 6%),
+    0 22px 70px rgb(0 0 0 / 22%);
   color: #123d30;
   text-align: center;
   transform: translate(-50%, -50%);
@@ -1607,6 +1607,585 @@
   background: #fff;
   padding: 28px 0;
   box-shadow: 0 8px 30px #0b355e06;
+}
+
+/* Compact 11.11 header strip, deliberately not a hero. */
+.dm-promo-section {
+  padding-top: 92px;
+  background: #06142d;
+}
+.dm-promo-banner {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 104px;
+  border-inline: 1px solid #ffffff1f;
+  background: #061b42;
+}
+.dm-promo-art {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.dm-promo-banner::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(90deg, #041330ec 0%, #061942df 53%, #06173780 78%, #06133132 100%);
+  content: "";
+}
+.dm-promo-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(18px, 3vw, 44px);
+  min-height: 104px;
+  padding: 14px clamp(20px, 4vw, 52px);
+}
+.dm-promo-event {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #f9c957;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.09em;
+  line-height: 1;
+  text-shadow: 0 2px 18px #eeb63870;
+}
+.dm-promo-event i {
+  width: 5px;
+  height: 5px;
+  margin-top: 12px;
+  border-radius: 50%;
+  background: #f9c957;
+  box-shadow: 0 0 13px #f9c957;
+}
+.dm-site .dm-promo-copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+}
+.dm-site .dm-promo-copy p,
+.dm-site .dm-promo-copy small {
+  margin: 0;
+  color: #bbcae6;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.dm-promo-copy strong {
+  color: #fff7db;
+  font-size: clamp(24px, 2.6vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 1;
+  text-shadow: 0 2px 16px #ffd34c4d;
+}
+.dm-promo-copy strong span {
+  color: #f9c957;
+  font-size: 0.48em;
+  letter-spacing: 0.09em;
+}
+.dm-promo-button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #f6cd665e;
+  border-radius: 8px;
+  padding: 10px 13px;
+  background: #f5c64b;
+  color: #06183a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition:
+    transform 160ms ease,
+    background 160ms ease;
+}
+.dm-promo-button:hover {
+  border-color: #ffe7a7;
+  background: #ffda6f;
+  color: #03122d;
+  transform: translateY(-2px);
+}
+.dm-promo-section + .dm-home-hero {
+  padding-top: 42px;
+}
+@media (max-width: 760px) {
+  .dm-promo-section {
+    padding-top: 78px;
+  }
+  .dm-promo-banner {
+    min-height: 86px;
+  }
+  .dm-promo-art {
+    object-position: 63% center;
+  }
+  .dm-promo-banner::before {
+    background: linear-gradient(90deg, #041330f5, #061a42cd 72%, #06153590);
+  }
+  .dm-promo-grid {
+    gap: 12px;
+    min-height: 86px;
+    padding: 12px 20px;
+  }
+  .dm-promo-event {
+    font-size: 26px;
+  }
+  .dm-promo-event i {
+    width: 4px;
+    height: 4px;
+    margin-top: 8px;
+  }
+  .dm-site .dm-promo-copy p,
+  .dm-site .dm-promo-copy small {
+    display: none;
+  }
+  .dm-promo-copy strong {
+    font-size: 29px;
+  }
+  .dm-promo-button {
+    padding: 9px 10px;
+    font-size: 10px;
+  }
+  .dm-promo-section + .dm-home-hero {
+    padding-top: 26px;
+  }
+}
+/* The supplied campaign creatives have separate desktop and mobile artwork. */
+.dm-promo-art {
+  z-index: 0;
+  object-fit: initial;
+  object-position: initial;
+}
+.dm-promo-art img {
+  display: block;
+  width: 100%;
+  height: 104px;
+  object-fit: cover;
+  object-position: center;
+}
+.dm-promo-banner::before {
+  display: none;
+}
+.dm-promo-brand-panel {
+  position: absolute;
+  z-index: 1;
+  inset: 0 auto 0 0;
+  display: flex;
+  align-items: center;
+  width: min(25%, 325px);
+  padding-left: clamp(16px, 2.2vw, 32px);
+  background: linear-gradient(90deg, #031332 0%, #06235be8 77%, #06235b00 100%);
+}
+.dm-promo-logo {
+  width: auto;
+  height: clamp(23px, 2.5vw, 34px);
+}
+.dm-promo-button {
+  position: absolute;
+  z-index: 2;
+  right: clamp(10px, 1.4vw, 20px);
+  bottom: 10px;
+  border-color: #f6cd665e;
+  border-radius: 8px;
+  padding: 8px 11px;
+  background: #f5c64b;
+  color: #06183a;
+  font-size: 10px;
+}
+@media (max-width: 760px) {
+  .dm-promo-art img {
+    height: 86px;
+  }
+  .dm-promo-brand-panel {
+    width: 37%;
+    padding-left: 12px;
+    background: linear-gradient(90deg, #031332 0%, #06235bf2 82%, #06235b00 100%);
+  }
+  .dm-promo-logo {
+    height: 22px;
+  }
+  .dm-promo-button {
+    right: 8px;
+    bottom: 8px;
+    padding: 7px 9px;
+    font-size: 9px;
+  }
+}
+
+/* Recompose the supplied artwork: its baked-in logo stays in the background,
+   while the readable offer starts with 11.11. */
+.dm-promo-banner {
+  border: 1px solid #4b7fe05c;
+  background: #061a40;
+  box-shadow: 0 14px 34px #020a1f36;
+}
+.dm-promo-art {
+  z-index: 0;
+}
+.dm-promo-art img {
+  height: 104px;
+  filter: blur(6px) brightness(0.33) saturate(1.15);
+  opacity: 0.72;
+  transform: scale(1.045);
+}
+.dm-promo-banner::before {
+  z-index: 1;
+  display: block;
+  background:
+    radial-gradient(circle at 30% 50%, #2c7bd337 0, transparent 30%),
+    linear-gradient(90deg, #051738f5 0%, #08265aeb 48%, #061a40ed 100%);
+}
+.dm-promo-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.2vw, 30px);
+  min-height: 104px;
+  padding: 12px clamp(18px, 4vw, 50px);
+  padding-right: 146px;
+}
+.dm-promo-event {
+  margin: 0;
+  color: #ffd86d;
+  font-size: clamp(38px, 3.4vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.1em;
+  line-height: 0.9;
+  text-shadow: 0 2px 15px #f0a91e80;
+}
+.dm-promo-event span {
+  color: #fff5c8;
+}
+.dm-promo-divider {
+  width: 1px;
+  height: 49px;
+  background: linear-gradient(transparent, #f5cc5c, transparent);
+}
+.dm-site .dm-promo-copy {
+  display: grid;
+  gap: 2px;
+}
+.dm-site .dm-promo-copy p,
+.dm-site .dm-promo-copy small {
+  display: block;
+  margin: 0;
+  color: #c9daf7;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+.dm-promo-copy strong {
+  color: #fff;
+  font-size: clamp(23px, 2vw, 31px);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  text-shadow: none;
+  text-transform: uppercase;
+}
+.dm-promo-copy strong em {
+  color: #c5f322;
+  font-style: normal;
+}
+.dm-promo-button {
+  position: absolute;
+  z-index: 3;
+  right: clamp(12px, 1.7vw, 24px);
+  top: 50%;
+  bottom: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ffe29b;
+  border-radius: 7px;
+  padding: 10px 13px;
+  background: #f5ca5d;
+  color: #071a3b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  transform: translateY(-50%);
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+.dm-promo-button:hover {
+  border-color: #ffe29b;
+  background: #ffe089;
+  box-shadow: 0 4px 18px #f5ca5d66;
+  color: #071a3b;
+  transform: translateY(-50%);
+}
+@media (max-width: 760px) {
+  .dm-promo-art img {
+    height: 86px;
+    object-position: 68% center;
+  }
+  .dm-promo-content {
+    gap: 11px;
+    min-height: 86px;
+    padding: 10px 101px 10px 16px;
+  }
+  .dm-promo-event {
+    font-size: 36px;
+  }
+  .dm-promo-divider {
+    height: 39px;
+  }
+  .dm-site .dm-promo-copy p {
+    display: none;
+  }
+  .dm-site .dm-promo-copy small {
+    font-size: 7px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+  .dm-promo-copy strong {
+    font-size: 23px;
+  }
+  .dm-promo-button {
+    right: 9px;
+    padding: 9px 10px;
+    font-size: 9px;
+  }
+  .dm-promo-button svg {
+    width: 13px;
+  }
+}
+
+/* Supplied 11.11 campaign artwork: a full offer visual on the left, with
+   supporting copy and a direct enquiry path on the right. */
+.dm-promo-banner {
+  min-height: 124px;
+  border-color: #3a75c0a8;
+  background:
+    radial-gradient(circle at 82% 50%, #0c4cae74 0, transparent 31%),
+    linear-gradient(105deg, #061d4d 0%, #07183d 70%, #031431 100%);
+}
+.dm-promo-banner::before {
+  display: none;
+}
+.dm-promo-banner::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0%, transparent 56%, #071a3d5c 72%, #0314305c 100%),
+    linear-gradient(135deg, transparent 0%, transparent 80%, #41b5ff26 100%);
+  content: "";
+  pointer-events: none;
+}
+.dm-promo-art {
+  z-index: 0;
+  inset: 0 auto 0 0;
+  width: clamp(360px, 31vw, 430px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 75%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 75%, transparent 100%);
+}
+.dm-promo-art img {
+  display: block;
+  width: auto;
+  height: 122px;
+  max-width: none;
+  object-fit: contain;
+  filter: none;
+  opacity: 1;
+  transform: none;
+}
+.dm-promo-content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  align-content: center;
+  gap: 5px;
+  min-height: 124px;
+  margin-left: clamp(360px, 31vw, 430px);
+  padding: 16px 165px 16px 22px;
+}
+.dm-promo-content p,
+.dm-promo-content small {
+  margin: 0;
+  color: #b9d5ff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+.dm-promo-content strong {
+  max-width: 490px;
+  color: #fff;
+  font-size: clamp(18px, 1.8vw, 27px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1.08;
+}
+.dm-promo-content small {
+  color: #c9d7ec;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+.dm-promo-button {
+  z-index: 3;
+  right: clamp(12px, 1.7vw, 24px);
+  padding: 10px 13px;
+}
+@media (max-width: 760px) {
+  .dm-promo-banner {
+    min-height: 118px;
+  }
+  .dm-promo-art {
+    width: 54%;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 80%, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 0%, #000 80%, transparent 100%);
+  }
+  .dm-promo-art img {
+    height: 118px;
+    transform: translateX(-24px);
+  }
+  .dm-promo-content {
+    gap: 4px;
+    min-height: 118px;
+    margin-left: 49%;
+    padding: 12px 10px 43px 5px;
+  }
+  .dm-promo-content p {
+    font-size: 7px;
+    letter-spacing: 0.08em;
+  }
+  .dm-promo-content strong {
+    font-size: clamp(13px, 4vw, 17px);
+    line-height: 1.1;
+  }
+  .dm-promo-content small {
+    display: none;
+  }
+  .dm-promo-button {
+    right: 9px;
+    top: auto;
+    bottom: 9px;
+    padding: 8px 10px;
+    transform: none;
+  }
+  .dm-promo-button:hover {
+    transform: none;
+  }
+}
+
+/* Keep the visual offer as the mobile focal point; the supporting copy only
+   belongs on wider screens where it has breathing room. */
+.dm-promo-content {
+  gap: 2px;
+}
+.dm-promo-content p {
+  color: #a8ccff;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.dm-promo-content strong {
+  color: #fff;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: clamp(16px, 1.45vw, 22px);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+.dm-promo-content small {
+  color: #deebff;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+@media (max-width: 760px) {
+  .dm-promo-art {
+    width: 72%;
+  }
+  .dm-promo-art img {
+    transform: translateX(-15px);
+  }
+  .dm-promo-content {
+    display: none;
+  }
+  .dm-promo-button {
+    border-color: #ffe29b;
+    background: #f4c84d;
+    color: #061b43;
+  }
+}
+
+/* Final campaign artwork is already typeset for each breakpoint. */
+.dm-promo-banner {
+  min-height: 104px;
+  border-color: #3a75c07d;
+  background: #06194a;
+  box-shadow: 0 12px 30px #020a1f36;
+}
+.dm-promo-banner::after {
+  background: linear-gradient(90deg, transparent 0%, transparent 82%, #0313382e 100%);
+}
+.dm-promo-art {
+  inset: 0;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.dm-promo-art img {
+  width: 100%;
+  height: 104px;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: none;
+}
+.dm-promo-content {
+  display: none;
+}
+.dm-promo-button {
+  right: 13px;
+  border-color: #ffe89b;
+  background: #f3ca4e;
+  box-shadow: 0 3px 12px #03133275;
+}
+@media (max-width: 760px) {
+  .dm-promo-banner {
+    min-height: 0;
+    aspect-ratio: 2172 / 580;
+  }
+  .dm-promo-art {
+    width: 100%;
+  }
+  .dm-promo-art img {
+    height: 100%;
+    object-position: center;
+    transform: none;
+  }
+  .dm-promo-button {
+    right: 7px;
+    bottom: 7px;
+    padding: 7px 9px;
+    font-size: 9px;
+  }
 }
 .dm-section {
   padding-block: 100px;
@@ -2687,8 +3266,7 @@
   padding-block: 104px;
   background:
     radial-gradient(circle at 92% 8%, rgb(140 197 78 / 28%), transparent 25%),
-    radial-gradient(circle at 4% 58%, rgb(11 111 196 / 13%), transparent 28%),
-    #f4f8f1;
+    radial-gradient(circle at 4% 58%, rgb(11 111 196 / 13%), transparent 28%), #f4f8f1;
 }
 .dm-impact-work::before {
   position: absolute;
@@ -2750,7 +3328,9 @@
   border: 1px solid rgb(18 78 56 / 14%);
   background: #fff;
   box-shadow: 0 18px 34px rgb(18 71 52 / 10%);
-  transition: transform 0.24s ease, box-shadow 0.24s ease;
+  transition:
+    transform 0.24s ease,
+    box-shadow 0.24s ease;
 }
 .dm-portfolio-card:hover {
   transform: translateY(-6px);

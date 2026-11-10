@@ -3,6 +3,8 @@ import { ArrowUpRight, Check, ChevronDown, Quote } from "lucide-react";
 import { Shell } from "@/components/site/Shell";
 import { Highlight } from "@/components/site/Highlight";
 import { HeroVideo } from "@/components/site/HeroVideo";
+import campaignDesktop from "@/assets/campaign-1111-desktop.webp";
+import campaignMobile from "@/assets/campaign-1111-mobile.webp";
 import { services } from "@/content/services";
 import { headFor, pathFor } from "@/content";
 import homePage from "../../content/pages/home.json";
@@ -158,12 +160,28 @@ function ImpactByDesign() {
     </section>
   );
 }
+
+function CampaignBanner() {
+  return (
+    <section className="dm-promo-section" aria-label="11.11 annual plans offer">
+      <div className="dm-container">
+        <aside className="dm-promo-banner">
+          <picture className="dm-promo-art">
+            <source media="(max-width: 760px)" srcSet={campaignMobile} />
+            <img src={campaignDesktop} alt="" />
+          </picture>
+        </aside>
+      </div>
+    </section>
+  );
+}
 function Home() {
   const mission = homePage.mission;
   const why = homePage.why;
   return (
     <Shell>
       <div className="dm-site">
+        <CampaignBanner />
         <Hero />
         <ImpactByDesign />
         <div className="dm-channel-strip">
