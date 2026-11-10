@@ -170,8 +170,11 @@ jobs:
           # Upload directly. Hostinger rejects the hidden .in.* temporary-file
           # rename used by FTP-Deploy-Action. Keep the existing root .htaccess
           # intact, then explicitly publish the admin folder's protective one.
-          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
+          upload_sftp() {
+            lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
           set sftp:auto-confirm yes
+          set cmd:fail-exit yes
+          set xfer:use-temp-file false
           set net:max-retries 3
           set net:reconnect-interval-base 5
           set net:timeout 60
@@ -180,6 +183,34 @@ jobs:
           put -O "$SFTP_REMOTE_DIR/$ADMIN_PATH" "dist-static/$ADMIN_PATH/.htaccess"
           bye
           EOF
+          }
+
+          upload_ftps() {
+            lftp -u "$FTP_USER","$FTP_PASSWORD" "ftps://$FTP_HOST:$FTP_PORT" <<EOF
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set cmd:fail-exit yes
+          set xfer:use-temp-file false
+          set net:max-retries 3
+          set net:reconnect-interval-base 5
+          set net:timeout 60
+          mirror --reverse --verbose --no-perms --no-umask --exclude-glob .htaccess ./dist-static/ "$FTP_REMOTE_DIR"
+          mkdir -p "$FTP_REMOTE_DIR/$ADMIN_PATH"
+          put -O "$FTP_REMOTE_DIR/$ADMIN_PATH" "dist-static/$ADMIN_PATH/.htaccess"
+          bye
+          EOF
+          }
+
+          if upload_sftp; then
+            echo "Published via SFTP."
+          elif [ -n "$FTP_HOST" ] && [ -n "$FTP_USER" ] && [ -n "$FTP_PASSWORD" ]; then
+            echo "::warning::SFTP authentication failed; retrying via FTPS."
+            upload_ftps
+            echo "Published via FTPS."
+          else
+            echo "::error::SFTP authentication failed and no FTPS fallback credentials are configured."
+            exit 1
+          fi
 
       # The upload can report success while a folder never arrived, which then
       # only shows up as a 404 someone has to work backwards from. Ask the live
