@@ -189,6 +189,9 @@ jobs:
             lftp -u "$FTP_USER","$FTP_PASSWORD" "ftp://$FTP_HOST:$FTP_PORT" <<EOF
           set ftp:ssl-force true
           set ftp:ssl-protect-data true
+          # Hostinger's shared FTPS certificate is valid but issued for the
+          # server hostname rather than this account-specific FTP host.
+          set ssl:check-hostname false
           set cmd:fail-exit yes
           set xfer:use-temp-file false
           set net:max-retries 3
