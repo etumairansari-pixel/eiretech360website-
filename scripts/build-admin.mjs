@@ -14,6 +14,7 @@
  *   ADMIN_PASSWORD_HASH  the value npm run admin:password prints
  *   ADMIN_GITHUB_TOKEN   a token that can read and write the repository
  *   ADMIN_GITHUB_REPO    "owner/name"
+ *   SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (to show contact inquiries)
  *
  * Optional:
  *   ADMIN_GITHUB_BRANCH    default "main"
@@ -36,6 +37,8 @@ const env = {
   repo: process.env.ADMIN_GITHUB_REPO,
   branch: process.env.ADMIN_GITHUB_BRANCH || "main",
   workflow: process.env.ADMIN_GITHUB_WORKFLOW || "deploy.yml",
+  supabaseUrl: process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL,
+  supabaseServiceRole: process.env.SUPABASE_SERVICE_ROLE_KEY,
 };
 
 // No ADMIN_PATH means the live editor has not been set up yet. That is a valid
@@ -156,6 +159,12 @@ define('ADMIN_GITHUB_TOKEN', '${php(env.token)}');
 define('ADMIN_GITHUB_REPO', '${php(env.repo)}');
 define('ADMIN_GITHUB_BRANCH', '${php(env.branch)}');
 define('ADMIN_GITHUB_WORKFLOW', '${php(env.workflow)}');
+${
+  env.supabaseUrl && env.supabaseServiceRole
+    ? `define('SUPABASE_URL', '${php(env.supabaseUrl)}');
+define('SUPABASE_SERVICE_ROLE_KEY', '${php(env.supabaseServiceRole)}');`
+    : ""
+}
 `,
 );
 

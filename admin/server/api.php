@@ -137,6 +137,33 @@ function github(string $method, string $path, ?array $body = null): array
     return ['status' => $status, 'body' => json_decode($response, true)];
 }
 
+/** Makes a server-side call to Supabase. The service key never reaches the browser. */
+function supabase(string $method, string $path): array
+{
+    $handle = curl_init(rtrim(SUPABASE_URL, '/') . $path);
+    $headers = [
+        'apikey: ' . SUPABASE_SERVICE_ROLE_KEY,
+        'Authorization: Bearer ' . SUPABASE_SERVICE_ROLE_KEY,
+        'Accept: application/json',
+    ];
+
+    curl_setopt($handle, CURLOPT_CUSTOMREQUEST, $method);
+    curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+    curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
+
+    $response = curl_exec($handle);
+    $status   = (int) curl_getinfo($handle, CURLINFO_HTTP_CODE);
+    $error    = curl_error($handle);
+    curl_close($handle);
+
+    if ($response === false || $status === 0) {
+        return ['status' => 0, 'body' => ['message' => $error ?: 'Could not reach Supabase']];
+    }
+
+    return ['status' => $status, 'body' => json_decode($response, true)];
+}
+
 /**
  * Turns a failed GitHub call into something an editor can act on.
  *
@@ -639,6 +666,25 @@ if ($action === 'logout' && $method === 'POST') {
 
 if (!$signedIn) {
     reply(401, ['ok' => false, 'error' => 'Sign in first.']);
+}
+
+if ($action === 'inquiries' && $method === 'GET') {
+    if (!defined('SUPABASE_URL') || !defined('SUPABASE_SERVICE_ROLE_KEY')) {
+        reply(503, [
+            'ok' => false,
+            'error' => 'Contact inquiries are not configured. Add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to the admin deployment secrets, then redeploy.',
+        ]);
+    }
+
+    $query = '?select=' . rawurlencode('id,full_name,email,phone,company,service,message,status,created_at')
+        . '&order=created_at.desc&limit=100';
+    $result = supabase('GET', '/rest/v1/contact_submissions' . $query);
+
+    if ($result['status'] !== 200 || !is_array($result['body'])) {
+        reply(502, ['ok' => false, 'error' => 'Could not read contact inquiries from Supabase.']);
+    }
+
+    reply(200, ['inquiries' => $result['body']]);
 }
 
 if ($action === 'content' && $method === 'GET') {

@@ -5,6 +5,7 @@ import {
   isLocal,
   getAt,
   loadContent,
+  loadInquiries,
   commitContent,
   setAt,
   signOut,
@@ -13,6 +14,7 @@ import {
   type Path,
   type Route,
   type Seo,
+  type Inquiry,
 } from "./api";
 import { Login } from "./Login";
 import { collectionSchema, globalSchema, pageSchema, type Section } from "./schema";
@@ -25,7 +27,8 @@ type View =
   | { kind: "page"; key: string }
   | { kind: "collection"; key: string }
   | { kind: "global" }
-  | { kind: "blog"; index: number | null };
+  | { kind: "blog"; index: number | null }
+  | { kind: "inquiries" };
 
 type EditTarget = {
   label: string;
@@ -181,6 +184,9 @@ export default function App() {
   const [previewOpen, setPreviewOpen] = useState(true);
   const [focusPath, setFocusPath] = useState<Path | null>(null);
   const [quickTarget, setQuickTarget] = useState<EditTarget | null>(null);
+  const [inquiries, setInquiries] = useState<Inquiry[] | null>(null);
+  const [inquiriesError, setInquiriesError] = useState<string | null>(null);
+  const [inquiriesLoading, setInquiriesLoading] = useState(false);
 
   const previewRef = useRef<HTMLIFrameElement>(null);
 
@@ -217,11 +223,34 @@ export default function App() {
       });
   }, [signedIn]);
 
+  const refreshInquiries = useCallback(async () => {
+    setInquiriesLoading(true);
+    setInquiriesError(null);
+    try {
+      setInquiries(await loadInquiries());
+    } catch (error) {
+      if (error instanceof NotSignedIn) {
+        setSignedIn(false);
+        return;
+      }
+      setInquiriesError(String((error as Error).message ?? error));
+    } finally {
+      setInquiriesLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (signedIn && view.kind === "inquiries" && inquiries === null && !inquiriesLoading) {
+      void refreshInquiries();
+    }
+  }, [inquiries, inquiriesLoading, refreshInquiries, signedIn, view.kind]);
+
   const leave = useCallback(async () => {
     await signOut();
     setData(null);
     setDirty(false);
     setHasDraft(false);
+    setInquiries(null);
     setSignedIn(false);
   }, []);
 
@@ -416,7 +445,7 @@ export default function App() {
         hasDraft={hasDraft}
         onSignOut={leave}
         previewOpen={previewOpen}
-        previewAvailable={view.kind !== "blog"}
+        previewAvailable={view.kind !== "blog" && view.kind !== "inquiries"}
         onTogglePreview={() => setPreviewOpen((v) => !v)}
       />
 
@@ -453,7 +482,7 @@ export default function App() {
 
         <main className="min-w-0 flex-1 overflow-y-auto">
           <div
-            className={`mx-auto space-y-5 p-6 ${view.kind === "blog" ? "max-w-none" : "max-w-3xl"}`}
+            className={`mx-auto space-y-5 p-6 ${view.kind === "blog" || view.kind === "inquiries" ? "max-w-none" : "max-w-3xl"}`}
           >
             {view.kind === "page" ? (
               <PageForm data={data} pageKey={view.key} ctx={ctx} onChange={update} />
@@ -466,13 +495,20 @@ export default function App() {
               />
             ) : view.kind === "collection" ? (
               <CollectionForm data={data} collection={view.key} ctx={ctx} />
+            ) : view.kind === "inquiries" ? (
+              <InquiryList
+                inquiries={inquiries}
+                loading={inquiriesLoading}
+                error={inquiriesError}
+                onRefresh={() => void refreshInquiries()}
+              />
             ) : (
               <GlobalForm data={data} ctx={ctx} />
             )}
           </div>
         </main>
 
-        {previewOpen && view.kind !== "blog" ? (
+        {previewOpen && view.kind !== "blog" && view.kind !== "inquiries" ? (
           <Preview
             ref={previewRef}
             siteUrl={data.siteUrl}
@@ -920,11 +956,106 @@ function Sidebar({
         Site-wide
       </p>
       <div className="space-y-0.5">
+        {item(
+          view.kind === "inquiries",
+          "Contact inquiries",
+          "Latest website form submissions",
+          () => onSelect({ kind: "inquiries" }),
+        )}
         {item(view.kind === "global", "Settings", "Contact, social, footer", () =>
           onSelect({ kind: "global" }),
         )}
       </div>
     </nav>
+  );
+}
+
+function InquiryList({
+  inquiries,
+  loading,
+  error,
+  onRefresh,
+}: {
+  inquiries: Inquiry[] | null;
+  loading: boolean;
+  error: string | null;
+  onRefresh: () => void;
+}) {
+  const dateTime = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" });
+
+  return (
+    <>
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <div>
+          <h1 className="text-xl font-extrabold tracking-tight">Contact inquiries</h1>
+          <p className="hint mt-1">Newest website form submissions appear first.</p>
+        </div>
+        <button type="button" className="btn" onClick={onRefresh} disabled={loading}>
+          {loading ? "Refreshing…" : "Refresh"}
+        </button>
+      </div>
+
+      {error ? (
+        <section className="card border-red-200 p-5">
+          <h2 className="font-bold text-bad">Could not load inquiries</h2>
+          <p className="mt-2 text-sm text-bad">{error}</p>
+        </section>
+      ) : null}
+
+      {loading && inquiries === null ? (
+        <p className="text-sm text-ink-soft">Loading inquiries…</p>
+      ) : null}
+
+      {inquiries?.length === 0 ? (
+        <section className="card p-5 text-sm text-ink-soft">No contact inquiries yet.</section>
+      ) : null}
+
+      {inquiries && inquiries.length > 0 ? (
+        <div className="overflow-hidden rounded-[14px] border border-line bg-white">
+          <div className="overflow-x-auto">
+            <table className="min-w-[900px] w-full text-left text-sm">
+              <thead className="bg-surface text-xs text-ink-soft">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Received</th>
+                  <th className="px-4 py-3 font-semibold">Name & contact</th>
+                  <th className="px-4 py-3 font-semibold">Company</th>
+                  <th className="px-4 py-3 font-semibold">Service</th>
+                  <th className="px-4 py-3 font-semibold">Message</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-line">
+                {inquiries.map((inquiry) => (
+                  <tr key={inquiry.id} className="align-top hover:bg-surface/60">
+                    <td className="whitespace-nowrap px-4 py-3 text-xs text-ink-soft">
+                      {Number.isNaN(Date.parse(inquiry.created_at))
+                        ? inquiry.created_at
+                        : dateTime.format(new Date(inquiry.created_at))}
+                    </td>
+                    <td className="px-4 py-3">
+                      <p className="font-semibold">{inquiry.full_name}</p>
+                      <a
+                        className="text-xs text-brand hover:underline"
+                        href={`mailto:${inquiry.email}`}
+                      >
+                        {inquiry.email}
+                      </a>
+                      {inquiry.phone ? (
+                        <p className="mt-1 text-xs text-ink-soft">{inquiry.phone}</p>
+                      ) : null}
+                    </td>
+                    <td className="px-4 py-3 text-ink-soft">{inquiry.company || "—"}</td>
+                    <td className="px-4 py-3">{inquiry.service}</td>
+                    <td className="max-w-xl whitespace-pre-wrap px-4 py-3 leading-relaxed text-ink-soft">
+                      {inquiry.message}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 }
 

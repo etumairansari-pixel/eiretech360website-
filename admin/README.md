@@ -75,17 +75,18 @@ never stored anywhere — not in the repo, not on the server.
 GitHub → the repository → Settings → Secrets and variables → **Actions** →
 New repository secret:
 
-| Secret                          | Value                                               |
-| ------------------------------- | --------------------------------------------------- |
-| `ADMIN_PATH`                    | the folder name from step 1, e.g. `studio-7fa2c19e` |
-| `ADMIN_PASSWORD_HASH`           | the hash printed in step 3                          |
-| `ADMIN_GITHUB_TOKEN`            | the token from step 2                               |
-| `FTP_HOST`                      | your Hostinger FTP host                             |
-| `FTP_USER`                      | FTP username                                        |
-| `FTP_PASSWORD`                  | FTP password                                        |
-| `FTP_REMOTE_DIR`                | where the site lives, usually `/public_html/`       |
-| `VITE_SUPABASE_URL`             | the same value as in `.env.local`                   |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | the same value as in `.env.local`                   |
+| Secret                          | Value                                                                               |
+| ------------------------------- | ----------------------------------------------------------------------------------- |
+| `ADMIN_PATH`                    | the folder name from step 1, e.g. `studio-7fa2c19e`                                 |
+| `ADMIN_PASSWORD_HASH`           | the hash printed in step 3                                                          |
+| `ADMIN_GITHUB_TOKEN`            | the token from step 2                                                               |
+| `FTP_HOST`                      | your Hostinger FTP host                                                             |
+| `FTP_USER`                      | FTP username                                                                        |
+| `FTP_PASSWORD`                  | FTP password                                                                        |
+| `FTP_REMOTE_DIR`                | where the site lives, usually `/public_html/`                                       |
+| `VITE_SUPABASE_URL`             | the same value as in `.env.local`                                                   |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | the same value as in `.env.local`                                                   |
+| `SUPABASE_SERVICE_ROLE_KEY`     | Supabase server/service-role key; required for the private Contact inquiries screen |
 
 Optional: `FTP_PROTOCOL` — `ftps` by default; set to `ftp` only if your host
 does not offer FTPS.

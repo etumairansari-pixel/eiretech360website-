@@ -86,6 +86,19 @@ export type Catalog = {
 
 export type Loaded = Content & { catalog: Catalog; siteUrl: string };
 
+/** A contact form submission, returned only through the signed-in admin API. */
+export type Inquiry = {
+  id: string;
+  full_name: string;
+  email: string;
+  phone: string | null;
+  company: string | null;
+  service: string;
+  message: string;
+  status: "new" | "contacted" | "closed";
+  created_at: string;
+};
+
 /** Thrown when the server says there is no valid session. */
 export class NotSignedIn extends Error {
   constructor() {
@@ -134,6 +147,18 @@ export async function loadContent(): Promise<Loaded> {
   }
 
   return response.json();
+}
+
+/** Fetches the newest contact form submissions from the protected admin backend. */
+export async function loadInquiries(): Promise<Inquiry[]> {
+  const response = await fetch(endpoint("inquiries"));
+  if (response.status === 401) throw new NotSignedIn();
+
+  const body = await response.json().catch(() => null);
+  if (!response.ok) {
+    throw new Error(body?.error ?? `Could not load inquiries (${response.status}).`);
+  }
+  return Array.isArray(body?.inquiries) ? (body.inquiries as Inquiry[]) : [];
 }
 
 export type SaveResult = { ok: true; draft: true } | { ok: false; errors: string[] };
