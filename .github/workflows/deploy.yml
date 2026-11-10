@@ -186,7 +186,7 @@ jobs:
           }
 
           upload_ftps() {
-            lftp -u "$FTP_USER","$FTP_PASSWORD" "ftps://$FTP_HOST:$FTP_PORT" <<EOF
+            lftp -u "$FTP_USER","$FTP_PASSWORD" "ftp://$FTP_HOST:$FTP_PORT" <<EOF
           set ftp:ssl-force true
           set ftp:ssl-protect-data true
           set cmd:fail-exit yes
