@@ -146,9 +146,9 @@ jobs:
             **/.htaccess
 
       - name: Direct upload to Hostinger
-        # Publish the verified static build when the SFTP deployment secrets
-        # are configured for this repository.
-        if: steps.check.outputs.upload == 'true'
+        # Hostinger's Git build is the publisher. Direct transfer stays off
+        # until the stale deployment credentials have been refreshed.
+        if: false
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
