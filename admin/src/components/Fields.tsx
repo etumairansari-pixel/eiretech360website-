@@ -164,7 +164,7 @@ function PosterUpload({
             onChange={(event) => void chooseImage(event)}
           />
           {image ? (
-            <button type="button" className="btn-secondary" onClick={() => onChange("")}>
+            <button type="button" className="btn" onClick={() => onChange("")}>
               Remove image
             </button>
           ) : null}
