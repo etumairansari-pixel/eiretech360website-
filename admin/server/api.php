@@ -303,6 +303,13 @@ function validate(array $next): array
         $errors[] = 'Contact email is not a valid address';
     }
 
+    $promotion = $next['site']['promotion'] ?? null;
+    if ($promotion !== null && !is_array($promotion)) {
+        $errors[] = 'Homepage poster settings are invalid';
+    } elseif (is_array($promotion) && !empty($promotion['enabled']) && trim((string) ($promotion['desktopImage'] ?? '')) === '') {
+        $errors[] = 'Homepage poster: upload a desktop poster before turning it on';
+    }
+
     $seenSlug = [];
     $seenKey  = [];
 
@@ -436,6 +443,9 @@ function validate(array $next): array
         $checkLink($page['hero']['primaryTo'] ?? null, ($route['key'] ?? '') . ': primary button link');
         $checkLink($page['hero']['secondaryTo'] ?? null, ($route['key'] ?? '') . ': secondary button link');
     }
+    if (is_array($promotion)) {
+        $checkLink($promotion['link'] ?? null, 'Homepage poster link');
+    }
 
     return array_merge($errors, validate_blog($next['blog'] ?? null));
 }
@@ -494,12 +504,11 @@ function validate_blog($blog): array
 }
 
 /* ------------------------------------------------------------------
-   Blog images
+   Uploaded images
 
-   Uploads are written straight into the site's own uploads/blog/ folder on
-   the host, so they show in the editor and on the live site at once. Commit
-   then copies the ones an article uses into the repository (public/uploads/
-   blog/), so the next build ships them too and they are never lost.
+   Uploads are written straight into the site's own uploads/ folder on the
+   host, so they show in the editor at once. Blog media and homepage posters
+   have separate folders; Commit copies only referenced files into the repo.
 ------------------------------------------------------------------ */
 
 /**
@@ -510,14 +519,15 @@ function validate_blog($blog): array
  * root. Uploaded article images are publicly served from /uploads/blog, hence
  * DOCUMENT_ROOT is the authoritative location whenever PHP provides it.
  */
-function uploads_dir(): string
+function uploads_dir(string $folder = 'blog'): string
 {
+    $folder = $folder === 'posters' ? 'posters' : 'blog';
     $documentRoot = rtrim((string) ($_SERVER['DOCUMENT_ROOT'] ?? ''), '/\\');
     if ($documentRoot !== '') {
-        return $documentRoot . '/uploads/blog';
+        return $documentRoot . '/uploads/' . $folder;
     }
 
-    return dirname(__DIR__) . '/uploads/blog';
+    return dirname(__DIR__) . '/uploads/' . $folder;
 }
 
 /**
@@ -549,7 +559,8 @@ function store_upload(array $body): string
     $stem = substr($stem !== '' ? $stem : 'image', 0, 60);
     $file = $stem . '-' . bin2hex(random_bytes(3));
 
-    $dir = uploads_dir();
+    $folder = ($body['target'] ?? '') === 'poster' ? 'posters' : 'blog';
+    $dir = uploads_dir($folder);
     if (!is_dir($dir) && !mkdir($dir, 0755, true) && !is_dir($dir)) {
         throw new RuntimeException('Could not create the uploads folder on the server.');
     }
@@ -580,7 +591,7 @@ function store_upload(array $body): string
             $ok   = imagewebp($image, $path, 80);
             imagedestroy($image);
             if ($ok) {
-                return '/uploads/blog/' . $file . '.webp';
+                return '/uploads/' . $folder . '/' . $file . '.webp';
             }
         }
     }
@@ -589,7 +600,7 @@ function store_upload(array $body): string
         throw new RuntimeException('Could not save the image on the server.');
     }
 
-    return '/uploads/blog/' . $file . '.' . $ext;
+    return '/uploads/' . $folder . '/' . $file . '.' . $ext;
 }
 
 /**
@@ -617,6 +628,37 @@ function referenced_uploads(array $blog): array
             }
         }
     }
+    return ['files' => $found, 'missing' => array_keys($missing)];
+}
+
+/**
+ * Finds the homepage poster files that need to travel with a GitHub publish.
+ * External URLs deliberately remain untouched; only locally uploaded artwork
+ * belongs in public/uploads/posters/.
+ */
+function referenced_poster_uploads(array $site): array
+{
+    $found = [];
+    $missing = [];
+    $promotion = $site['promotion'] ?? null;
+    if (!is_array($promotion)) {
+        return ['files' => $found, 'missing' => []];
+    }
+
+    foreach (['desktopImage', 'mobileImage'] as $field) {
+        $value = (string) ($promotion[$field] ?? '');
+        if (!preg_match('#^/uploads/posters/([a-z0-9-]+\.(?:webp|jpg|png|gif))$#', $value, $match)) {
+            continue;
+        }
+        $name = $match[1];
+        $file = uploads_dir('posters') . '/' . $name;
+        if (is_file($file)) {
+            $found['public/uploads/posters/' . $name] = $file;
+        } else {
+            $missing[$value] = true;
+        }
+    }
+
     return ['files' => $found, 'missing' => array_keys($missing)];
 }
 
@@ -810,6 +852,9 @@ if (($action === 'publish' || $action === 'commit') && $method === 'POST') {
     // the source that Hostinger builds, rather than trusting a directory list
     // from an earlier Git revision.
     $uploads = referenced_uploads($next['blog'] ?? []);
+    $posterUploads = referenced_poster_uploads($next['site'] ?? []);
+    $uploads['files'] = array_merge($uploads['files'], $posterUploads['files']);
+    $uploads['missing'] = array_merge($uploads['missing'], $posterUploads['missing']);
     if ($uploads['missing']) {
         reply(422, [
             'ok' => false,

@@ -122,6 +122,13 @@ function validate(next) {
     errors.push("Contact email is not a valid address");
   }
 
+  const promotion = next.site.promotion;
+  if (promotion !== undefined && (promotion === null || typeof promotion !== "object")) {
+    errors.push("Homepage poster settings are invalid");
+  } else if (promotion?.enabled && !String(promotion.desktopImage ?? "").trim()) {
+    errors.push("Homepage poster: upload a desktop poster before turning it on");
+  }
+
   const seenSlug = new Map();
   const seenKey = new Set();
 
@@ -246,6 +253,8 @@ function validate(next) {
     checkLink(page.hero?.secondaryTo, `${route.key}: secondary button link`);
   }
 
+  if (promotion?.link) checkLink(promotion.link, "Homepage poster link");
+
   return errors;
 }
 
@@ -303,14 +312,12 @@ function validateBlog(blog) {
 const UPLOAD_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 
 /**
- * Stores an uploaded blog image in public/uploads/blog/ and returns its URL.
+ * Stores an uploaded blog image or homepage poster and returns its URL.
  *
- * Photos are resized to at most 1920px wide and re-encoded as WebP, which
- * keeps an article fast however large the original was. GIFs are kept as they
- * are so animation survives. The name is derived, never taken as given, so an
- * upload cannot write anywhere but that folder.
+ * Posters live separately from editorial media so the live admin can include
+ * exactly the currently selected desktop and mobile files in its Git commit.
  */
-async function storeUpload({ name, type, data }) {
+async function storeUpload({ name, type, data, target }) {
   if (!UPLOAD_TYPES.has(type)) throw new Error("Use a JPG, PNG, WebP or GIF image.");
   if (typeof data !== "string" || !data) throw new Error("The upload was empty.");
 
@@ -332,7 +339,8 @@ async function storeUpload({ name, type, data }) {
       .slice(0, 60) || "image";
   const suffix = (await import("node:crypto")).randomBytes(3).toString("hex");
 
-  const dir = path.join(uploadsDir, "blog");
+  const folder = target === "poster" ? "posters" : "blog";
+  const dir = path.join(uploadsDir, folder);
   fs.mkdirSync(dir, { recursive: true });
 
   let file;
@@ -348,7 +356,7 @@ async function storeUpload({ name, type, data }) {
       .toFile(path.join(dir, file));
   }
 
-  return `/uploads/blog/${file}`;
+  return `/uploads/${folder}/${file}`;
 }
 
 /** Serves public/uploads/ so images show in the editor, which runs on its own port. */

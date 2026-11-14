@@ -1,5 +1,5 @@
-import { useId, type ReactNode } from "react";
-import { getAt, type Catalog, type Path } from "../api";
+import { useId, useState, type ChangeEvent, type ReactNode } from "react";
+import { getAt, uploadImage, type Catalog, type Path } from "../api";
 import type { Field, Repeater } from "../schema";
 
 /**
@@ -100,6 +100,79 @@ function LinkButton({
     >
       Link
     </button>
+  );
+}
+
+/**
+ * Uploads homepage artwork separately from editorial images. The file is
+ * stored as soon as it is chosen, then the normal Save + Commit flow records
+ * the resulting URL in content/site.json and publishes it with the site.
+ */
+function PosterUpload({
+  id,
+  label,
+  help,
+  value,
+  onChange,
+}: {
+  id: string;
+  label: string;
+  help?: string;
+  value: unknown;
+  onChange: (value: string) => void;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const image = String(value ?? "").trim();
+
+  const chooseImage = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+
+    setUploading(true);
+    setError(null);
+    try {
+      onChange(await uploadImage(file, "poster"));
+    } catch (reason) {
+      setError(String((reason as Error).message ?? reason));
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <Wrap id={id} label={label} help={help}>
+      <div className="rounded-xl border border-dashed border-line bg-surface p-3">
+        {image ? (
+          <img
+            src={image}
+            alt=""
+            className="mb-3 max-h-44 w-full rounded-lg border border-line bg-white object-contain"
+          />
+        ) : null}
+        <div className="flex flex-wrap items-center gap-2">
+          <label className="btn cursor-pointer" htmlFor={id}>
+            {uploading ? "Uploading…" : image ? "Replace image" : "Upload image"}
+          </label>
+          <input
+            id={id}
+            className="sr-only"
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            disabled={uploading}
+            onChange={(event) => void chooseImage(event)}
+          />
+          {image ? (
+            <button type="button" className="btn-secondary" onClick={() => onChange("")}>
+              Remove image
+            </button>
+          ) : null}
+          <span className="hint">JPG, PNG, WebP or GIF · up to 8 MB</span>
+        </div>
+        {error ? <p className="mt-2 text-sm text-bad">{error}</p> : null}
+      </div>
+    </Wrap>
   );
 }
 
@@ -208,6 +281,17 @@ function FieldInputControl({ field, value, basePath, ctx }: FieldInputProps) {
   const set = (next: unknown) => ctx.onChange(path, next);
 
   switch (field.kind) {
+    case "upload":
+      return (
+        <PosterUpload
+          id={id}
+          label={field.label}
+          help={field.help}
+          value={value}
+          onChange={(next) => set(next)}
+        />
+      );
+
     case "checkbox":
       return (
         <label className="flex items-center gap-2 text-sm font-medium" htmlFor={id}>

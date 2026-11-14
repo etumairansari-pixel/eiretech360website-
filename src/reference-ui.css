@@ -2187,6 +2187,69 @@
     font-size: 9px;
   }
 }
+
+/* Admin-managed homepage posters. Artwork is supplied separately for desktop
+   and mobile, so it keeps its intended composition instead of being cropped
+   or covered by site copy. */
+.dm-promo-section {
+  padding-top: 92px;
+  background: #06142d;
+}
+.dm-promo-banner {
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid #3a75c07d;
+  background: #06194a;
+  box-shadow: 0 12px 30px #020a1f36;
+}
+.dm-promo-banner::before,
+.dm-promo-banner::after {
+  display: none;
+}
+.dm-promo-art,
+.dm-promo-link {
+  position: relative;
+  display: block;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.dm-promo-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: none;
+  opacity: 1;
+  transform: none;
+}
+.dm-promo-link:focus-visible {
+  outline: 3px solid #f5ca5d;
+  outline-offset: -5px;
+}
+.dm-promo-section + .dm-home-hero {
+  padding-top: 20px;
+}
+@media (max-width: 760px) {
+  .dm-promo-section {
+    padding-top: 78px;
+  }
+  .dm-promo-banner {
+    aspect-ratio: auto;
+  }
+  .dm-promo-art img {
+    height: auto;
+    object-position: center;
+  }
+  .dm-promo-section + .dm-home-hero {
+    padding-top: 20px;
+  }
+}
 .dm-section {
   padding-block: 100px;
 }

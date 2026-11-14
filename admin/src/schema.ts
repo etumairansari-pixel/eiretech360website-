@@ -16,6 +16,7 @@ export type FieldKind =
   | "link" // a page key or an absolute URL
   | "icon"
   | "image"
+  | "upload"
   | "number"
   | "checkbox"
   | "robots";
@@ -498,6 +499,42 @@ export const globalSchema: Section[] = [
     id: "nav",
     title: "Header",
     fields: [{ path: ["nav", "ctaLabel"], label: "Header button label", kind: "text" }],
+  },
+  {
+    id: "promotion",
+    title: "Homepage poster",
+    help: "Upload one wide image for desktop and one image made for mobile. Save, then Commit to publish the campaign. Turn the toggle off to remove it from the homepage.",
+    fields: [
+      {
+        path: ["promotion", "enabled"],
+        label: "Show this poster on the homepage",
+        kind: "checkbox",
+      },
+      {
+        path: ["promotion", "desktopImage"],
+        label: "Desktop poster",
+        kind: "upload",
+        help: "Use a wide image. This is also used as the fallback if there is no mobile poster.",
+      },
+      {
+        path: ["promotion", "mobileImage"],
+        label: "Mobile poster",
+        kind: "upload",
+        help: "Use a mobile-specific composition so the offer remains readable on small screens.",
+      },
+      {
+        path: ["promotion", "alt"],
+        label: "Poster description",
+        kind: "text",
+        help: "A short description for visitors using screen readers, e.g. “25% off annual plans”.",
+      },
+      {
+        path: ["promotion", "link"],
+        label: "Poster links to",
+        kind: "link",
+        help: "Optional. Choose a page key such as contact, or use a full URL. Leave blank if it should not be clickable.",
+      },
+    ],
   },
   {
     id: "footer",

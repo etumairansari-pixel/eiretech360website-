@@ -3,10 +3,8 @@ import { ArrowUpRight, Check, ChevronDown, Quote } from "lucide-react";
 import { Shell } from "@/components/site/Shell";
 import { Highlight } from "@/components/site/Highlight";
 import { HeroVideo } from "@/components/site/HeroVideo";
-import campaignDesktop from "@/assets/campaign-1111-desktop.webp";
-import campaignMobile from "@/assets/campaign-1111-mobile.webp";
 import { services } from "@/content/services";
-import { headFor, pathFor } from "@/content";
+import { headFor, linkTo, pathFor, promotion } from "@/content";
 import homePage from "../../content/pages/home.json";
 import testimonialContent from "../../content/testimonials.json";
 import platforms from "../../content/platforms.json";
@@ -162,14 +160,32 @@ function ImpactByDesign() {
 }
 
 function CampaignBanner() {
+  const desktopImage = promotion.desktopImage.trim();
+  const mobileImage = promotion.mobileImage.trim();
+  const target = promotion.link.trim();
+
+  // A campaign only occupies space after an editor explicitly turns it on.
+  // This removes an expired poster automatically when the toggle is cleared.
+  if (!promotion.enabled || !desktopImage) return null;
+
+  const artwork = (
+    <picture className="dm-promo-art">
+      {mobileImage ? <source media="(max-width: 760px)" srcSet={mobileImage} /> : null}
+      <img src={desktopImage} alt={promotion.alt.trim() || "Current offer"} />
+    </picture>
+  );
+
   return (
-    <section className="dm-promo-section" aria-label="11.11 annual plans offer">
+    <section className="dm-promo-section" aria-label="Homepage promotion">
       <div className="dm-container">
         <aside className="dm-promo-banner">
-          <picture className="dm-promo-art">
-            <source media="(max-width: 760px)" srcSet={campaignMobile} />
-            <img src={campaignDesktop} alt="" />
-          </picture>
+          {target ? (
+            <a className="dm-promo-link" href={linkTo(target)}>
+              {artwork}
+            </a>
+          ) : (
+            artwork
+          )}
         </aside>
       </div>
     </section>

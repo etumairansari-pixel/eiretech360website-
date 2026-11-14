@@ -39,6 +39,17 @@ export type SiteSettings = {
   contact: { email: string; phone: string; phoneHref: string };
   social: { label: string; href: string }[];
   nav: { ctaLabel: string };
+  /** An optional homepage poster, managed in the content admin. */
+  promotion?: {
+    enabled: boolean;
+    /** Wide artwork used on desktop and as the fallback for smaller screens. */
+    desktopImage: string;
+    /** Optional artwork composed specifically for mobile screens. */
+    mobileImage: string;
+    alt: string;
+    /** A page key, site path, or external URL. */
+    link: string;
+  };
   footer: {
     blurb: string;
     capabilities: string[];

@@ -43,6 +43,13 @@ export type Content = {
     contact: { email: string; phone: string; phoneHref: string };
     social: { label: string; href: string }[];
     nav: { ctaLabel: string };
+    promotion?: {
+      enabled: boolean;
+      desktopImage: string;
+      mobileImage: string;
+      alt: string;
+      link: string;
+    };
     footer: {
       blurb: string;
       capabilities: string[];
@@ -193,14 +200,14 @@ export const UPLOAD_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif
 export const UPLOAD_MAX_BYTES = 8 * 1024 * 1024;
 
 /**
- * Uploads an image for the blog and returns the site path it is served from,
- * e.g. "/uploads/blog/team-photo-3f9a1c.webp".
+ * Uploads an image and returns the site path it is served from. Poster images
+ * go into their own folder, while blog uploads retain their existing path.
  *
  * The file is stored straight away (locally in public/uploads/blog/, live on
  * the web host), so it shows in the editor at once; Commit then adds it to the
  * repository with the article that uses it.
  */
-export async function uploadImage(file: File): Promise<string> {
+export async function uploadImage(file: File, target: "blog" | "poster" = "blog"): Promise<string> {
   if (!UPLOAD_TYPES.includes(file.type)) {
     throw new Error("Use a JPG, PNG, WebP or GIF image.");
   }
@@ -218,7 +225,7 @@ export async function uploadImage(file: File): Promise<string> {
   const response = await fetch(endpoint("upload"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: file.name, type: file.type, data }),
+    body: JSON.stringify({ name: file.name, type: file.type, data, target }),
   });
 
   if (response.status === 401) throw new NotSignedIn();

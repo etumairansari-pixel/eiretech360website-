@@ -20,6 +20,19 @@ const data = raw as unknown as SiteSettings;
 
 export const { site, contact, social, nav, footer, routes } = data;
 
+/**
+ * The home-page promotion is intentionally off until an editor uploads and
+ * enables a campaign. Keeping the fallback here makes older content exports
+ * safe too.
+ */
+export const promotion = data.promotion ?? {
+  enabled: false,
+  desktopImage: "",
+  mobileImage: "",
+  alt: "",
+  link: "",
+};
+
 export type Office = { label: string; place: string; zone: string };
 
 /** The company's offices, headquarters first. */

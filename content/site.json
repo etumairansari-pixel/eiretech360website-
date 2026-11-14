@@ -29,6 +29,13 @@
   "nav": {
     "ctaLabel": "Start a Project"
   },
+  "promotion": {
+    "enabled": false,
+    "desktopImage": "",
+    "mobileImage": "",
+    "alt": "",
+    "link": "contact"
+  },
   "footer": {
     "blurb": "EireTech360: Digital Growth & Automation Partner. Blending strategy, creativity and AI to transform how your brand shows up, scales and runs.",
     "capabilities": [
