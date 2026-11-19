@@ -211,6 +211,19 @@ export function Footer() {
                 </address>
               </div>
             )}
+
+            <div className="mt-6 border-t border-brand-line pt-5 text-sm leading-relaxed text-brand-muted">
+              <p className="font-semibold text-brand-text">EireTech Ireland Chapter</p>
+              <address className="mt-2 not-italic">
+                Apt 21, Citywest Quarters
+                <br />
+                Block B1
+                <br />
+                Dublin 24
+                <br />
+                Eircode: D24 HR1C
+              </address>
+            </div>
           </div>
         </div>
 
