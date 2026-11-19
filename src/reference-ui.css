@@ -1456,6 +1456,11 @@
 .dm-footer .text-brand-muted {
   color: #c7dcec;
 }
+.dm-footer .text-brand-text {
+  /* The footer stays navy in both themes, so inherited light-theme ink would
+     otherwise render headings and the phone number nearly black. */
+  color: #f7fbff;
+}
 .dm-footer .text-brand-primary-text,
 .dm-footer .text-brand-accent-text {
   color: #7cb342;
