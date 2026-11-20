@@ -97,6 +97,18 @@
       "slug": "contact",
       "navLabel": "Contact",
       "footerLabel": "Contact Us"
+    },
+    {
+      "key": "careers",
+      "slug": "careers",
+      "navLabel": "Careers",
+      "footerLabel": "Careers"
+    },
+    {
+      "key": "volunteer",
+      "slug": "volunteer",
+      "navLabel": "Volunteer",
+      "footerLabel": "Volunteer"
     }
   ]
 }

@@ -1,0 +1,97 @@
+{
+  "$comment": "Copy and metadata for the volunteer page.",
+  "seo": {
+    "title": "Volunteer With Us | EireTech360 Ireland",
+    "description": "Join EireTech360's Ireland chapter as a volunteer and help make digital knowledge, creativity and opportunity more welcoming for the local community.",
+    "robots": "index, follow"
+  },
+  "hero": {
+    "eyebrow": "Volunteer with EireTech360",
+    "title": "Your time can [g]open new possibilities.[/g]",
+    "subtitle": "We warmly welcome volunteers who want to share their skills, curiosity and energy with the EireTech360 Ireland chapter and the people around it.",
+    "tags": [
+      "Community-minded",
+      "Skills sharing",
+      "Ireland chapter"
+    ],
+    "actionLabel": "Start volunteering"
+  },
+  "ireland": {
+    "label": "Ireland vision",
+    "title": "A more open digital future is built together.",
+    "body": "Our Ireland chapter is shaped by the belief that useful digital knowledge, creativity and opportunity should feel welcoming, not out of reach."
+  },
+  "introduction": {
+    "label": "A genuine welcome",
+    "title": "Bring what you know. Help someone else move forward.",
+    "body": "Whether you have experience in technology, design, marketing, storytelling or community support, your contribution can help make a shared initiative more useful and more human.",
+    "highlights": [
+      "A respectful space for ideas, different experiences and practical skills.",
+      "A chance to contribute in a way that connects with your interests.",
+      "A shared focus on making digital opportunities feel more accessible."
+    ]
+  },
+  "opportunities": {
+    "label": "Where you could contribute",
+    "title": "Small contributions can create real momentum.",
+    "body": "Volunteer pathways can begin with the skills you already have. We will discuss what is useful, realistic and meaningful together.",
+    "items": [
+      {
+        "icon": "handshake",
+        "title": "Community support",
+        "text": "Help create a friendly, inclusive experience for people taking their first steps into digital topics."
+      },
+      {
+        "icon": "sparkles",
+        "title": "Storytelling & creative work",
+        "text": "Use writing, design, photography or content skills to make ideas clearer and more welcoming."
+      },
+      {
+        "icon": "lightbulb",
+        "title": "Digital skills sharing",
+        "text": "Share a practical tip, tool or way of thinking that could help someone feel more confident online."
+      },
+      {
+        "icon": "users",
+        "title": "Outreach & collaboration",
+        "text": "Support the connections and conversations that help a local initiative grow with care."
+      }
+    ]
+  },
+  "journey": {
+    "label": "How we begin",
+    "title": "A welcoming route from interest to contribution.",
+    "body": "There is no one-size-fits-all volunteer profile. We start by understanding what you enjoy, what you can offer and how you would like to take part.",
+    "items": [
+      {
+        "icon": "handshake",
+        "title": "Say hello",
+        "text": "Tell us a little about yourself, the causes you care about and the skills you would like to share."
+      },
+      {
+        "icon": "compass",
+        "title": "Find a useful place",
+        "text": "We will talk about the kind of contribution that aligns with your time, interests and strengths."
+      },
+      {
+        "icon": "users",
+        "title": "Create momentum together",
+        "text": "Join a conversation, share an idea and help shape a more welcoming path for others."
+      }
+    ]
+  },
+  "companion": {
+    "label": "Careers & internships",
+    "title": "Are you looking for an early-career learning path instead?",
+    "body": "Explore the careers page for internship and development-focused opportunities with the EireTech360 Ireland chapter.",
+    "linkLabel": "Explore careers",
+    "linkTo": "careers"
+  },
+  "cta": {
+    "label": "We would love to meet you",
+    "title": "Your welcome starts with a simple introduction.",
+    "body": "Tell us how you would like to contribute. We will be pleased to begin the conversation with you.",
+    "buttonLabel": "Email the volunteer team"
+  },
+  "emailSubject": "Volunteer interest"
+}
