@@ -7,14 +7,14 @@
   },
   "hero": {
     "eyebrow": "Volunteer with EireTech360",
-    "title": "Your time can [g]open new possibilities.[/g]",
-    "subtitle": "We warmly welcome people who would like to share their skills, curiosity and energy with the EireTech360 Ireland chapter.",
+    "title": "Share your skills. [g]Create momentum.[/g]",
+    "subtitle": "We warmly welcome people who want to share their skills, curiosity and energy with the EireTech360 Ireland chapter.",
     "tags": ["Community-minded", "Skills sharing", "Ireland chapter"],
     "actionLabel": "Email to volunteer"
   },
   "image": {
-    "src": "/images/volunteer-community.png",
-    "alt": "Volunteers collaborating on a community project in a bright creative workspace"
+    "src": "/images/volunteer-people-mosaic.png",
+    "alt": "A mosaic of community-minded volunteers in a creative workspace"
   },
   "email": "career@eiretech360.com",
   "ireland": {
@@ -65,7 +65,7 @@
     "label": "We would love to meet you",
     "title": "Your welcome starts with a simple introduction.",
     "body": "Tell us how you would like to contribute and we will be pleased to begin the conversation.",
-    "buttonLabel": "career@eiretech360.com"
+    "buttonLabel": "Email to volunteer"
   },
   "emailSubject": "Volunteer interest"
 }

@@ -7,14 +7,14 @@
   },
   "hero": {
     "eyebrow": "Careers & internships",
-    "title": "Build your [g]first meaningful chapter.[/g]",
-    "subtitle": "A welcoming starting point for students, graduates and early-career talent curious about digital work, creative thinking and practical collaboration.",
+    "title": "Start your [g]digital chapter.[/g]",
+    "subtitle": "A welcoming starting point for students, graduates and early-career talent ready to learn through digital work, creative thinking and practical collaboration.",
     "tags": ["Internships", "Early-career", "Digital skills"],
     "actionLabel": "Email the careers team"
   },
   "image": {
-    "src": "/images/careers-collaboration.png",
-    "alt": "Three early-career professionals collaborating around a laptop in a modern studio"
+    "src": "/images/careers-people-mosaic.png",
+    "alt": "A mosaic of early-career professionals from diverse backgrounds"
   },
   "email": "career@eiretech360.com",
   "ireland": {
@@ -65,7 +65,7 @@
     "label": "A simple first step",
     "title": "Start with a short hello.",
     "body": "Tell us what you are learning, what interests you and what you would like to develop next.",
-    "buttonLabel": "career@eiretech360.com"
+    "buttonLabel": "Email the careers team"
   },
   "emailSubject": "Careers or internship interest"
 }
