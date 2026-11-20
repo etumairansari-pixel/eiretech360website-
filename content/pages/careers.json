@@ -1,97 +1,71 @@
 {
-  "$comment": "Copy and metadata for the careers and internships page.",
+  "$comment": "Compact Careers and Internships page copy.",
   "seo": {
     "title": "Careers & Internships | EireTech360 Ireland",
-    "description": "Explore career and internship opportunities with EireTech360's Ireland chapter, for curious people ready to learn, contribute and grow.",
+    "description": "Explore early-career and internship pathways with EireTech360 Ireland for curious people ready to learn, contribute and grow.",
     "robots": "index, follow"
   },
   "hero": {
     "eyebrow": "Careers & internships",
     "title": "Build your [g]first meaningful chapter.[/g]",
-    "subtitle": "The EireTech360 Ireland chapter welcomes students, graduates and early-career talent who want practical exposure to digital work, thoughtful collaboration and a clear place to grow.",
-    "tags": [
-      "Internships",
-      "Early-career pathways",
-      "Digital skills"
-    ],
-    "actionLabel": "Introduce yourself"
+    "subtitle": "A welcoming starting point for students, graduates and early-career talent curious about digital work, creative thinking and practical collaboration.",
+    "tags": ["Internships", "Early-career", "Digital skills"],
+    "actionLabel": "Email the careers team"
   },
+  "image": {
+    "src": "/images/careers-collaboration.png",
+    "alt": "Three early-career professionals collaborating around a laptop in a modern studio"
+  },
+  "email": "career@eiretech360.com",
   "ireland": {
     "label": "Ireland vision",
     "title": "A warmer start for emerging talent.",
-    "body": "We want our Ireland chapter to be a welcoming place for people with curiosity, care and ideas, especially those looking for a first meaningful step into digital work."
+    "body": "We want our Ireland chapter to feel open, encouraging and useful for people taking an early step into digital work."
   },
   "introduction": {
-    "label": "More than a line on a CV",
-    "title": "Learn by contributing to work with real purpose.",
-    "body": "An internship should help you understand how good work comes together. Here, the focus is on asking useful questions, building confidence and seeing how strategy, creativity and technology connect.",
+    "label": "A practical start",
+    "title": "Learn by doing work with purpose.",
+    "body": "Bring your questions, interests and ideas. The aim is to build confidence while seeing how strategy, creativity and technology connect.",
     "highlights": [
-      "A chance to explore the kind of digital work that suits your strengths.",
-      "Practical feedback on your ideas, process and communication.",
-      "A supportive introduction to collaborative, client-focused thinking."
+      "Explore the kind of digital work that suits your strengths.",
+      "Get practical feedback on your ideas and communication.",
+      "Build a clearer picture of where you want to grow next."
     ]
   },
   "opportunities": {
-    "label": "Ways to explore",
+    "label": "Areas to explore",
     "title": "Find a direction worth developing.",
-    "body": "Your interests may be technical, creative or strategic. These are the areas where emerging talent can begin a conversation with us.",
+    "body": "Technical, creative or strategic—start a conversation around the work that interests you most.",
     "items": [
-      {
-        "icon": "rocket",
-        "title": "Web & digital products",
-        "text": "Explore how thoughtful websites and digital journeys are planned, shaped and improved for real people."
-      },
       {
         "icon": "sparkles",
         "title": "Marketing & brand",
-        "text": "Learn how clear messaging, audience insight and consistent creative work help a brand earn attention."
+        "text": "Learn how useful messaging and consistent creative work help brands earn attention."
       },
       {
         "icon": "lightbulb",
-        "title": "AI & automation",
-        "text": "See how practical systems can remove repetitive work and make teams more effective."
+        "title": "AI & digital systems",
+        "text": "See how practical tools, websites and automations can make work simpler and more useful."
       },
       {
         "icon": "users",
         "title": "Creative collaboration",
-        "text": "Build the communication habits that help designers, marketers and developers do stronger work together."
-      }
-    ]
-  },
-  "journey": {
-    "label": "A simple first step",
-    "title": "Start with a conversation, not a perfect application.",
-    "body": "You do not need to have everything figured out. Tell us what you are learning, what interests you and what you would like to develop next.",
-    "items": [
-      {
-        "icon": "compass",
-        "title": "Share your direction",
-        "text": "Introduce yourself, your interests and the kind of experience you hope to gain."
-      },
-      {
-        "icon": "sparkles",
-        "title": "Show your curiosity",
-        "text": "A small project, portfolio link or a thoughtful note is enough to help us understand your perspective."
-      },
-      {
-        "icon": "users",
-        "title": "Explore the fit",
-        "text": "We can talk through the kind of contribution and learning path that makes sense for both sides."
+        "text": "Develop the communication habits that help ideas move from first thought to better work."
       }
     ]
   },
   "companion": {
     "label": "Volunteer with us",
-    "title": "Looking to give your time and skills to the community?",
-    "body": "Our volunteer page is for people who want to contribute to a more connected, welcoming digital future in Ireland.",
+    "title": "Would you rather contribute your time and skills?",
+    "body": "Explore a community-minded way to take part through our volunteer pathway.",
     "linkLabel": "Explore volunteering",
     "linkTo": "volunteer"
   },
   "cta": {
-    "label": "Take the first step",
-    "title": "Your next opportunity can begin with a short hello.",
-    "body": "Send us a note about where you are now and what you would like to learn. We will be glad to hear from you.",
-    "buttonLabel": "Email the careers team"
+    "label": "A simple first step",
+    "title": "Start with a short hello.",
+    "body": "Tell us what you are learning, what interests you and what you would like to develop next.",
+    "buttonLabel": "career@eiretech360.com"
   },
   "emailSubject": "Careers or internship interest"
 }
