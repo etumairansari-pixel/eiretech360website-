@@ -1,11 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import {
-  CircleCheck,
+  Code2,
   Compass,
-  HeartHandshake,
+  Handshake,
   Lightbulb,
   Mail,
+  Megaphone,
+  Palette,
   Sparkles,
+  Target,
   UsersRound,
 } from "lucide-react";
 import { Shell } from "@/components/site/Shell";
@@ -30,7 +33,7 @@ export type OpportunityContent = {
   image: { src: string; alt: string };
   email: string;
   ireland: { label: string; title: string; body: string };
-  introduction: { label: string; title: string; body: string; highlights: string[] };
+  introduction: { label: string; title: string; body: string; highlights: OpportunityItem[] };
   opportunities: { label: string; title: string; body: string; items: OpportunityItem[] };
   companion: { label: string; title: string; body: string; linkLabel: string; linkTo: string };
   cta: { label: string; title: string; body: string; buttonLabel: string };
@@ -38,14 +41,16 @@ export type OpportunityContent = {
 };
 
 const opportunityIcons = {
+  "code-2": Code2,
   compass: Compass,
-  handshake: HeartHandshake,
+  handshake: Handshake,
   lightbulb: Lightbulb,
+  megaphone: Megaphone,
+  palette: Palette,
   sparkles: Sparkles,
+  target: Target,
   users: UsersRound,
 } as const;
-
-const valueIcons = [Compass, HeartHandshake, Lightbulb] as const;
 
 function itemIcon(name: string) {
   return opportunityIcons[name as keyof typeof opportunityIcons] ?? Sparkles;
@@ -58,11 +63,6 @@ export function OpportunityPage({ content }: { content: OpportunityContent }) {
   return (
     <Shell>
       <section className="relative isolate overflow-hidden bg-[#edf7f5] pb-16 pt-32 text-[#071d39] md:pb-20 md:pt-36">
-        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[39%] border-l border-[#0d3457]/10 bg-[#d9eef0]/45 lg:block" />
-        <div className="pointer-events-none absolute -right-16 top-24 size-[27rem] rounded-full border border-[#2478c8]/20" />
-        <div className="pointer-events-none absolute -right-6 top-36 size-[19rem] rounded-full border border-[#a6cc47]/40" />
-        <div className="pointer-events-none absolute left-[7%] top-[18%] size-2 rounded-full bg-[#a6cc47]" />
-
         <div className="relative mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,.72fr)] lg:items-center">
           <Reveal>
             <p className="inline-flex items-center gap-2 border-l-2 border-[#98be3e] pl-3 text-sm font-bold uppercase tracking-[0.16em] text-[#1b5b91]">
@@ -89,12 +89,16 @@ export function OpportunityPage({ content }: { content: OpportunityContent }) {
               <Mail className="size-4" aria-hidden />
               {content.hero.actionLabel}
             </a>
+            <p className="mt-4 text-base text-[#36516b]">
+              Or email us directly: {" "}
+              <a href={mailto} className="font-bold text-[#175c98] underline decoration-[#a6cb46] decoration-2 underline-offset-4 hover:text-[#071d39]">
+                {content.email}
+              </a>
+            </p>
           </Reveal>
 
           <Reveal delay={0.1}>
             <div className="relative mx-auto w-full max-w-[29rem] lg:ml-auto">
-              <div className="absolute -left-5 -top-5 size-20 rounded-full border border-[#2478c8]/30 bg-white/70" />
-              <div className="absolute -bottom-5 -right-4 size-28 rounded-3xl bg-[#a6cb46]/30" />
               <div className="relative overflow-hidden rounded-[2rem] border border-white bg-white p-2 shadow-[0_26px_70px_rgba(7,29,57,.18)]">
                 <img
                   src={content.image.src}
@@ -129,12 +133,15 @@ export function OpportunityPage({ content }: { content: OpportunityContent }) {
           </Reveal>
           <div className="mt-10 grid gap-8 border-t border-brand-line pt-8 md:grid-cols-3">
             {content.introduction.highlights.map((highlight, index) => {
-              const Icon = valueIcons[index % valueIcons.length];
+              const Icon = itemIcon(highlight.icon);
               return (
-                <Reveal key={highlight} delay={index * 0.08}>
+                <Reveal key={highlight.title} delay={index * 0.08}>
                   <article className="max-w-sm">
-                    <Icon className="size-7 text-brand-primary-text" aria-hidden />
-                    <p className="mt-5 text-lg font-bold leading-snug text-brand-text">{highlight}</p>
+                    <div className="grid size-12 place-items-center rounded-xl bg-[#e7f1f5] text-[#1b6cad]">
+                      <Icon className="size-6" aria-hidden />
+                    </div>
+                    <h3 className="mt-5 text-xl font-bold leading-snug text-brand-text">{highlight.title}</h3>
+                    <p className="mt-2 leading-relaxed text-brand-muted">{highlight.text}</p>
                   </article>
                 </Reveal>
               );
@@ -191,6 +198,9 @@ export function OpportunityPage({ content }: { content: OpportunityContent }) {
             >
               <Mail className="size-4" aria-hidden />
               {content.cta.buttonLabel}
+            </a>
+            <a href={mailto} className="mt-4 block w-fit font-bold text-[#d9ff5e] underline decoration-white/30 decoration-2 underline-offset-4 hover:text-white">
+              {content.email}
             </a>
           </Reveal>
           <Reveal delay={0.1}>

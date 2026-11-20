@@ -27,9 +27,21 @@
     "title": "Learn by doing work with purpose.",
     "body": "Bring your questions, interests and ideas. The aim is to build confidence while seeing how strategy, creativity and technology connect.",
     "highlights": [
-      "Explore the kind of digital work that suits your strengths.",
-      "Get practical feedback on your ideas and communication.",
-      "Build a clearer picture of where you want to grow next."
+      {
+        "icon": "compass",
+        "title": "Find your direction",
+        "text": "Explore the kind of digital work that matches your strengths and curiosity."
+      },
+      {
+        "icon": "target",
+        "title": "Get useful feedback",
+        "text": "Develop ideas, communication and confidence through practical feedback."
+      },
+      {
+        "icon": "users",
+        "title": "Learn with people",
+        "text": "See how marketing, design and technology come together through collaboration."
+      }
     ]
   },
   "opportunities": {
@@ -38,12 +50,12 @@
     "body": "Technical, creative or strategic—start a conversation around the work that interests you most.",
     "items": [
       {
-        "icon": "sparkles",
+        "icon": "palette",
         "title": "Marketing & brand",
         "text": "Learn how useful messaging and consistent creative work help brands earn attention."
       },
       {
-        "icon": "lightbulb",
+        "icon": "code-2",
         "title": "AI & digital systems",
         "text": "See how practical tools, websites and automations can make work simpler and more useful."
       },

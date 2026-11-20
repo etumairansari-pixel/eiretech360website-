@@ -27,9 +27,21 @@
     "title": "Bring what you know. Help someone move forward.",
     "body": "Whether your experience is in technology, design, marketing, storytelling or community support, your contribution can make a shared initiative more useful and human.",
     "highlights": [
-      "A respectful space for practical skills and different perspectives.",
-      "A contribution shaped around your interests and availability.",
-      "A shared focus on making digital opportunity more accessible."
+      {
+        "icon": "handshake",
+        "title": "A welcoming community",
+        "text": "A respectful space for practical skills, different perspectives and useful ideas."
+      },
+      {
+        "icon": "megaphone",
+        "title": "Share your craft",
+        "text": "Contribute in a way that works with your interests, experience and availability."
+      },
+      {
+        "icon": "lightbulb",
+        "title": "Make access easier",
+        "text": "Help make digital knowledge and opportunity feel more approachable for others."
+      }
     ]
   },
   "opportunities": {
@@ -43,7 +55,7 @@
         "text": "Help create a friendly, inclusive experience for people taking early steps into digital topics."
       },
       {
-        "icon": "sparkles",
+        "icon": "megaphone",
         "title": "Storytelling & creative work",
         "text": "Use writing, design, photography or content skills to make useful ideas clearer and more welcoming."
       },
